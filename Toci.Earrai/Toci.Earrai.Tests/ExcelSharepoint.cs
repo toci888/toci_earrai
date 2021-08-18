@@ -7,6 +7,7 @@ using System.Data.CData.ExcelServices;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
+using CData.EntityFrameworkCore;
 
 namespace Toci.Earrai.Tests
 {
@@ -42,6 +43,12 @@ namespace Toci.Earrai.Tests
 
 
             
+        }
+
+        [TestMethod]
+        public void win()
+        {
+            //CData.EntityFrameworkCore.ExcelServices. 
         }
     }
 }
