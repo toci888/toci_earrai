@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Database.Persistence", "Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj", "{2EDB198A-33C4-4F8C-BF9F-C9CF1A3C36F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Database.Persistence", "Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj", "{2EDB198A-33C4-4F8C-BF9F-C9CF1A3C36F9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Common.Database.Interfaces", "..\..\toci_common\Toci.Common\Toci.Common.Database.Interfaces\Toci.Common.Database.Interfaces.csproj", "{DCAC8BA6-C824-4C25-BDCA-9D121C4486A2}"
 EndProject
@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Common.Microservices.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Common.Microservices", "..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj", "{6BFA329C-5096-480A-A5B1-BA97A179C76D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Bll.Interfaces", "Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj", "{D9148067-1A81-4188-82C1-B1B83BACF06A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll.Interfaces", "Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj", "{D9148067-1A81-4188-82C1-B1B83BACF06A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Bll", "Toci.Earrai.Bll\Toci.Earrai.Bll.csproj", "{E9F1D0B2-D1CC-474F-A58F-5D7A11642CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll", "Toci.Earrai.Bll\Toci.Earrai.Bll.csproj", "{E9F1D0B2-D1CC-474F-A58F-5D7A11642CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Microservice", "Toci.Earrai.Microservice\Toci.Earrai.Microservice.csproj", "{793CC4B4-EA6C-4AB7-9E44-EC5E91E28EAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Microservice", "Toci.Earrai.Microservice\Toci.Earrai.Microservice.csproj", "{793CC4B4-EA6C-4AB7-9E44-EC5E91E28EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Tests", "Toci.Earrai.Tests\Toci.Earrai.Tests.csproj", "{047EB0F6-A938-470B-9BDC-F3AA4AB9738F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{793CC4B4-EA6C-4AB7-9E44-EC5E91E28EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{793CC4B4-EA6C-4AB7-9E44-EC5E91E28EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{793CC4B4-EA6C-4AB7-9E44-EC5E91E28EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{047EB0F6-A938-470B-9BDC-F3AA4AB9738F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{047EB0F6-A938-470B-9BDC-F3AA4AB9738F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{047EB0F6-A938-470B-9BDC-F3AA4AB9738F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{047EB0F6-A938-470B-9BDC-F3AA4AB9738F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
