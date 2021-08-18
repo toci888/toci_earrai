@@ -2,13 +2,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Toci.Common.Bll;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Microservice.Controllers;
 
 namespace Toci.Earrai.Tests
 {
+
+
     [TestClass]
     public class SeedDb
     {
-        private Logic<User> User = new Logic<User>();
+
+        protected AccountController Account = new AccountController(new UserLogic());
+
         private Logic<Role> Role = new Logic<Role>();
 
         [TestMethod]
@@ -21,7 +26,7 @@ namespace Toci.Earrai.Tests
         [TestMethod]
         public void Users()
         {
-            User.Insert(new User()
+            Account.RegisterUser(new User()
             {
                 Login = "user",
                 Email = "user@wp.pl",

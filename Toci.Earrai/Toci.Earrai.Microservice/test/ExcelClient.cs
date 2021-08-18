@@ -207,6 +207,6 @@ namespace Toci.Earrai.Microservice.test {
         public Uri WebUri { get; private set; }
 
         private readonly WebClient _client;
-
-    }*/
+        */
+    }
 }
