@@ -1,33 +1,63 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Toci.Common.Bll;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Microservice;
+using Toci.Earrai.Microservice.Controllers;
 
 namespace Toci.Earrai.Tests
 {
     [TestClass]
     public class SeedDb
     {
-        private Logic<User> User = new Logic<User>();
+        protected AccountController Account = new AccountController(new UserLogic(new AuthenticationSettings()));
         private Logic<Role> Role = new Logic<Role>();
 
         [TestMethod]
         public void SeedAllDb()
         {
-            Users();
             Roles();
+            Users();
         }
 
         [TestMethod]
         public void Users()
         {
-            User.Insert(new User()
+            Account.RegisterUser(new User()
             {
-                Login = "user",
+                Firstname = "User",
+                Lastname = "User",
                 Email = "user@wp.pl",
                 Password = "12345678",
-                Phone = "123513233",
-                Token = "Fake-token"
+                Idrole = 1
+            });
+
+            Account.RegisterUser(new User()
+            {
+                Firstname = "Office",
+                Lastname = "Office",
+                Email = "office@wp.pl",
+                Password = "12345678",
+                Idrole = 2
+            });
+
+            Account.RegisterUser(new User()
+            {
+                Firstname = "Pc",
+                Lastname = "Pc",
+                Email = "pc@wp.pl",
+                Password = "12345678",
+                Idrole = 3
+            });
+
+            Account.RegisterUser(new User()
+            {
+                Firstname = "Admin",
+                Lastname = "Admin",
+                Email = "admin@wp.pl",
+                Password = "12345678",
+                Idrole = 4
             });
         }
 
@@ -41,17 +71,17 @@ namespace Toci.Earrai.Tests
 
             Role.Insert(new Role()
             {
-                Name = "OfficeUser"
+                Name = "Office"
             });
 
             Role.Insert(new Role()
             {
-                Name = "PcUser"
+                Name = "Pc"
             });
 
             Role.Insert(new Role()
             {
-                Name = "AdminUser"
+                Name = "Admin"
             });
         }
     }

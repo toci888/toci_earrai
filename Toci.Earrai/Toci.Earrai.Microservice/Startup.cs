@@ -10,7 +10,11 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Interfaces;
 
 namespace Toci.Earrai.Microservice
 {
@@ -26,6 +30,26 @@ namespace Toci.Earrai.Microservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AuthenticationSettings authenticationSettings = new AuthenticationSettings();
+            Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+            services.AddSingleton(authenticationSettings);
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = "Bearer";
+                option.DefaultScheme = "Bearer";
+                option.DefaultChallengeScheme = "Bearer";
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = authenticationSettings.JwtIssuer,
+                    ValidAudience = authenticationSettings.JwtIssuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+                };
+            });
 
             services.AddControllers();
             services.AddCors(x => x.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())); //na localhoscie
@@ -33,6 +57,8 @@ namespace Toci.Earrai.Microservice
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Toci.Earrai.Microservice", Version = "v1" });
             });
+
+            services.AddScoped<IUserLogic, UserLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +73,7 @@ namespace Toci.Earrai.Microservice
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // localhost
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.35.1" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
     <PackageReference Include="Microsoft.Office365.SharePoint" Version="1.0.22" />
@@ -13,13 +14,20 @@
     <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.21411.12000" />
     <PackageReference Include="Open-XML-SDK" Version="2.9.1" />
     <PackageReference Include="SharePointPnPCoreOnline" Version="3.28.2012" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Bll.Interfaces\Toci.Common.Bll.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Bll\Toci.Common.Bll.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Database.Interfaces\Toci.Common.Database.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Database\Toci.Common.Database.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices.Interfaces\Toci.Common.Microservices.Interfaces.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Models\Toci.Earrai.Bll.Models.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll\Toci.Earrai.Bll.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
   </ItemGroup>
 
