@@ -14,8 +14,10 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System.Data;
 using Microsoft.SharePoint.Client;
 
-namespace Toci.Earrai.Microservice.test {
-    public class ExcelClient/* : IDisposable*/ {
+namespace Toci.Earrai.Microservice.test
+{
+    public class ExcelClient/* : IDisposable*/
+    {
 
 
         /*public ExcelClient(Uri webUri, ICredentials credentials) {
@@ -207,6 +209,7 @@ namespace Toci.Earrai.Microservice.test {
         public Uri WebUri { get; private set; }
 
         private readonly WebClient _client;
-        */
+
+    }*/
     }
 }
