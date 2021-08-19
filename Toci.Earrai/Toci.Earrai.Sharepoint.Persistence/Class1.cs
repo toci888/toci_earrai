@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Toci.Earrai.Temp.Persistence
+namespace Toci.Earrai.Sharepoint.Persistence
 {
     public class Class1
     {

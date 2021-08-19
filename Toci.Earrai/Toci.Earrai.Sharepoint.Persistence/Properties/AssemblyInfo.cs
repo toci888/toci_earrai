@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Toci.Earrai.Database.Sh.Persistence")]
+[assembly: AssemblyTitle("Toci.Earrai.Sharepoint.Persistence")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Toci.Earrai.Database.Sh.Persistence")]
+[assembly: AssemblyProduct("Toci.Earrai.Sharepoint.Persistence")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ecafdd80-5698-4afd-81ef-7c845227e1c6")]
+[assembly: Guid("57a9aed6-d327-4dd8-b86e-e5a3c7dcd1a8")]
 
 // Version information for an assembly consists of the following four values:
 //

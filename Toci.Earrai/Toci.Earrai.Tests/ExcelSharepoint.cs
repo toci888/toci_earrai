@@ -6,7 +6,6 @@ using System.Text;
 using System.Data.CData.ExcelServices;
 using System.Threading.Tasks;
 using System.Data;
-using CData.EntityFrameworkCore;
 
 namespace Toci.Earrai.Tests
 {
