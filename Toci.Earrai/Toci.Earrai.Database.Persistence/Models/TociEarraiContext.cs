@@ -19,6 +19,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Userrole> Userroles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -54,13 +55,41 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasColumnName("emailconfirmed")
                     .HasDefaultValueSql("0");
 
-                entity.Property(e => e.Login).HasColumnName("login");
+                entity.Property(e => e.Firstname).HasColumnName("firstname");
+
+                entity.Property(e => e.Idrole)
+                    .HasColumnName("idrole")
+                    .HasDefaultValueSql("1");
+
+                entity.Property(e => e.Lastname).HasColumnName("lastname");
 
                 entity.Property(e => e.Password).HasColumnName("password");
 
-                entity.Property(e => e.Phone).HasColumnName("phone");
+                entity.HasOne(d => d.IdroleNavigation)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.Idrole)
+                    .HasConstraintName("users_idrole_fkey");
+            });
 
-                entity.Property(e => e.Token).HasColumnName("token");
+            modelBuilder.Entity<Userrole>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("userroles");
+
+                entity.Property(e => e.Email).HasColumnName("email");
+
+                entity.Property(e => e.Emailconfirmed).HasColumnName("emailconfirmed");
+
+                entity.Property(e => e.Firstname).HasColumnName("firstname");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Lastname).HasColumnName("lastname");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Password).HasColumnName("password");
             });
 
             OnModelCreatingPartial(modelBuilder);
