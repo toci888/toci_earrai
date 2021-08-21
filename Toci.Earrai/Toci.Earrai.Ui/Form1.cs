@@ -12,6 +12,12 @@ namespace Toci.Earrai.Ui
 {
     public partial class Form1 : Form
     {
+        public List<TempUser> tempUsers = new List<TempUser>()
+        {
+            new TempUser() {Id = 1, Name = "Bartus", Profession = "Rolnik"},
+            new TempUser() { Id = 2, Name = "Tomek", Profession = "Sinior Pehape Developer" },
+            new TempUser() { Id = 3, Name = "Kacper", Profession = "zawodnik Fame MMA" }
+        };
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +42,33 @@ namespace Toci.Earrai.Ui
             acsc.Add("sraka");
 
             tb.AutoCompleteCustomSource = acsc;*/
+        }
+
+        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            /*tempUsers = new List<TempUser>();
+            tempUsers.Add(new TempUser() { Id = 1, Name = "Bartus", Profession = "Rolnik" });
+            tempUsers.Add(new TempUser() { Id = 2, Name = "Tomek", Profession = "Sinior Pehape Developer" });
+            tempUsers.Add(new TempUser() { Id = 3, Name = "Kacper", Profession = "zawodnik Fame MMA" });*/
+
+            excelDataGrid.DataSource = tempUsers;
+
+
+
+        }
+
+        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
+            tempUsers.Add(new TempUser() { Id = 4, Name = "Mati", Profession = "Zul" });
+
+            excelDataGrid.DataSource = tempUsers;
+
+            excelDataGrid.Rows.Add(4, "Mati", "Zul");
         }
     }
 }

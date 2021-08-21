@@ -1,0 +1,12 @@
+{
+  "name": "reactNativeWheelo",
+  "displayName": "reactNativeWheelo",
+  "expo": {
+    "name": "reactNativeWheelo",
+    "slug": "reactNativeWheelo",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

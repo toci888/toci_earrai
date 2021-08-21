@@ -89,14 +89,16 @@ namespace Toci.Earrai.Ui
             this.excelDataGrid.Location = new System.Drawing.Point(32, 88);
             this.excelDataGrid.Name = "excelDataGrid";
             this.excelDataGrid.RowTemplate.Height = 25;
-            this.excelDataGrid.Size = new System.Drawing.Size(1023, 463);
+            this.excelDataGrid.Size = new System.Drawing.Size(478, 207);
             this.excelDataGrid.TabIndex = 5;
+            this.excelDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellClick);
+            this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 563);
+            this.ClientSize = new System.Drawing.Size(759, 563);
             this.Controls.Add(this.excelDataGrid);
             this.Controls.Add(this.queryTextbox);
             this.Controls.Add(this.label2);
@@ -105,6 +107,7 @@ namespace Toci.Earrai.Ui
             this.Controls.Add(this.showBtn);
             this.Name = "Form1";
             this.Text = "Earrai";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
