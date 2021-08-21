@@ -7,12 +7,9 @@ namespace Toci.Earrai.Cry
     {
         static void Main(string[] args)
         {
-            Console.ReadLine();
+            ExcelSharepoint excelSharepoint = new ExcelSharepoint();
 
-
-            ExcelSharepoint es = new ExcelSharepoint();
-
-            es.dupa();
+            excelSharepoint.AddInfoToExcel();
 
             Console.WriteLine("Hello World!");
         }
