@@ -17,7 +17,7 @@ namespace Toci.Earrai.Tests
 
         //protected AccountController Account = new AccountController(new UserLogic());
 
-        //private Logic<Role> Role = new Logic<Role>();
+        private Logic<Role> Role = new Logic<Role>();
 
         [TestMethod]
         public void SeedAllDb()
