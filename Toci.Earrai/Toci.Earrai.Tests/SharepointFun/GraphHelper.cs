@@ -11,7 +11,7 @@ namespace OneDriveWithMSGraph
         public static void Initialize(IAuthenticationProvider authProvider)
         {
             graphClient = new GraphServiceClient(authProvider);
-            graphClient.BaseUrl = "https://graph.microsoft.com/beta";
+            //graphClient.BaseUrl = "https://graph.microsoft.com/beta";
         }
 
         public static async Task<User> GetMeAsync()

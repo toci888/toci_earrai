@@ -33,10 +33,23 @@ namespace OneDriveWithMSGraph
                 try
                 {
                     // Invoke device code flow so user can sign-in with a browser
-                    var result = await _msalClient.AcquireTokenWithDeviceCode(_scopes, callback => {
-                        Console.WriteLine(callback.Message);
-                        return Task.FromResult(0);
-                    }).ExecuteAsync();
+                    System.Security.SecureString pass = new System.Security.SecureString();
+                    pass.AppendChar('B');
+                    pass.AppendChar('e');
+                    pass.AppendChar('a');
+                    pass.AppendChar('t');
+                    pass.AppendChar('k');
+                    pass.AppendChar('a');
+                    pass.AppendChar('9');
+                    pass.AppendChar('1');
+                    pass.AppendChar('1');
+
+                    AuthenticationResult result = await _msalClient.AcquireTokenByUsernamePassword(_scopes, "bzapart@tocizapart.onmicrosoft.com", pass).ExecuteAsync();
+                    
+                    //     callback => {
+                    //    Console.WriteLine(callback.Message);
+                    //    return Task.FromResult(0);
+                    // }).ExecuteAsync();
 
                     _userAccount = result.Account;
                     return result.AccessToken;
