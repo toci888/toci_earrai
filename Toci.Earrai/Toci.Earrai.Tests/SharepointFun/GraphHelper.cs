@@ -54,5 +54,25 @@ namespace OneDriveWithMSGraph
                 return null;
             }
         }
+
+        public static async Task<IEnumerable<DriveItem>> GetContentOfFileAsync(int fileIndex) {
+            try
+            {
+
+                //var x = await graphClient.Me.Drive.Items[fileIndex]
+                var x = await graphClient.Me.Drive.Root.Children.Request().GetAsync();
+
+
+                var w = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Content.Request().GetAsync().Result;
+
+                Console.WriteLine(w);
+
+
+                return x;
+            } catch (ServiceException ex) {
+                Console.WriteLine($"Error getting One Drive contents: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

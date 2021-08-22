@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace OneDriveWithMSGraph
                 Console.WriteLine("1. Display your access token");
                 Console.WriteLine("2. Get your OneDrive root folder");
                 Console.WriteLine("3. List your OneDrive contents");
+                Console.WriteLine("4. List content of oneDrive item");
                 try
                 {
                     choice = int.Parse(Console.ReadLine());
@@ -72,17 +74,18 @@ namespace OneDriveWithMSGraph
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine(ListOneDriveContents(driveContents.ToList()));
                         Console.ForegroundColor = ConsoleColor.White;
+                        break;
                     case 4:
-                        // type file index in directory
+                        // choose index of file list in directory
+                        Console.WriteLine("Choose index of file list in directory");
                         int fileIndex = choice = int.Parse(Console.ReadLine());
 
                         // Get OneDrive file by index
-                        var driveContentsAll = await GraphHelper.GetDriveContentsAsync();
+                        var driveContentsAll = await GraphHelper.GetContentOfFileAsync(fileIndex);
                         Console.WriteLine(string.Empty);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(getFileContent(driveContentsAll.ToList()[fileIndex]));
+                        GetFileContentAsync(driveContentsAll.ToList()[fileIndex]);
                         Console.ForegroundColor = ConsoleColor.White;
-
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");
@@ -91,11 +94,14 @@ namespace OneDriveWithMSGraph
             }
         }
 
-        static string getFileContent(DriveItem file) {
-
-            return file.Content.
-
-            return "";
+        static async Task GetFileContentAsync(DriveItem file)
+        {
+            
+            byte[] result2 = new byte[(int) file.Size];
+            var fileContent = await file.Content.ReadAsync(result2, 0, 2);
+            
+            Console.WriteLine(fileContent);
+            
         }
 
 
@@ -140,11 +146,13 @@ namespace OneDriveWithMSGraph
             {
                 if (item.Folder != null)
                 {
-                    str.AppendLine($"'{item.Name}' is a folder");
+                    str.AppendLine($"'{item.Name}' is a folder ");
+                    str.AppendLine($"'{item.Id}' is Ids");
                 }
                 else if (item.File != null)
                 {
-                    str.AppendLine($"'{item.Name}' is a file with size {item.Size}");
+                    str.AppendLine($"'{item.Name}' is a file with size {item.Size} ");
+                    str.AppendLine($"'{item.Id}' is Ids");
                 }
                 else if (item.Audio != null)
                 {
