@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Cry", "Toci.Ear
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Ui", "Toci.Earrai.Ui\Toci.Earrai.Ui.csproj", "{7F9E2E0F-6AAF-4DD0-A9DD-81682C33A40C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Microsoft.Graph.Excel", "Toci.Microsoft.Graph.Excel\Toci.Microsoft.Graph.Excel.csproj", "{37F5A665-6300-4DC4-9029-C90DB16F269E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{7F9E2E0F-6AAF-4DD0-A9DD-81682C33A40C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F9E2E0F-6AAF-4DD0-A9DD-81682C33A40C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F9E2E0F-6AAF-4DD0-A9DD-81682C33A40C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37F5A665-6300-4DC4-9029-C90DB16F269E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F5A665-6300-4DC4-9029-C90DB16F269E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F5A665-6300-4DC4-9029-C90DB16F269E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F5A665-6300-4DC4-9029-C90DB16F269E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

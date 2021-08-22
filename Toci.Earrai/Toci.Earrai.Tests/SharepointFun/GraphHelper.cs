@@ -63,9 +63,21 @@ namespace OneDriveWithMSGraph
                 var x = await graphClient.Me.Drive.Root.Children.Request().GetAsync();
 
 
-                var w = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Content.Request().GetAsync().Result;
+                var w = graphClient.Me.Drive.Root.Children["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Content.Request()
+                    .GetAsync();
 
                 Console.WriteLine(w);
+
+                var readSheet = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Workbook.Worksheets["Arkusz1"];
+
+                var readTables = readSheet.Cell(0, 0).Request().GetAsync().Result;
+
+                Console.WriteLine(readTables);
+
+                //string readTableId = readTables[0].Name;
+                //var table = readSheet.Tables[readTableId].Rows.Request().GetAsync().Result;
+
+                Console.WriteLine(readSheet);
 
 
                 return x;

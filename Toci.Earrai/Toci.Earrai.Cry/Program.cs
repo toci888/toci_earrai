@@ -84,7 +84,7 @@ namespace OneDriveWithMSGraph
                         var driveContentsAll = await GraphHelper.GetContentOfFileAsync(fileIndex);
                         Console.WriteLine(string.Empty);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        GetFileContentAsync(driveContentsAll.ToList()[fileIndex]);
+                        await GetFileContentAsync(driveContentsAll.ToList()[fileIndex]);
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
                     default:
@@ -98,9 +98,9 @@ namespace OneDriveWithMSGraph
         {
             
             byte[] result2 = new byte[(int) file.Size];
-            var fileContent = await file.Content.ReadAsync(result2, 0, 2);
+            //var fileContent = await file.Content.ReadAsync(result2, 0, (int)file.Size);
             
-            Console.WriteLine(fileContent);
+            //Console.WriteLine(fileContent);
             
         }
 
