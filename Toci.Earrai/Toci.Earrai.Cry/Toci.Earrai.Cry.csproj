@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Toci.Earrai.Microservice\Toci.Earrai.Microservice.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Sharepoint.Persistence\Toci.Earrai.Sharepoint.Persistence.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Tests\Toci.Earrai.Tests.csproj" />
+    <ProjectReference Include="..\Toci.Microsoft.Graph.Excel\Toci.Microsoft.Graph.Excel.csproj" />
   </ItemGroup>
 
 </Project>
