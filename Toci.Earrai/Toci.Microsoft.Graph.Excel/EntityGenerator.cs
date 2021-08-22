@@ -47,7 +47,7 @@ namespace Toci.Microsoft.Graph.Excel {
                 var readTables = readSheet.Cell(_rowOfEntityData, nowCellColumn)
                     .Request().GetAsync().Result;
 
-                var val = readTables.Values.RootElement.GetRawText();
+                var val = readTables.Values.RootElement.GetRawText().Replace("[", "").Replace("]", "").Replace("\"", "");
                 
 
                 //var val2 = Newtonsoft.Json.Linq.JToken.Parse(val);
@@ -62,7 +62,7 @@ namespace Toci.Microsoft.Graph.Excel {
             generatedClassEnd();
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines("TestClass.cs", generatedClass);
+            File.WriteAllLines(@"C:\Users\bzapa\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\TestClass.cs", generatedClass);
 
             /*var x = new {
                 "narz":
@@ -93,15 +93,15 @@ namespace Toci.Microsoft.Graph.Excel {
         {
             foreach (var field in fields)
             {
-                var isNumeric = int.TryParse(field, out _);
+                var isNumeric = int.TryParse(field, out _);// add double ;)
 
                 if (isNumeric)
                 {
-                    generatedClass.Add("private int " + field);
+                    generatedClass.Add("public int " + field + " { get; set; }");
                 }
                 else
                 {
-                    generatedClass.Add("private string " + field);
+                    generatedClass.Add("public string " + field + " { get; set; }");
                 }
                 
             }

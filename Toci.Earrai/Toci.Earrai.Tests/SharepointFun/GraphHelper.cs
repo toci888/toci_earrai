@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace OneDriveWithMSGraph
 {
@@ -68,9 +70,34 @@ namespace OneDriveWithMSGraph
 
                 Console.WriteLine(w);
 
-                var readSheet = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Workbook.Worksheets["Arkusz1"];
+                var readBook = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Workbook;
+                    
+                var readSheet = readBook.Worksheets["Arkusz1"];
+
+                var tables = readSheet.Tables.Request().GetAsync().Result;
+
+                var gooovno = readSheet.Tables.Add(true).Request().PostAsync().Result;
+
+                tables = readSheet.Tables.Request().GetAsync().Result;
 
                 var readTables = readSheet.Cell(0, 0).Request().GetAsync().Result;
+
+                var wt = readBook.Tables.Request().GetAsync(); //.AddAsync(new WorkbookTable()).Result;
+
+                //wt.
+
+                //var tets = readSheet.Cell(0, 0).Insert("A1").Request().PostAsync().Result;
+
+                WorkbookTableRow newRow = new WorkbookTableRow
+                {
+                    Values = JsonDocument.Parse("{\"dupa\": \"dafaq\"}")
+                };
+                
+                //var outputSheet = graphClient.Me.Drive.Items["01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4"].Workbook.Worksheets["Arkusz1"];
+                var outputTables = readSheet.Tables.Request().GetAsync().Result;
+                string outputTableId = outputTables[0].Name;
+                var outputResult = readSheet.Tables[outputTableId].Rows.Request().AddAsync(newRow).Result;
+                
 
                 Console.WriteLine(readTables);
 
