@@ -20,7 +20,9 @@ namespace OneDriveWithMSGraph {
 
             var appId = "98a98443-1860-405d-9277-b8bccba724f7";
             var scopesString = "";
-            string[] scopes = new[] { "https://graph.microsoft.com/User.ReadWrite.All" }; //api://98a98443-1860-405d-9277-b8bccba724f7/ApiAccess
+            string[] scopes = new[] { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
+            "https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
+            "https://graph.microsoft.com/Sites.ReadWrite.All" }; //api://98a98443-1860-405d-9277-b8bccba724f7/ApiAccess
 
             // Initialize the auth provider with values from appsettings.json
             var authProvider = new DeviceCodeAuthProvider(appId, scopes);
