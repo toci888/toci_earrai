@@ -44,11 +44,6 @@ namespace OneDriveWithMSGraph
             }
         }
 
-
-
-
-
-
         public static async Task<IEnumerable<DriveItem>> GetDriveContentsAsync()
         {
             try
@@ -81,7 +76,36 @@ namespace OneDriveWithMSGraph
 
                 var tables = readSheet.Tables.Request().GetAsync().Result;
 
-                var gooovno = readSheet.Tables.Add(true).Request().PostAsync().Result;
+                Console.WriteLine(tables);
+
+                var values = JsonDocument.Parse("[[1,2,3,4]]");
+                //"[[123,"asd","zxc",321]]"
+
+                await readBook.Tables["TabelaBartka"].Rows
+                    .Add(null, values)
+                    .Request()
+                    .PostAsync();
+
+                var z = await readBook.Tables.Request().GetAsync();
+                var gowno = z[0];
+                gowno.Rows = new WorkbookTableRowsCollectionPage();
+
+                gowno.Rows.Add(new WorkbookTableRow()
+                {
+                    Values = values
+                });
+
+                z[0] = gowno;
+                var xyz = readBook.Tables["TabelaBartka"].Rows.Request().GetAsync().Result;
+                
+                //readBook.Tables[0].Request().PutAsync();
+
+                //gowno.Rows = new 
+                //.Add(2, values)
+                //.Request()
+                //.PostAsync();
+
+                // var gooovno = readSheet.Tables.Add(true).Request().PostAsync().Result;
 
                 tables = readSheet.Tables.Request().GetAsync().Result;
 

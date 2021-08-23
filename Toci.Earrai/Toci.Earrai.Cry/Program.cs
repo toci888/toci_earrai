@@ -59,6 +59,7 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("1. Get your OneDrive root folder");
                 Console.WriteLine("2. List your OneDrive contents");
                 Console.WriteLine("3. Generate entities for all file's worksheets (type workbook index)");
+                Console.WriteLine("4. GraphHelper.GetContentOfFileAsync");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -95,6 +96,10 @@ namespace OneDriveWithMSGraph {
                         Console.ForegroundColor = ConsoleColor.Green;
                         await CreateEntitiesForAllWorksheets(fileIndex);
                         Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    case 4:
+                        Console.WriteLine("xd");
+                        await GraphHelper.GetContentOfFileAsync(2);
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");
