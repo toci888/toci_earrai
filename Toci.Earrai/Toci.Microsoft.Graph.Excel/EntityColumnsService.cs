@@ -18,6 +18,10 @@ namespace Toci.Microsoft.Graph.Excel {
                 var readTables = graphClient.Cell(_rowOfEntityData, nowCellColumn)
                     .Request().GetAsync().Result;
 
+                //var test = graphClient.Range().Cell(5, 0).Request().GetAsync().Result;
+
+
+
                 var val = readTables.Values.RootElement.GetRawText()
                                                         .Replace("[", "")
                                                         .Replace("]", "")

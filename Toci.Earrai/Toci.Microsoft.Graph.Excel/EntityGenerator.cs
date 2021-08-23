@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Graph;
 using Microsoft.IdentityModel.Protocols;
 using System.IO;
+using System.Text.RegularExpressions;
 using File = System.IO.File;
 
 namespace Toci.Microsoft.Graph.Excel {
@@ -29,7 +30,7 @@ namespace Toci.Microsoft.Graph.Excel {
             
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\"+ cleanString(tableName) + ".cs", generatedClass);
+            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\"+ cleanStringForDatabase(tableName) + ".cs", generatedClass);
 
             resetCounter();
 
@@ -42,7 +43,7 @@ namespace Toci.Microsoft.Graph.Excel {
             // add namespace
             //generatedClass.Add(@" ");
 
-            className = cleanString(className);
+            className = cleanStringForDatabase(className);
 
             generatedClass.Add("using System;\r\n using System.Collections.Generic;\r\nusing System.Text;");
             generatedClass.Add("namespace Toci.Microsoft.Graph.Excel {");
@@ -50,13 +51,14 @@ namespace Toci.Microsoft.Graph.Excel {
         }
 
         public static void generatedClassEnd() {
-            generatedClass.Add("} }");
+            generatedClass.Add("}");
+            generatedClass.Add("}");
         }
 
         public static void generateFields(string field, int columnIndex, int rowIndex)
         {
             string tempField = field;
-            tempField = cleanString(tempField);
+            tempField = cleanStringForDatabase(tempField);
 
             var isDouble = double.TryParse(field, out _);
             var isNumeric = int.TryParse(field, out _);// add double ;)
@@ -75,9 +77,32 @@ namespace Toci.Microsoft.Graph.Excel {
         }
 
 
-        public static string cleanString(string value)
+        public static string cleanStringForDatabase(string value) 
         {
-            return value.Replace(" ", "").Replace(".", "").Replace(",", "");
+
+            value =  value.Replace(" ", "_")
+                .Replace(".", "Dot")
+                .Replace("+", "Plus")
+                .Replace("£", "Pounds")
+                .Replace("-", "Minus")
+                .Replace("\n", "NewLine")
+                .Replace("/", "Slash")
+                .Replace("\\", "Slash")
+                .Replace(",", "")
+                .Replace("&", "And");
+            
+            if (Regex.IsMatch(value, @"^[0-9]") )
+            {
+                value = "_" + value;
+            }
+
+            return value;
+        }
+
+        public static string uncleanStringForExcel(string value) 
+        {
+
+            return value.Replace("_", "").Replace("Dot", ".").Replace("", ",").Replace("And", "&");
         }
 
 
