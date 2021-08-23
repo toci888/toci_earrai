@@ -10,103 +10,86 @@ using File = System.IO.File;
 
 namespace Toci.Microsoft.Graph.Excel {
     public class EntityGenerator {
+        
+        private static List<string> generatedClass = new List<string>();
 
-        private static GraphServiceClient graphClient;
-        private int _rowOfEntityData;
-        private int _startCell;
-        private int _endCell;
-        private string _worksheetName;
-        private string _fileId;
-
-        private List<string> generatedClass = new List<string>();
-
-        public EntityGenerator(IAuthenticationProvider authProvider, int rowOfEntityData,
-                int startCell, int endCell, string fileId, string worksheetName) {
-
-            graphClient = new GraphServiceClient(authProvider);
-            _rowOfEntityData = rowOfEntityData;
-            _startCell = startCell;
-            _endCell = endCell;
-            _fileId = fileId;
-            _worksheetName = worksheetName;
-
-        }
-
-
-        public void generateEntity()
+        private static int columnCounter = 0;
+        
+        public static void generateEntity(string tableName, string[] columns, int _rowOfEntityData, int _startCell, int _endCell)
         {
 
-            string[] numOfPropertiesForEntity = new string[_endCell - _startCell];
+            getTopClass(tableName);
 
-
-            for (int nowCellColumn = _startCell; nowCellColumn < _endCell; nowCellColumn++) {
-
-                var readSheet = graphClient.Me.Drive.Items[_fileId]
-                        .Workbook.Worksheets[_worksheetName];
-
-                var readTables = readSheet.Cell(_rowOfEntityData, nowCellColumn)
-                    .Request().GetAsync().Result;
-
-                var val = readTables.Values.RootElement.GetRawText().Replace("[", "").Replace("]", "").Replace("\"", "");
-                
-
-                //var val2 = Newtonsoft.Json.Linq.JToken.Parse(val);
-
-                numOfPropertiesForEntity[nowCellColumn] = val;
+            for (int nowColumn = _startCell; nowColumn < _endCell; nowColumn++)
+            {
+                generateFields(columns[nowColumn], nowColumn, _rowOfEntityData);
             }
 
-            getTopClass("TableName");
-
-            generateFields(numOfPropertiesForEntity);
-            
             generatedClassEnd();
+            
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines(@"C:\Users\bzapa\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\TestClass.cs", generatedClass);
+            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\"+ cleanString(tableName) + ".cs", generatedClass);
 
-            /*var x = new {
-                "narz":
-                {
-                    "id": 4,
-                        "name": "arek",
-                            "created": "dzisiaj"
-                }
-            }*/
+            resetCounter();
 
+            resetList();
 
         }
 
-        
-        public void getTopClass(string className) {
+
+        public static void getTopClass(string className) {
             // add namespace
             //generatedClass.Add(@" ");
 
+            className = cleanString(className);
 
-            generatedClass.Add("public class " + className + "{\r\n");
+            generatedClass.Add("using System;\r\n using System.Collections.Generic;\r\nusing System.Text;");
+            generatedClass.Add("namespace Toci.Microsoft.Graph.Excel {");
+            generatedClass.Add("public class " + className + " {");
         }
 
-        public void generatedClassEnd() {
-            generatedClass.Add("}");
+        public static void generatedClassEnd() {
+            generatedClass.Add("} }");
         }
 
-        public void generateFields(string[] fields)
+        public static void generateFields(string field, int columnIndex, int rowIndex)
         {
-            foreach (var field in fields)
-            {
-                var isNumeric = int.TryParse(field, out _);// add double ;)
+            string tempField = field;
+            tempField = cleanString(tempField);
 
-                if (isNumeric)
-                {
-                    generatedClass.Add("public int " + field + " { get; set; }");
-                }
-                else
-                {
-                    generatedClass.Add("public string " + field + " { get; set; }");
-                }
-                
+            var isDouble = double.TryParse(field, out _);
+            var isNumeric = int.TryParse(field, out _);// add double ;)
+
+            string propTyle;
+            if (isDouble) { propTyle = "double";
+            } else if (isNumeric) { propTyle = "int";
+            } else { propTyle = "string"; }
+
+            if (tempField == "") {
+                tempField = "column" + columnCounter++;
             }
+
+
+            generatedClass.Add("public CellData<" + propTyle + "> " + tempField + " = new (\"" + tempField + "\", " + rowIndex + ", " + columnIndex + " );");
         }
 
-        
+
+        public static string cleanString(string value)
+        {
+            return value.Replace(" ", "").Replace(".", "").Replace(",", "");
+        }
+
+
+        public static void resetCounter()
+        {
+            columnCounter = 0;
+        }
+
+        public static void resetList() 
+        {
+            generatedClass = new List<string>();
+        }
+
     }
 }

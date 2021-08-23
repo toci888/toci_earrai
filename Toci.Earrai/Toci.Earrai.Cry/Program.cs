@@ -9,15 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 using Toci.Microsoft.Graph.Excel;
 
-namespace OneDriveWithMSGraph
-{
+namespace OneDriveWithMSGraph {
     class Program
     {
-        static async Task Main(string[] args)
-        {
+        
+        static async Task Main(string[] args) {
             Console.WriteLine("Working with Graph and One Drive is fun!");
 
-          
+
 
             var appId = "98a98443-1860-405d-9277-b8bccba724f7";
             var scopesString = "";
@@ -30,52 +29,52 @@ namespace OneDriveWithMSGraph
             var accessToken = authProvider.GetAccessToken().Result; //"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiI5OGE5ODQ0My0xODYwLTQwNWQtOTI3Ny1iOGJjY2JhNzI0ZjciLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0L3YyLjAiLCJpYXQiOjE2Mjk1NTI3NDcsIm5iZiI6MTYyOTU1Mjc0NywiZXhwIjoxNjI5NTU2NjQ3LCJhaW8iOiJBVFFBeS84VEFBQUFiNkdxYzZscXNDbUoraXRqTlhvVitPTUJLK0lCNUZuUWYyeE8rWkYxczQyaXpQaC83MHBmTHIzSVhNcXNLcWhlIiwiYXpwIjoiOThhOTg0NDMtMTg2MC00MDVkLTkyNzctYjhiY2NiYTcyNGY3IiwiYXpwYWNyIjoiMCIsIm5hbWUiOiJCYXJ0xYJvbWllaiBaYXBhcnQiLCJvaWQiOiI4MmYxNWVlOS00NGU3LTRkNTMtOGVmMS0yNmRlOWVkM2IyZDQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJiemFwYXJ0QHRvY2l6YXBhcnQub25taWNyb3NvZnQuY29tIiwicmgiOiIwLkFRd0FzTUxUNlFYTS1rR2ZSbnVUZDlHaWxFT0VxWmhnR0YxQWtuZTR2TXVuSlBjTUFJVS4iLCJzY3AiOiJBcGlBY2Nlc3MiLCJzdWIiOiJsNmVaZ05BTFdib3pzRlE3VURJVGh3S191WXozVWV2TVdFUzgwUjE1YndNIiwidGlkIjoiZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0IiwidXRpIjoiVlM1amZaM3ZjVS00dTZVVHFXWTBBQSIsInZlciI6IjIuMCJ9.f7LK83YJ-Dp1D0R2pF9L5LPEV74cdKqkM1oyG0z8u4jF3u-oltNteJD5q7ftcBo9irfNgs3jcwo66jO4d9ke3UCEdAhr4PxiS-lBBfRp8nVS-oURN1FS2kqam54VHuGOpBCM9Kpga76VRyvDQaJaGqSl4flJx4idd--qhdPPHLGfBitv--SVdvxhoHORoAQjaFZpKTkYjqWaxkiwBvb7cpRYEdCs522MY5OE1vnTX0-XRWI6w997evnodoNmNDa18qrVUAesn7zPksvuk7OaPQP9zZSyY9kxt9lT4SIOP1xaMnrtIs2bH1U5g0oRynrKWovTH9i2l8LNTTUx4ILRlA"; //
 
             GraphHelper.Initialize(authProvider);
+            EntityGeneratorService.SetAuthProvider(authProvider);
 
-            EntityGenerator entityGenerator =
-                new EntityGenerator(authProvider, 4, 0, 3, "01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4", "Arkusz1");
 
-            entityGenerator.generateEntity();
+            // generate entity for all worksheet of workbook
+
+            // choose excel.xlsx
+            // foreach worksheets
+            // generate entity
+
+
+
+
+            //EntityGenerator entityGenerator =
+            //    new EntityGenerator(authProvider, "01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS", 0, 0, 0);
+
+            //entityGenerator.generateEntity();
+
+            //entityGenerator.ListOfSheets();
 
 
 
             int choice = -1;
-            while (choice != 0)
-            {
+            while (choice != 0) {
                 Console.WriteLine("Please choose one of the following options:");
                 Console.WriteLine("0. Exit");
-                Console.WriteLine("1. Display your access token");
-                Console.WriteLine("2. Get your OneDrive root folder");
-                Console.WriteLine("3. List your OneDrive contents");
-                Console.WriteLine("4. List content of oneDrive item");
-                try
-                {
+                Console.WriteLine("1. Get your OneDrive root folder");
+                Console.WriteLine("2. List your OneDrive contents");
+                Console.WriteLine("3. Generate entities for all file's worksheets (type workbook index)");
+                try {
                     choice = int.Parse(Console.ReadLine());
-                }
-                catch (System.FormatException)
-                {
-                    // Set to invalid value
+                } catch (System.FormatException) {
                     choice = -1;
                 }
 
-                switch (choice)
-                {
+                switch (choice) {
                     case 0:
-                        // Exit the program
                         Console.WriteLine("Goodbye...");
                         break;
                     case 1:
-                        // Display access token
-                        Console.WriteLine($"The access token is:{accessToken}");
-                        break;
-                    case 2:
-                        // Get OneDrive Info
                         Console.WriteLine(string.Empty);
                         Console.ForegroundColor = ConsoleColor.Green;
                         var driveInfo = await GraphHelper.GetOneDriveAsync();
                         Console.WriteLine(FormatDriveInfo(driveInfo));
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
-                    case 3:
+                    case 2:
                         // Get OneDrive contents
                         var driveContents = await GraphHelper.GetDriveContentsAsync();
                         Console.WriteLine(string.Empty);
@@ -83,16 +82,16 @@ namespace OneDriveWithMSGraph
                         Console.WriteLine(ListOneDriveContents(driveContents.ToList()));
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
-                    case 4:
+                    case 3:
                         // choose index of file list in directory
                         Console.WriteLine("Choose index of file list in directory");
                         int fileIndex = choice = int.Parse(Console.ReadLine());
+                        
 
-                        // Get OneDrive file by index
-                        var driveContentsAll = await GraphHelper.GetContentOfFileAsync(fileIndex);
+                        //var driveContentsAll = await GraphHelper.GetContentOfFileAsync(fileIndex);
                         Console.WriteLine(string.Empty);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        await GetFileContentAsync(driveContentsAll.ToList()[fileIndex]);
+                        await CreateEntitiesForAllWorksheets(fileIndex);
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
                     default:
@@ -102,37 +101,34 @@ namespace OneDriveWithMSGraph
             }
         }
 
-        static async Task GetFileContentAsync(DriveItem file)
-        {
+        static async Task CreateEntitiesForAllWorksheets(int fileIndex) {
             
-            byte[] result2 = new byte[(int) file.Size];
-            //var fileContent = await file.Content.ReadAsync(result2, 0, (int)file.Size);
+            EntityGeneratorService.generateEntitiesForAllSheets(fileIndex);
             
-            //Console.WriteLine(fileContent);
-            
+            //EntityGenerator entityGenerator =
+                //new EntityGenerator(authProvider, "01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS", 0, 0, 0);
+
+
         }
 
 
 
 
 
-        static IConfigurationRoot LoadAppSettings()
-        {
+        static IConfigurationRoot LoadAppSettings() {
             var appConfig = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
                 .Build();
 
             if (string.IsNullOrEmpty(appConfig["appId"]) ||
-                string.IsNullOrEmpty(appConfig["scopes"]))
-            {
+                string.IsNullOrEmpty(appConfig["scopes"])) {
                 return null;
             }
 
             return appConfig;
         }
 
-        static string FormatDriveInfo(Drive drive)
-        {
+        static string FormatDriveInfo(Drive drive) {
             var str = new StringBuilder();
             str.AppendLine($"The OneDrive Name is: {drive.Name}");
             str.AppendLine($"The OneDrive Ownder is: {drive.Owner.User.DisplayName}");
@@ -142,32 +138,22 @@ namespace OneDriveWithMSGraph
             return str.ToString();
         }
 
-        static string ListOneDriveContents(List<DriveItem> contents)
-        {
-            if (contents == null || contents.Count == 0)
-            {
+        static string ListOneDriveContents(List<DriveItem> contents) {
+            if (contents == null || contents.Count == 0) {
                 return "No content found";
             }
 
             var str = new StringBuilder();
-            foreach (var item in contents)
-            {
-                if (item.Folder != null)
-                {
+            foreach (var item in contents) {
+                if (item.Folder != null) {
                     str.AppendLine($"'{item.Name}' is a folder ");
                     str.AppendLine($"'{item.Id}' is Ids");
-                }
-                else if (item.File != null)
-                {
+                } else if (item.File != null) {
                     str.AppendLine($"'{item.Name}' is a file with size {item.Size} ");
                     str.AppendLine($"'{item.Id}' is Ids");
-                }
-                else if (item.Audio != null)
-                {
+                } else if (item.Audio != null) {
                     str.AppendLine($"'{item.Audio.Title}' is an audio file with size {item.Size}");
-                }
-                else
-                {
+                } else {
                     str.AppendLine($"Generic drive item found with name {item.Name}");
                 }
             }

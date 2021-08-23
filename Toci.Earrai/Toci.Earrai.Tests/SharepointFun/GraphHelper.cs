@@ -44,6 +44,11 @@ namespace OneDriveWithMSGraph
             }
         }
 
+
+
+
+
+
         public static async Task<IEnumerable<DriveItem>> GetDriveContentsAsync()
         {
             try
