@@ -12,25 +12,25 @@ using File = System.IO.File;
 namespace Toci.Microsoft.Graph.Excel {
     public class EntityGenerator {
         
-        private static List<string> generatedClass = new List<string>();
+        protected List<string> generatedClass = new List<string>();
 
         private static int columnCounter = 0;
         
-        public static void generateEntity(string tableName, string[] columns, int _rowOfEntityData, int _startCell, int _endCell)
+        public virtual void GenerateEntity(string tableName, string[] columns, int _rowOfEntityData, int _startCell, int _endCell)
         {
 
-            getTopClass(tableName);
+            GetTopClass(tableName);
 
             for (int nowColumn = _startCell; nowColumn < _endCell; nowColumn++)
             {
-                generateFields(columns[nowColumn], nowColumn, _rowOfEntityData);
+                GenerateFields(columns[nowColumn], nowColumn, _rowOfEntityData);
             }
 
-            generatedClassEnd();
+            GeneratedClassEnd();
             
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\"+ cleanStringForDatabase(tableName) + ".cs", generatedClass);
+            File.WriteAllLines(@"C:\Users\bzapa\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\" + cleanStringForDatabase(tableName) + ".cs", generatedClass);
 
             resetCounter();
 
@@ -39,7 +39,8 @@ namespace Toci.Microsoft.Graph.Excel {
         }
 
 
-        public static void getTopClass(string className) {
+        public virtual void GetTopClass(string className) 
+        {
             // add namespace
             //generatedClass.Add(@" ");
 
@@ -50,12 +51,12 @@ namespace Toci.Microsoft.Graph.Excel {
             generatedClass.Add("public class " + className + " {");
         }
 
-        public static void generatedClassEnd() {
+        public virtual void GeneratedClassEnd() {
             generatedClass.Add("}");
             generatedClass.Add("}");
         }
 
-        public static void generateFields(string field, int columnIndex, int rowIndex)
+        public virtual void GenerateFields(string field, int columnIndex, int rowIndex)
         {
             string tempField = field;
             tempField = cleanStringForDatabase(tempField);
@@ -77,7 +78,7 @@ namespace Toci.Microsoft.Graph.Excel {
         }
 
 
-        public static string cleanStringForDatabase(string value) 
+        public virtual string cleanStringForDatabase(string value) 
         {
 
             value =  value.Replace(" ", "_")
@@ -99,19 +100,19 @@ namespace Toci.Microsoft.Graph.Excel {
             return value;
         }
 
-        public static string uncleanStringForExcel(string value) 
+        public virtual string uncleanStringForExcel(string value) 
         {
 
             return value.Replace("_", "").Replace("Dot", ".").Replace("", ",").Replace("And", "&");
         }
 
 
-        public static void resetCounter()
+        public virtual void resetCounter()
         {
             columnCounter = 0;
         }
 
-        public static void resetList() 
+        public virtual void resetList() 
         {
             generatedClass = new List<string>();
         }
