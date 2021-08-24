@@ -8,9 +8,12 @@ using Toci.Common.Database.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
+using Toci.Common.Bll.Interfaces;
+using Toci.Earrai.Bll.Interfaces;
 
 namespace Toci.Earrai.Bll {
-    public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic {
+    public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic
+    {
 
         private static GraphServiceClient graphClient;
         
@@ -44,5 +47,10 @@ namespace Toci.Earrai.Bll {
             return worksheetsList;
 
         }
+    }
+
+    public interface IWorksheetLogic : ILogicBase<Worksheet>
+    {
+        Task<List<Worksheet>> GetAllWorksheets(string fileId);
     }
 }
