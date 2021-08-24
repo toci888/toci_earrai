@@ -1,27 +1,29 @@
 drop view userRoles;
 
-drop table workbookcontent;
-drop table workbooks;
+drop table worksheetcontents;
 drop table worksheets;
+drop table workbooks;
 drop table users;
 drop table roles;
 
 
-create table worksheets
-(
-	id serial primary key
-);
-
 create table workbooks
 (
 	id serial primary key,
-	idworksheet int references worksheets (id)
+	fileName text
 );
 
-create table workbookcontent
+create table worksheets
 (
 	id serial primary key,
-	idworkbook int references workbooks (id),
+	idworkbooks int references worksheets (id),
+	sheetName text
+);
+
+create table worksheetcontents
+(
+	id serial primary key,
+	idworksheet int references worksheets (id),
 	columnNumber int,
 	columnName text default 'noName',
 	rowNumber int,

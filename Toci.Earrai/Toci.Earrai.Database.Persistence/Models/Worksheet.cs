@@ -9,11 +9,16 @@ namespace Toci.Earrai.Database.Persistence.Models
     {
         public Worksheet()
         {
-            Workbooks = new HashSet<Workbook>();
+            InverseIdworkbooksNavigation = new HashSet<Worksheet>();
+            Worksheetcontents = new HashSet<Worksheetcontent>();
         }
 
         public int Id { get; set; }
+        public int? Idworkbooks { get; set; }
+        public string Sheetname { get; set; }
 
-        public virtual ICollection<Workbook> Workbooks { get; set; }
+        public virtual Worksheet IdworkbooksNavigation { get; set; }
+        public virtual ICollection<Worksheet> InverseIdworkbooksNavigation { get; set; }
+        public virtual ICollection<Worksheetcontent> Worksheetcontents { get; set; }
     }
 }

@@ -21,8 +21,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Workbook> Workbooks { get; set; }
-        public virtual DbSet<Workbookcontent> Workbookcontents { get; set; }
         public virtual DbSet<Worksheet> Worksheets { get; set; }
+        public virtual DbSet<Worksheetcontent> Worksheetcontents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -101,17 +101,28 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
-
-                entity.HasOne(d => d.IdworksheetNavigation)
-                    .WithMany(p => p.Workbooks)
-                    .HasForeignKey(d => d.Idworksheet)
-                    .HasConstraintName("workbooks_idworksheet_fkey");
+                entity.Property(e => e.Filename).HasColumnName("filename");
             });
 
-            modelBuilder.Entity<Workbookcontent>(entity =>
+            modelBuilder.Entity<Worksheet>(entity =>
             {
-                entity.ToTable("workbookcontent");
+                entity.ToTable("worksheets");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idworkbooks).HasColumnName("idworkbooks");
+
+                entity.Property(e => e.Sheetname).HasColumnName("sheetname");
+
+                entity.HasOne(d => d.IdworkbooksNavigation)
+                    .WithMany(p => p.InverseIdworkbooksNavigation)
+                    .HasForeignKey(d => d.Idworkbooks)
+                    .HasConstraintName("worksheets_idworkbooks_fkey");
+            });
+
+            modelBuilder.Entity<Worksheetcontent>(entity =>
+            {
+                entity.ToTable("worksheetcontents");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -121,23 +132,16 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Columnnumber).HasColumnName("columnnumber");
 
-                entity.Property(e => e.Idworkbook).HasColumnName("idworkbook");
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
                 entity.Property(e => e.Rownumber).HasColumnName("rownumber");
 
                 entity.Property(e => e.Value).HasColumnName("value");
 
-                entity.HasOne(d => d.IdworkbookNavigation)
-                    .WithMany(p => p.Workbookcontents)
-                    .HasForeignKey(d => d.Idworkbook)
-                    .HasConstraintName("workbookcontent_idworkbook_fkey");
-            });
-
-            modelBuilder.Entity<Worksheet>(entity =>
-            {
-                entity.ToTable("worksheets");
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Worksheetcontents)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("worksheetcontents_idworksheet_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);
