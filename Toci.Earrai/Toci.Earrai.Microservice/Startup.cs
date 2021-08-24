@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using Toci.Common.Database.Interfaces;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Interfaces;
 
@@ -32,6 +33,8 @@ namespace Toci.Earrai.Microservice
         {
             AuthenticationSettings authenticationSettings = new AuthenticationSettings();
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+            services.AddScoped<IWorksheetLogic, WorksheetLogic>();
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
