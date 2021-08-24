@@ -99,8 +99,7 @@ namespace OneDriveWithMSGraph {
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
                     case 4:
-                        Console.WriteLine("xd");
-                        await GraphHelper.GetContentOfFileAsync(2);
+                        await GraphHelper.GetContentOfFileAsync();
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");

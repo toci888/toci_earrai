@@ -57,7 +57,7 @@ namespace OneDriveWithMSGraph
             }
         }
 
-        public static async Task<IEnumerable<DriveItem>> GetContentOfFileAsync(int fileIndex) {
+        public static async Task<IEnumerable<DriveItem>> GetContentOfFileAsync() {
             try
             {
 
@@ -78,25 +78,57 @@ namespace OneDriveWithMSGraph
 
                 Console.WriteLine(tables);
 
-                var values = JsonDocument.Parse("[[1,2,3,4]]");
+                var values = JsonDocument.Parse("[[5,2,3,4]]");
                 //"[[123,"asd","zxc",321]]"
+
+                var workbookRangeFormat = new WorkbookRangeFormat
+                {
+                    ColumnWidth = 135,
+                    VerticalAlignment = "Top",
+                    RowHeight = 49,
+                    WrapText = false,
+                };
+                await readSheet
+                    .Range("$A$1").Format
+                    .Request()
+                    .UpdateAsync(workbookRangeFormat);
+
+                var workbookRangeFont = new WorkbookRangeFont
+                {
+                    Bold = true,
+                    Color = "#4B180E",
+                    Size = 26,
+                };
+                await readSheet
+                    .Range("$A$2").Format.Font
+                    .Request()
+                    .UpdateAsync(workbookRangeFont);
+
+                var workbookTableRow = new WorkbookTableRow
+                {
+                    Index = 99,
+                    Values = JsonDocument.Parse(@"""values-value""")
+                };
+                var y = await readBook.Tables["TabelaBartka"].Rows["{workbookTableRow-id}"]
+                    .Request()
+                    .GetAsync();
 
                 await readBook.Tables["TabelaBartka"].Rows
                     .Add(null, values)
                     .Request()
                     .PostAsync();
 
-                var z = await readBook.Tables.Request().GetAsync();
-                var gowno = z[0];
-                gowno.Rows = new WorkbookTableRowsCollectionPage();
+                //var z = await readBook.Tables.Request().GetAsync();
+                //var gowno = z[0];
+                //gowno.Rows = new WorkbookTableRowsCollectionPage();
 
-                gowno.Rows.Add(new WorkbookTableRow()
-                {
-                    Values = values
-                });
+                //gowno.Rows.Add(new WorkbookTableRow()
+                //{
+                //    Values = values
+                //});
 
-                z[0] = gowno;
-                var xyz = readBook.Tables["TabelaBartka"].Rows.Request().GetAsync().Result;
+                //z[0] = gowno;
+                //var xyz = readBook.Tables["TabelaBartka"].Rows.Request().GetAsync().Result;
                 
                 //readBook.Tables[0].Request().PutAsync();
 

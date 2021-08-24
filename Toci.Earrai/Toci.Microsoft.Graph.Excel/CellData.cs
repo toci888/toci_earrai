@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 namespace Toci.Microsoft.Graph.Excel {
     public class CellData<T>
     {
-        private T columnName { get; set; } // te rozne typy maja tutaj sens?
-        private int cellPositionIndex_X { get; set; }
-        private int cellPositionIndex_Y { get; set; }
+        public string ColumnName { get; set; } 
+        public T CellValue { get; set; }
+        public  int cellPositionIndex_X { get; set; }
+        public int cellPositionIndex_Y { get; set; }
 
-        public CellData(T _columnName, int _cellPositionIndex_X, int _cellPositionIndex_Y)
+        public CellData(string columnName, int _cellPositionIndex_X, int _cellPositionIndex_Y) //T cellValue, 
         {
-            columnName = _columnName;
+            ColumnName = columnName;
+           // CellValue = cellValue;
             cellPositionIndex_X = _cellPositionIndex_X;
             cellPositionIndex_Y = _cellPositionIndex_Y;
         }
