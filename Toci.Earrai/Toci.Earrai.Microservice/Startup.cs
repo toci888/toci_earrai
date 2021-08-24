@@ -17,6 +17,7 @@ using Toci.Common.Database.Interfaces;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Interfaces;
 using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
+using Toci.Common.Microservices.Interfaces;
 
 namespace Toci.Earrai.Microservice
 {
