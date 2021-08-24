@@ -20,6 +20,9 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
+        public virtual DbSet<Workbook> Workbooks { get; set; }
+        public virtual DbSet<Workbookcontent> Workbookcontents { get; set; }
+        public virtual DbSet<Worksheet> Worksheets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -90,6 +93,51 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Password).HasColumnName("password");
+            });
+
+            modelBuilder.Entity<Workbook>(entity =>
+            {
+                entity.ToTable("workbooks");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Workbooks)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("workbooks_idworksheet_fkey");
+            });
+
+            modelBuilder.Entity<Workbookcontent>(entity =>
+            {
+                entity.ToTable("workbookcontent");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Columnname)
+                    .HasColumnName("columnname")
+                    .HasDefaultValueSql("'noName'::text");
+
+                entity.Property(e => e.Columnnumber).HasColumnName("columnnumber");
+
+                entity.Property(e => e.Idworkbook).HasColumnName("idworkbook");
+
+                entity.Property(e => e.Rownumber).HasColumnName("rownumber");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+
+                entity.HasOne(d => d.IdworkbookNavigation)
+                    .WithMany(p => p.Workbookcontents)
+                    .HasForeignKey(d => d.Idworkbook)
+                    .HasConstraintName("workbookcontent_idworkbook_fkey");
+            });
+
+            modelBuilder.Entity<Worksheet>(entity =>
+            {
+                entity.ToTable("worksheets");
+
+                entity.Property(e => e.Id).HasColumnName("id");
             });
 
             OnModelCreatingPartial(modelBuilder);

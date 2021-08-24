@@ -31,7 +31,7 @@ namespace Toci.Microsoft.Graph.Excel {
             
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\" + cleanStringForDatabase(tableName) + ".cs", generatedClass);
+            File.WriteAllLines(@"C:\VisualStudioProgramy\TociEArray\Toci.Earrai\Toci.Earrai.Cry\" + cleanStringForDatabase(tableName) + ".cs", generatedClass);
 
             resetCounter();
 
@@ -88,6 +88,7 @@ namespace Toci.Microsoft.Graph.Excel {
                 .Replace("£", "Pounds")
                 .Replace("-", "Minus")
                 .Replace("\n", "NewLine")
+                .Replace("%", "Percent")
                 .Replace("/", "Slash")
                 .Replace("\\", "Slash")
                 .Replace(",", "")
