@@ -50,12 +50,13 @@ namespace Toci.Microsoft.Graph.Excel {
             var positions2 = new { rowOfEntityData = 0, startCell =  0, endCell = 7 };*/
             EntityColumnsService ecs = new EntityColumnsService();
             EntityGenerator eg = new EntityGenerator();
-
+            int idx = 0;
             foreach (var sheet in graphClient.Me.Drive.Items[_fileId].Workbook.Worksheets.Request().GetAsync().Result) {
-                
+                if(idx == 0) { idx++; continue; } idx++;
+
                 var readSheet = graphClient.Me.Drive.Items[_fileId].Workbook.Worksheets[sheet.Name];
 
-                string[] columns = ecs.getColumnsFromWorksheet(readSheet, 0, 0, 7);
+                List<string> columns = ecs.getColumnsFromWorksheet(readSheet, 0, 0);
 
                 eg.GenerateEntity(sheet.Name, columns, 0, 0, 7);
 

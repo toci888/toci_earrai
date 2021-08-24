@@ -9,6 +9,7 @@ using Toci.Earrai.Bll.Models;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
 using Toci.Earrai.Bll.Interfaces;
+using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
 
 namespace Toci.Earrai.Bll {
     public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic {

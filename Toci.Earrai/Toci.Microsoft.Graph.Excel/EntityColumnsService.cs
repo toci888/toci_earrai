@@ -11,12 +11,11 @@ namespace Toci.Microsoft.Graph.Excel {
         private static int offsetThreshold = 7;
         private static int offsetCounter = 0;
 
-        public virtual string[] getColumnsFromWorksheet(IWorkbookWorksheetRequestBuilder graphClient,
-            int _rowOfEntityData, int _startCell, int _endCell)
+        public virtual List<string> getColumnsFromWorksheet(IWorkbookWorksheetRequestBuilder graphClient,
+            int _rowOfEntityData, int _startCell)
         {
             List<string> numOfPropertiesForEntityList = new List<string>();
-
-            string[] numOfPropertiesForEntity = new string[_endCell - _startCell];
+            //string[] numOfPropertiesForEntity = new string[_endCell - _startCell];
 
             int nowColumn = 0;
             do
@@ -59,7 +58,7 @@ namespace Toci.Microsoft.Graph.Excel {
                 numOfPropertiesForEntity[nowCellColumn] = val;
             }*/
 
-            return numOfPropertiesForEntity;
+            return numOfPropertiesForEntityList;
             
         }
 

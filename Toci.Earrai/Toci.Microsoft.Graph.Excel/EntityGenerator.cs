@@ -16,12 +16,13 @@ namespace Toci.Microsoft.Graph.Excel {
 
         private static int columnCounter = 0;
         
-        public virtual void GenerateEntity(string tableName, string[] columns, int _rowOfEntityData, int _startCell, int _endCell)
+        public virtual void GenerateEntity(string tableName, List<string> columns, int _rowOfEntityData, int _startCell, int _endCell)
         {
 
             GetTopClass(tableName);
 
-            for (int nowColumn = _startCell; nowColumn < _endCell; nowColumn++)
+
+            for (int nowColumn = _startCell; nowColumn < (columns.Count + _startCell); nowColumn++)
             {
                 GenerateFields(columns[nowColumn], nowColumn, _rowOfEntityData);
             }
@@ -30,7 +31,7 @@ namespace Toci.Microsoft.Graph.Excel {
             
             Console.WriteLine(generatedClass);
 
-            File.WriteAllLines(@"C:\Users\bzapa\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\" + cleanStringForDatabase(tableName) + ".cs", generatedClass);
+            File.WriteAllLines(@"C:\Users\tomek\source\repos\toci_earrai\Toci.Earrai\Toci.Earrai.Cry\" + cleanStringForDatabase(tableName) + ".cs", generatedClass);
 
             resetCounter();
 
