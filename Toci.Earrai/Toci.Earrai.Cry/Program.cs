@@ -35,17 +35,21 @@ namespace OneDriveWithMSGraph {
             EntityGeneratorService.SetAuthProvider(authProvider);
 
 
-            /* // FOR DB GENERATE
-            //var workbooks = GraphHelper.GetDriveContentsAsync();
-            
-            //var worksheets = GraphHelper.GetWorksheetsFromWorkbook("fileId");
+            // FOR DB GENERATE
+            var workbooks = GraphHelper.GetDriveContentsAsync();
 
-            var dict = GraphHelper.GetAllWorkbooksAndTheirWorksheets();
+            var worksheets = GraphHelper.GetWorksheetsFromWorkbook("01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS");
 
-            // END
             Console.ReadKey();
 
-            return;*/
+            /*  //
+
+             var dict = GraphHelper.GetAllWorkbooksAndTheirWorksheets();
+
+             // END
+             Console.ReadKey();
+
+             return;*/
 
 
 

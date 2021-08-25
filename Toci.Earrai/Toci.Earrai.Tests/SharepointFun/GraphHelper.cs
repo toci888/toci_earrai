@@ -48,7 +48,7 @@ namespace OneDriveWithMSGraph
         {
             try
             {
-                return await graphClient.Me.Drive.Root.Children.Request().GetAsync();
+                return graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
             }
             catch (ServiceException ex)
             {

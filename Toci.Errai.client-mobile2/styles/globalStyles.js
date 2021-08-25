@@ -17,6 +17,15 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 25,
     },
+    fakeTable: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 30,
+        paddingBottom: 10,
+        fontSize: 25,
+        backgroundColor: 'rgb(204, 204, 204)'
+    },
     header: {
         backgroundColor: 'yellow',
         paddingTop: 15,
@@ -26,7 +35,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: 'white',
         paddingTop: 10,
         paddingBottom: 10,
-        textAlign: 'center',
+        // textAlign: 'center',
         borderBottomWidth: 2,
         borderBottomColor: 'rgb(204, 204, 204)',
     },
