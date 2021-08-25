@@ -38,6 +38,8 @@ namespace Toci.Microsoft.Graph.Excel {
                                                             .Replace("[", "")
                                                             .Replace("]", "")
                                                             .Replace("\"", "");
+
+                Console.WriteLine(val);
                 
                 if (val == "")
                 {
