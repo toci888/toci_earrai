@@ -16,7 +16,7 @@ create table workbooks
 create table worksheets
 (
 	id serial primary key,
-	idworkbooks int references worksheets (id),
+	idworkbook int references workbooks (id),
 	sheetName text
 );
 

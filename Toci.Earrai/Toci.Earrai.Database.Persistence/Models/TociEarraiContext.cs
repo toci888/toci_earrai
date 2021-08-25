@@ -110,14 +110,14 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Idworkbooks).HasColumnName("idworkbooks");
+                entity.Property(e => e.Idworkbook).HasColumnName("idworkbook");
 
                 entity.Property(e => e.Sheetname).HasColumnName("sheetname");
 
-                entity.HasOne(d => d.IdworkbooksNavigation)
-                    .WithMany(p => p.InverseIdworkbooksNavigation)
-                    .HasForeignKey(d => d.Idworkbooks)
-                    .HasConstraintName("worksheets_idworkbooks_fkey");
+                entity.HasOne(d => d.IdworkbookNavigation)
+                    .WithMany(p => p.Worksheets)
+                    .HasForeignKey(d => d.Idworkbook)
+                    .HasConstraintName("worksheets_idworkbook_fkey");
             });
 
             modelBuilder.Entity<Worksheetcontent>(entity =>
