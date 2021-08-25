@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Graph;
 
 
@@ -34,13 +36,23 @@ namespace Toci.Microsoft.Graph.Excel {
                 var readTables = graphClient.Cell(_rowOfEntityData, nowColumn++)
                     .Request().GetAsync().Result;
 
+                var testRange = graphClient.Range("A1:Z230").Request().GetAsync().Result;
+                var test2 = testRange.Values.RootElement;
+                Console.WriteLine(testRange.Values.RootElement);
+
                 var val = readTables.Values.RootElement.GetRawText()
                                                             .Replace("[", "")
                                                             .Replace("]", "")
                                                             .Replace("\"", "");
 
+                TableTrimer tt = new TableTrimer();
+
+                tt.trimExcelArray(test2);
+
+
+
                 Console.WriteLine(val);
-                
+                Console.WriteLine(test2[0][2]);
                 if (val == "")
                 {
                     offsetCounter++;
