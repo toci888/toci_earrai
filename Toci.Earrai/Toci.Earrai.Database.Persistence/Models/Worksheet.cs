@@ -10,6 +10,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public Worksheet()
         {
             Worksheetcontents = new HashSet<Worksheetcontent>();
+            Worksheetcontentshistories = new HashSet<Worksheetcontentshistory>();
         }
 
         public int Id { get; set; }
@@ -20,5 +21,6 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual Workbook IdworkbookNavigation { get; set; }
         public virtual ICollection<Worksheetcontent> Worksheetcontents { get; set; }
+        public virtual ICollection<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
     }
 }

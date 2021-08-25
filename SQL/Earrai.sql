@@ -1,6 +1,7 @@
 drop view userRoles;
 
 drop table worksheetcontents;
+drop table worksheetcontentshistory;
 drop table worksheets;
 drop table workbooks;
 drop table users;
@@ -26,6 +27,18 @@ create table worksheets
 );
 
 create table worksheetcontents
+(
+	id serial primary key,
+	idworksheet int references worksheets (id),
+	columnNumber int,
+	columnName text default 'noName',
+	rowNumber int,
+	value text,
+	createdAt timestamp,
+	updatedAt timestamp
+);
+
+create table worksheetcontentshistory
 (
 	id serial primary key,
 	idworksheet int references worksheets (id),
@@ -66,3 +79,4 @@ select * from roles;
 select * from userRoles;
 select * from workbooks;
 select * from worksheets;
+select * from worksheetcontents;

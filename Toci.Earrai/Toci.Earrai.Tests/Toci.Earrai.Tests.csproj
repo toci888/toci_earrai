@@ -33,6 +33,7 @@
     <ProjectReference Include="..\Toci.Earrai.Bll\Toci.Earrai.Bll.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Microservice\Toci.Earrai.Microservice.csproj" />
+    <ProjectReference Include="..\Toci.Microsoft.Graph.Excel\Toci.Microsoft.Graph.Excel.csproj" />
   </ItemGroup>
 
 </Project>
