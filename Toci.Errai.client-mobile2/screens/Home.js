@@ -3,9 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 import { FlatList, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { globalStyles } from '../styles/globalStyles'
-
+import NoConnectionScreen from "./NoConnectionScreen";
+import {checkConnected} from '../routes/isConnected';
 
 export default function Home( { navigation }) {
+
+    const [connectStatus, setConnectStatus] = useState(false);
+    checkConnected().then(res=>{
+        setConnectStatus(res)
+    })
 
     const [workbooks, setworkbooks] = useState([])
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
@@ -60,9 +66,12 @@ export default function Home( { navigation }) {
     }
 
     return (
+        connectStatus? (
         // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
             <View style={globalStyles.container}>
-
+                <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
+                    <Button onPress={() => checkConnected()} title="Check Internet Connectivity" color="#841584"/>
+                </View>
                 {/* <View style={globalStyles.header}>
                     <Text onPress={pressHandler}>GO TO DETAILS</Text>
                 </View> */}
@@ -125,5 +134,7 @@ export default function Home( { navigation }) {
                 <StatusBar style="auto" />
             </View>
         // </TouchableWithoutFeedback>
-    )
+        ):(
+            <NoConnectionScreen onCheck={checkConnected}/>
+        ));
 }
