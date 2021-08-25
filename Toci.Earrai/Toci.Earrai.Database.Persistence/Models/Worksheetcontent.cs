@@ -13,6 +13,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public string Columnname { get; set; }
         public int? Rownumber { get; set; }
         public string Value { get; set; }
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
 
         public virtual Worksheet IdworksheetNavigation { get; set; }
     }

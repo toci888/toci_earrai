@@ -101,7 +101,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
                 entity.Property(e => e.Filename).HasColumnName("filename");
+
+                entity.Property(e => e.Idoffile).HasColumnName("idoffile");
+
+                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
             });
 
             modelBuilder.Entity<Worksheet>(entity =>
@@ -110,9 +116,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
                 entity.Property(e => e.Idworkbook).HasColumnName("idworkbook");
 
                 entity.Property(e => e.Sheetname).HasColumnName("sheetname");
+
+                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
 
                 entity.HasOne(d => d.IdworkbookNavigation)
                     .WithMany(p => p.Worksheets)
@@ -132,9 +142,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Columnnumber).HasColumnName("columnnumber");
 
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
                 entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
                 entity.Property(e => e.Rownumber).HasColumnName("rownumber");
+
+                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
 
                 entity.Property(e => e.Value).HasColumnName("value");
 

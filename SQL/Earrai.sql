@@ -10,14 +10,19 @@ drop table roles;
 create table workbooks
 (
 	id serial primary key,
-	fileName text
+	idOfFile text,
+	fileName text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table worksheets
 (
 	id serial primary key,
 	idworkbook int references workbooks (id),
-	sheetName text
+	sheetName text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table worksheetcontents
@@ -27,7 +32,9 @@ create table worksheetcontents
 	columnNumber int,
 	columnName text default 'noName',
 	rowNumber int,
-	value text
+	value text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table roles
@@ -57,3 +64,5 @@ join roles on roles.id = users.idRole;
 select * from users;
 select * from roles;
 select * from userRoles;
+select * from workbooks;
+select * from worksheets;

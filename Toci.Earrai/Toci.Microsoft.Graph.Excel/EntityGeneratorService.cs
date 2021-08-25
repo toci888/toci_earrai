@@ -60,7 +60,6 @@ namespace Toci.Microsoft.Graph.Excel {
 
                 eg.GenerateEntity(sheet.Name, columns, 0, 0, 7);
 
-
             }
 
         }

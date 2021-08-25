@@ -15,6 +15,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int Id { get; set; }
         public int? Idworkbook { get; set; }
         public string Sheetname { get; set; }
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
 
         public virtual Workbook IdworkbookNavigation { get; set; }
         public virtual ICollection<Worksheetcontent> Worksheetcontents { get; set; }

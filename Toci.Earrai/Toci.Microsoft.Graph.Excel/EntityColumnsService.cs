@@ -39,8 +39,7 @@ namespace Toci.Microsoft.Graph.Excel {
                                                             .Replace("]", "")
                                                             .Replace("\"", "");
 
-                Console.WriteLine(val);
-                
+               
                 if (val == "")
                 {
                     offsetCounter++;
