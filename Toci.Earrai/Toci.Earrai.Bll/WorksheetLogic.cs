@@ -47,5 +47,25 @@ namespace Toci.Earrai.Bll {
             return worksheetsList;
 
         }
+
+
+        public async Task<List<object>> GetAllWorkbooks() 
+        {
+            List<object> worksheetsList = new List<object>();
+            var workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
+
+            foreach (var wokbook in workbooks) 
+            {
+                worksheetsList.Add(new { Name = wokbook.Name, Id = wokbook.Id });
+            }
+
+            return worksheetsList;
+
+        }
+
+
+
+
+
     }
 }

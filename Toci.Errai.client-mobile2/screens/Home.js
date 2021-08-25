@@ -7,21 +7,28 @@ import { globalStyles } from '../styles/globalStyles'
 
 export default function Home( { navigation }) {
 
+    const [workbooks, setworkbooks] = useState([])
+    const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
+    const [indexer, setIndexer] = useState(3)
+    const [filteredValue, setfilteredValue] = useState("")
+
     const pressHandler = () => {
         navigation.navigate('ReviewDetails')
     }
 
-    const [posts, setposts] = useState([])
-    const [indexer, setIndexer] = useState(3)
-
     useEffect( () => {
-        fetch("https://jsonplaceholder.typicode.com/users")
-            .then( (data)=> { let x = data.json(); setposts(data); console.log(data.reslut) })
+        fetch("https://localhost:44326/api/Workbook/GetAllWorkbooks")
+            .then( response => response.json() )
+            .then( response => {
+                console.log(response)
+                setworkbooks(response.result)
+                setdisplayedWorkbooks(response.result)
+            })
     }, [indexer] )
 
 
-    const fetchData = () => {
-
+    const showWorksheets = (_id) => {
+        navigation.navigate('ReviewDetails', {id : _id} )
     }
 
 
@@ -31,7 +38,7 @@ export default function Home( { navigation }) {
     ])
 
     const clickHandler = () => {
-        console.log( JSON.stringify(posts) );
+        console.log( JSON.stringify(workbooks) );
         setPerson( prevState => [...prevState, {name: 'Arturo', age: 44, id: indexer}])
         setIndexer(prev => prev + 1)
     }
@@ -40,78 +47,83 @@ export default function Home( { navigation }) {
         Alert.alert("UUUUUUUUPS", "Za malo kodzenia", [{ text: 'Kapuje', onPress: ()  => console.log("11") }] )
     }
 
-    const editList = (id) => {
-        console.log(id)
+
+    const filterWorkbooks = (e) => {
+        console.log(e.target.value);
+        setfilteredValue(e.target.value)
+
+        let filtered = workbooks.filter(item => item.name.toLowerCase().includes( e.target.value.toLowerCase() ))
+
+        setdisplayedWorkbooks(filtered)
+
+
     }
 
     return (
-            // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
-                <View style={globalStyles.container}>
-                    <View style={globalStyles.header}  >
-                        <Text onPress={pressHandler}>GO TO DETAILS</Text>
-                    </View>
+        // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
+            <View style={globalStyles.container}>
+
+                {/* <View style={globalStyles.header}>
+                    <Text onPress={pressHandler}>GO TO DETAILS</Text>
+                </View> */}
 
 
-                    <View style={globalStyles.header}>
-                        <Text onPress={clickHandler}>ŁILO  kliknij</Text>
-                    </View>
+                <View style={ globalStyles.content } >
+                    <Text style={ globalStyles.chooseWorkbookHeader }> All Workbooks </Text>
                     <View>
-                        <TextInput style={globalStyles.inputStyle} />
-                    </View>
-                    <View>
-                        <Button title='Dont click' onPress={clickHandler} />
-                    </View>
-                        {/* .toString() keyExtractor ? */}
-                        {/* <FlatList
-                            keyExtractor={ (item) => item.id.toString() }
-                            data={posts}
-                            renderItem={ ( { item } ) => (
-                                <TouchableOpacity onPress={ () => navigation.navigate('ReviewDetails', item )}>
-
-                                    <Text > { item.name } </Text>
-
-                                </TouchableOpacity>
-
-                            )}
-                        /> */}
-
-                        <FlatList
-                            keyExtractor={ (item) => item.id.toString() }
-                            data={person}
-                            renderItem={ ( { item } ) => (
-                                <TouchableOpacity onPress={ () => navigation.navigate('ReviewDetails', item )}>
-
-                                    <View>
-
-                                        <Text style={globalStyles.item}>
-                                            <Text style={globalStyles.item}> { item.name } </Text>
-                                            <Text style={globalStyles.item}> <Button onPress={editList(item.id)} title="Edit" /></Text>
-                                        </Text>
-
-                                    </View>
-
-                                </TouchableOpacity>
-
-                            )}
+                        <TextInput
+                            value={ filteredValue }
+                            style={ globalStyles.inputStyle }
+                            placeholder="Filter.."
+                            onChange={ ($event) => filterWorkbooks($event) }
                         />
-
-
-
-                        {/* <View style={styles.content}>
-                            <Text>Hello Apka {person[0].age}</Text>
-                            {person.map( (item, index) => {
-                                return <Text  style={styles.item} key={index}> {item.name}, wiek: {item.age}  </Text>
-                            })}
-                        </View> */}
-                    <View>
-
-                        {/* {posts.map( item => (<Text key={item.id}> {item.name}</Text>) )} */}
                     </View>
+                    { displayedWorkbooks.map( (item, index) =>
+                        <View style={ globalStyles.lists } key={ index } >
 
-
-
-                    <StatusBar style="auto" />
+                                <Text onPress={ () => showWorksheets(item.id) }>
+                                    { item.name }
+                                </Text>
+                        </View>
+                     ) }
                 </View>
-            // </TouchableWithoutFeedback>
-    );
+
+
+
+                {/* .toString() keyExtractor ? */}
+                {/* <FlatList
+                    keyExtractor={ (item) => item.id.toString() }
+                    data={workbooks}
+                    renderItem={ ( { item } ) => (
+                        <TouchableOpacity onClick={ () => editList(1) } onPress={ () => navigation.navigate('ReviewDetails', item )}>
+
+                            <Text> { item.name } </Text>
+
+                        </TouchableOpacity>
+
+                    )}
+                /> */}
+
+                {/* <FlatList
+                    keyExtractor={ (item) => item.id.toString() }
+                    data={person}
+                    renderItem={ ( { item } ) => (
+
+                            <View onPress={ () => navigation.navigate('ReviewDetails', item )}>
+
+                                <Text style={globalStyles.item}>
+                                    <Text style={globalStyles.item}> { item.name } </Text>
+                                    <Text style={globalStyles.item}> <Button onPress={editList(item.id)} title="Edit" /></Text>
+                                </Text>
+
+                            </View>
+
+
+                    )}
+                /> */}
+
+                <StatusBar style="auto" />
+            </View>
+        // </TouchableWithoutFeedback>
+    )
 }

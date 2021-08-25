@@ -9,16 +9,16 @@ const screens = {
     Home: {
         screen: Home,
         navigationOptions: {
-            title : "Home",
-            headerStyle: { backgroundColor: '#333', color: "white" }
+            title : "Home / Workbooks",
+            headerStyle: { backgroundColor: '#ccc', color: '#ffffff' }
             // headerTitle : () => <Header />,
         }
     },
     ReviewDetails: {
         screen: ReviewDetails,
         navigationOptions: {
-            title : "Details",
-            headerStyle: { backgroundColor: '#eee' }
+            title : "Worksheets",
+            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
         }
     }
 }

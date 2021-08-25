@@ -15,14 +15,26 @@ namespace Toci.Earrai.Microservice.Controllers {
     {
         public WorkbookController(IWorksheetLogic logic) : base(logic) { }
 
-        [HttpGet("GetAllWorksheets/{fileId}")]
-        public ActionResult<IEnumerable<List<Worksheet>>> GetAllWorksheets(string fileId)
+        [HttpGet("GetAllWorksheets/{workbookId}")]
+        public ActionResult<IEnumerable<List<Worksheet>>> GetAllWorksheets(string workbookId)
         {
 
-            var allWorksheets = Logic.GetAllWorksheets(fileId);
+            var allWorksheets = Logic.GetAllWorksheets(workbookId);
 
             return Ok(allWorksheets);
         }
+
+
+        [HttpGet("GetAllWorkbooks")]
+        public ActionResult<IEnumerable<List<Worksheet>>> GetAllWorkbooks() 
+        {
+
+            var allWorkbooks = Logic.GetAllWorkbooks();
+
+            return Ok(allWorkbooks);
+        }
+
+
 
 
     }

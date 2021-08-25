@@ -4,32 +4,65 @@ export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ddd',
-        marginTop: 25,
+    },
+    loading: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 25
+    },
+    loadingText: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 25,
     },
     header: {
         backgroundColor: 'yellow',
         paddingTop: 15,
         paddingBottom: 15,
     },
+    lists: {
+        backgroundColor: 'white',
+        paddingTop: 10,
+        paddingBottom: 10,
+        textAlign: 'center',
+        borderBottomWidth: 2,
+        borderBottomColor: 'rgb(204, 204, 204)',
+    },
     content: {
         backgroundColor: 'white',
-        borderBottomColor: 'red',
-        borderBottomWidth: 2
+        borderTopColor: 'green',
+        borderTopWidth: 3
     },
     item: {
         backgroundColor: 'blue',
-        color: '#ccc',
+        color: '#fff',
+        borderBottomWidth: 1,
         borderBottomColor: 'rgb(204, 204, 204)',
         paddingTop: 10,
         paddingBottom: 10,
         borderBottomWidth: 1,
     },
     inputStyle: {
-        borderWidth: 1,
         backgroundColor: '#ddd',
         borderColor: '#777',
-        paddingTop: 25,
-        paddingBottom: 25,
+        color: '#000',
+        letterSpacing: 0.5,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        fontSize: 17,
+
+    },
+    chooseWorkbookHeader: {
+        backgroundColor: "#eee",
+        paddingBottom: 15,
+        paddingTop: 15,
+        textAlign: 'center',
+        fontSize: 25,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgb(204, 204, 204)',
     }
 
 

@@ -57,6 +57,49 @@ namespace OneDriveWithMSGraph
             }
         }
 
+        public static IWorkbookWorksheetsCollectionPage GetWorksheetsFromWorkbook(string _fileId) {
+            try
+            {
+                return graphClient.Me.Drive.Items[_fileId].Workbook.Worksheets.Request().GetAsync().Result;
+            } catch (ServiceException ex) {
+                Console.WriteLine($"Error getting One Drive contents: {ex.Message}");
+                return null;
+            }
+        }
+
+
+        public static Dictionary<string, List<string>> GetAllWorkbooksAndTheirWorksheets()
+        {
+
+            Dictionary<string, List<string>> workbooksAndWorksheets = new Dictionary<string, List<string>>();
+
+            List<string> worksheetsList;
+            try {
+
+                var workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
+
+                foreach (var workbook in workbooks)
+                {
+                    var workbookId = workbook.Id;
+
+                    var worksheets = graphClient.Me.Drive.Items[workbook.Id].Workbook.Worksheets.Request().GetAsync().Result;
+                    worksheetsList = new List<string>();
+                    foreach (var worksheet in worksheets)
+                    {
+                        worksheetsList.Add(worksheet.Name);
+                    }
+
+                    workbooksAndWorksheets.Add(workbook.Name, worksheetsList);
+                }
+                
+                return workbooksAndWorksheets;
+            } catch (ServiceException ex) {
+                Console.WriteLine($"Error getting One Drive contents: {ex.Message}");
+                return null;
+            }
+        }
+
+
         public static async Task<IEnumerable<DriveItem>> GetContentOfFileAsync() {
             try
             {
