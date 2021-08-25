@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.Graph;
 
 
@@ -37,7 +38,7 @@ namespace Toci.Microsoft.Graph.Excel {
                     .Request().GetAsync().Result;
 
                 var testRange = graphClient.Range("A1:Z230").Request().GetAsync().Result;
-                var test2 = testRange.Values.RootElement;
+                JsonElement test2 = testRange.Values.RootElement;
                 Console.WriteLine(testRange.Values.RootElement);
 
                 var val = readTables.Values.RootElement.GetRawText()

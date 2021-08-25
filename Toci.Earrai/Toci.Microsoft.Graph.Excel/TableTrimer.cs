@@ -10,7 +10,6 @@ namespace Toci.Microsoft.Graph.Excel {
 
         public virtual void trimExcelArray(object excelArray)
         {
-
             
 
 

@@ -5,15 +5,14 @@ using System.Collections.Generic;
 
 namespace Toci.Earrai.Database.Persistence.Models
 {
-    public partial class Worksheetcontent
-    {
+    public partial class Worksheetcontent {
+
         public int Id { get; set; }
         public int? Idworksheet { get; set; }
         public int? Columnnumber { get; set; }
         public string Columnname { get; set; }
         public int? Rownumber { get; set; }
         public string Value { get; set; }
-
         public virtual Worksheet IdworksheetNavigation { get; set; }
     }
 }
