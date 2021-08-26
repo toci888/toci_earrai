@@ -10,7 +10,7 @@ namespace Toci.Earrai.Bll.Interfaces {
     public interface IWorksheetcontentLogic : ILogicBase<Worksheetcontent>
     {
 
-        List<Worksheetcontent> SearchWorksheet(int workbookId, string phrase);
+        List<List<Worksheetcontent>> SearchWorksheet(int workbookId, string phrase);
 
     }
 }

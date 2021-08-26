@@ -25,12 +25,12 @@ export default function Home( { navigation }) {
     useEffect( () => {
         console.log("USE_EFFECT_START");
 
-        fetch("https://localhost:44326/api/Workbook/GetAllWorkbooks")
+        fetch("https://localhost:44326/api/Workbook/GetAllWorkbooksFromDb")
         .then( response => response.json() )
         .then( response => {
             console.log(response)
-            setworkbooks(response.result)
-            setdisplayedWorkbooks(response.result)
+            setworkbooks(response)
+            setdisplayedWorkbooks(response)
         })
 
         const interval = setInterval(() => {
@@ -42,9 +42,9 @@ export default function Home( { navigation }) {
 
     }, [] )
 
-    const showWorksheets = (_id) => {
-        console.log(_id)
-        navigation.navigate('WorksheetsList', {id : _id} )
+    const showWorksheets = (_fileId) => {
+        console.log(_fileId)
+        navigation.navigate('WorksheetsList', {fileId : _fileId} )
     }
 
     const filterWorkbooks = (e) => {
@@ -110,8 +110,8 @@ export default function Home( { navigation }) {
 
                         { displayedWorkbooks.map( (item, index) =>
 
-                            <Text key={ index } style={globalStyles.listItem} onPress={ () => showWorksheets(item.id) }>
-                                { item.name }
+                            <Text key={ index } style={globalStyles.listItem} onPress={ () => showWorksheets(item.idoffile) }>
+                                { item.filename }
                             </Text>
 
                         ) }

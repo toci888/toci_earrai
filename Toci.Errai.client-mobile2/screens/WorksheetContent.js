@@ -5,41 +5,22 @@ import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 export default function WorksheetContent( { route, navigation} ) {
 
     const [worksheets, setworksheets] = useState([])
-    const [displayedWorksheets, setdisplayedWorksheets] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(true)
 
     useEffect( () => {
-        fetch("https://localhost:44326/api/Workbook/GetAllWorksheets/" + navigation.getParam('id'))
+        /*fetch("https://localhost:44326/api/Workbook/GetAllWorksheets/" + navigation.getParam('id'))
             .then( response => response.json() )
             .then( response => {
                 console.log(response)
                 setworksheets(response.result)
                 setdisplayedWorksheets(response.result)
                 setloading(false)
-            })
+            })*/
     }, [] )
 
-    const pressHandler = () => {
-        console.log(1)
-    }
 
-    const [dbData, setdbData] = useState( () => [
-        {
-            workbookId: 6,
-            workSheetName: "Arkusz3",
-            row: 10,
-            column: 5,
-            value: "DUPA6"
-        },
-        {
-            workbookId: 2,
-            workSheetName: "Arkusz7",
-            row: 13,
-            column: 31,
-            value: "DUPA12"
-        },
-    ])
+    const [dbData, setdbData] = useState( () => [])
 
     const filterWorkbooks = (e) => {
 
@@ -79,25 +60,6 @@ export default function WorksheetContent( { route, navigation} ) {
                 />
 
             </View>
-
-            { displayedWorksheets.map( (item, index) =>
-                <View style={ globalStyles.lists } key={ index } >
-
-                        <Text onPress={ () => showWorksheets(item.id) }>
-                            { item.name }
-                        </Text>
-
-                </View>
-            ) }
-
-            {/* <View  >
-
-                { worksheets.map( (item, index) => {
-                    return <Button style={ globalStyles.item } key={ index }
-                                title={ item.name } onPress={ pressHandler }
-                            />
-                }) }
-            </View> */}
 
             <View>
 

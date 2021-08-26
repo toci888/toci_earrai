@@ -10,15 +10,39 @@ using Toci.Earrai.Database.Persistence.Models;
 namespace Toci.Earrai.Bll {
     public class WorksheetcontentLogic : Logic<Worksheetcontent>, IWorksheetcontentLogic {
 
-        public List<Worksheetcontent> SearchWorksheet(int worksheetId, string phrase) {
+        public List<List<Worksheetcontent>> SearchWorksheet(int worksheetId, string phrase) {
 
-            Logic<Worksheetcontent> worksheetlocic = new Logic<Worksheetcontent>();
+            Logic<Worksheetcontent> worksheetLogic = new Logic<Worksheetcontent>();
 
-            List<Worksheetcontent> worksheetContentRows = worksheetlocic.Select(m => 
+            List<Worksheetcontent> worksheetContentRows = worksheetLogic.Select(m => 
                 m.Idworksheet == worksheetId && m.Value.Contains(phrase))
                 .ToList();
 
-            return worksheetContentRows;
+            List<int> rows = new List<int>();
+
+
+
+            foreach (var worksheetContent in worksheetContentRows)
+            {
+                if (!rows.Contains(worksheetContent.Columnnumber.Value))
+                {
+                    rows.Add(worksheetContent.Columnnumber.Value);
+                }
+            }
+
+            List<List<Worksheetcontent>> returnRows = new List<List<Worksheetcontent>>(); 
+
+            foreach (var row in rows)
+            {
+                var tempRow =  worksheetLogic.Select(m => m.Columnnumber == row && m.Idworksheet == worksheetId).ToList();
+
+                Console.WriteLine(tempRow);
+
+                returnRows.Add(tempRow);
+
+            }
+            
+            return returnRows;
         }
 
     }

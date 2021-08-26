@@ -11,12 +11,12 @@ export default function WorksheetsList( { route, navigation} ) {
     const [loading, setloading] = useState(true)
 
     useEffect( () => {
-        fetch("https://localhost:44326/api/Workbook/GetAllWorksheets/" + navigation.getParam('id'))
+        fetch("https://localhost:44326/api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('fileId'))
             .then( response => response.json() )
             .then( response => {
                 console.log(response)
-                setworksheets(response.result)
-                setdisplayedWorksheets(response.result)
+                setworksheets(response)
+                setdisplayedWorksheets(response)
                 setloading(false)
             })
     }, [] )
@@ -30,6 +30,17 @@ export default function WorksheetsList( { route, navigation} ) {
 
         setdisplayedWorksheets(filtered)
 
+    }
+
+    const showWorksheets = (id) => {
+        console.log(id)
+        fetch("https://localhost:44326/api/WorksheetContent/searchWorksheet/"
+                + id + "/" + "Alumin")
+
+            .then( response => response.json() )
+            .then( response => {
+                console.log(response)
+            })
     }
 
     if(loading) {
