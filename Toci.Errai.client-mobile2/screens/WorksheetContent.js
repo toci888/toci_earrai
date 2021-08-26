@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 
-export default function ReviewDetails( { route, navigation} ) {
+export default function WorksheetContent( { route, navigation} ) {
 
     const [worksheets, setworksheets] = useState([])
     const [displayedWorksheets, setdisplayedWorksheets] = useState([])

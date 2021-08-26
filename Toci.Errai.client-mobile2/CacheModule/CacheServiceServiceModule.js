@@ -2,20 +2,35 @@ import NetInfo from '@react-native-community/netinfo';
 
 export class ConnectionService {
 
+
+
+    nowContentData = {
+        worksheetId: null
+    }
+
     isConnected = true
 
     testPermanentDisconnect = false
 
-    isStartedInterval = false
+    static isStartedInterval = false
+
+    static intervalObject = null
 
     disconnectedAt = null
 
     lastIntervalAt = new Date()
 
-    cacheData = [
+    static cacheData = [
+
+        // edit one worksheets or many
+
+        /*{ workbookId: 1, workSheetName: "Arkusz1", row: 0, column: 0, value: "DUPA" }*/
+
         /*{ workbookId: 1, workSheetName: "Arkusz1", row: 0, column: 0, value: "DUPA" },
         { workbookId: 3, workSheetName: "Arkusz2", row: 6, column: 4, value: "DUPA2" },*/
     ]
+
+
 
     disconnect() {
         console.log("DISCONNECTED")
@@ -29,6 +44,8 @@ export class ConnectionService {
     addDataToCache(object_) {
         this.cacheData.push(object_)
     }
+//
+
 
     flushCache() {
         if(this.cacheData.length == 0) {
@@ -62,6 +79,25 @@ export class ConnectionService {
 
     }
 
+    getDataFromTime_Disconnected() {
+
+        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
+            .then( response => response.json() )
+            .then( response => {
+
+                // if( data ) { add rows to table or update }
+        })
+    }
+
+    getDataFromTime_Interval() {
+
+        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
+            .then( response => response.json() )
+            .then( response => {
+
+                // if( data ) { add rows to table or update }
+        })
+    }
 
     checkConnect() {
         NetInfo.fetch().then(state => {
@@ -73,16 +109,20 @@ export class ConnectionService {
 
 
                 return
-            } else if(!this.isConnected) {
+            } else if(!this.isConnected) { // already disconn
 
-                if(state.isConnected) {
+                if(state.isConnected) { // now connected
                     this.flushCache()
+
+                    //this.getDataFromTime_Disconnected()
+
+                    this.disconnectedAt = null
                 } else {
                     // still discon
                 }
 
 
-            } else if(this.isConnected) {
+            } else if(this.isConnected) { // already conn
 
 
                 if(!state.isConnected) {
@@ -90,9 +130,7 @@ export class ConnectionService {
                     disconnectedAt = new Date()
                 } else { // still con
 
-                    // GET getNewRecordsFromContentHistory/{lastIntervalAt.toString()}
-                    // .then( data => {
-                    //      if( data ) { add rows to table or update }
+                    //this.getDataFromTime_Interval()
 
                     this.lastIntervalAt = new Date()
                 }

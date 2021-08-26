@@ -24,7 +24,7 @@ export default function Home( { navigation }) {
     const [filteredValue, setfilteredValue] = useState("")
 
     const pressHandler = () => {
-        navigation.navigate('ReviewDetails')
+        navigation.navigate('WorksheetContent')
     }
 
     useEffect( () => {
@@ -45,7 +45,7 @@ export default function Home( { navigation }) {
     }, [] )
 
     const showWorksheets = (_id) => {
-        navigation.navigate('ReviewDetails', {id : _id} )
+        navigation.navigate('WorksheetContent', {id : _id} )
     }
 
 
@@ -249,7 +249,7 @@ export default function Home( { navigation }) {
                     keyExtractor={ (item) => item.id.toString() }
                     data={workbooks}
                     renderItem={ ( { item } ) => (
-                        <TouchableOpacity onClick={ () => editList(1) } onPress={ () => navigation.navigate('ReviewDetails', item )}>
+                        <TouchableOpacity onClick={ () => editList(1) } onPress={ () => navigation.navigate('WorksheetContent', item )}>
 
                             <Text> { item.name } </Text>
 
@@ -263,7 +263,7 @@ export default function Home( { navigation }) {
                     data={person}
                     renderItem={ ( { item } ) => (
 
-                            <View onPress={ () => navigation.navigate('ReviewDetails', item )}>
+                            <View onPress={ () => navigation.navigate('WorksheetContent', item )}>
 
                                 <Text style={globalStyles.item}>
                                     <Text style={globalStyles.item}> { item.name } </Text>
