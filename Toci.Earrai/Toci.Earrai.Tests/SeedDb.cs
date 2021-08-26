@@ -156,9 +156,8 @@ namespace Toci.Earrai.Tests
                 WorksheetContent.Insert(new Worksheetcontent()
                 {
                     Idworksheet = r.Next(1, 20),
-                    Columnnumber = r.Next(0, 20),
-                    Columnname = "col" + r.Next(0, 20),
-                    Rownumber = r.Next(0, 20),
+                    Columnindex = r.Next(0, 20),
+                    Rowindex = r.Next(0, 20),
                     Value = values[r.Next(0, values.Length)],
                     Createdat = DateTime.Today.AddDays(r.Next(-100, 20)),
                     Updatedat = DateTime.Today.AddDays(r.Next(-100, 20))

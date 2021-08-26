@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Warehouse
             Logic<Worksheetcontentshistory> worksheetHistory = new Logic<Worksheetcontentshistory>();
 
             Worksheetcontent oldCell = Select(m => m.Idworksheet == idWorksheet
-                        && m.Columnnumber == columnNumber && m.Rownumber == rowNumber).FirstOrDefault();
+                        && m.Columnindex == columnNumber && m.Rowindex == rowNumber).FirstOrDefault();
 
             if (oldCell is null)
             {
@@ -23,9 +23,8 @@ namespace Toci.Earrai.Bll.Warehouse
             Worksheetcontentshistory wch = worksheetHistory.Insert(new Worksheetcontentshistory()
             {
                 Idworksheet = oldCell.Idworksheet,
-                Columnnumber = oldCell.Columnnumber,
-                Columnname = oldCell.Columnname,
-                Rownumber = oldCell.Rownumber,
+                Columnnumber = oldCell.Columnindex,
+                Rownumber = oldCell.Rowindex,
                 Value = oldCell.Value,
                 Createdat = oldCell.Createdat,
                 Updatedat = DateTime.Now

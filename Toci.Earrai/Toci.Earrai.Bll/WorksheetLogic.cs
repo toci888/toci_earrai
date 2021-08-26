@@ -1,36 +1,34 @@
-﻿using System;
+﻿using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Toci.Common.Database.Interfaces;
-using Toci.Earrai.Bll.Models;
-using Microsoft.Graph;
-using Microsoft.Identity.Client;
-using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 using Workbook = Microsoft.Graph.Workbook;
 
-namespace Toci.Earrai.Bll {
+namespace Toci.Earrai.Bll
+{
     public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic
     {
 
         private static GraphServiceClient graphClient;
-        
-        public WorksheetLogic() {
-            
+
+        public WorksheetLogic()
+        {
+
             var appId = "98a98443-1860-405d-9277-b8bccba724f7";
-            
-            string[] scopes = new[] { 
-                "https://graph.microsoft.com/User.ReadWrite.All", 
+
+            string[] scopes = new[] {
+                "https://graph.microsoft.com/User.ReadWrite.All",
                 "https://graph.microsoft.com/Files.ReadWrite.All",
-                "https://graph.microsoft.com/Files.Read.All", 
+                "https://graph.microsoft.com/Files.Read.All",
                 "https://graph.microsoft.com/Sites.Read.All",
                 "https://graph.microsoft.com/Sites.ReadWrite.All" };
 
-            var authProvider = new DeviceCodeAuthProvider(appId , scopes);
+            var authProvider = new DeviceCodeAuthProvider(appId, scopes);
 
             graphClient = new GraphServiceClient(authProvider);
         }
@@ -50,12 +48,12 @@ namespace Toci.Earrai.Bll {
         }
 
 
-        public async Task<List<object>> GetAllWorkbooks() 
+        public async Task<List<object>> GetAllWorkbooks()
         {
             List<object> worksheetsList = new List<object>();
             var workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
 
-            foreach (var wokbook in workbooks) 
+            foreach (var wokbook in workbooks)
             {
                 worksheetsList.Add(new { Name = wokbook.Name, Id = wokbook.Id });
             }
@@ -80,7 +78,8 @@ namespace Toci.Earrai.Bll {
         }
 
 
-        public List<Worksheet> SearchWorksheet(string workbookId, string phrase) {
+        public List<Worksheet> SearchWorksheet(string workbookId, string phrase)
+        {
             Logic<Database.Persistence.Models.Workbook> workbooks = new Logic<Database.Persistence.Models.Workbook>();
 
             Database.Persistence.Models.Workbook workbook = workbooks.Select(m => m.Idoffile == workbookId).FirstOrDefault();

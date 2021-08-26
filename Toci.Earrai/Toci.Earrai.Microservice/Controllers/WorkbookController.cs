@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Toci.Common.Database.Interfaces;
 using Toci.Common.Microservices;
-using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
