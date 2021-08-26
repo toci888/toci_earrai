@@ -36,6 +36,13 @@ namespace Toci.Earrai.Bll {
             {
                 var tempRow =  worksheetLogic.Select(m => m.Columnnumber == row && m.Idworksheet == worksheetId).ToList();
 
+                foreach (var tempRow_ in tempRow)
+                {
+                    tempRow_.Value.Replace("[", "");
+                    tempRow_.Value.Replace("]", "");
+                                    tempRow_.Value.Replace("\\\"", "");
+                }
+
                 Console.WriteLine(tempRow);
 
                 returnRows.Add(tempRow);
