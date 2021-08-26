@@ -10,10 +10,9 @@ namespace Toci.Earrai.Bll.Warehouse
     {
         public Worksheetcontentshistory InsertToHistory(int idWorksheet, int columnNumber, int rowNumber, string value)
         {
-            Logic<Worksheetcontent> worksheetcontent = new Logic<Worksheetcontent>();
             Logic<Worksheetcontentshistory> worksheetHistory = new Logic<Worksheetcontentshistory>();
 
-            Worksheetcontent oldCell = worksheetcontent.Select(m => m.Idworksheet == idWorksheet
+            Worksheetcontent oldCell = Select(m => m.Idworksheet == idWorksheet
                         && m.Columnnumber == columnNumber && m.Rownumber == rowNumber).FirstOrDefault();
 
             if (oldCell is null)
@@ -21,7 +20,7 @@ namespace Toci.Earrai.Bll.Warehouse
                 return null;
             }
 
-            return worksheetHistory.Insert(new Worksheetcontentshistory()
+            Worksheetcontentshistory wch = worksheetHistory.Insert(new Worksheetcontentshistory()
             {
                 Idworksheet = oldCell.Idworksheet,
                 Columnnumber = oldCell.Columnnumber,
@@ -31,6 +30,12 @@ namespace Toci.Earrai.Bll.Warehouse
                 Createdat = oldCell.Createdat,
                 Updatedat = DateTime.Now
             });
+
+            oldCell.Value = value;
+
+            Update(oldCell);
+
+            return wch;
         }
     }
 }
