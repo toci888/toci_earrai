@@ -40,7 +40,7 @@ namespace OneDriveWithMSGraph {
             var accessToken = authProvider.GetAccessToken().Result; //"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiI5OGE5ODQ0My0xODYwLTQwNWQtOTI3Ny1iOGJjY2JhNzI0ZjciLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0L3YyLjAiLCJpYXQiOjE2Mjk1NTI3NDcsIm5iZiI6MTYyOTU1Mjc0NywiZXhwIjoxNjI5NTU2NjQ3LCJhaW8iOiJBVFFBeS84VEFBQUFiNkdxYzZscXNDbUoraXRqTlhvVitPTUJLK0lCNUZuUWYyeE8rWkYxczQyaXpQaC83MHBmTHIzSVhNcXNLcWhlIiwiYXpwIjoiOThhOTg0NDMtMTg2MC00MDVkLTkyNzctYjhiY2NiYTcyNGY3IiwiYXpwYWNyIjoiMCIsIm5hbWUiOiJCYXJ0xYJvbWllaiBaYXBhcnQiLCJvaWQiOiI4MmYxNWVlOS00NGU3LTRkNTMtOGVmMS0yNmRlOWVkM2IyZDQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJiemFwYXJ0QHRvY2l6YXBhcnQub25taWNyb3NvZnQuY29tIiwicmgiOiIwLkFRd0FzTUxUNlFYTS1rR2ZSbnVUZDlHaWxFT0VxWmhnR0YxQWtuZTR2TXVuSlBjTUFJVS4iLCJzY3AiOiJBcGlBY2Nlc3MiLCJzdWIiOiJsNmVaZ05BTFdib3pzRlE3VURJVGh3S191WXozVWV2TVdFUzgwUjE1YndNIiwidGlkIjoiZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0IiwidXRpIjoiVlM1amZaM3ZjVS00dTZVVHFXWTBBQSIsInZlciI6IjIuMCJ9.f7LK83YJ-Dp1D0R2pF9L5LPEV74cdKqkM1oyG0z8u4jF3u-oltNteJD5q7ftcBo9irfNgs3jcwo66jO4d9ke3UCEdAhr4PxiS-lBBfRp8nVS-oURN1FS2kqam54VHuGOpBCM9Kpga76VRyvDQaJaGqSl4flJx4idd--qhdPPHLGfBitv--SVdvxhoHORoAQjaFZpKTkYjqWaxkiwBvb7cpRYEdCs522MY5OE1vnTX0-XRWI6w997evnodoNmNDa18qrVUAesn7zPksvuk7OaPQP9zZSyY9kxt9lT4SIOP1xaMnrtIs2bH1U5g0oRynrKWovTH9i2l8LNTTUx4ILRlA"; //
 
             GraphHelper.Initialize(authProvider);
-       //     EntityGeneratorService.SetAuthProvider(authProvider);
+            EntityGeneratorService.SetAuthProvider(authProvider);
 
   
             //EntityGenerator entityGenerator =
@@ -101,11 +101,17 @@ namespace OneDriveWithMSGraph {
                     case 4:
                         await GraphHelper.GetContentOfFileAsync();
                         break;
-                    case 5:
-                        // FOR DB GENERATE
-
-                        /*
+                    case 5:         
                         
+                        /*
+                         * First - obtain all workbooks   
+                         * Then each workbook provides all its sheets
+                         * Then the process of obtaining all cells take a place (according o current sheet)
+                         * based on workbook id and sheet name
+                         * lastly filtering process of cells take a place
+                         * meanwhile db is seeded according to current stage of the entire process
+                         */ 
+
                         var workbooks = GraphHelper.GetDriveContentsAsync();
                       
                         foreach (var workbookfile in workbooks.Result)
@@ -113,6 +119,7 @@ namespace OneDriveWithMSGraph {
                             Console.WriteLine(workbookfile.Id);
                             Console.WriteLine(workbookfile.Name + '\n');
 
+                            /*
                             int idOfWorkbook = Workbook.Insert(new Workbook()
                             {
                                 Idoffile = workbookfile.Id,
@@ -120,27 +127,46 @@ namespace OneDriveWithMSGraph {
                                 Createdat = DateTime.Now,
                                 Updatedat = DateTime.Now
                             }).Id;
+                            */
 
-                            var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
+                                var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
 
-                            foreach(var sheet in worksheets)
+                                GraphServiceClient graphClient = new GraphServiceClient(authProvider);
+
+                              //  EntityGeneratorService.generateEntitiesFromListOfWorksheets(workbookfile.Id);
+
+                            //    EntityColumnsService ecs = new EntityColumnsService();
+
+                        
+
+                            
+                            foreach (var sheet in worksheets)
                             {
+                                /*
                                 Worksheet.Insert(new Worksheet()
                                 {
                                     Idworkbook = idOfWorkbook,
                                     Sheetname = sheet.Name,
                                     Createdat = DateTime.Now,
                                     Updatedat = DateTime.Now
-                                });
-                            }
+                                });     
+                                */
+
+                                Console.WriteLine(sheet.Name + '\n');
+
+                                var readSheet = graphClient.Me.Drive.Items[workbookfile.Id].Workbook.Worksheets[sheet.Name];
+
+                               // var readTables = readSheet.Cell(0, 0).Request().GetAsync().Result;
+
+                                var testRange = readSheet.Range("A1:Z230").Request().GetAsync().Result;
+                                var bazka = testRange.Values.RootElement.ToString().Split("],[").ToList();
+
+                                Console.WriteLine(bazka[0] + '\n');
+
+                            }                         
 
                         }
 
-                        */
-                                
-                        var dict = GraphHelper.GetAllWorkbooksAndTheirWorksheets();
-
-                        // END
                         Console.WriteLine("Press any button if finished");
                         Console.ReadKey();
                         choice = 0;
