@@ -35,6 +35,8 @@ namespace Toci.Earrai.Ui
             this.label2 = new System.Windows.Forms.Label();
             this.queryTextbox = new System.Windows.Forms.TextBox();
             this.excelDataGrid = new System.Windows.Forms.DataGridView();
+            this.internetConnection = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,6 +74,13 @@ namespace Toci.Earrai.Ui
             this.label2.Size = new System.Drawing.Size(78, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "Search clause";
+
+            this.internetConnection.AutoSize = true;
+            this.internetConnection.Location = new System.Drawing.Point(0, 0);
+            this.internetConnection.Name = "internetConnection";
+            this.internetConnection.Size = new System.Drawing.Size(78, 15);
+            this.internetConnection.TabIndex = 3;
+            this.internetConnection.Text = "Disconnected";
             // 
             // queryTextbox
             // 
@@ -105,6 +114,7 @@ namespace Toci.Earrai.Ui
             this.Controls.Add(this.label1);
             this.Controls.Add(this.workbookDdl);
             this.Controls.Add(this.showBtn);
+            this.Controls.Add(this.internetConnection);
             this.Name = "Form1";
             this.Text = "Earrai";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -120,6 +130,7 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.ComboBox workbookDdl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label internetConnection;
         private System.Windows.Forms.TextBox queryTextbox;
         private System.Windows.Forms.DataGridView excelDataGrid;
     }

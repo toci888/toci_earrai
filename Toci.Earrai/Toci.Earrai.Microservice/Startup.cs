@@ -18,6 +18,8 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Interfaces;
 using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
 using Toci.Common.Microservices.Interfaces;
+using Toci.Earrai.Bll.Warehouse;
+using Toci.Earrai.Bll.Warehouse.Interfaces;
 
 namespace Toci.Earrai.Microservice
 {
@@ -37,6 +39,7 @@ namespace Toci.Earrai.Microservice
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
 
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
+            services.AddScoped<IEntityOperations, EntityOperations>();
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
@@ -64,6 +67,7 @@ namespace Toci.Earrai.Microservice
             });
 
             services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<IEntityOperations, EntityOperations>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

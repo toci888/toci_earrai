@@ -21,8 +21,8 @@ export const globalStyles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 30,
-        paddingBottom: 10,
+        paddingTop: 15,
+        paddingBottom: 15,
         fontSize: 25,
         backgroundColor: 'rgb(204, 204, 204)'
     },
@@ -77,3 +77,11 @@ export const globalStyles = StyleSheet.create({
 
 
 });
+
+
+export const tabStyle = StyleSheet.create({
+    cell: {
+        fontSize: 7
+    },
+
+})

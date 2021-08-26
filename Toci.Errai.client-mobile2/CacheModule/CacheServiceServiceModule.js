@@ -2,39 +2,50 @@ import NetInfo from '@react-native-community/netinfo';
 
 export class ConnectionService {
 
-    isConnected = false;
-    isStartedInterval = false;
 
-    cacheData = [
-        /*{
-            workbookId: 1,
-            workSheetName: "Arkusz1",
-            row: 0,
-            column: 0,
-            value: "DUPA"
-        },
-        {
-            workbookId: 3,
-            workSheetName: "Arkusz2",
-            row: 6,
-            column: 4,
-            value: "DUPA2"
-        },*/
 
+    nowContentData = {
+        worksheetId: null
+    }
+
+    isConnected = true
+
+    testPermanentDisconnect = false
+
+    static isStartedInterval = false
+
+    static intervalObject = null
+
+    disconnectedAt = null
+
+    lastIntervalAt = new Date()
+
+    static cacheData = [
+
+        // edit one worksheets or many
+
+        /*{ workbookId: 1, workSheetName: "Arkusz1", row: 0, column: 0, value: "DUPA" }*/
+
+        /*{ workbookId: 1, workSheetName: "Arkusz1", row: 0, column: 0, value: "DUPA" },
+        { workbookId: 3, workSheetName: "Arkusz2", row: 6, column: 4, value: "DUPA2" },*/
     ]
 
+
+
     disconnect() {
-        console.log("DISCONNECTED");
-        this.isConnected = false
+        console.log("DISCONNECTED")
+        this.testPermanentDisconnect = false
+        disconnectedAt = new Date()
     }
 
-    isConnectedFunc() {
-        return this.isConnected ? true : false
-    }
+    isConnectedFunc = () => this.isConnected
+
 
     addDataToCache(object_) {
         this.cacheData.push(object_)
     }
+//
+
 
     flushCache() {
         if(this.cacheData.length == 0) {
@@ -47,47 +58,89 @@ export class ConnectionService {
         // foreach(x data in cacheData)
         //    put(endpointToAddDataToDatabase_API, x)
 
+        // "POST api/localhost/addCollection, cacheDataCollection"
+
         this.cacheData = []
 
-        this.getDataFromDisconnectedTimestamp()
+        //this.getDataFromDisconnectedTimestamp()
     }
 
 
 
     getDataFromDisconnectedTimestamp() {
-        console.log("Get updated data from API");
-        // get(endpointToGetDataFromDatabase_API/nowTimestamp)
+        console.log("Get updated data from API")
+        // GET api/localhost/getAddedDataFromTime/{disconnectedAt})
         // .then() {
-            this.compareDataFromAPI("dataFromAPI")
+            //this.compareDataFromAPI("dataFromAPI")
         // }
     }
 
     compareDataFromAPI(data) {
-        console.log("CO TUTAJ ???????");
+
     }
 
+    getDataFromTime_Disconnected() {
 
-     checkConnect() {
+        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
+            .then( response => response.json() )
+            .then( response => {
+
+                // if( data ) { add rows to table or update }
+        })
+    }
+
+    getDataFromTime_Interval() {
+
+        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
+            .then( response => response.json() )
+            .then( response => {
+
+                // if( data ) { add rows to table or update }
+        })
+    }
+
+    checkConnect() {
         NetInfo.fetch().then(state => {
-            console.log('Is connected?', state.isConnected);
-            console.log(this.cacheData)
+            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
 
-            if(!this.isConnected) {
+            if(this.testPermanentDisconnect) {
 
-                if(state.isConnected) {
+
+
+
+                return
+            } else if(!this.isConnected) { // already disconn
+
+                if(state.isConnected) { // now connected
                     this.flushCache()
+
+                    //this.getDataFromTime_Disconnected()
+
+                    this.disconnectedAt = null
+                } else {
+                    // still discon
                 }
 
 
-            } else if(this.isConnected) {
-                console.log("Disconnected!!!");
+            } else if(this.isConnected) { // already conn
+
+
+                if(!state.isConnected) {
+                    console.log("Disconnected!!!")
+                    disconnectedAt = new Date()
+                } else { // still con
+
+                    //this.getDataFromTime_Interval()
+
+                    this.lastIntervalAt = new Date()
+                }
+
             }
 
             this.isConnected = state.isConnected
 
-            return state.isConnected;
-          })
+            return state.isConnected
+        })
     }
-
 
 }

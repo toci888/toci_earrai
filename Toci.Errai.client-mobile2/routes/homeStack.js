@@ -2,7 +2,7 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import Home from '../screens/Home'
-import ReviewDetails from '../screens/ReviewDetails'
+import WorksheetContent from '../screens/WorksheetContent'
 
 
 const screens = {
@@ -14,8 +14,8 @@ const screens = {
             // headerTitle : () => <Header />,
         }
     },
-    ReviewDetails: {
-        screen: ReviewDetails,
+    WorksheetContent: {
+        screen: WorksheetContent,
         navigationOptions: {
             title : "Worksheets",
             headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
