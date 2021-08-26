@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Toci.Earrai.Database.Persistence.Models
 {
-    public partial class Worksheetcontent
+    public partial class Worksheetcontentshistory
     {
         public int Id { get; set; }
         public int? Idworksheet { get; set; }

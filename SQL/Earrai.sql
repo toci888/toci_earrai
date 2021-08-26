@@ -1,6 +1,7 @@
 drop view userRoles;
 
 drop table worksheetcontents;
+drop table worksheetcontentshistory;
 drop table worksheets;
 drop table workbooks;
 drop table users;
@@ -10,14 +11,19 @@ drop table roles;
 create table workbooks
 (
 	id serial primary key,
-	fileName text
+	idOfFile text,
+	fileName text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table worksheets
 (
 	id serial primary key,
 	idworkbook int references workbooks (id),
-	sheetName text
+	sheetName text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table worksheetcontents
@@ -27,7 +33,21 @@ create table worksheetcontents
 	columnNumber int,
 	columnName text default 'noName',
 	rowNumber int,
-	value text
+	value text,
+	createdAt timestamp,
+	updatedAt timestamp
+);
+
+create table worksheetcontentshistory
+(
+	id serial primary key,
+	idworksheet int references worksheets (id),
+	columnNumber int,
+	columnName text default 'noName',
+	rowNumber int,
+	value text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table roles
@@ -57,3 +77,6 @@ join roles on roles.id = users.idRole;
 select * from users;
 select * from roles;
 select * from userRoles;
+select * from workbooks;
+select * from worksheets;
+select * from worksheetcontents;

@@ -13,7 +13,10 @@ namespace Toci.Earrai.Database.Persistence.Models
         }
 
         public int Id { get; set; }
+        public string Idoffile { get; set; }
         public string Filename { get; set; }
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
 
         public virtual ICollection<Worksheet> Worksheets { get; set; }
     }

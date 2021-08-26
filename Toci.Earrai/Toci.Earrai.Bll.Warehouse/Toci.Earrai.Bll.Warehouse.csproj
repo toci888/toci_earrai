@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Toci.Earrai.Bll.Warehouse.Interfaces\Toci.Earrai.Bll.Warehouse.Interfaces.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll\Toci.Earrai.Bll.csproj" />
+  </ItemGroup>
+
+</Project>

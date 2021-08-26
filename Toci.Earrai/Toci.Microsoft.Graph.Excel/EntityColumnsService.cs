@@ -38,6 +38,7 @@ namespace Toci.Microsoft.Graph.Excel {
                     .Request().GetAsync().Result;
 
                 var testRange = graphClient.Range("A1:Z230").Request().GetAsync().Result;
+                var bazka = testRange.Values.RootElement.ToString().Split("],[").ToList();
                 JsonElement test2 = testRange.Values.RootElement;
                 Console.WriteLine(testRange.Values.RootElement);
 

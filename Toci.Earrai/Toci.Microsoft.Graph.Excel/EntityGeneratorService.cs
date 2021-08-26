@@ -59,10 +59,7 @@ namespace Toci.Microsoft.Graph.Excel {
                 List<string> columns = ecs.getColumnsFromWorksheet(readSheet, 0, 0);
 
                 eg.GenerateEntity(sheet.Name, columns, 0, 0, 7);
-
-
             }
-
         }
 
 

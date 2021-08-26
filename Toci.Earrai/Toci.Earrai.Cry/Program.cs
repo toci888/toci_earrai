@@ -7,12 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
+using Toci.Earrai.Bll;
+using Toci.Earrai.Database.Persistence.Models;
 using Toci.Microsoft.Graph.Excel;
+using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
 namespace OneDriveWithMSGraph {
     class Program
     {
-        
+        protected static Logic<Workbook> Workbook = new Logic<Workbook>();
+        protected static Logic<Worksheet> Worksheet = new Logic<Worksheet>();
+        protected static Logic<Worksheetcontent> Worksheetcontent = new Logic<Worksheetcontent>();
+
+
+
         static async Task Main(string[] args) {
             Console.WriteLine("Working with Graph and One Drive is fun!");
 
@@ -34,28 +42,7 @@ namespace OneDriveWithMSGraph {
             GraphHelper.Initialize(authProvider);
             EntityGeneratorService.SetAuthProvider(authProvider);
 
-
-            // FOR DB GENERATE
-            var workbooks = GraphHelper.GetDriveContentsAsync();
-
-            var worksheets = GraphHelper.GetWorksheetsFromWorkbook("01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS");
-
-            Console.ReadKey();
-
-            /*  //
-
-             var dict = GraphHelper.GetAllWorkbooksAndTheirWorksheets();
-
-             // END
-             Console.ReadKey();
-
-             return;*/
-
-
-
-
-
-
+  
             //EntityGenerator entityGenerator =
             //    new EntityGenerator(authProvider, "01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS", 0, 0, 0);
 
@@ -73,6 +60,7 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("2. List your OneDrive contents");
                 Console.WriteLine("3. Generate entities for all file's worksheets (type workbook index)");
                 Console.WriteLine("4. GraphHelper.GetContentOfFileAsync");
+                Console.WriteLine("5. Seed the db by excel files");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -112,6 +100,76 @@ namespace OneDriveWithMSGraph {
                         break;
                     case 4:
                         await GraphHelper.GetContentOfFileAsync();
+                        break;
+                    case 5:         
+                        
+                        /*
+                         * First - obtain all workbooks   
+                         * Then each workbook provides all its sheets
+                         * Then the process of obtaining all cells take a place (according o current sheet)
+                         * based on workbook id and sheet name
+                         * lastly filtering process of cells take a place
+                         * meanwhile db is seeded according to current stage of the entire process
+                         */ 
+
+                        var workbooks = GraphHelper.GetDriveContentsAsync();
+                      
+                        foreach (var workbookfile in workbooks.Result)
+                        {
+                            Console.WriteLine(workbookfile.Id);
+                            Console.WriteLine(workbookfile.Name + '\n');
+
+                            /*
+                            int idOfWorkbook = Workbook.Insert(new Workbook()
+                            {
+                                Idoffile = workbookfile.Id,
+                                Filename = workbookfile.Name,
+                                Createdat = DateTime.Now,
+                                Updatedat = DateTime.Now
+                            }).Id;
+                            */
+
+                                var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
+
+                                GraphServiceClient graphClient = new GraphServiceClient(authProvider);
+
+                              //  EntityGeneratorService.generateEntitiesFromListOfWorksheets(workbookfile.Id);
+
+                            //    EntityColumnsService ecs = new EntityColumnsService();
+
+                        
+
+                            
+                            foreach (var sheet in worksheets)
+                            {
+                                /*
+                                Worksheet.Insert(new Worksheet()
+                                {
+                                    Idworkbook = idOfWorkbook,
+                                    Sheetname = sheet.Name,
+                                    Createdat = DateTime.Now,
+                                    Updatedat = DateTime.Now
+                                });     
+                                */
+
+                                Console.WriteLine(sheet.Name + '\n');
+
+                                var readSheet = graphClient.Me.Drive.Items[workbookfile.Id].Workbook.Worksheets[sheet.Name];
+
+                               // var readTables = readSheet.Cell(0, 0).Request().GetAsync().Result;
+
+                                var testRange = readSheet.Range("A1:Z230").Request().GetAsync().Result;
+                                var bazka = testRange.Values.RootElement.ToString().Split("],[").ToList();
+
+                                Console.WriteLine(bazka[0] + '\n');
+
+                            }                         
+
+                        }
+
+                        Console.WriteLine("Press any button if finished");
+                        Console.ReadKey();
+                        choice = 0;
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");

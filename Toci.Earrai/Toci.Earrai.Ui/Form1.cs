@@ -12,6 +12,8 @@ namespace Toci.Earrai.Ui
 {
     public partial class Form1 : Form
     {
+        protected ConnectionCheck ConnCheck = new ConnectionCheck();
+
         public List<TempUser> tempUsers = new List<TempUser>()
         {
             new TempUser() {Id = 1, Name = "Bartus", Profession = "Rolnik"},
@@ -22,7 +24,17 @@ namespace Toci.Earrai.Ui
         {
             InitializeComponent();
 
+            IsConnected();
+
             Setup();
+        }
+
+        protected virtual void IsConnected()
+        {
+            while (true)
+            {
+                ConnCheck.IsOnline();
+            }
         }
 
         protected virtual void Setup()

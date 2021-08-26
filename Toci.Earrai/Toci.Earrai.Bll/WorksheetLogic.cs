@@ -10,10 +10,11 @@ using Microsoft.Graph;
 using Microsoft.Identity.Client;
 using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
-using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll {
-    public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic {
+    public class WorksheetLogic : Logic<Worksheet>, Interfaces.IWorksheetLogic
+    {
 
         private static GraphServiceClient graphClient;
         
@@ -41,11 +42,10 @@ namespace Toci.Earrai.Bll {
 
             foreach (var readsheet in readSheets)
             {
-                worksheetsList.Add(new Worksheet() { name = readsheet.Name });
+                worksheetsList.Add(new Worksheet() { Sheetname = readsheet.Name });
             }
 
             return worksheetsList;
-
         }
 
 
@@ -60,9 +60,9 @@ namespace Toci.Earrai.Bll {
             }
 
             return worksheetsList;
-
         }
 
+        
 
 
 
