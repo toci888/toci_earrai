@@ -4,8 +4,9 @@ using Toci.Common.Database.Interfaces;
 using Toci.Common.Microservices;
 using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
-using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
+using Worksheet = Toci.Earrai.Bll.Models.Worksheet;
 
 namespace Toci.Earrai.Microservice.Controllers {
 
@@ -33,8 +34,6 @@ namespace Toci.Earrai.Microservice.Controllers {
 
             return Ok(allWorkbooks);
         }
-
-
 
 
     }
