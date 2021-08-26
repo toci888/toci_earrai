@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import Home from '../screens/Home'
 import WorksheetContent from '../screens/WorksheetContent'
+import WorksheetsList from '../screens/WorksheetsList'
 
 
 const screens = {
@@ -14,10 +15,17 @@ const screens = {
             // headerTitle : () => <Header />,
         }
     },
+    WorksheetsList: {
+        screen: WorksheetsList,
+        navigationOptions: {
+            title : "Worksheets List",
+            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+        }
+    },
     WorksheetContent: {
         screen: WorksheetContent,
         navigationOptions: {
-            title : "Worksheets",
+            title : "Worksheets Content",
             headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
         }
     }

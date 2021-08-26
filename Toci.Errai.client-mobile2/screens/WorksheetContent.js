@@ -24,6 +24,23 @@ export default function WorksheetContent( { route, navigation} ) {
         console.log(1)
     }
 
+    const [dbData, setdbData] = useState( () => [
+        {
+            workbookId: 6,
+            workSheetName: "Arkusz3",
+            row: 10,
+            column: 5,
+            value: "DUPA6"
+        },
+        {
+            workbookId: 2,
+            workSheetName: "Arkusz7",
+            row: 13,
+            column: 31,
+            value: "DUPA12"
+        },
+    ])
+
     const filterWorkbooks = (e) => {
 
         console.log(e.target.value);
@@ -81,6 +98,39 @@ export default function WorksheetContent( { route, navigation} ) {
                             />
                 }) }
             </View> */}
+
+            <View>
+
+                <DataTable>
+
+                    <DataTable.Header>
+                        {
+                            columns.map( (value, index) => {
+                                return <DataTable.Title key={ index }> {value} </DataTable.Title>
+                            } )
+                        }
+                    </DataTable.Header>
+
+                    {
+                        dbData.map( (value, index) => {
+                            return(
+                                <DataTable.Row key={ index }>
+                                    <DataTable.Cell style={tabStyle.cell} > {value.workbookId} </DataTable.Cell>
+                                    <DataTable.Cell style={tabStyle.cell}> {value.workSheetName} </DataTable.Cell>
+                                    <DataTable.Cell style={tabStyle.cell}> {value.column} </DataTable.Cell>
+                                    <DataTable.Cell style={tabStyle.cell}> {value.row} </DataTable.Cell>
+                                    <DataTable.Cell style={tabStyle.cell}> {value.value} </DataTable.Cell>
+                                    <DataTable.Cell style={tabStyle.cell}>
+                                        <Button title={"Change value"} onPress={ () => changeValue(index) } />
+                                    </DataTable.Cell>
+                                </DataTable.Row>
+                            )
+                        } )
+                    }
+
+                </DataTable>
+
+            </View>
 
         </View>
     )

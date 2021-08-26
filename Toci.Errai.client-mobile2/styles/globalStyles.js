@@ -34,8 +34,7 @@ export const globalStyles = StyleSheet.create({
     lists: {
         backgroundColor: 'white',
         paddingTop: 10,
-        paddingBottom: 10,
-        // textAlign: 'center',
+        textAlign: 'center',
         borderBottomWidth: 2,
         borderBottomColor: 'rgb(204, 204, 204)',
     },
@@ -44,14 +43,13 @@ export const globalStyles = StyleSheet.create({
         borderTopColor: 'green',
         borderTopWidth: 3
     },
-    item: {
-        backgroundColor: 'blue',
-        color: '#fff',
+    listItem: {
+        backgroundColor: 'rgb(204, 204, 204)',
+        color: 'black',
+        paddingTop: 15,
+        paddingBottom: 15,
         borderBottomWidth: 1,
-        borderBottomColor: 'rgb(204, 204, 204)',
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderBottomWidth: 1,
+        borderBottomColor: 'rgb(177, 177, 177)',
     },
     inputStyle: {
         backgroundColor: '#ddd',
@@ -77,11 +75,3 @@ export const globalStyles = StyleSheet.create({
 
 
 });
-
-
-export const tabStyle = StyleSheet.create({
-    cell: {
-        fontSize: 7
-    },
-
-})
