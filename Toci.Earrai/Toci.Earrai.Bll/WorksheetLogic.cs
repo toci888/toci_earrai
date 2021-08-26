@@ -78,5 +78,14 @@ namespace Toci.Earrai.Bll {
 
             return Select(x => x.Idworkbook == workbook.Id).ToList();
         }
+
+
+        public List<Worksheet> SearchWorksheet(string workbookId, string phrase) {
+            Logic<Database.Persistence.Models.Workbook> workbooks = new Logic<Database.Persistence.Models.Workbook>();
+
+            Database.Persistence.Models.Workbook workbook = workbooks.Select(m => m.Idoffile == workbookId).FirstOrDefault();
+
+            return Select(x => x.Idworkbook == workbook.Id).ToList();
+        }
     }
 }

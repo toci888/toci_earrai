@@ -39,6 +39,7 @@ namespace Toci.Earrai.Microservice
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
 
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
+            services.AddScoped<IWorksheetcontentLogic, WorksheetcontentLogic>();
             services.AddScoped<IEntityOperations, EntityOperations>();
 
             services.AddSingleton(authenticationSettings);
