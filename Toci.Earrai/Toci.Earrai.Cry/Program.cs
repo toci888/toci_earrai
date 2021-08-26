@@ -153,25 +153,28 @@ namespace OneDriveWithMSGraph {
                                     .Replace("[[", "")
                                     .Split("],[").ToList();
 
-                                for(int i = 0; i < bazka.Count; i++)
+                                if (idOfWorkbook == 1)
                                 {
-                                    var wierszJakoLista = bazka[i].Split(",").ToList();
-                                    for(int j = 0; j < wierszJakoLista.Count; j++)
+                                    if (idOfWorksheet < 3)
                                     {
-                                        if (i > 0 && i < 3)
+                                        for (int i = 0; i < bazka.Count; i++)
                                         {
-                                            Worksheetcontent.Insert(new Worksheetcontent()
+                                            var wierszJakoLista = bazka[i].Split(",").ToList();
+
+                                            for (int j = 0; j < wierszJakoLista.Count; j++)
                                             {
-                                                Idworksheet = idOfWorksheet,
-                                                Columnnumber = i,
-                                                Rownumber = j,
-                                                Value = wierszJakoLista[j],
-                                                Createdat = DateTime.Now,
-                                                Updatedat = DateTime.Now
-                                            });
+                                                Worksheetcontent.Insert(new Worksheetcontent()
+                                                {
+                                                    Idworksheet = idOfWorksheet,
+                                                    Columnnumber = i,
+                                                    Rownumber = j,
+                                                    Value = wierszJakoLista[j],
+                                                    Createdat = DateTime.Now,
+                                                    Updatedat = DateTime.Now
+                                                });
+                                            }
                                         }
                                     }
-
                                 }
                             }                         
 
