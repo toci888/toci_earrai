@@ -11,9 +11,10 @@ using Microsoft.Identity.Client;
 using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
+using Workbook = Microsoft.Graph.Workbook;
 
 namespace Toci.Earrai.Bll {
-    public class WorksheetLogic : Logic<Worksheet>, Interfaces.IWorksheetLogic
+    public class WorksheetLogic : Logic<Worksheet>, IWorksheetLogic
     {
 
         private static GraphServiceClient graphClient;
@@ -62,10 +63,20 @@ namespace Toci.Earrai.Bll {
             return worksheetsList;
         }
 
-        
+        public List<Database.Persistence.Models.Workbook> GetAllWorkbooksFromDb()
+        {
+            Logic<Database.Persistence.Models.Workbook> workbook = new Logic<Database.Persistence.Models.Workbook>();
 
+            return workbook.Select(m => true).ToList();
+        }
 
+        public List<Worksheet> GetAllWorksheetsFromDb(string workbookId)
+        {
+            Logic<Database.Persistence.Models.Workbook> workbooks = new Logic<Database.Persistence.Models.Workbook>();
 
+            Database.Persistence.Models.Workbook workbook = workbooks.Select(m => m.Idoffile == workbookId).FirstOrDefault();
 
+            return Select(x => x.Idworkbook == workbook.Id).ToList();
+        }
     }
 }
