@@ -18,6 +18,8 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Interfaces;
 using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
 using Toci.Common.Microservices.Interfaces;
+using Toci.Earrai.Bll.Warehouse;
+using Toci.Earrai.Bll.Warehouse.Interfaces;
 
 namespace Toci.Earrai.Microservice
 {
@@ -37,6 +39,7 @@ namespace Toci.Earrai.Microservice
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
 
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
+            services.AddScoped<IEntityOperations, EntityOperations>();
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
