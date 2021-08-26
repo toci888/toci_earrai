@@ -5,7 +5,6 @@ using Toci.Common.Microservices;
 using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
-using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
 
 namespace Toci.Earrai.Microservice.Controllers {
 
@@ -34,6 +33,22 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok(allWorkbooks);
         }
 
+        [HttpGet("GetAllWorkbooksFromDb")]
+        public ActionResult<List<Workbook>> GetAllWorkbooksFromDb()
+        {
 
+            List<Workbook> workbooks = Logic.GetAllWorkbooksFromDb();
+
+            return Ok(workbooks);
+        }
+
+        [HttpGet("GetAllWorksheetsFromDb/{workbookId}")]
+        public ActionResult<List<Workbook>> GetAllWorksheetsFromDb(string workbookId)
+        {
+
+            var workbooks = Logic.GetAllWorksheetsFromDb(workbookId);
+
+            return Ok(workbooks);
+        }
     }
 }
