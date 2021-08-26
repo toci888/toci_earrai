@@ -2,43 +2,33 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 import { FlatList, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { globalStyles } from '../styles/globalStyles'
+import { globalStyles, tabStyle } from '../styles/globalStyles'
 import NoConnectionScreen from "./NoConnectionScreen";
-import { checkConnected } from '../routes/isConnected';
+//import { checkConnected } from '../routes/isConnected';
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
-import NetInfo from '@react-native-community/netinfo';
-import { CacheModuleService } from '../CacheModule/CacheModuleService'
-//import { useTable } from 'react-table'
+import { DataTable } from 'react-native-paper';
 
-let columns = ["workbookId", "workSheetName", "row", "column", "value"]
+let columns = ["workbookId", "workSheetName", "row", "column", "value", "EDIT"]
 
 export default function Home( { navigation }) {
 
-    const [connectStatus, setConnectStatus] = useState(false);
-    checkConnected().then(res=>{
-        setConnectStatus(res)
-    })
+    // checkConnected().then(res=> {
+    //     setConnectStatus(res)
+    // })
 
-    const [connectService, setconnectService] = useState(
-        new ConnectionService()
-    )
-
-    const [connectData, setconnectData] = useState(false)
+    const [connectService, setconnectService] = useState( new ConnectionService() )
+    const [connectStatus, setConnectStatus] = useState(false)
     const [workbooks, setworkbooks] = useState([])
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
     const [indexer, setIndexer] = useState(3)
     const [filteredValue, setfilteredValue] = useState("")
-
-    const [connectivity, setConnectivity] = useState( () => {
-        return ""
-    })
 
     const pressHandler = () => {
         navigation.navigate('ReviewDetails')
     }
 
     useEffect( () => {
-
+        console.log("USE_EFFECT_START");
         const interval = setInterval(() => {
             connectService.checkConnect()
         }, 6000)
@@ -53,7 +43,6 @@ export default function Home( { navigation }) {
                 setdisplayedWorkbooks(response.result)
             })*/
     }, [] )
-
 
     const showWorksheets = (_id) => {
         navigation.navigate('ReviewDetails', {id : _id} )
@@ -143,13 +132,13 @@ export default function Home( { navigation }) {
     }
 
     return (
-        connectStatus? (
+        connectService.isConnectedFunc() ? (
         // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
             <View style={globalStyles.container}>
 
-                <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
+                {/* <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
                     <Button onPress={() => checkConnected()} title="Check Internet Connectivity" color="#841584"/>
-                </View>
+                </View> */}
 
                 <View style={globalStyles.header}>
                     <Text onPress={disconnect}> !!! DISCONNECT !!!</Text>
@@ -190,40 +179,68 @@ export default function Home( { navigation }) {
 
                 </View>
 
+
                 <View style={globalStyles.fakeTable}>
                     <Text> FAKE TABLE </Text>
                 </View>
 
-
                 <View>
-                    <Text>
-                    {
-                        columns.map( (value, index) => { console.log(value); return <Text key={ index }> {value} </Text>; } )
-                    }
+
+                    <DataTable>
+
+                        <DataTable.Header>
+                            {
+                                columns.map( (value, index) => {
+                                    return <DataTable.Title key={ index }> {value} </DataTable.Title>
+                                } )
+                            }
+                        </DataTable.Header>
+
+                        {
+                            dbData.map( (value, index) => {
+                                return(
+                                    <DataTable.Row key={ index }>
+                                        <DataTable.Cell style={tabStyle.cell} > {value.workbookId} </DataTable.Cell>
+                                        <DataTable.Cell style={tabStyle.cell}> {value.workSheetName} </DataTable.Cell>
+                                        <DataTable.Cell style={tabStyle.cell}> {value.column} </DataTable.Cell>
+                                        <DataTable.Cell style={tabStyle.cell}> {value.row} </DataTable.Cell>
+                                        <DataTable.Cell style={tabStyle.cell}> {value.value} </DataTable.Cell>
+                                        <DataTable.Cell style={tabStyle.cell}>
+                                            <Button title={"Change value"} onPress={ () => changeValue(index) } />
+                                        </DataTable.Cell>
+                                    </DataTable.Row>
+                                )
+                            } )
+                        }
+
+                    </DataTable>
+
+                </View>
+
+
+                {/* <View>
+                    <Text style={{display: 'inline'}}>
+                        { columns.map( (value, index) => <Text style={{width: '20%'}} key={ index }> {value} </Text> ) }
                     </Text>
                 </View>
 
                 <View>
+                    { dbData.map( (value, index) => {
+                        return (
+                            <Text key={ index }>
+                            <Text> {value.workbookId} </Text>
+                            <Text> {value.workSheetName} </Text>
+                            <Text> {value.column} </Text>
+                            <Text> {value.row} </Text>
+                            <Text> {value.value} </Text>
+                            <Text>
+                                <Button title={"Change value"} onPress={ () => changeValue(index) } />
+                            </Text>
+                            </Text>
 
-                    {
-                        dbData.map( (value, index) => {
-                            return(
-                                <Text key={ index }>
-                                <Text> {value.workbookId} </Text>
-                                <Text> {value.workSheetName} </Text>
-                                <Text> {value.column} </Text>
-                                <Text> {value.row} </Text>
-                                <Text> {value.value} </Text>
-                                <Text>
-                                    <Button title={"Change value"} onPress={ () => changeValue(index) } />
-                                </Text>
-                                </Text>
-
-                            )
-                        } )
-                    }
-
-                </View>
+                        )
+                    } ) }
+                </View> */}
 
 
 
@@ -264,7 +281,8 @@ export default function Home( { navigation }) {
             </View>
 
         // </TouchableWithoutFeedback>
-        ):(
-            <NoConnectionScreen onCheck={checkConnected}/>
-        ));
+        ) : (
+            <View><Text>NO CONNECTION</Text></View>
+            //  <NoConnectionScreen onCheck={checkConnected} />
+        ))
 }
