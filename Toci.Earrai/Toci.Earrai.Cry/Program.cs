@@ -119,7 +119,7 @@ namespace OneDriveWithMSGraph {
                             Console.WriteLine(workbookfile.Id);
                             Console.WriteLine(workbookfile.Name + '\n');
 
-                            /*
+                            
                             int idOfWorkbook = Workbook.Insert(new Workbook()
                             {
                                 Idoffile = workbookfile.Id,
@@ -127,42 +127,52 @@ namespace OneDriveWithMSGraph {
                                 Createdat = DateTime.Now,
                                 Updatedat = DateTime.Now
                             }).Id;
-                            */
+                            
 
-                                var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
+                            var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
 
-                                GraphServiceClient graphClient = new GraphServiceClient(authProvider);
-
-                              //  EntityGeneratorService.generateEntitiesFromListOfWorksheets(workbookfile.Id);
-
-                            //    EntityColumnsService ecs = new EntityColumnsService();
-
-                        
-
+                            GraphServiceClient graphClient = new GraphServiceClient(authProvider);
                             
                             foreach (var sheet in worksheets)
                             {
-                                /*
-                                Worksheet.Insert(new Worksheet()
+                                
+                                int idOfWorksheet = Worksheet.Insert(new Worksheet()
                                 {
                                     Idworkbook = idOfWorkbook,
                                     Sheetname = sheet.Name,
                                     Createdat = DateTime.Now,
                                     Updatedat = DateTime.Now
-                                });     
-                                */
+                                }).Id;     
+                                
 
                                 Console.WriteLine(sheet.Name + '\n');
 
                                 var readSheet = graphClient.Me.Drive.Items[workbookfile.Id].Workbook.Worksheets[sheet.Name];
-
-                               // var readTables = readSheet.Cell(0, 0).Request().GetAsync().Result;
-
                                 var testRange = readSheet.Range("A1:Z230").Request().GetAsync().Result;
-                                var bazka = testRange.Values.RootElement.ToString().Split("],[").ToList();
+                                var bazka = testRange.Values.RootElement.ToString()
+                                    .Replace("[[", "")
+                                    .Split("],[").ToList();
 
-                                Console.WriteLine(bazka[0] + '\n');
+                                for(int i = 0; i < bazka.Count; i++)
+                                {
+                                    var wierszJakoLista = bazka[i].Split(",").ToList();
+                                    for(int j = 0; j < wierszJakoLista.Count; j++)
+                                    {
+                                        if (i > 0 && i < 3)
+                                        {
+                                            Worksheetcontent.Insert(new Worksheetcontent()
+                                            {
+                                                Idworksheet = idOfWorksheet,
+                                                Columnnumber = i,
+                                                Rownumber = j,
+                                                Value = wierszJakoLista[j],
+                                                Createdat = DateTime.Now,
+                                                Updatedat = DateTime.Now
+                                            });
+                                        }
+                                    }
 
+                                }
                             }                         
 
                         }
