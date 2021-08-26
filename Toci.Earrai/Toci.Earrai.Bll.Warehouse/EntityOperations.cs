@@ -37,5 +37,10 @@ namespace Toci.Earrai.Bll.Warehouse
 
             return wch;
         }
+
+        public virtual IQueryable<Worksheetcontent> GetIncreaseOffline(DateTime dateTime)
+        {
+            return Select(m => m.Updatedat > dateTime);
+        }
     }
 }

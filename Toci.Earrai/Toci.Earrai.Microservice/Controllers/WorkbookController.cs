@@ -6,7 +6,6 @@ using Toci.Common.Microservices.Interfaces;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
-using Worksheet = Toci.Earrai.Bll.Models.Worksheet;
 
 namespace Toci.Earrai.Microservice.Controllers {
 

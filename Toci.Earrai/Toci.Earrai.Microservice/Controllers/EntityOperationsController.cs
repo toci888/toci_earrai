@@ -8,10 +8,11 @@ using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Bll.Warehouse.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
-using Worksheet = Toci.Earrai.Bll.Models.Worksheet;
 
 namespace Toci.Earrai.Microservice.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EntityOperationsController : ApiControllerBase<IEntityOperations, Worksheetcontent>
     {
         public EntityOperationsController(IEntityOperations logic) : base(logic)
@@ -20,10 +21,18 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost]
+        [Route("SetCell")]
         public ActionResult<Worksheetcontentshistory> InsertToHistory(int idWorksheet, int columnNumber, int rowNumber, string value)
         {
             var historyContent = Logic.InsertToHistory(idWorksheet, columnNumber, rowNumber, value);
             return Ok(historyContent);
+        }
+
+        [HttpGet]
+        [Route("GetIncrease")]
+        public IQueryable<Worksheetcontent> GetIncreaseWorksheetcontents(DateTime dateTime)
+        {
+            return Logic.GetIncreaseOffline(dateTime);
         }
     }
 }

@@ -67,6 +67,7 @@ namespace Toci.Earrai.Microservice
             });
 
             services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<IEntityOperations, EntityOperations>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
