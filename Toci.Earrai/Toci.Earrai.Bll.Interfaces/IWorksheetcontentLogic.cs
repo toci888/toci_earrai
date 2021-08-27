@@ -9,5 +9,7 @@ namespace Toci.Earrai.Bll.Interfaces {
 
         List<List<Worksheetcontent>> SearchWorksheet(int workbookId, string phrase);
 
+        List<List<Worksheetcontent>> GetColumnsForWorksheet(int worksheetId);
+
     }
 }

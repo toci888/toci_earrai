@@ -32,7 +32,12 @@ export default function WorksheetsList( { route, navigation} ) {
 
     }
 
-    const showWorksheets = (id) => {
+    const showWorksheets = (_worksheetId) => {
+        console.log(_worksheetId)
+        navigation.navigate('WorksheetContent', { worksheetId : _worksheetId, connectService: navigation.getParam('connectService') } )
+    }
+
+    /*const showWorksheets = (id) => {
         console.log(id)
         fetch("https://localhost:44326/api/WorksheetContent/searchWorksheet/"
                 + id + "/" + "Alumin")
@@ -41,7 +46,7 @@ export default function WorksheetsList( { route, navigation} ) {
             .then( response => {
                 console.log(response)
             })
-    }
+    }*/
 
     if(loading) {
         return(

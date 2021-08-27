@@ -1,14 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
-import { FlatList, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { globalStyles, tabStyle } from '../styles/globalStyles'
-import NoConnectionScreen from "./NoConnectionScreen";
-//import { checkConnected } from '../routes/isConnected';
+import { Text, View, TextInput } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import { globalStyles } from '../styles/globalStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
-import { DataTable } from 'react-native-paper';
 
-let columns = ["workbookId", "workSheetName", "row", "column", "value", "EDIT"]
 
 export default function Home( { navigation }) {
 
@@ -19,7 +15,6 @@ export default function Home( { navigation }) {
     const [connectService, setconnectService] = useState( new ConnectionService() )
     const [workbooks, setworkbooks] = useState([])
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
-    const [indexer, setIndexer] = useState(3)
     const [filteredValue, setfilteredValue] = useState("")
 
     useEffect( () => {
@@ -33,28 +28,30 @@ export default function Home( { navigation }) {
             setdisplayedWorkbooks(response)
         })
 
+
         const interval = setInterval(() => {
             connectService.checkConnect()
-        }, 6000)
+        }, 4000)
 
-        return () => clearInterval(interval)
-
+        /*return () => {
+            console.log("CLEAN")
+            clearInterval(interval)
+        }*/
 
     }, [] )
 
     const showWorksheets = (_fileId) => {
-        console.log(_fileId)
-        navigation.navigate('WorksheetsList', {fileId : _fileId} )
+        navigation.navigate('WorksheetsList', {fileId : _fileId, connectService} )
     }
 
     const filterWorkbooks = (e) => {
-        console.log(e.target.value);
+
         setfilteredValue(e.target.value)
 
-        let filtered = workbooks.filter(item => item.name.toLowerCase().includes( e.target.value.toLowerCase() ))
+        let filtered = workbooks.filter(item =>
+            item.name.toLowerCase().includes( e.target.value.toLowerCase() ))
 
         setdisplayedWorkbooks(filtered)
-
     }
 
     const disconnect = () => {
@@ -62,14 +59,10 @@ export default function Home( { navigation }) {
     }
 
     const changeValue = (index) => {
-        console.log("Zmieniamy wartość");
-        console.log(dbData)
+
         let tempDbdata = [...dbData]
         let x = {...dbData[index]}
 
-
-        console.log(x)
-        console.log(connectService.cacheData);
         if(!connectService.isConnectedFunc() ) {
             connectService.addDataToCache(x)
         }
@@ -88,10 +81,10 @@ export default function Home( { navigation }) {
                 {/* <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
                     <Button onPress={() => checkConnected()} title="Check Internet Connectivity" color="#841584"/>
                 </View> */}
+
                 <View style={globalStyles.header}>
                     <Text onPress={disconnect}> !!! DISCONNECT !!!</Text>
                 </View>
-
 
                 <View style={ globalStyles.content } >
                     <Text style={ globalStyles.chooseWorkbookHeader }> All Workbooks </Text>
@@ -103,8 +96,6 @@ export default function Home( { navigation }) {
                             onChange={ ($event) => filterWorkbooks($event) }
                         />
                     </View>
-
-
 
                     <View style={ globalStyles.lists }>
 
@@ -120,9 +111,8 @@ export default function Home( { navigation }) {
 
                 </View>
 
-
                 <StatusBar style="auto" />
-                {/* <CacheModuleService></CacheModuleService> */}
+
             </View>
 
         // </TouchableWithoutFeedback>

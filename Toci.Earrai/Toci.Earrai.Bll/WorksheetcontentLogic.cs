@@ -15,7 +15,7 @@ namespace Toci.Earrai.Bll {
             Logic<Worksheetcontent> worksheetLogic = new Logic<Worksheetcontent>();
 
             List<Worksheetcontent> worksheetContentRows = worksheetLogic.Select(m => 
-                m.Idworksheet == worksheetId && m.Value.Contains(phrase))
+                m.Idworksheet == worksheetId && m.Value.Contains(phrase) && m.Rowindex > 1)
                 .ToList();
 
             List<int> rows = new List<int>();
@@ -24,9 +24,9 @@ namespace Toci.Earrai.Bll {
 
             foreach (var worksheetContent in worksheetContentRows)
             {
-                if (!rows.Contains(worksheetContent.Columnnumber.Value))
+                if (!rows.Contains(worksheetContent.Rowindex.Value))
                 {
-                    rows.Add(worksheetContent.Columnnumber.Value);
+                    rows.Add(worksheetContent.Rowindex.Value);
                 }
             }
 
@@ -34,7 +34,7 @@ namespace Toci.Earrai.Bll {
 
             foreach (var row in rows)
             {
-                var tempRow =  worksheetLogic.Select(m => m.Columnnumber == row && m.Idworksheet == worksheetId).ToList();
+                var tempRow =  worksheetLogic.Select(m => m.Rowindex == row && m.Idworksheet == worksheetId).ToList();
 
                 foreach (var tempRow_ in tempRow)
                 {
@@ -50,6 +50,29 @@ namespace Toci.Earrai.Bll {
             }
             
             return returnRows;
+        }
+
+
+
+        public List<List<Worksheetcontent>> GetColumnsForWorksheet(int worksheetId) {
+
+            Logic<Worksheetcontent> worksheetLogic = new Logic<Worksheetcontent>();
+
+            List<Worksheetcontent> worksheetContentRows = worksheetLogic.Select(m =>
+                    m.Idworksheet == worksheetId && (m.Rowindex == 0 || m.Rowindex == 1))
+                    .ToList();
+
+            List<List<Worksheetcontent>> returnColumns = new List<List<Worksheetcontent>>();
+
+            int half = worksheetContentRows.Count / 2;
+
+            returnColumns.Add(worksheetContentRows.Take(half).ToList());
+            returnColumns.Add(worksheetContentRows.Skip(half).ToList());
+
+
+
+
+            return returnColumns;
         }
 
     }

@@ -3,7 +3,6 @@ import NetInfo from '@react-native-community/netinfo';
 export class ConnectionService {
 
 
-
     nowContentData = {
         worksheetId: null
     }
@@ -20,6 +19,8 @@ export class ConnectionService {
 
     lastIntervalAt = new Date()
 
+    static dateToUpdate = []
+
     static cacheData = [
 
         // edit one worksheets or many
@@ -31,106 +32,133 @@ export class ConnectionService {
     ]
 
 
-
     disconnect() {
-        console.log("DISCONNECTED")
-        this.testPermanentDisconnect = false
-        disconnectedAt = new Date()
+        if(!this.testPermanentDisconnect) {
+            this.testPermanentDisconnect = true
+            this.isConnected = false
+            console.log("DISCONNECTED")
+            this.disconnectedAt = new Date()
+        } else {
+            this.testPermanentDisconnect = false
+            this.isConnected = true
+            console.log("CONNECTED BACK")
+            this.disconnectedAt = null
+        }
+
     }
 
     isConnectedFunc = () => this.isConnected
 
 
     addDataToCache(object_) {
-        this.cacheData.push(object_)
-    }
-//
+        let x = ConnectionService.cacheData.filter( x => x.id == object_.id )
+        if(x.length > 0) return
 
+        ConnectionService.cacheData.push(object_)
+    }
+
+    updateRecord(Worksheetcontent) {
+        // fetch("https://localhost:44326/api/WorksheetContent/", {
+        //     method: "PUT",
+        //     body: JSON.stringify(Worksheetcontent) // Worksheetcontent
+        // })
+        // .then( response => response.json() )
+        // .then( response => {
+        //     console.log(response)
+        // })
+    }
 
     flushCache() {
-        if(this.cacheData.length == 0) {
+        if(ConnectionService.cacheData.length == 0) {
             console.log("NO DATA IN CACHE. NOTHING TO UPDATE ON SERVER");
             return
         }
 
-
         console.log("Flush cache data to API");
-        // foreach(x data in cacheData)
-        //    put(endpointToAddDataToDatabase_API, x)
 
-        // "POST api/localhost/addCollection, cacheDataCollection"
+        // fetch("https://localhost:44326/api/WorksheetContent/flushCache", {
+        //     method: "PUT",
+        //     body: JSON.stringify(ConnectionService.cacheData) // List<Worksheetcontent>
+        // })
+        // .then( response => response.json() )
+        // .then( response => {
+        //     console.log(response)
+        // })
 
-        this.cacheData = []
+        ConnectionService.cacheData = []
 
-        //this.getDataFromDisconnectedTimestamp()
+        this.getDataFromNow()
     }
 
 
 
-    getDataFromDisconnectedTimestamp() {
+    getDataFromNow() {
         console.log("Get updated data from API")
-        // GET api/localhost/getAddedDataFromTime/{disconnectedAt})
-        // .then() {
-            //this.compareDataFromAPI("dataFromAPI")
-        // }
+        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents/" + ( new Date.toString() ))
+        // .then( response => response.json() )
+        // .then( response => {
+
+        //     if(response.length > 0) {
+        //         this.compareDataFromAPI(response)
+        //     }
+        // })
+
     }
 
-    compareDataFromAPI(data) {
-
+    compareDataFromAPI(responseAPI) {
+        // COMPARE
     }
 
     getDataFromTime_Disconnected() {
 
-        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
-            .then( response => response.json() )
-            .then( response => {
-
-                // if( data ) { add rows to table or update }
-        })
+        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
+        //     .then( response => response.json() )
+        //     .then( response => {
+        //         this.compareDataFromAPI("dataFromAPI")
+        //         // if( data ) { add rows to table or update }
+        // })
     }
 
     getDataFromTime_Interval() {
 
-        fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
-            .then( response => response.json() )
-            .then( response => {
-
-                // if( data ) { add rows to table or update }
-        })
+        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
+        //     .then( response => response.json() )
+        //     .then( response => {
+        //         this.compareDataFromAPI("dataFromAPI")
+        //         // if( data ) { add rows to table or update }
+        // })
     }
 
     checkConnect() {
         NetInfo.fetch().then(state => {
-            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
-
             if(this.testPermanentDisconnect) {
-
-
-
+                console.log('Is connected?', false, ConnectionService.cacheData)
 
                 return
-            } else if(!this.isConnected) { // already disconn
+            }
 
-                if(state.isConnected) { // now connected
+            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
+
+            if(!this.isConnected) {
+
+                if(state.isConnected) {
                     this.flushCache()
-
-                    //this.getDataFromTime_Disconnected()
 
                     this.disconnectedAt = null
                 } else {
-                    // still discon
+
                 }
 
 
-            } else if(this.isConnected) { // already conn
+            } else if(this.isConnected) {
 
 
                 if(!state.isConnected) {
                     console.log("Disconnected!!!")
-                    disconnectedAt = new Date()
+                    this.disconnectedAt = new Date()
                 } else { // still con
 
-                    //this.getDataFromTime_Interval()
+                    this.getDataFromTime_Interval()
 
                     this.lastIntervalAt = new Date()
                 }

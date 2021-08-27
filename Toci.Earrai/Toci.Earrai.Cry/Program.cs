@@ -245,7 +245,7 @@ namespace OneDriveWithMSGraph {
                                             Idworksheet = idOfWorksheet,
                                             Rowindex = i,
                                             Columnindex = j,
-                                            Value = wierszJakoLista[j],
+                                            Value = wierszJakoLista[j].Replace("\"", "").Replace("\"", ""),
                                             Createdat = DateTime.Now,
                                             Updatedat = DateTime.Now
                                         });

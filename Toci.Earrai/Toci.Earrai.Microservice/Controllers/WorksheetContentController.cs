@@ -23,5 +23,14 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok(workbooks);
         }
 
+
+        [HttpGet("GetColumnsForWorksheet/{worksheetId}")]
+        public ActionResult<List<List<Worksheetcontent>>> GetColumnsForWorksheet(int worksheetId) {
+
+            var workbooks = Logic.GetColumnsForWorksheet(worksheetId);
+
+            return Ok(workbooks);
+        }
+
     }
 }

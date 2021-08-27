@@ -1,61 +1,107 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
-import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
+import { Button, Text, View, TextInput } from 'react-native'
+import { DataTable } from 'react-native-paper'
+import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 
-export default function WorksheetContent( { route, navigation} ) {
+let tempColumns = 6
 
-    const [worksheets, setworksheets] = useState([])
+let testValues = ["hehe", "dupa1", "xD", "Bartłomiej"]
+
+export default function WorksheetContent({ route, navigation }) {
+
+
+    const [connectService, setconnectService] = useState( navigation.getParam('connectService') )
+    const [columns, setColumns] = useState(() => [])
+    const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(true)
 
-    useEffect( () => {
-        /*fetch("https://localhost:44326/api/Workbook/GetAllWorksheets/" + navigation.getParam('id'))
-            .then( response => response.json() )
-            .then( response => {
+    useEffect(() => {
+        fetch("https://localhost:44326/api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
+            .then(response => response.json())
+            .then(response => {
                 console.log(response)
-                setworksheets(response.result)
-                setdisplayedWorksheets(response.result)
+                setColumns(response)
                 setloading(false)
-            })*/
-    }, [] )
+            })
 
 
-    const [dbData, setdbData] = useState( () => [])
+    }, [])
 
-    const filterWorkbooks = (e) => {
+    const searchForData = () => {
+        fetch("https://localhost:44326/api/WorksheetContent/searchWorksheet/"
+                    + navigation.getParam('worksheetId') + "/" + filteredValue)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            setworksheetContent(response)
+        })
+    }
+
+
+    const filterContent = (e) => {
 
         console.log(e.target.value);
         setfilteredValue(e.target.value)
 
-        let filtered = worksheets.filter(item => item.name.toLowerCase().includes( e.target.value.toLowerCase() ))
+        if(e.target.value.length < 3) return
 
-        setdisplayedWorksheets(filtered)
+        searchForData()
+
+        //let filtered = worksheetContent.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        //setdisplayedworksheetContent(filtered)
+    }
+
+    const testChangeValue = (rowIndex, columnIndex) => {
+        console.log(rowIndex, columnIndex)
+
+        let random = Math.floor(Math.random() * (testValues.length - 0)) + 0
+
+        let val = testValues[random]
+
+
+        const tempContent = [...worksheetContent]
+        console.log(tempContent)
+
+        tempContent[rowIndex][columnIndex].value = val
+        console.log(connectService.isConnectedFunc())
+        if(!connectService.isConnectedFunc() ) {
+            connectService.addDataToCache(tempContent[rowIndex][columnIndex])
+        } else {
+            connectService.updateRecord(tempContent[rowIndex][columnIndex])
+        }
+
+        setworksheetContent(tempContent)
 
     }
 
-    if(loading) {
-        return(
+    const disconnect = () => {
+        connectService.disconnect()
+    }
 
-            <View style={ globalStyles.loading }>
-
-                <Text style={ globalStyles.loadingText }>Loading..</Text>
-
+    if (loading) {
+        return (
+            <View style={globalStyles.loading}>
+                <Text style={globalStyles.loadingText}>Loading..</Text>
             </View>
         )
     }
 
     return (
+        <View style={globalStyles.content}>
+            <View style={globalStyles.header}>
+                <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
+            </View>
 
-        <View style={ globalStyles.content }>
-
-            <Text style={globalStyles.chooseWorkbookHeader}> All Worksheets </Text>
+            <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
 
             <View>
 
                 <TextInput
                     value={filteredValue}
                     style={globalStyles.inputStyle}
-                    onChange={ ($event) => filterWorkbooks($event) }
+                    onChange={($event) => filterContent($event)}
                     placeholder="Filter.."
                 />
 
@@ -65,33 +111,79 @@ export default function WorksheetContent( { route, navigation} ) {
 
                 <DataTable>
 
-                    <DataTable.Header>
-                        {
-                            columns.map( (value, index) => {
-                                return <DataTable.Title key={ index }> {value} </DataTable.Title>
-                            } )
-                        }
+                    {/* Chwilowo tylko kilka column widocznych */}
+
+                    <DataTable.Header style={globalStyles.HalfHeader}>
+
+                        {columns[0].map((column, index) => {
+                            if(index > tempColumns) return
+                            return (
+                                <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
+                            )
+                        })}
+
+                    </DataTable.Header>
+
+                    <DataTable.Header style={globalStyles.HalfHeader}>
+
+                        {columns[1].map((column, index) => {
+                            if(index > tempColumns) return
+                            return <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
+                        })}
+
                     </DataTable.Header>
 
                     {
-                        dbData.map( (value, index) => {
+                        worksheetContent.map( (row, rowIndex) => {
+                            return(<DataTable.Row key={ rowIndex }>
+                                { row.map( (column, columnIndex) => {
+                                    if(columnIndex > tempColumns) return
+                                    return <DataTable.Cell
+                                                key={column.id}
+                                                onPress={ () => testChangeValue(rowIndex, columnIndex) }
+                                                style={globalStyles.cell}>
+                                                {column.value}
+                                            </DataTable.Cell>
+                                } ) }
+                            </DataTable.Row>)
+                        } )
+                    }
+
+                    {/* {
+                        worksheetContent.map( (value, index) => {
                             return(
                                 <DataTable.Row key={ index }>
-                                    <DataTable.Cell style={tabStyle.cell} > {value.workbookId} </DataTable.Cell>
-                                    <DataTable.Cell style={tabStyle.cell}> {value.workSheetName} </DataTable.Cell>
-                                    <DataTable.Cell style={tabStyle.cell}> {value.column} </DataTable.Cell>
-                                    <DataTable.Cell style={tabStyle.cell}> {value.row} </DataTable.Cell>
-                                    <DataTable.Cell style={tabStyle.cell}> {value.value} </DataTable.Cell>
-                                    <DataTable.Cell style={tabStyle.cell}>
+                                    <DataTable.Cell style={globalStyles.cell} > {value.workbookId} </DataTable.Cell>
+                                    <DataTable.Cell style={globalStyles.cell}> {value.workSheetName} </DataTable.Cell>
+                                    <DataTable.Cell style={globalStyles.cell}> {value.column} </DataTable.Cell>
+                                    <DataTable.Cell style={globalStyles.cell}> {value.row} </DataTable.Cell>
+                                    <DataTable.Cell style={globalStyles.cell}> {value.value} </DataTable.Cell>
+                                    <DataTable.Cell style={globalStyles.cell}>
                                         <Button title={"Change value"} onPress={ () => changeValue(index) } />
                                     </DataTable.Cell>
                                 </DataTable.Row>
                             )
                         } )
-                    }
+                    } */}
+
+                    {/* {
+                            columns.map( (row, index) => {
+                                return row.map( (column, index2)  => {
+                                    return(
+                                        <DataTable.Row key={ index2 }>
+                                            <DataTable.Title style={globalStyles.cell} > {column.value} </DataTable.Title>
+                                        </DataTable.Row>
+                                    )
+                                })
+                            } )
+                        } */}
+                    {/* </DataTable.Header> */}
 
                 </DataTable>
 
+            </View>
+            <View style={{paddingTop: 45}}>
+                <Button title="ADD NEW RECORD" />
             </View>
 
         </View>
