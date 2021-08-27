@@ -23,11 +23,10 @@ namespace Toci.Earrai.Bll.Warehouse
             Worksheetcontentshistory wch = worksheetHistory.Insert(new Worksheetcontentshistory()
             {
                 Idworksheet = oldCell.Idworksheet,
-                Columnnumber = oldCell.Columnindex,
-                Rownumber = oldCell.Rowindex,
+                Columnindex = oldCell.Columnindex,
+                Rowindex = oldCell.Rowindex,
                 Value = oldCell.Value,
-                Createdat = oldCell.Createdat,
-                Updatedat = DateTime.Now
+                Createdat = DateTime.Now
             });
 
             oldCell.Value = value;
