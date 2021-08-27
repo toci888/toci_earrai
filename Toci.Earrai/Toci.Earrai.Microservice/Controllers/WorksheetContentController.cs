@@ -32,5 +32,27 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok(workbooks);
         }
 
+        [HttpPost("flushCache")]
+        public ActionResult<List<List<Worksheetcontent>>> flushCache(List<Worksheetcontent> worksheetcontentCollection ) {
+
+            // wstawiasz do worksheetcontentHistory z datą aktualną
+
+            // updateujesz worksheetcontent
+
+
+
+            //var workbooks = Logic.GetColumnsForWorksheet(worksheetId);
+
+            return Ok("OK");
+        }
+
+        [HttpPost("GetIncreaseWorksheetcontents")]
+        public ActionResult<List<List<Worksheetcontent>>> GetIncreaseWorksheetcontents(object dateTime) {
+            // rekordy z worksheetcontentHistory po tym czasie
+
+            //var workbooks = Logic.GetColumnsForWorksheet(worksheetId);
+
+            return Ok("OK");
+        }
     }
 }

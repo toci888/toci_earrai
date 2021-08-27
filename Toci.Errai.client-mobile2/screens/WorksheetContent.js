@@ -149,36 +149,6 @@ export default function WorksheetContent({ route, navigation }) {
                         } )
                     }
 
-                    {/* {
-                        worksheetContent.map( (value, index) => {
-                            return(
-                                <DataTable.Row key={ index }>
-                                    <DataTable.Cell style={globalStyles.cell} > {value.workbookId} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.workSheetName} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.column} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.row} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.value} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}>
-                                        <Button title={"Change value"} onPress={ () => changeValue(index) } />
-                                    </DataTable.Cell>
-                                </DataTable.Row>
-                            )
-                        } )
-                    } */}
-
-                    {/* {
-                            columns.map( (row, index) => {
-                                return row.map( (column, index2)  => {
-                                    return(
-                                        <DataTable.Row key={ index2 }>
-                                            <DataTable.Title style={globalStyles.cell} > {column.value} </DataTable.Title>
-                                        </DataTable.Row>
-                                    )
-                                })
-                            } )
-                        } */}
-                    {/* </DataTable.Header> */}
-
                 </DataTable>
 
             </View>

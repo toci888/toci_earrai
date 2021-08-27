@@ -4,7 +4,8 @@ export class ConnectionService {
 
 
     nowContentData = {
-        worksheetId: null
+        nowWorksheetId: null,
+        nowWorksheetcontentId: null
     }
 
     isConnected = true
@@ -40,7 +41,7 @@ export class ConnectionService {
             this.disconnectedAt = new Date()
         } else {
             this.testPermanentDisconnect = false
-            this.isConnected = true
+            //this.isConnected = true
             console.log("CONNECTED BACK")
             this.disconnectedAt = null
         }
@@ -52,6 +53,7 @@ export class ConnectionService {
 
     addDataToCache(object_) {
         let x = ConnectionService.cacheData.filter( x => x.id == object_.id )
+
         if(x.length > 0) return
 
         ConnectionService.cacheData.push(object_)
@@ -76,15 +78,17 @@ export class ConnectionService {
 
         console.log("Flush cache data to API");
 
-        // fetch("https://localhost:44326/api/WorksheetContent/flushCache", {
-        //     method: "PUT",
-        //     body: JSON.stringify(ConnectionService.cacheData) // List<Worksheetcontent>
-        // })
-        // .then( response => response.json() )
-        // .then( response => {
-        //     console.log(response)
-        // })
+        fetch("https://localhost:44326/api/WorksheetContent/flushCache", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
 
+            body: JSON.stringify(ConnectionService.cacheData)
+        })
+        .then( response => response.json() )
+        .then( response => { console.log(response) })
+        .catch( error => { console.log(error) } )
         ConnectionService.cacheData = []
 
         this.getDataFromNow()
@@ -94,14 +98,32 @@ export class ConnectionService {
 
     getDataFromNow() {
         console.log("Get updated data from API")
-        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents/" + ( new Date.toString() ))
-        // .then( response => response.json() )
-        // .then( response => {
+        //let d = JSON.stringify( new Date().toString() )
+        let d = new Date()
+        let x = {
+            year: d.getFullYear(),
+            month: d.getMonth(),
+            day: d.get(),
+            hour: d.getHours(),
+            minute: d.getMinutes(),
+            second: d.getSeconds(),
+        }
+        console.log(d)
+        d = {dateTime: d}
+        fetch("https://localhost:44326/api/WorksheetContent/GetIncreaseWorksheetcontents", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(x)
+        })
+        .then( response => response.json() )
+        .then( response => {
 
-        //     if(response.length > 0) {
-        //         this.compareDataFromAPI(response)
-        //     }
-        // })
+            if(response.length > 0) {
+                this.compareDataFromAPI(response)
+            }
+        })
 
     }
 
