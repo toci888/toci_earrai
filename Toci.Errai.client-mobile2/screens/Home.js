@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, Button } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { globalStyles } from '../styles/globalStyles'
+import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 
 
@@ -77,6 +78,25 @@ export default function Home( { navigation }) {
         connectService.isConnectedFunc() ? (
         // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
             <View style={globalStyles.container}>
+
+                <View style={{flexDirection: 'row'}}>
+
+                    <Text style={{width: '90%'}}>
+
+                        <TextInput
+                            style={worksheetRecord.inputStyle}
+                            //value={columnsName[1][j].value}
+                            // onChange={($event) => filterContent($event)}
+                            placeholder="Value.."
+                        />
+
+                    </Text>
+
+                    <Text style={{width: '10%'}}>
+                        <Button title="Update" style={{width: '100%'}} />
+                    </Text>
+
+                </View>
 
                 {/* <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
                     <Button onPress={() => checkConnected()} title="Check Internet Connectivity" color="#841584"/>

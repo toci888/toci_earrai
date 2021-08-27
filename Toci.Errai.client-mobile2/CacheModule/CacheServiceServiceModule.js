@@ -103,11 +103,12 @@ export class ConnectionService {
         let x = {
             year: d.getFullYear(),
             month: d.getMonth(),
-            day: d.get(),
+            day: d.getDate(),
             hour: d.getHours(),
             minute: d.getMinutes(),
             second: d.getSeconds(),
         }
+
         console.log(d)
         d = {dateTime: d}
         fetch("https://localhost:44326/api/WorksheetContent/GetIncreaseWorksheetcontents", {

@@ -18,6 +18,7 @@ export default function WorksheetContent({ route, navigation }) {
     const [loading, setloading] = useState(true)
 
     useEffect(() => {
+
         fetch("https://localhost:44326/api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
             .then(response => response.json())
             .then(response => {
@@ -25,7 +26,6 @@ export default function WorksheetContent({ route, navigation }) {
                 setColumns(response)
                 setloading(false)
             })
-
 
     }, [])
 
@@ -37,6 +37,21 @@ export default function WorksheetContent({ route, navigation }) {
             console.log(response)
             setworksheetContent(response)
         })
+    }
+
+    const showRecordData = (rowIndex) => {
+
+        console.log(worksheetContent[rowIndex])
+
+
+        navigation.navigate('WorksheetRecord', {
+            worksheetColumns: columns,
+            workSheetRecord: worksheetContent[rowIndex],
+            connectService: connectService
+        })
+
+
+
     }
 
 
@@ -135,12 +150,13 @@ export default function WorksheetContent({ route, navigation }) {
 
                     {
                         worksheetContent.map( (row, rowIndex) => {
-                            return(<DataTable.Row key={ rowIndex }>
+                            return(<DataTable.Row key={ rowIndex } >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
                                     return <DataTable.Cell
                                                 key={column.id}
-                                                onPress={ () => testChangeValue(rowIndex, columnIndex) }
+                                                onPress={ () => showRecordData(rowIndex) }
+                                                // onPress={ () => testChangeValue(rowIndex, columnIndex) }
                                                 style={globalStyles.cell}>
                                                 {column.value}
                                             </DataTable.Cell>
