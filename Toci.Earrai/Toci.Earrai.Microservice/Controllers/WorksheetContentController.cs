@@ -18,11 +18,11 @@ namespace Toci.Earrai.Microservice.Controllers {
 
 
         [HttpGet("searchWorksheet/{worksheetId}/{phrase}")]
-        public ActionResult<List<List<Worksheetcontent>>> searchWorksheet(int worksheetId, string phrase) {
+        public List<List<Worksheetcontent>> searchWorksheet(int worksheetId, string phrase) {
 
             var workbooks = Logic.SearchWorksheet(worksheetId, phrase);
 
-            return Ok(workbooks);
+            return workbooks;
         }
 
 

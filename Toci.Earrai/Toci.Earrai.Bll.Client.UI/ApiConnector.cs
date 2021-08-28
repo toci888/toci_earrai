@@ -33,9 +33,9 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 var dupa = response.Content.ReadAsStringAsync().Result;
 
-                JObject json =  JObject.Parse(dupa);
+                List<List<Worksheetcontent>> result = (List<List<Worksheetcontent>>)Newtonsoft.Json.JsonConvert.DeserializeObject(dupa, typeof(List<List<Worksheetcontent>>));
 
-                return json.ToObject<List<List<Worksheetcontent>>>();
+                return result;
             }
         }
 
