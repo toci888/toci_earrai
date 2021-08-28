@@ -16,7 +16,7 @@ namespace Toci.Earrai.Bll
 
         public static string GetTenantId()
         {
-            return "f9b56296-c8eb-46ed-81e1-5483cb395754";
+            return "e9d3c2b0-cc05-41fa-9f46-7b9377d1a294";
         }
 
         public static string GetUserName()
