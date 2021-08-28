@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
+import { testColumn } from '../DbModule/sqLite'
 
 
 export default function Home( { navigation }) {
@@ -21,10 +22,12 @@ export default function Home( { navigation }) {
     useEffect( () => {
         console.log("USE_EFFECT_START");
 
+        testColumn()
+
         fetch("https://localhost:44326/api/Workbook/GetAllWorkbooksFromDb")
         .then( response => response.json() )
         .then( response => {
-            console.log(response)
+            //console.log(response)
             setworkbooks(response)
             setdisplayedWorkbooks(response)
         })
