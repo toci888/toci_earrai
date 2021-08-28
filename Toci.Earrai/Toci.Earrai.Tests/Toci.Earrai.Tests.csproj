@@ -29,10 +29,16 @@
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Database\Toci.Common.Database.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices.Interfaces\Toci.Common.Microservices.Interfaces.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI.Interfaces\Toci.Earrai.Bll.Client.UI.Interfaces.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Models\Toci.Earrai.Bll.Models.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Warehouse.Interfaces\Toci.Earrai.Bll.Warehouse.Interfaces.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Warehouse\Toci.Earrai.Bll.Warehouse.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll\Toci.Earrai.Bll.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Microservice\Toci.Earrai.Microservice.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Sharepoint.Persistence\Toci.Earrai.Sharepoint.Persistence.csproj" />
     <ProjectReference Include="..\Toci.Microsoft.Graph.Excel\Toci.Microsoft.Graph.Excel.csproj" />
   </ItemGroup>
 
