@@ -6,13 +6,14 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function WorksheetRecord({ route, navigation }) {
 
-    console.log(navigation.getParam('worksheetColumns'))
-    console.log(navigation.getParam('workSheetRecord'))
-    console.log(navigation.getParam('connectService'))
+    //console.log(navigation.getParam('worksheetColumns'))
+    //console.log(navigation.getParam('workSheetRecord'))
+    //console.log(navigation.getParam('connectService'))
 
     const [connectService] = useState( navigation.getParam('connectService') )
     const [columnsName, setColumnsName] = useState([])
     const [columnsData, setColumnsData] = useState([])
+    //const [columnsStartData, setColumnsStartData] = useState([])
 
     useEffect( () => {
 
@@ -33,7 +34,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
         const tempContent = [...columnsData]
 
-        console.log(tempContent)
+        //console.log(tempContent)
 
         tempContent[index].value = e.target.value
 
@@ -73,9 +74,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             respo.push(
                 <View key={i} style={ worksheetRecord.rowContainer }>
-                    <View style={ worksheetRecord.absoluteUpdate }>
-                        <Text>UPDATE</Text>
-                    </View>
+
 
                     <View style={worksheetRecord.columns}>
                         <View style={ worksheetRecord.listItem }>
@@ -117,6 +116,9 @@ export default function WorksheetRecord({ route, navigation }) {
 
     return (
         <View style={worksheetRecord.container}>
+            <View style={ worksheetRecord.absoluteUpdate }>
+                <Text style={worksheetRecord.updateText} >UPDATE</Text>
+            </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}

@@ -66,6 +66,14 @@ export const worksheetRecord = StyleSheet.create({
         left: 0,
         width: '100%',
         height: 40,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#8781d8'
+    },
+    updateText: {
+        fontWeight: 'bold',
+        fontSize: 15
     }
 
 })
