@@ -24,7 +24,7 @@ namespace Toci.Earrai.Ui
         {
             InitializeComponent();
 
-            IsConnected();
+            //IsConnected();
 
             Setup();
         }

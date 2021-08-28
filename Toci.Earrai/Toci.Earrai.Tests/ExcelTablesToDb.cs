@@ -12,16 +12,7 @@ namespace Toci.Earrai.Tests
         [TestMethod]
         public void GetAllTables()
         {
-            var appId = "98a98443-1860-405d-9277-b8bccba724f7";
-
-            string[] scopes = new[] {
-                "https://graph.microsoft.com/User.ReadWrite.All",
-                "https://graph.microsoft.com/Files.ReadWrite.All",
-                "https://graph.microsoft.com/Files.Read.All",
-                "https://graph.microsoft.com/Sites.Read.All",
-                "https://graph.microsoft.com/Sites.ReadWrite.All" };
-
-            var authProvider = new DeviceCodeAuthProvider(appId, scopes);
+            var authProvider = new DeviceCodeAuthProvider();
             EntityGeneratorService graph = new EntityGeneratorService();
 
             GraphServiceClient graphClient = new GraphServiceClient(authProvider);

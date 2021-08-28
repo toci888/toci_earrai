@@ -52,7 +52,7 @@ namespace Toci.Earrai.Bll.Warehouse
             "https://graph.microsoft.com/Sites.ReadWrite.All" }; //api://98a98443-1860-405d-9277-b8bccba724f7/ApiAccess
 
             // Initialize the auth provider with values from appsettings.json
-            var authProvider = new DeviceCodeAuthProvider(appId, scopes);
+            var authProvider = new DeviceCodeAuthProvider();
 
             GraphServiceClient graphClient = new GraphServiceClient(authProvider);
 
