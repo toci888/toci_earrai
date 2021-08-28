@@ -25,19 +25,27 @@ export default function Home( { navigation }) {
 
         testColumn()
 
-        fetch("https://localhost:44326/api/Workbook/GetAllWorkbooksFromDb")
+        let x = JSON.parse('[{"id":1,"idoffile":"01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS","filename":"3184 Gor_Product_Category_List LIVE.xlsx","createdat":"2021-08-27T01:39:26.575137","updatedat":"2021-08-27T01:39:26.575363","worksheets":[]},{"id":2,"idoffile":"01SCYADGKGME2QYGJYXFE2IDMHAVAIUIN4","filename":"excel.xlsx","createdat":"2021-08-27T01:39:58.527421","updatedat":"2021-08-27T01:39:58.527421","worksheets":[]},{"id":3,"idoffile":"01SCYADGJKJP7FBEP3MFHZ77VLHI7AJ5RD","filename":"onedrive.xlsx","createdat":"2021-08-27T01:39:59.582632","updatedat":"2021-08-27T01:39:59.582633","worksheets":[]}]')
+        setworkbooks(x)
+        setdisplayedWorkbooks(x)
+        setdisplayedWorkbooks(x)
+        setapiConnect(true)
+
+        /*fetch("https://localhost:44326/api/Workbook/GetAllWorkbooksFromDb")
         .then( response => response.json() )
         .then( response => {
             console.log(response)
+            console.log(JSON.stringify(response))
             setworkbooks(response)
             setdisplayedWorkbooks(response)
             setapiConnect(true)
         }).catch(error => {
+
             console.log(error);
             if(error) {
                 setapiConnect(false)
             }
-        })
+        })*/
 
 
         const interval = setInterval(() => {
