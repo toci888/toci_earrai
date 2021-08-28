@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Microsoft.Graph.Excel;
 using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
@@ -28,7 +29,7 @@ namespace OneDriveWithMSGraph {
             // 01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS big xlsx
 
             var appId = "98a98443-1860-405d-9277-b8bccba724f7";
-            var scopesString = "";
+
             string[] scopes = new[] { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
             "https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
             "https://graph.microsoft.com/Sites.ReadWrite.All" }; //api://98a98443-1860-405d-9277-b8bccba724f7/ApiAccess
@@ -61,6 +62,7 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("3. Generate entities for all file's worksheets (type workbook index)");
                 Console.WriteLine("4. GraphHelper.GetContentOfFileAsync");
                 Console.WriteLine("5. Seed the db by excel files");
+                Console.WriteLine("6. The test of updating excel cells");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -331,6 +333,10 @@ namespace OneDriveWithMSGraph {
                         Console.WriteLine("Press any button if finished");
                         Console.ReadKey();
                         choice = 0;
+                        break;
+                    case 6:
+                        var TestObject = new EntityOperations();
+                        TestObject.OneDriveTest();
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");
