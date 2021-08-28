@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

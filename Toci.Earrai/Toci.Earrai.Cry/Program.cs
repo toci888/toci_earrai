@@ -250,87 +250,14 @@ namespace OneDriveWithMSGraph {
 
                             }
                         }
-
-
-                        /*
-
-                        var workbooks = GraphHelper.GetDriveContentsAsync();
-                      
-                        foreach (var workbookfile in workbooks.Result)
-                        {
-                            Console.WriteLine(workbookfile.Id);
-                            Console.WriteLine(workbookfile.Name + '\n');
-
-                            
-                            int idOfWorkbook = Workbook.Insert(new Workbook()
-                            {
-                                Idoffile = workbookfile.Id,
-                                Filename = workbookfile.Name,
-                                Createdat = DateTime.Now,
-                                Updatedat = DateTime.Now
-                            }).Id;
-                            
-
-                            var worksheets = GraphHelper.GetWorksheetsFromWorkbook(workbookfile.Id);
-
-                            GraphServiceClient graphClient = new GraphServiceClient(authProvider);
-                            
-                            foreach (var sheet in worksheets)
-                            {
-                                
-                                int idOfWorksheet = Worksheet.Insert(new Worksheet()
-                                {
-                                    Idworkbook = idOfWorkbook,
-                                    Sheetname = sheet.Name,
-                                    Createdat = DateTime.Now,
-                                    Updatedat = DateTime.Now
-                                }).Id;     
-                                
-
-                                Console.WriteLine(sheet.Name + '\n');
-
-                                var readSheet = graphClient.Me.Drive.Items[workbookfile.Id].Workbook.Worksheets[sheet.Name];
-                                var testRange = readSheet.Range("A1:Z230").Request().GetAsync().Result;
-                                var bazka = testRange.Values.RootElement.ToString()
-                                    .Replace("[[", "")
-                                    .Split("],[").ToList();
-
-                                if (idOfWorkbook == 1)
-                                {
-                                    if (idOfWorksheet < 3)
-                                    {
-                                        for (int i = 0; i < bazka.Count; i++)
-                                        {
-                                            var wierszJakoLista = bazka[i].Split(",").ToList();
-
-                                            for (int j = 0; j < wierszJakoLista.Count; j++)
-                                            {
-                                                Worksheetcontent.Insert(new Worksheetcontent()
-                                                {
-                                                    Idworksheet = idOfWorksheet,
-                                                    Columnnumber = i,
-                                                    Rownumber = j,
-                                                    Value = wierszJakoLista[j],
-                                                    Createdat = DateTime.Now,
-                                                    Updatedat = DateTime.Now
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            }                         
-
-                        }
-
-                        */
-
                         Console.WriteLine("Press any button if finished");
                         Console.ReadKey();
                         choice = 0;
                         break;
                     case 6:
                         var TestObject = new EntityOperations();
-                        TestObject.OneDriveTest();
+                        TestObject.UpdateExcelCell(0, 0, "01SCYADGJKJP7FBEP3MFHZ77VLHI7AJ5RD", "Arkusz1", "dupa22");
+                        choice = 0;
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");
@@ -346,12 +273,7 @@ namespace OneDriveWithMSGraph {
             //EntityGenerator entityGenerator =
                 //new EntityGenerator(authProvider, "01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS", 0, 0, 0);
 
-
         }
-
-
-
-
 
         static IConfigurationRoot LoadAppSettings() {
             var appConfig = new ConfigurationBuilder()
