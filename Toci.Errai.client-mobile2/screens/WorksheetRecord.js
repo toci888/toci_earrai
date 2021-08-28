@@ -72,38 +72,43 @@ export default function WorksheetRecord({ route, navigation }) {
         for(let i = 0; i < columnsData.length; i++) {
 
             respo.push(
-                <View key={i} style={ worksheetRecord.item }>
-
-                    <View style={ worksheetRecord.listItem }>
-                        <Text>{valueOfCol(columnsName[0][i].value)}</Text>
+                <View key={i} style={ worksheetRecord.rowContainer }>
+                    <View style={ worksheetRecord.absoluteUpdate }>
+                        <Text>UPDATE</Text>
                     </View>
 
-                    <View style={ worksheetRecord.listItem }>
-                        <Text>{valueOfCol(columnsName[1][i].value)}</Text>
+                    <View style={worksheetRecord.columns}>
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>{valueOfCol(columnsName[0][i].value)}</Text>
+                        </View>
+
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>{valueOfCol(columnsName[1][i].value)}</Text>
+                        </View>
+                    </View>
+
+                    <View key={i + "x"} style={worksheetRecord.value}>
+                        <Text>
+
+                            <TextInput
+                                style={worksheetRecord.inputStyle}
+                                value={columnsData[i].value}
+                                onChange={($event) => testChangeValue($event, i)}
+                            />
+
+                        </Text>
+
+                        {/* <Text style={worksheetRecord.updateButtonContainer}
+                            onPress={ () => updateValue(i) }>
+                            UPDATE
+                        </Text> */}
+
                     </View>
 
                 </View>
             )
 
-            respo.push(
-                <View key={i + "x"} style={{flexDirection: 'row'}}>
-                    <Text style={{width: '85%'}}>
-
-                        <TextInput
-                            style={worksheetRecord.inputStyle}
-                            value={columnsData[i].value}
-                            onChange={($event) => testChangeValue($event, i)}
-                        />
-
-                    </Text>
-
-                    <Text style={worksheetRecord.updateButtonContainer}
-                        onPress={ () => updateValue(i) }>
-                        UPDATE
-                    </Text>
-
-                </View>
-            )
+            //respo.push()  style={{width: '85%'}}
 
         }
 
@@ -111,10 +116,10 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     return (
-        <View>
-            <View style={globalStyles.header}>
+        <View style={worksheetRecord.container}>
+            {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
-            </View>
+            </View> */}
             <View>
 
                 { displayRow() }

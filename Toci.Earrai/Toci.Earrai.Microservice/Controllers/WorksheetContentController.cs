@@ -57,11 +57,14 @@ namespace Toci.Earrai.Microservice.Controllers {
         }
 
         [HttpPost("GetIncreaseWorksheetcontents")]
-        public ActionResult<List<List<Worksheetcontent>>> GetIncreaseWorksheetcontents(myDatetimeDto date) 
+        public ActionResult<List<List<Worksheetcontent>>> GetIncreaseWorksheetcontents(MyDatetimeDto date) 
         {
             var dateTime = DateTime.Parse(date.Year + "-" + date.Month + "-" + date.Day + " " + date.Hour + ":" + date.Minute + ":" + date.Second);
 
-            var newestWorksheets = Logic.Select(x => x.Updatedat > dateTime).ToList();
+            var newestWorksheets = Logic.Select(x => 
+                x.Updatedat > dateTime && 
+                x.Idworksheet == date.worksheetId)
+                .ToList();
 
             return Ok(newestWorksheets);
         }

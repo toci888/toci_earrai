@@ -74,8 +74,10 @@ export const globalStyles = StyleSheet.create({
     cell: {
         fontSize: 7,
         padding: 4,
-        borderLeftWidth: 1,
-        borderLeftColor: 'rgb(51, 153, 255)'
+        //borderLeftWidth: 1,
+        //borderLeftColor: 'rgb(51, 153, 255)',
+        //borderBottomWidth: 1,
+        //borderBottomColor: 'blue',
     },
     HalfHeader: {
         backgroundColor: '#66b3ff',

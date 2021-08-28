@@ -78,8 +78,37 @@ export default function Home( { navigation }) {
         connectService.isConnectedFunc() ? (
         // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
             <View style={globalStyles.container}>
+                {/* <View style={ worksheetRecord.rowContainer }>
 
-                <View style={{flexDirection: 'row'}}>
+                    <View style={worksheetRecord.columns}>
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>x</Text>
+                        </View>
+
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>y</Text>
+                        </View>
+                    </View>
+
+                    <View style={worksheetRecord.value}>
+                        <Text>
+
+                            <TextInput
+                                style={worksheetRecord.inputStyle}
+                                value="x"
+                            />
+
+                        </Text>
+
+                     <Text style={worksheetRecord.updateButtonContainer}>
+                            UPDATE
+                        </Text>
+
+                    </View>
+
+                </View> */}
+
+                {/* <View style={{flexDirection: 'row'}}>
 
                     <Text style={{width: '90%'}}>
 
@@ -96,15 +125,15 @@ export default function Home( { navigation }) {
                         <Button title="Update" style={{width: '100%'}} />
                     </Text>
 
-                </View>
+                </View> */}
 
                 {/* <View style={[globalStyles.content, {backgroundColor: "orange"}]}>
                     <Button onPress={() => checkConnected()} title="Check Internet Connectivity" color="#841584"/>
                 </View> */}
 
-                <View style={globalStyles.header}>
+                {/* <View style={globalStyles.header}>
                     <Text onPress={disconnect}> !!! DISCONNECT !!!</Text>
-                </View>
+                </View> */}
 
                 <View style={ globalStyles.content } >
                     <Text style={ globalStyles.chooseWorkbookHeader }> All Workbooks </Text>

@@ -105,9 +105,9 @@ export default function WorksheetContent({ route, navigation }) {
 
     return (
         <View style={globalStyles.content}>
-            <View style={globalStyles.header}>
+            {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
-            </View>
+            </View> */}
 
             <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
 
