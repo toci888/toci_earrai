@@ -30,13 +30,13 @@ namespace Toci.Earrai.Database.Persistence.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=localhost;Database=Toci.Earrai;Username=postgres;Password=root");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=Toci.Earrai;Username=postgres;Password=beatka");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United Kingdom.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Role>(entity =>
             {
@@ -161,19 +161,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Columnname)
-                    .HasColumnName("columnname")
-                    .HasDefaultValueSql("'noName'::text");
-
-                entity.Property(e => e.Columnnumber).HasColumnName("columnnumber");
+                entity.Property(e => e.Columnindex).HasColumnName("columnindex");
 
                 entity.Property(e => e.Createdat).HasColumnName("createdat");
 
                 entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
-                entity.Property(e => e.Rownumber).HasColumnName("rownumber");
-
-                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
 
                 entity.Property(e => e.Value).HasColumnName("value");
 

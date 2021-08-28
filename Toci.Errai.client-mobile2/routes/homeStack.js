@@ -4,6 +4,7 @@ import { createAppContainer } from 'react-navigation'
 import Home from '../screens/Home'
 import WorksheetContent from '../screens/WorksheetContent'
 import WorksheetsList from '../screens/WorksheetsList'
+import WorksheetRecord from '../screens/WorksheetRecord'
 
 
 const screens = {
@@ -26,6 +27,13 @@ const screens = {
         screen: WorksheetContent,
         navigationOptions: {
             title : "Worksheets Content",
+            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+        }
+    },
+    WorksheetRecord: {
+        screen: WorksheetRecord,
+        navigationOptions: {
+            title : "Worksheets Record",
             headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
         }
     }

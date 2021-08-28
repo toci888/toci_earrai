@@ -18,6 +18,7 @@ export default function WorksheetContent({ route, navigation }) {
     const [loading, setloading] = useState(true)
 
     useEffect(() => {
+
         fetch("https://localhost:44326/api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
             .then(response => response.json())
             .then(response => {
@@ -25,7 +26,6 @@ export default function WorksheetContent({ route, navigation }) {
                 setColumns(response)
                 setloading(false)
             })
-
 
     }, [])
 
@@ -37,6 +37,21 @@ export default function WorksheetContent({ route, navigation }) {
             console.log(response)
             setworksheetContent(response)
         })
+    }
+
+    const showRecordData = (rowIndex) => {
+
+        console.log(worksheetContent[rowIndex])
+
+
+        navigation.navigate('WorksheetRecord', {
+            worksheetColumns: columns,
+            workSheetRecord: worksheetContent[rowIndex],
+            connectService: connectService
+        })
+
+
+
     }
 
 
@@ -135,12 +150,13 @@ export default function WorksheetContent({ route, navigation }) {
 
                     {
                         worksheetContent.map( (row, rowIndex) => {
-                            return(<DataTable.Row key={ rowIndex }>
+                            return(<DataTable.Row key={ rowIndex } >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
                                     return <DataTable.Cell
                                                 key={column.id}
-                                                onPress={ () => testChangeValue(rowIndex, columnIndex) }
+                                                onPress={ () => showRecordData(rowIndex) }
+                                                // onPress={ () => testChangeValue(rowIndex, columnIndex) }
                                                 style={globalStyles.cell}>
                                                 {column.value}
                                             </DataTable.Cell>
@@ -148,36 +164,6 @@ export default function WorksheetContent({ route, navigation }) {
                             </DataTable.Row>)
                         } )
                     }
-
-                    {/* {
-                        worksheetContent.map( (value, index) => {
-                            return(
-                                <DataTable.Row key={ index }>
-                                    <DataTable.Cell style={globalStyles.cell} > {value.workbookId} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.workSheetName} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.column} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.row} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}> {value.value} </DataTable.Cell>
-                                    <DataTable.Cell style={globalStyles.cell}>
-                                        <Button title={"Change value"} onPress={ () => changeValue(index) } />
-                                    </DataTable.Cell>
-                                </DataTable.Row>
-                            )
-                        } )
-                    } */}
-
-                    {/* {
-                            columns.map( (row, index) => {
-                                return row.map( (column, index2)  => {
-                                    return(
-                                        <DataTable.Row key={ index2 }>
-                                            <DataTable.Title style={globalStyles.cell} > {column.value} </DataTable.Title>
-                                        </DataTable.Row>
-                                    )
-                                })
-                            } )
-                        } */}
-                    {/* </DataTable.Header> */}
 
                 </DataTable>
 

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
+using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Interfaces;
+using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Microservice.Controllers {
@@ -32,5 +34,36 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok(workbooks);
         }
 
+        [HttpPost("flushCache")]
+        public ActionResult<List<List<Worksheetcontent>>> flushCache(List<Worksheetcontent> worksheetcontentCollection)
+        {
+            Logic<Worksheetcontentshistory> worksheetContentHistory = new Logic<Worksheetcontentshistory>();
+
+            foreach (var element in worksheetcontentCollection)
+            {
+                worksheetContentHistory.Insert(new Worksheetcontentshistory()
+                {
+                    Idworksheet = element.Idworksheet,
+                    Columnindex = element.Columnindex,
+                    Rowindex = element.Rowindex,
+                    Value = element.Value,
+                    Createdat = DateTime.Now
+                }); 
+
+                Update(element);
+            }
+
+            return Ok("OK");
+        }
+
+        [HttpPost("GetIncreaseWorksheetcontents")]
+        public ActionResult<List<List<Worksheetcontent>>> GetIncreaseWorksheetcontents(myDatetimeDto date) 
+        {
+            var dateTime = DateTime.Parse(date.Year + "-" + date.Month + "-" + date.Day + " " + date.Hour + ":" + date.Minute + ":" + date.Second);
+
+            var newestWorksheets = Logic.Select(x => x.Updatedat > dateTime).ToList();
+
+            return Ok(newestWorksheets);
+        }
     }
 }

@@ -41,12 +41,10 @@ create table worksheetcontentshistory
 (
 	id serial primary key,
 	idworksheet int references worksheets (id),
-	columnNumber int,
-	columnName text default 'noName',
-	rowNumber int,
+	columnIndex int,
+	rowIndex int,
 	value text,
-	createdAt timestamp,
-	updatedAt timestamp
+	createdAt timestamp
 );
 
 create table roles
