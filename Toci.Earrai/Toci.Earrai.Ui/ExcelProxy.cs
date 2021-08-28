@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,12 @@ namespace Toci.Earrai.Ui
         {
             /// query to excel workbook column
             /// 
+            //HttpClient hc = new HttpClient();
+
+            //hc.BaseAddress
+            //var x = hc.GetAsync("api/worksheets/1234");
+
+
             return MockSuggestions();
         }
 

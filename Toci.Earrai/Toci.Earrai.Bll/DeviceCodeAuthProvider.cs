@@ -9,19 +9,15 @@ namespace Toci.Earrai.Bll {
     public class DeviceCodeAuthProvider : IAuthenticationProvider
     {
         private IPublicClientApplication _msalClient;
-        private string[] _scopes;
         private IAccount _userAccount;
 
-        public DeviceCodeAuthProvider(string appId, string[] scopes)
+        public DeviceCodeAuthProvider()
         {
-            _scopes = scopes;
-
             _msalClient = PublicClientApplicationBuilder
-                .Create(appId)
+                .Create(AuthData.GetAppId())
                 .WithAuthority(AadAuthorityAudience.AzureAdMyOrg, true)
-                .WithTenantId("e9d3c2b0-cc05-41fa-9f46-7b9377d1a294")
+                .WithTenantId(AuthData.GetTenantId())
                 .Build();
-
         }
 
         public async Task<string> GetAccessToken()
@@ -32,18 +28,8 @@ namespace Toci.Earrai.Bll {
                 try
                 {
                     // Invoke device code flow so user can sign-in with a browser
-                    System.Security.SecureString pass = new System.Security.SecureString();
-                    pass.AppendChar('B');
-                    pass.AppendChar('e');
-                    pass.AppendChar('a');
-                    pass.AppendChar('t');
-                    pass.AppendChar('k');
-                    pass.AppendChar('a');
-                    pass.AppendChar('9');
-                    pass.AppendChar('1');
-                    pass.AppendChar('1');
 
-                    AuthenticationResult result = await _msalClient.AcquireTokenByUsernamePassword(_scopes, "bzapart@tocizapart.onmicrosoft.com", pass).ExecuteAsync();
+                    AuthenticationResult result = await _msalClient.AcquireTokenByUsernamePassword(AuthData.GetScopes(), AuthData.GetUserName(), AuthData.GetPassword()).ExecuteAsync();
                     
                     //     callback => {
                     //    Console.WriteLine(callback.Message);
@@ -66,7 +52,7 @@ namespace Toci.Earrai.Bll {
                 // it is expired. Otherwise it returns the cached token.
 
                 var result = await _msalClient
-                    .AcquireTokenSilent(_scopes, _userAccount)
+                    .AcquireTokenSilent(AuthData.GetScopes(), _userAccount)
                     .ExecuteAsync();
 
                 return result.AccessToken;
