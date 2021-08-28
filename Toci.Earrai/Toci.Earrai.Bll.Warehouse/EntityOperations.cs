@@ -45,12 +45,6 @@ namespace Toci.Earrai.Bll.Warehouse
 
         public void UpdateExcelCell(int rowIndex, int columnIndex, string fileId, string sheetName, string value)
         {
-            var appId = "98a98443-1860-405d-9277-b8bccba724f7";
-
-            string[] scopes = new[] { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
-            "https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
-            "https://graph.microsoft.com/Sites.ReadWrite.All" }; //api://98a98443-1860-405d-9277-b8bccba724f7/ApiAccess
-
             // Initialize the auth provider with values from appsettings.json
             var authProvider = new DeviceCodeAuthProvider();
 
@@ -58,12 +52,13 @@ namespace Toci.Earrai.Bll.Warehouse
 
             var readSheet = graphClient.Me.Drive.Items[fileId].Workbook.Worksheets[sheetName];
 
-            readSheet.Cell(rowIndex - 1, columnIndex - 1).Request().PatchAsync(new WorkbookRange()
+            var dupa = readSheet.Cell(rowIndex, columnIndex).Request().PatchAsync(new WorkbookRange()
             {
                 RowIndex = rowIndex,
                 ColumnIndex = columnIndex,
                 Values = JsonDocument.Parse("[[\"" + value + "\"]]")
-            });
+            }).Result;
+
         }
     }
 }
