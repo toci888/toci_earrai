@@ -6,14 +6,9 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function WorksheetRecord({ route, navigation }) {
 
-    //console.log(navigation.getParam('worksheetColumns'))
-    //console.log(navigation.getParam('workSheetRecord'))
-    //console.log(navigation.getParam('connectService'))
-
     const [connectService] = useState( navigation.getParam('connectService') )
     const [columnsName, setColumnsName] = useState([])
     const [columnsData, setColumnsData] = useState([])
-    //const [columnsStartData, setColumnsStartData] = useState([])
 
     useEffect( () => {
 

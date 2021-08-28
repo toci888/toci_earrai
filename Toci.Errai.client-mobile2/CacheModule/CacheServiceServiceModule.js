@@ -4,9 +4,21 @@ export class ConnectionService {
 
 
     nowContentData = {
+        nowWorkbookId: null,
         nowWorksheetId: null,
-        nowWorksheetcontentId: null
+        nowRowIndex: null
     }
+
+    setNowWorkbookId(id) { this.nowContentData.nowWorkbookId = id }
+    getNowWorkbookId = () => this.nowContentData.nowWorkbookId
+
+    setNowWorksheetId(id) { this.nowContentData.nowWorksheetId = id }
+    getNowWorksheetId = () => this.nowContentData.nowWorksheetId
+
+    setRowId(index) { this.nowContentData.nowRowIndex = index }
+    getRowId = () => this.nowContentData.nowRowIndex
+
+
 
     isConnected = true
 
@@ -161,6 +173,7 @@ export class ConnectionService {
             }
 
             console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
+            console.log(this.nowContentData);
 
             if(!this.isConnected) {
 
