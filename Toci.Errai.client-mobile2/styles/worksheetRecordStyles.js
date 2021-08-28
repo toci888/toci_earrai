@@ -4,6 +4,7 @@ export const worksheetRecord = StyleSheet.create({
     item: {
         borderTopWidth: 12,
         borderTopColor: '#807373',
+        flexDirection: 'row'
     },
     listItem: {
         backgroundColor: 'white',
@@ -39,6 +40,32 @@ export const worksheetRecord = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    container: {
+        paddingTop: 40,
+    },
+    columns: {
+        width: '60%',
+
+    },
+    value: {
+        width: '40%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1
+    },
+    absoluteUpdate: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: 40,
     }
 
 })
