@@ -18,6 +18,7 @@ export default function Home( { navigation }) {
     const [workbooks, setworkbooks] = useState([])
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
+    const [apiConnect, setapiConnect] = useState(false)
 
     useEffect( () => {
         console.log("USE_EFFECT_START");
@@ -27,9 +28,15 @@ export default function Home( { navigation }) {
         fetch("https://localhost:44326/api/Workbook/GetAllWorkbooksFromDb")
         .then( response => response.json() )
         .then( response => {
-            //console.log(response)
+            console.log(response)
             setworkbooks(response)
             setdisplayedWorkbooks(response)
+            setapiConnect(true)
+        }).catch(error => {
+            console.log(error);
+            if(error) {
+                setapiConnect(false)
+            }
         })
 
 
@@ -78,7 +85,7 @@ export default function Home( { navigation }) {
     }
 
     return (
-        connectService.isConnectedFunc() ? (
+        (connectService.isConnectedFunc() && (apiConnect)) ? (
         // <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss(); }  } >
             <View style={globalStyles.container}>
                 {/* <View style={ worksheetRecord.rowContainer }>
@@ -169,7 +176,9 @@ export default function Home( { navigation }) {
 
         // </TouchableWithoutFeedback>
         ) : (
-            <View><Text>NO CONNECTION</Text></View>
+            <View>
+                <Text>NO CONNECTION</Text>
+            </View>
             //  <NoConnectionScreen onCheck={checkConnected} />
         ))
 }
