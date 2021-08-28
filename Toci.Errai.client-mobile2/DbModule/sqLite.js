@@ -34,20 +34,24 @@ const db = SQLite.openDatabase("db.testDb");
         console.log(2);
 
         db.transaction(tx => {
-          tx.executeSql("DROP TABLE IF EXISTS content_cache", []);
+          tx.executeSql("drop table if EXISTS content_cache", [], (response) => {
+            console.log(response);
+          });
          });
 
         db.transaction(tx => {
           tx.executeSql(
-           `create table if not exists content_cache (
+           `create table content_cache (
              id integer primary key not null,
              Idworksheet int,
              columnIndex int,
              rowIndex int,
              value text,
              createdAt time(YYYY-MM-DD HH:MM:SS),
-             updatedAt time(YYYY-MM-DD HH:MM:SS),
-             );`, [], (res) => {console.log(res);}
+             updatedAt time(YYYY-MM-DD HH:MM:SS)
+             );`, [], (res) => {console.log(res);}, error => {
+               console.log(error);
+             }
           );
          });
 
