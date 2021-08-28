@@ -47,9 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll.Warehouse",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll.Warehouse.Interfaces", "Toci.Earrai.Bll.Warehouse.Interfaces\Toci.Earrai.Bll.Warehouse.Interfaces.csproj", "{52C033EE-8ED9-41F0-AFD7-384CBB1FD557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Bll.Client.UI", "Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj", "{9C8CD52B-D52C-44B9-844C-F76A56E41ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll.Client.UI", "Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj", "{9C8CD52B-D52C-44B9-844C-F76A56E41ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toci.Earrai.Bll.Client.UI.Interfaces", "Toci.Earrai.Bll.Client.UI.Interfaces\Toci.Earrai.Bll.Client.UI.Interfaces.csproj", "{E8F1B140-7DEE-4A8C-AA64-296E6CB5FCFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Earrai.Bll.Client.UI.Interfaces", "Toci.Earrai.Bll.Client.UI.Interfaces\Toci.Earrai.Bll.Client.UI.Interfaces.csproj", "{E8F1B140-7DEE-4A8C-AA64-296E6CB5FCFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
