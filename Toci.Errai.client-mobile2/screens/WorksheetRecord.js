@@ -14,10 +14,32 @@ export default function WorksheetRecord({ route, navigation }) {
 
         console.log("USE EFFECT")
 
+        connectService.setRowIndex(navigation.getParam('rowIndex') || null)
+
         setColumnsName(navigation.getParam('worksheetColumns'))
-        setColumnsData(navigation.getParam('workSheetRecord'))
+        const x = navigation.getParam('workSheetRecord')
 
 
+        if(x == null) {
+            const newArr = []
+            for(let i=0; i < navigation.getParam('worksheetColumns')[0].length; i++) {
+                newArr.push(
+                    {
+                        //id: 190,
+                        idworksheet: 1,
+                        createdat: new Date().getTime(),
+                        updatedat: new Date().getTime(),
+                        columnindex: i,
+                        rowindex: null
+                    }
+                )
+            }
+            setColumnsData(newArr)
+        } else {
+            setColumnsData(navigation.getParam('workSheetRecord'))
+        }
+
+        return () => {console.log("END RECORD SCREEN ?")}
     }, [] )
 
     const testChangeValue = (e, index) => {
@@ -112,7 +134,9 @@ export default function WorksheetRecord({ route, navigation }) {
     return (
         <View style={worksheetRecord.container}>
             <View style={ worksheetRecord.absoluteUpdate }>
-                <Text style={worksheetRecord.updateText} >UPDATE</Text>
+                <Text style={worksheetRecord.updateText} >
+                    {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
+                </Text>
             </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>

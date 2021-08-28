@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Button, Text, View, TextInput } from 'react-native'
 import { DataTable } from 'react-native-paper'
+import { worksheetContent as worksheetContentCSS } from '../styles/worksheetContent'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 
 let tempColumns = 6
@@ -61,6 +62,7 @@ export default function WorksheetContent({ route, navigation }) {
 
         navigation.navigate('WorksheetRecord', {
             worksheetColumns: columns,
+            rowIndex: rowIndex,
             workSheetRecord: worksheetContent[rowIndex],
             connectService: connectService
         })
@@ -106,6 +108,14 @@ export default function WorksheetContent({ route, navigation }) {
 
     }
 
+    const addNewRecord = () => {
+        navigation.navigate('WorksheetRecord', {
+            worksheetColumns: columns,
+            workSheetRecord: null,
+            connectService: connectService
+        })
+    }
+
     const disconnect = () => {
         connectService.disconnect()
     }
@@ -123,6 +133,9 @@ export default function WorksheetContent({ route, navigation }) {
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}
+            <View style={worksheetContentCSS.addNewRecordView}>
+                <Text style={worksheetContentCSS.addNewRecordBtn} onPress={addNewRecord}> ADD NEW RECORD </Text>
+            </View>
 
             <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
 
@@ -139,14 +152,14 @@ export default function WorksheetContent({ route, navigation }) {
 
             <View>
 
-                <DataTable>
+                <DataTable style={globalStyles.tableContainer}>
 
                     {/* Chwilowo tylko kilka column widocznych */}
 
                     <DataTable.Header style={globalStyles.HalfHeader}>
 
                         {columns[0].map((column, index) => {
-                            if(index > tempColumns) return
+                            //if(index > tempColumns) return
                             return (
                                 <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
                             )
@@ -157,7 +170,7 @@ export default function WorksheetContent({ route, navigation }) {
                     <DataTable.Header style={globalStyles.HalfHeader}>
 
                         {columns[1].map((column, index) => {
-                            if(index > tempColumns) return
+                            //if(index > tempColumns) return
                             return <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
                         })}
 
@@ -165,14 +178,15 @@ export default function WorksheetContent({ route, navigation }) {
 
                     {
                         worksheetContent.map( (row, rowIndex) => {
-                            return(<DataTable.Row key={ rowIndex } >
+                            return(<DataTable.Row key={ rowIndex } style={worksheetContentCSS.customRow} >
                                 { row.map( (column, columnIndex) => {
-                                    if(columnIndex > tempColumns) return
+                                    //if(columnIndex > tempColumns) return
                                     return <DataTable.Cell
+                                                class="dupa"
                                                 key={column.id}
                                                 onPress={ () => showRecordData(rowIndex) }
                                                 // onPress={ () => testChangeValue(rowIndex, columnIndex) }
-                                                style={globalStyles.cell}>
+                                                style={worksheetContentCSS.cell}>
                                                 {column.value}
                                             </DataTable.Cell>
                                 } ) }
@@ -183,9 +197,7 @@ export default function WorksheetContent({ route, navigation }) {
                 </DataTable>
 
             </View>
-            <View style={{paddingTop: 45}}>
-                <Button title="ADD NEW RECORD" />
-            </View>
+
 
         </View>
     )

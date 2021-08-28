@@ -15,8 +15,8 @@ export class ConnectionService {
     setNowWorksheetId(id) { this.nowContentData.nowWorksheetId = id }
     getNowWorksheetId = () => this.nowContentData.nowWorksheetId
 
-    setRowId(index) { this.nowContentData.nowRowIndex = index }
-    getRowId = () => this.nowContentData.nowRowIndex
+    setRowIndex(index) { this.nowContentData.nowRowIndex = index }
+    getRowIndex = () => this.nowContentData.nowRowIndex
 
 
 

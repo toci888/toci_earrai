@@ -74,6 +74,7 @@ export const globalStyles = StyleSheet.create({
     cell: {
         fontSize: 7,
         padding: 4,
+        clear: 'both'
         //borderLeftWidth: 1,
         //borderLeftColor: 'rgb(51, 153, 255)',
         //borderBottomWidth: 1,
