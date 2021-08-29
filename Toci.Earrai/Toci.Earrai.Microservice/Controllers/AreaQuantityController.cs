@@ -25,5 +25,16 @@ namespace Toci.Earrai.Microservice.Controllers
 
             return Ok(areaQuantities);
         }
+
+        [HttpPost("PostAreaQuantities")]
+        public ActionResult PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
+        {
+            Logic.PostAreaQuantities(areaQuantityCollection);
+
+            return Ok("OK");
+        }
     }
+
+
+
 }

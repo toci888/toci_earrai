@@ -11,5 +11,7 @@ namespace Toci.Earrai.Bll.Interfaces
     public interface IAreaquantityLogic : ILogicBase<Areaquantity>
     {
         List<Areaquantity> GetAllAreaQuantitiesFromDb();
+
+        void PostAreaQuantities(List<Areaquantity> areaQuantityCollection);
     }
 }
