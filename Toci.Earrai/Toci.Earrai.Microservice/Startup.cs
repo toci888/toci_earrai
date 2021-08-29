@@ -41,6 +41,8 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
             services.AddScoped<IWorksheetcontentLogic, WorksheetcontentLogic>();
             services.AddScoped<IEntityOperations, EntityOperations>();
+            services.AddScoped<IAreaquantityLogic, AreaquantityLogic>();
+            services.AddScoped<IAreasLogic, AreasLogic>();
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
