@@ -20,6 +20,13 @@ namespace Toci.Earrai.Microservice.Controllers
             
         }
 
+        [HttpGet]
+        [Route("LoadData")]
+        public Dictionary<string, object> LoadData()
+        {
+            return Logic.LoadData();
+        }
+
         [HttpPost]
         [Route("SetCell")]
         public ActionResult<Worksheetcontentshistory> InsertToHistory(int idWorksheet, int columnNumber, int rowNumber, string value)

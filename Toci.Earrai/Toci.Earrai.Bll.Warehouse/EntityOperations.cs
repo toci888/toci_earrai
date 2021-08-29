@@ -1,15 +1,23 @@
 ﻿using Microsoft.Graph;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Toci.Earrai.Bll.Warehouse.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
+using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
 namespace Toci.Earrai.Bll.Warehouse
 {
     public class EntityOperations : Logic<Worksheetcontent>, IEntityOperations
     {
+        protected Logic<Area> AreaLogic = new Logic<Area>();
+        protected Logic<Codesdimension> CdLogic = new Logic<Codesdimension>();
+        protected Logic<Workbook> WorkbookLogic = new Logic<Workbook>();
+        protected Logic<Worksheet> WorkSheetLogic = new Logic<Worksheet>();
+        protected Logic<Worksheetcontent> WorkSheetContentLogic = new Logic<Worksheetcontent>();
+
         public Worksheetcontentshistory InsertToHistory(int idWorksheet, int columnIndex, int rowIndex, string value)
         {
             Logic<Worksheetcontentshistory> worksheetHistory = new Logic<Worksheetcontentshistory>();
@@ -61,6 +69,24 @@ namespace Toci.Earrai.Bll.Warehouse
                 Values = JsonDocument.Parse("[[\"" + value + "\"]]")
             }).Result;
 
+        }
+
+        public virtual Dictionary<string, object> LoadData()
+        {
+            IQueryable<Area> areas = AreaLogic.Select(m => true);
+            IQueryable<Codesdimension> categories = CdLogic.Select(m => true);
+            IQueryable<Workbook> workbooks = WorkbookLogic.Select(m => true);
+            IQueryable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
+            IQueryable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
+
+            return new Dictionary<string, object>()
+            {
+                { "Areas", areas },
+                { "Categories", categories },
+                { "Workbooks", workbooks },
+                { "Worksheets", worksheets },
+                { "Worksheetcontents", workSheetContent }
+            };
         }
     }
 }

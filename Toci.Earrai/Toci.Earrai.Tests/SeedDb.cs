@@ -23,6 +23,7 @@ namespace Toci.Earrai.Tests
         private Logic<Worksheet> Worksheet = new Logic<Worksheet>();
         private Logic<Worksheetcontent> WorksheetContent = new Logic<Worksheetcontent>();
         private Logic<Area> Area = new Logic<Area>();
+        private Logic<Codesdimension> codesdimensions = new Logic<Codesdimension>();
 
         private Random r = new Random();
 
@@ -221,6 +222,11 @@ ALCHQ
 MSH
 EX_MET".Split("\n", StringSplitOptions.None);
 
+            foreach (string code in wl)
+            {
+                codesdimensions.Insert(new Codesdimension() { Code = code, Kind = 1 });
+            }
+
             string[] size = @"SHS
 RHS
 PFC
@@ -271,6 +277,11 @@ PF_SP
 RAM_
 PAI
 CON".Split("\n", StringSplitOptions.None);
+
+            foreach (string code in size)
+            {
+                codesdimensions.Insert(new Codesdimension() { Code = code, Kind = 2 });
+            }
         }
     }
 }
