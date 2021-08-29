@@ -7,6 +7,11 @@ namespace Toci.Earrai.Database.Persistence.Models
 {
     public partial class User
     {
+        public User()
+        {
+            Areaquantities = new HashSet<Areaquantity>();
+        }
+
         public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -16,5 +21,6 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Idrole { get; set; }
 
         public virtual Role IdroleNavigation { get; set; }
+        public virtual ICollection<Areaquantity> Areaquantities { get; set; }
     }
 }

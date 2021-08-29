@@ -21,6 +21,7 @@ namespace Toci.Earrai.Tests
         private Logic<Workbook> Workbook = new Logic<Workbook>();
         private Logic<Worksheet> Worksheet = new Logic<Worksheet>();
         private Logic<Worksheetcontent> WorksheetContent = new Logic<Worksheetcontent>();
+        private Logic<Area> Area = new Logic<Area>();
 
         private Random r = new Random();
 
@@ -169,31 +170,31 @@ namespace Toci.Earrai.Tests
         public void SeedAreas()
         {
             string items = @"RH	Rack House
-CO	Compound
-BW	Bottom Workshop
-TS	Top Shed
-BY	Back Yard
-FY	Front Yard
-BP	Big Press
-PO	Porch
-BS	Bolt Store
-LO	Loft
-GY	Garages
-BG	Behind Garages
-81	81 Dwelling House
-QA	Quarry Left of Main Route
-QB	Quarry Front Shed
-QC	Quarry Back Shed
-QD	Quarry Concrete
-QE	Quarry Area E
-QF	Quarry Area F
-QG	Quarry Area G
-QH	Quarry Area H
-QI	Quarry Area I
-QJ	Quarry Area J
-QK	Quarry Area K
-QL	Quarry Area L
-QM	Quarry Area M";
+                CO	Compound
+                BW	Bottom Workshop
+                TS	Top Shed
+                BY	Back Yard
+                FY	Front Yard
+                BP	Big Press
+                PO	Porch
+                BS	Bolt Store
+                LO	Loft
+                GY	Garages
+                BG	Behind Garages
+                81	81 Dwelling House
+                QA	Quarry Left of Main Route
+                QB	Quarry Front Shed
+                QC	Quarry Back Shed
+                QD	Quarry Concrete
+                QE	Quarry Area E
+                QF	Quarry Area F
+                QG	Quarry Area G
+                QH	Quarry Area H
+                QI	Quarry Area I
+                QJ	Quarry Area J
+                QK	Quarry Area K
+                QL	Quarry Area L
+                QM	Quarry Area M";
 
             string[] elements = items.Split(new string[] { "\n"} , StringSplitOptions.None);
 

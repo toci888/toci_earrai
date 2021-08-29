@@ -17,6 +17,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         {
         }
 
+        public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<Areaquantity> Areaquantities { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
@@ -37,6 +39,46 @@ namespace Toci.Earrai.Database.Persistence.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+
+            modelBuilder.Entity<Area>(entity =>
+            {
+                entity.ToTable("areas");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Code).HasColumnName("code");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Areaquantity>(entity =>
+            {
+                entity.ToTable("areaquantity");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
+                entity.Property(e => e.Idarea).HasColumnName("idarea");
+
+                entity.Property(e => e.Iduser).HasColumnName("iduser");
+
+                entity.Property(e => e.Lengthdimensions).HasColumnName("lengthdimensions");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
+
+                entity.HasOne(d => d.IdareaNavigation)
+                    .WithMany(p => p.Areaquantities)
+                    .HasForeignKey(d => d.Idarea)
+                    .HasConstraintName("areaquantity_idarea_fkey");
+
+                entity.HasOne(d => d.IduserNavigation)
+                    .WithMany(p => p.Areaquantities)
+                    .HasForeignKey(d => d.Iduser)
+                    .HasConstraintName("areaquantity_iduser_fkey");
+            });
 
             modelBuilder.Entity<Role>(entity =>
             {
