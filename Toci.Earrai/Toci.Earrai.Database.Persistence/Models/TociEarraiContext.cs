@@ -19,6 +19,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Areaquantity> Areaquantities { get; set; }
+        public virtual DbSet<Areasquantity> Areasquantities { get; set; }
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -58,7 +59,9 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Createdat).HasColumnName("createdat");
+                entity.Property(e => e.Createdat)
+                    .HasColumnName("createdat")
+                    .HasDefaultValueSql("now()");
 
                 entity.Property(e => e.Idarea).HasColumnName("idarea");
 
@@ -74,7 +77,9 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
 
-                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
+                entity.Property(e => e.Updatedat)
+                    .HasColumnName("updatedat")
+                    .HasDefaultValueSql("now()");
 
                 entity.HasOne(d => d.IdareaNavigation)
                     .WithMany(p => p.Areaquantities)
@@ -95,6 +100,37 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Areaquantities)
                     .HasForeignKey(d => d.Idworksheet)
                     .HasConstraintName("areaquantity_idworksheet_fkey");
+            });
+
+            modelBuilder.Entity<Areasquantity>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("areasquantities");
+
+                entity.Property(e => e.Areacode).HasColumnName("areacode");
+
+                entity.Property(e => e.Areaname).HasColumnName("areaname");
+
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idarea).HasColumnName("idarea");
+
+                entity.Property(e => e.Idcodesdimensions).HasColumnName("idcodesdimensions");
+
+                entity.Property(e => e.Iduser).HasColumnName("iduser");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Initials).HasColumnName("initials");
+
+                entity.Property(e => e.Lengthdimensions).HasColumnName("lengthdimensions");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
             });
 
             modelBuilder.Entity<Codesdimension>(entity =>
@@ -134,6 +170,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Idrole)
                     .HasColumnName("idrole")
                     .HasDefaultValueSql("1");
+
+                entity.Property(e => e.Initials).HasColumnName("initials");
 
                 entity.Property(e => e.Lastname).HasColumnName("lastname");
 

@@ -2,6 +2,9 @@ drop view userRoles;
 
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
+drop table areaquantity;
+drop table areas;
+drop table codesdimensions;
 drop table worksheets;
 drop table workbooks;
 drop table users;
@@ -18,6 +21,7 @@ create table users
 	id serial primary key,
 	firstName text,
 	lastName text,
+	initials text,
 	email text,
 	password text,
 	emailConfirmed int default 0,
@@ -86,12 +90,20 @@ create table areaquantity
 	idUser int references users(id),
 	rowIndex int,
 	quantity text,
-	lengthDimensions text,
-	createdAt timestamp,
-	updatedAt timestamp
+	lengthDimensions text, -- 12 x 32, 234
+	createdAt timestamp default now(),
+	updatedAt timestamp default now()
 );
 
 
+create or replace view AreasQuantities as 
+select areaquantity.id, areaquantity.idworksheet, areaquantity.idcodesdimensions, areaquantity.idArea, areaquantity.idUser, 
+areaquantity.rowIndex, areaquantity.quantity, areaquantity.lengthDimensions, areaquantity.createdAt, areas.code as areacode, areas.name as areaname, 
+users.initials 
+from areaquantity join areas on areaquantity.idArea = areas.id 
+join users on areaquantity.idUser = users.id;
+
+select * from AreasQuantities;
 
 create or replace view userRoles as
 select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, roles.name
@@ -107,3 +119,4 @@ select * from workbooks;
 select * from worksheets;
 select * from worksheetcontents;
 select * from worksheetcontentshistory;
+select * from areas;
