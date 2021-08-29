@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/worksheetsListStyles'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 
-export default function WorksheetsList( { route, navigation} ) {
+export default function WorksheetsList({ route, navigation }) {
 
     const [connectService, setconnectService] = useState( navigation.getParam('connectService') )
     const [worksheets, setworksheets] = useState([])
@@ -37,6 +37,8 @@ export default function WorksheetsList( { route, navigation} ) {
                 setworksheets(x)
                 setloading(false)
             })
+
+        return () => { console.log("END WorksheetsList SCREEN ?") }
     }, [] )
 
     const filterWorkbooks = (e) => {
