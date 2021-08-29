@@ -12,31 +12,10 @@ namespace Toci.Earrai.Bll.Client.UI
     public class ApiConnector
     {
         protected string BaseUrl = "https://localhost:44326/";
-        public async Task<string> GetAll()
-        {
-            using (HttpClient hc = new HttpClient())
-            {
-                hc.BaseAddress = new Uri(BaseUrl);
-                var response = await hc.GetAsync("resource/7");
-
-                return response.Content.ReadAsStringAsync().Result;
-            }
-        }
 
         public virtual List<List<Worksheetcontent>> SearchWorksheet(int worksheetId, string phrase)
         {
-            using (HttpClient hc = new HttpClient())
-            {
-                hc.BaseAddress = new Uri(BaseUrl);
-
-                var response = hc.GetAsync("api/WorksheetContent/searchWorksheet/" + worksheetId + "/" + phrase).Result;
-
-                var dupa = response.Content.ReadAsStringAsync().Result;
-
-                List<List<Worksheetcontent>> result = (List<List<Worksheetcontent>>)Newtonsoft.Json.JsonConvert.DeserializeObject(dupa, typeof(List<List<Worksheetcontent>>));
-
-                return result;
-            }
+            return ApiGet<List<List<Worksheetcontent>>>("api/WorksheetContent/searchWorksheet/" + worksheetId + "/" + phrase);
         }
 
         public virtual List<Worksheetcontent> GetIncrease(DateTime date)
@@ -44,17 +23,23 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Worksheetcontent>>("api​/EntityOperations​/GetIncrease?dateTime=" + date.ToString());
         }
 
+        public virtual IEnumerable<List<Worksheet>> GetWorkSheetsForWorkbook(string workbookId)
+        {
+            return ApiGet<IEnumerable<List<Worksheet>>>("api/Workbook​/GetAllWorksheets​/" + workbookId);
+        }
+            
+
         protected virtual T ApiGet<T>(string url)
         {
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
 
-                var response = hc.GetAsync(url).Result;
+                HttpResponseMessage response = hc.GetAsync(url).Result;
 
-                var dupa = response.Content.ReadAsStringAsync().Result;
+                string content = response.Content.ReadAsStringAsync().Result;
 
-                JObject json = JObject.Parse(dupa);
+                JObject json = JObject.Parse(content);
 
                 return json.ToObject<T>();
             }
