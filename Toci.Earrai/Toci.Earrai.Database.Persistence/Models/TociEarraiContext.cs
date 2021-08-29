@@ -19,6 +19,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Areaquantity> Areaquantities { get; set; }
+        public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
@@ -38,7 +39,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -61,11 +62,17 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Idarea).HasColumnName("idarea");
 
+                entity.Property(e => e.Idcodesdimensions).HasColumnName("idcodesdimensions");
+
                 entity.Property(e => e.Iduser).HasColumnName("iduser");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
                 entity.Property(e => e.Lengthdimensions).HasColumnName("lengthdimensions");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
 
                 entity.Property(e => e.Updatedat).HasColumnName("updatedat");
 
@@ -74,10 +81,31 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasForeignKey(d => d.Idarea)
                     .HasConstraintName("areaquantity_idarea_fkey");
 
+                entity.HasOne(d => d.IdcodesdimensionsNavigation)
+                    .WithMany(p => p.Areaquantities)
+                    .HasForeignKey(d => d.Idcodesdimensions)
+                    .HasConstraintName("areaquantity_idcodesdimensions_fkey");
+
                 entity.HasOne(d => d.IduserNavigation)
                     .WithMany(p => p.Areaquantities)
                     .HasForeignKey(d => d.Iduser)
                     .HasConstraintName("areaquantity_iduser_fkey");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Areaquantities)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("areaquantity_idworksheet_fkey");
+            });
+
+            modelBuilder.Entity<Codesdimension>(entity =>
+            {
+                entity.ToTable("codesdimensions");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Code).HasColumnName("code");
+
+                entity.Property(e => e.Kind).HasColumnName("kind");
             });
 
             modelBuilder.Entity<Role>(entity =>

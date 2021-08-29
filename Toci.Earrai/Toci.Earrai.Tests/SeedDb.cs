@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
@@ -198,7 +199,78 @@ namespace Toci.Earrai.Tests
 
             string[] elements = items.Split(new string[] { "\n"} , StringSplitOptions.None);
 
-            //list<string>
+            
+            foreach (string element in elements)
+            {
+                string[] pieces = element.Split("\t", StringSplitOptions.None);
+                Area.Insert(new Area() { Code = pieces[0].Trim(), Name = pieces[1] });
+            }
+        }
+
+        [TestMethod]
+        public void SeedWlOrSizeCategories()
+        {
+            //wl - width, length
+            // size - size
+            string[] wl = @"PL
+PLCHQ
+HD
+GS
+ALSH
+ALCHQ
+MSH
+EX_MET".Split("\n", StringSplitOptions.None);
+
+            string[] size = @"SHS
+RHS
+PFC
+UB
+UC
+IPE
+EA
+UA
+TS
+CHS
+GCHS
+FL
+FLB
+RB_BLK
+RB_BRI
+SQ_BLK
+SQ_BRI
+HB
+F_BH
+F_PB
+F_TB
+F_PS
+F_LL
+F_TS
+F_LR
+F_CF
+F_BT
+F_FT
+F_PL
+F_FLB
+F_YS
+F_SP
+PF_BH
+PF_PB
+PF_TB
+PF_PS
+PF_LL
+PF_TS
+PF_LR
+PF_CF
+PF_CA
+PF_BT
+PF_FT
+PF_PL
+PF_FLB
+PF_YS
+PF_SP
+RAM_
+PAI
+CON".Split("\n", StringSplitOptions.None);
         }
     }
 }

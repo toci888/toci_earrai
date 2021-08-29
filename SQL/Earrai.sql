@@ -70,11 +70,21 @@ create table areas
 	name text
 );
 
+create table codesdimensions
+(
+	id serial primary key,
+	code text,
+	kind int
+);
+
 create table areaquantity
 (
 	id serial primary key,
+	idworksheet int references worksheets (id),
+	idcodesdimensions int references codesdimensions (id),
 	idArea int references areas(id),
 	idUser int references users(id),
+	rowIndex int,
 	quantity text,
 	lengthDimensions text,
 	createdAt timestamp,

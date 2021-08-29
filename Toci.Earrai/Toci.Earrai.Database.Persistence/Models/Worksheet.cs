@@ -9,6 +9,7 @@ namespace Toci.Earrai.Database.Persistence.Models
     {
         public Worksheet()
         {
+            Areaquantities = new HashSet<Areaquantity>();
             Worksheetcontents = new HashSet<Worksheetcontent>();
             Worksheetcontentshistories = new HashSet<Worksheetcontentshistory>();
         }
@@ -20,6 +21,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public DateTime? Updatedat { get; set; }
 
         public virtual Workbook IdworkbookNavigation { get; set; }
+        public virtual ICollection<Areaquantity> Areaquantities { get; set; }
         public virtual ICollection<Worksheetcontent> Worksheetcontents { get; set; }
         public virtual ICollection<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
     }
