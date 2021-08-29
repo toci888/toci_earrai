@@ -7,6 +7,22 @@ drop table workbooks;
 drop table users;
 drop table roles;
 
+create table roles
+(
+	id serial primary key,
+	name text
+);
+
+create table users
+(
+	id serial primary key,
+	firstName text,
+	lastName text,
+	email text,
+	password text,
+	emailConfirmed int default 0,
+	idRole int references roles(id) default 1
+);
 
 create table workbooks
 (
@@ -47,22 +63,25 @@ create table worksheetcontentshistory
 	createdAt timestamp
 );
 
-create table roles
+create table areas
 (
 	id serial primary key,
+	code text,
 	name text
 );
 
-create table users
+create table areaquantity
 (
 	id serial primary key,
-	firstName text,
-	lastName text,
-	email text,
-	password text,
-	emailConfirmed int default 0,
-	idRole int references roles(id) default 1
+	idArea int references areas(id),
+	idUser int references users(id),
+	quantity text,
+	lengthDimensions text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
+
+
 
 create or replace view userRoles as
 select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, roles.name
@@ -77,3 +96,4 @@ select * from userRoles;
 select * from workbooks;
 select * from worksheets;
 select * from worksheetcontents;
+select * from worksheetcontentshistory;

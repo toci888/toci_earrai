@@ -35,6 +35,8 @@ namespace Toci.Earrai.Bll.Warehouse
 
             Update(oldCell);
 
+            //UpdateExcelCell(rowIndex, columnIndex
+
             return wch;
         }
 
