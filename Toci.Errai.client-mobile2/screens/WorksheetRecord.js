@@ -4,6 +4,7 @@ import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
+import { environment } from '../environment'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -29,9 +30,20 @@ export default function WorksheetRecord({ route, navigation }) {
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
     const [widthHook, setwidthHook] = useState("")
+    const [dupa, setDupa] = useState("")
     const [lengthHook, setlengthHook] = useState("")
 
     useEffect( () => {
+        
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then(r => {
+            return r.json();
+        }).then(r => {
+            setDupa(r);
+            console.log("QUANTITIES");
+            console.log(r);
+        })
+        // let json = await response.json();
+        // console.log(json);
 
         console.log("USE EFFECT")
 
@@ -299,6 +311,62 @@ export default function WorksheetRecord({ route, navigation }) {
         return respo
     }
 
+    const displayQuantities = () => {
+        { dupa.id }
+        { dupa.areacode }
+        { dupa.areaname }
+        { dupa.quantity }
+        return (
+        <View style={ worksheetRecord.rowContainer }>
+            <View style={worksheetRecord.columns}>
+                <View style={ worksheetRecord.listItem }>
+                    <Text>
+                        { dupa.id }
+                        { dupa.areacode }
+                        { dupa.areaname }
+                        { dupa.quantity }
+                    </Text>
+                </View>
+
+                <View style={ worksheetRecord.listItem }>
+                    <Text>
+                        { dupa.id }
+                        { dupa.areacode }
+                        { dupa.areaname }
+                        { dupa.quantity }
+                    </Text>
+                </View>
+            </View>
+
+            <View style={worksheetRecord.value}>
+                <Text>
+                    { dupa.id }
+                    { dupa.areacode }
+                    { dupa.areaname }
+                    { dupa.quantity }
+                </Text>
+                <Text>
+                    { dupa.id }
+                    { dupa.areacode }
+                    { dupa.areaname }
+                    { dupa.quantity }
+                </Text>
+            </View>
+        </View>
+        )
+        // let response = fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then({});
+        // fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then({});
+        // let json = await response.json();
+        // console.log(json);
+    }
+
+    const getData = async () => {
+        let r = await fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1');
+        return r;
+
+        
+    }
+
     return (
         <View style={worksheetRecord.container}>
             <View style={ worksheetRecord.absoluteUpdate }>
@@ -376,7 +444,11 @@ export default function WorksheetRecord({ route, navigation }) {
 
 
             </View>
-
+            <View>
+                <Text>
+                    { displayQuantities() }
+                </Text>
+            </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}
@@ -385,6 +457,8 @@ export default function WorksheetRecord({ route, navigation }) {
                 { displayRow() }
 
             </View>
+
+            
         </View>
     )
 }

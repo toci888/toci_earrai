@@ -59,6 +59,7 @@ namespace Toci.Earrai.Tests
             {
                 Firstname = "User",
                 Lastname = "User",
+                Initials = "UU",
                 Email = "user@wp.pl",
                 Password = "12345678",
                 Idrole = 1
@@ -68,6 +69,7 @@ namespace Toci.Earrai.Tests
             {
                 Firstname = "Office",
                 Lastname = "Office",
+                Initials = "OO",
                 Email = "office@wp.pl",
                 Password = "12345678",
                 Idrole = 2
@@ -77,6 +79,7 @@ namespace Toci.Earrai.Tests
             {
                 Firstname = "Pc",
                 Lastname = "Pc",
+                Initials = "PP",
                 Email = "pc@wp.pl",
                 Password = "12345678",
                 Idrole = 3
@@ -86,6 +89,7 @@ namespace Toci.Earrai.Tests
             {
                 Firstname = "Admin",
                 Lastname = "Admin",
+                Initials = "AA",
                 Email = "admin@wp.pl",
                 Password = "12345678",
                 Idrole = 4
