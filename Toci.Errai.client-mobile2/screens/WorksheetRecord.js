@@ -12,7 +12,19 @@ export default function WorksheetRecord({ route, navigation }) {
     const [columnsData, setColumnsData] = useState([])
     const [areas, setareas] = useState([])
     const [areaId, setareaId] = useState("")
-    const [tempAreaquantity, settempAreaquantity] = useState("")
+    const [tempquantity, settempquantity] = useState("")
+
+    const [tempAreaquantityRow, settempAreaquantityRow] = useState({
+        Idarea: null,
+        Idworksheet: null,
+        Rowindex: null,
+        Idcodedimensions: null,
+        Quantity: "",
+        Lengthdimensions: "",
+        createdat: null,
+        Updatedat: null,
+    })
+
     const [codedimansions, setcodedimansions] = useState(null)
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
@@ -59,7 +71,7 @@ export default function WorksheetRecord({ route, navigation }) {
             console.log(code2)
 
 
-            /*settempAreaquantity( prev => {
+            /*settempquantity( prev => {
                 return {...prev,
                     rowindex: navigation.getParam('workSheetRecord')[0].rowindex,
                     idcodesdimensions: 1 }
@@ -87,7 +99,9 @@ export default function WorksheetRecord({ route, navigation }) {
             kind = kind[0]['kind']
             setkindOfDisplay(kind)
 
-
+            settempAreaquantityRow(prev => {
+                return {...prev, Idcodedimensions: kind['id']}
+            })
             /*if(kind == 1) {
                 // 2 inputy  width x length
             } else if(kind == 2) {
@@ -174,35 +188,62 @@ export default function WorksheetRecord({ route, navigation }) {
         }
     }
 
-    const setSelectedValue = (item, index) => {
-        console.log(item)
-        setarea(item)
+    const setAreaFunc = (_id, index) => {
+        console.log(_id)
+        setareaId(_id)
+
+
+
+        settempAreaquantityRow(prev => {
+            return {...prev, Idarea: _id}
+        })
 
     }
 
     const setLength = (e) => {
-        console.log(e.target.value);
-        setlengthHook(e.target.value)
+        let lengthVal = e.target.value
+        console.log(lengthVal)
+        setlengthHook(prev => lengthVal)
+        /*
+        settempAreaquantityRow(prev => {
+            return {...prev, Lengthdimensions: widthHook}
+        })*/
     }
 
     const setWidth = (e) => {
-        console.log(e.target.value);
-        setwidthHook(e.target.value)
+        let widthVal = e.target.value
+        console.log(widthVal);
+        setwidthHook(prev => widthVal)
+
+        settempAreaquantityRow(prev => {
+            return {...prev, Lengthdimensions: widthHook}
+        })
+    }
+
+    const test22 = () => {
+        console.log("tempquantity");
+        console.log(tempquantity);
+        console.log("area object");
+        console.log(tempAreaquantityRow);
     }
 
     const setAreaquantity = (e) => {
-        let quantity = e.target.value
-        console.log(quantity)
-        settempAreaquantity(quantity)
+        let _quantity = e.target.value
+
+        settempquantity( prev => _quantity )
+
+        settempAreaquantityRow(prev => {
+            return {...prev, Quantity: _quantity}
+        })
+
+
         /*if(!connectService.isConnectedFunc()) {
             connectService.addDataToCache(tempContent)
         } else {
 
         }*/
 
-
-
-
+        //console.log(tempAreaquantityRow)
 
     }
 
@@ -261,7 +302,7 @@ export default function WorksheetRecord({ route, navigation }) {
     return (
         <View style={worksheetRecord.container}>
             <View style={ worksheetRecord.absoluteUpdate }>
-                <Text style={worksheetRecord.updateText} >
+                <Text style={worksheetRecord.updateText} onPress={test22} >
                     {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
                 </Text>
             </View>
@@ -269,10 +310,11 @@ export default function WorksheetRecord({ route, navigation }) {
                 <Picker
                     selectedValue="Choose"
                     style={{ height: 50 }}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}>
+                    selectedValue={areaId}
+                    onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
                     {
                         areas.map( (item, index) => {
-                            return <Picker.Item key={index} label={item.name} value={item.code} />
+                            return <Picker.Item key={index} label={item.name} value={item.id} />
                         } )
                     }
 
@@ -326,7 +368,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 <Text>
                     <TextInput
                         style={worksheetRecord.inputStyle}
-                        value={tempAreaquantity}
+                        value={tempquantity}
                         onChange={($event) => setAreaquantity($event)}
                     />
 
