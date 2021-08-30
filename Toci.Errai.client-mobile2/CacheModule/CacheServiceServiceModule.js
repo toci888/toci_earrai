@@ -3,20 +3,20 @@ import NetInfo from '@react-native-community/netinfo';
 export class ConnectionService {
 
 
-    nowContentData = {
+    static nowContentData = {
         nowWorkbookId: null,
         nowWorksheetId: null,
         nowRowIndex: null
     }
 
-    setNowWorkbookId(id) { this.nowContentData.nowWorkbookId = id }
-    getNowWorkbookId = () => this.nowContentData.nowWorkbookId
+    setNowWorkbookId(id) { ConnectionService.nowContentData.nowWorkbookId = id }
+    getNowWorkbookId = () => ConnectionService.nowContentData.nowWorkbookId
 
-    setNowWorksheetId(id) { this.nowContentData.nowWorksheetId = id }
-    getNowWorksheetId = () => this.nowContentData.nowWorksheetId
+    setNowWorksheetId(id) { ConnectionService.nowContentData.nowWorksheetId = id }
+    getNowWorksheetId = () => ConnectionService.nowContentData.nowWorksheetId
 
-    setRowIndex(index) { this.nowContentData.nowRowIndex = index }
-    getRowIndex = () => this.nowContentData.nowRowIndex
+    setRowIndex(index) { ConnectionService.nowContentData.nowRowIndex = index }
+    getRowIndex = () => ConnectionService.nowContentData.nowRowIndex
 
 
 
@@ -64,9 +64,13 @@ export class ConnectionService {
 
 
     addDataToCache(object_) {
-        let x = ConnectionService.cacheData.filter( x => x.id == object_.id )
+        /*console.log(object_);
+        let x = ConnectionService.cacheData.filter( x =>
+            x.Idworksheet == ConnectionService.nowContentData.nowWorksheetId &&
+            x.IdUser ==  1 &&
+            x.rowindex == object_.rowindex)
 
-        if(x.length > 0) return
+        if(x.length > 0) return*/
 
         ConnectionService.cacheData.push(object_)
     }
@@ -172,8 +176,8 @@ export class ConnectionService {
                 return
             }
 
-            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
-            console.log(this.nowContentData);
+            //console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
+            //console.log(this.nowContentData);
 
             if(!this.isConnected) {
 

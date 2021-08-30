@@ -7,7 +7,7 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
 
-
+//filter pusty nic nie pokazuje
 export default function Home( { navigation }) {
 
     const [connectService, setconnectService] = useState( new ConnectionService() )
@@ -32,6 +32,15 @@ export default function Home( { navigation }) {
         .then( response => response.json() )
         .then( response => {
 
+
+
+
+
+
+
+
+
+
             console.log(response)
             setloading(false)
             for (const iterator in response) {
@@ -55,9 +64,22 @@ export default function Home( { navigation }) {
                 return JSON.parse(response)
             })
             .then(response => {
-                //)
-                //setworkbooks(response)
                 setdisplayedWorkbooks(response)
+            })
+            .then( () => {
+
+                AsyncStorage.getItem('Areaquantity_cached')
+                .then(response => {
+                    console.log(response)
+                    let x =  JSON.parse(response)
+                    console.log(x)
+                    if(x) {console.log(11)} else {console.log(22)}
+                })
+
+
+
+
+
             })
         })
 
