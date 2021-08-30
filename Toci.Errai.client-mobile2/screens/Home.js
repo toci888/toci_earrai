@@ -6,7 +6,8 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import Login from './Login'
+import { environment } from '../environment';
 
 export default function Home( { navigation }) {
 
@@ -28,7 +29,7 @@ export default function Home( { navigation }) {
         console.log("USE_EFFECT_START");
 
         setapiConnect(false)
-        fetch("https://localhost:44326/api/EntityOperations/LoadData")
+        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
         .then( response => response.json() )
         .then( response => {
 
@@ -149,7 +150,7 @@ export default function Home( { navigation }) {
                 <Text style={ globalStyles.chooseWorkbookHeader }>
                     All Workbooks
                 </Text>
-
+                {/* <Login /> */}
                 <View>
                     <TextInput
                         value={ filteredValue }
