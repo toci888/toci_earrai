@@ -8,6 +8,7 @@ import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import Login from './Login'
+import Register from './Register'
 import { environment } from '../environment';
 
 export default function Home( { navigation }) {
@@ -164,7 +165,12 @@ export default function Home( { navigation }) {
                 <Text style={ globalStyles.chooseWorkbookHeader }>
                     All Workbooks
                 </Text>
+
+               <Button title="Login" onPress={() => Alert.alert('Button')}/>
+               <Button title="Register" onPress={() => Alert.alert('Button')}/>
+
                 {/* <Login /> */}
+                {/* <Register /> */}
                 <View>
                     <TextInput
                         value={ filteredValue }
