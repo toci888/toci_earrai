@@ -3,6 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/worksheetsListStyles'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
+import { environment } from '../environment'
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -37,7 +38,7 @@ export default function WorksheetsList({ route, navigation }) {
 
 
 
-        /*fetch("https://localhost:44326/api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('workbookId'))
+        /*fetch(environment.apiUrl + "api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('workbookId'))
             .then( response => response.json() )
             .then( response => {
                 console.log(response)
@@ -76,7 +77,7 @@ export default function WorksheetsList({ route, navigation }) {
 
     /*const showWorksheets = (id) => {
         console.log(id)
-        fetch("https://localhost:44326/api/WorksheetContent/searchWorksheet/"
+        fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
                 + id + "/" + "Alumin")
 
             .then( response => response.json() )

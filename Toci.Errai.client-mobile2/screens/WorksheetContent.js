@@ -5,6 +5,8 @@ import { DataTable } from 'react-native-paper'
 import { worksheetContent as worksheetContentCSS } from '../styles/worksheetContent'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
+import { environment } from '../environment';
+
 
 let tempColumns = 6
 
@@ -47,7 +49,7 @@ export default function WorksheetContent({ route, navigation }) {
             setloading(false)
         })
 
-        // fetch("https://localhost:44326/api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
+        // fetch(environment.apiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
         //     .then(response => response.json())
         //     .then(response => {
         //         console.log(response)
@@ -104,7 +106,7 @@ export default function WorksheetContent({ route, navigation }) {
             setworksheetContent(response)
         })
 
-        /*fetch("https://localhost:44326/api/WorksheetContent/searchWorksheet/"
+        /*fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
                     + navigation.getParam('worksheetId') + "/" + filteredValue)
         .then(response => response.json())
         .then(response => {

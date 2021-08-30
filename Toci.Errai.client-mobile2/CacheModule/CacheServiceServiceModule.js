@@ -1,4 +1,5 @@
 import NetInfo from '@react-native-community/netinfo';
+import { environment } from '../environment';
 
 export class ConnectionService {
 
@@ -76,7 +77,7 @@ export class ConnectionService {
     }
 
     updateRecord(Worksheetcontent) {
-        // fetch("https://localhost:44326/api/WorksheetContent/", {
+        // fetch(environment.apiUrl + "api/WorksheetContent/", {
         //     method: "PUT",
         //     body: JSON.stringify(Worksheetcontent) // Worksheetcontent
         // })
@@ -94,7 +95,7 @@ export class ConnectionService {
 
         console.log("Flush cache data to API");
 
-        fetch("https://localhost:44326/api/WorksheetContent/flushCache", {
+        fetch(environment.apiUrl + "api/WorksheetContent/flushCache", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -127,7 +128,7 @@ export class ConnectionService {
 
         console.log(d)
         d = {dateTime: d}
-        fetch("https://localhost:44326/api/WorksheetContent/GetIncreaseWorksheetcontents", {
+        fetch(environment.apiUrl + "api/WorksheetContent/GetIncreaseWorksheetcontents", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -150,7 +151,7 @@ export class ConnectionService {
 
     getDataFromTime_Disconnected() {
 
-        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
+        // fetch(environment.apiUrl + "api/Workbook/get/GetIncreaseWorksheetcontents" + this.disconnectedAt)
         //     .then( response => response.json() )
         //     .then( response => {
         //         this.compareDataFromAPI("dataFromAPI")
@@ -160,7 +161,7 @@ export class ConnectionService {
 
     getDataFromTime_Interval() {
 
-        // fetch("https://localhost:44326/api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
+        // fetch(environment.apiUrl + "api/Workbook/get/GetIncreaseWorksheetcontents" + this.lastIntervalAt)
         //     .then( response => response.json() )
         //     .then( response => {
         //         this.compareDataFromAPI("dataFromAPI")
