@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput } from 'react-native'
+import { Button, Text, View, TextInput, Picker } from 'react-native'
 import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default function WorksheetRecord({ route, navigation }) {
 
     const [connectService] = useState( navigation.getParam('connectService') )
     const [columnsName, setColumnsName] = useState([])
     const [columnsData, setColumnsData] = useState([])
+    const [areas, setareas] = useState([])
 
     useEffect( () => {
 
@@ -38,6 +40,28 @@ export default function WorksheetRecord({ route, navigation }) {
         } else {
             setColumnsData(navigation.getParam('workSheetRecord'))
         }
+
+        AsyncStorage.getItem('Categories')
+        .then(response => {
+            console.log(response);
+            //setcategories(response)
+        })
+
+
+
+
+
+        AsyncStorage.getItem('Areas')
+        .then(response => {
+            response = JSON.parse(response)
+
+            console.log(response);
+            setareas(response)
+            return response
+        })
+        .then(response => {
+            //console.log(areas);
+        })
 
         return () => {console.log("END RECORD SCREEN ?")}
     }, [] )
@@ -78,6 +102,10 @@ export default function WorksheetRecord({ route, navigation }) {
         }
     }
 
+    const setSelectedValue = (item, index) => {
+        console.log(item);
+    }
+
     const valueOf = (value) => { return value == "" ? "Empty Value.." : value }
 
     const valueOfCol = (value) => { return value == "" ? "Empty Column" : value }
@@ -91,7 +119,6 @@ export default function WorksheetRecord({ route, navigation }) {
 
             respo.push(
                 <View key={i} style={ worksheetRecord.rowContainer }>
-
 
                     <View style={worksheetRecord.columns}>
                         <View style={ worksheetRecord.listItem }>
@@ -137,6 +164,19 @@ export default function WorksheetRecord({ route, navigation }) {
                 <Text style={worksheetRecord.updateText} >
                     {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
                 </Text>
+            </View>
+            <View>
+                <Picker
+                    selectedValue="Choose"
+                    style={{ height: 50 }}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}>
+                    {
+                        areas.map( (item, index) => {
+                            return <Picker.Item key={index} label={item.name} value={item} />
+                        } )
+                    }
+
+                </Picker>
             </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>

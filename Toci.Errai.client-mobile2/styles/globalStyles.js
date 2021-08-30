@@ -29,6 +29,7 @@ export const globalStyles = StyleSheet.create({
     header: {
         backgroundColor: 'yellow',
         paddingTop: 15,
+        textAlign: 'center',
         paddingBottom: 15,
     },
     lists: {

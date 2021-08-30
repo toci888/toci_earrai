@@ -60,7 +60,7 @@ export class ConnectionService {
 
     }
 
-    isConnectedFunc = () => this.isConnected
+    isConnectedFunc = () => false
 
 
     addDataToCache(object_) {
