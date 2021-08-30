@@ -4,6 +4,7 @@ import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
+import { environment } from '../environment';
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -12,7 +13,7 @@ export default function WorksheetRecord({ route, navigation }) {
     const [columnsData, setColumnsData] = useState([])
     const [areas, setareas] = useState([])
     const [areaId, setareaId] = useState("")
-    const [tempquantity, settempquantity] = useState("")
+    const [quantityHook, setquantityHook] = useState("")
 
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         Idarea: null,
@@ -20,12 +21,12 @@ export default function WorksheetRecord({ route, navigation }) {
         Rowindex: null,
         Idcodedimensions: null,
         Quantity: "",
-        Lengthdimensions: "",
-        createdat: null,
+        Lengthdimensions: [0, 0],
+        Createdat: null,
         Updatedat: null,
     })
 
-    const [codedimansions, setcodedimansions] = useState(null)
+    const [KindDimensions, setKindDimensions] = useState(null)
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
     const [widthHook, setwidthHook] = useState("")
@@ -38,13 +39,13 @@ export default function WorksheetRecord({ route, navigation }) {
         connectService.setRowIndex(navigation.getParam('rowIndex') || null)
 
         setColumnsName(navigation.getParam('worksheetColumns'))
-        const x = navigation.getParam('workSheetRecord')
+        const _worksheetRecords = navigation.getParam('workSheetRecord')
         console.log('workSheetRecord');
-        console.log(x);
+        console.log(_worksheetRecords)
 
 
         let code, code2;
-        if(x == null) {
+        if(_worksheetRecords == null) {
             const newArr = []
             for(let i=0; i < navigation.getParam('worksheetColumns')[0].length; i++) {
                 newArr.push(
@@ -59,23 +60,26 @@ export default function WorksheetRecord({ route, navigation }) {
             }
             setColumnsData(newArr)
         } else {
-            let x = navigation.getParam('workSheetRecord')
-            setColumnsData(x)
-            console.log(x);
 
-            code = x[0].value
-            code2 = x[1].value
+            let _worksheetRecords = navigation.getParam('workSheetRecord')
+            setColumnsData(_worksheetRecords)
+            console.log(_worksheetRecords)
+
+            code = _worksheetRecords[0].value
+            code2 = _worksheetRecords[1].value
 
             console.log("code")
             console.log(code)
             console.log(code2)
 
 
-            /*settempquantity( prev => {
+
+            settempAreaquantityRow( prev => {
                 return {...prev,
-                    rowindex: navigation.getParam('workSheetRecord')[0].rowindex,
-                    idcodesdimensions: 1 }
-            })*/
+                    Rowindex: _worksheetRecords[0].rowindex,
+                    Idworksheet: connectService.getNowWorksheetId()
+                }
+            })
 
 
         }
@@ -87,67 +91,32 @@ export default function WorksheetRecord({ route, navigation }) {
         ]).then( response => {
             let _areas = JSON.parse(response[0])
             let _categories = JSON.parse(response[1])
-            console.log("areas");
+            console.log("areas")
             console.log(_areas)
             setareas(_areas)
 
-            console.log("categories");
+            console.log("categories")
             console.log(_categories)
 
-            let kind = _categories.filter(item => ((item.code).trim() == code2) || ((item.code).trim() == code))
-            console.log(kind);
-            kind = kind[0]['kind']
-            setkindOfDisplay(kind)
+            let kind = _categories.filter(item => (
+                (item.code).trim() == code2 || ((item.code).trim() == code )))
+            console.log(kind)
+            setkindOfDisplay(kind[0]['kind'])
+
+
 
             settempAreaquantityRow(prev => {
-                return {...prev, Idcodedimensions: kind['id']}
+                return {...prev,
+                    Idcodedimensions: kind[0]['id'],
+                }
             })
-            /*if(kind == 1) {
-                // 2 inputy  width x length
-            } else if(kind == 2) {
-                // 1 input  length
-            }*/
+
+
 
 
 
 
         } )
-
-
-
-
-       /* AsyncStorage.getItem('Areas')
-        .then(response => {
-            response = JSON.parse(response)
-            console.log("areas");
-            console.log(response);
-            setareas(prev => response)
-            //return response
-        })
-        .then( () => {
-
-
-            AsyncStorage.getItem('Categories')
-            .then(response => {
-                let x = JSON.parse(response)
-                console.log("categories");
-                console.log(x)
-                let id = x.filter(it => it.code.includes(area))[0].id
-                console.log(id);
-                if(id > 5) {
-                    settypeOfDisplay("TWO")
-                } else {
-                    settypeOfDisplay("ONE")
-                }
-                //setcategories(response)
-            })
-
-
-        })*/
-        /*.AsyncStorage.getItem('Categories')
-        .then( response => {
-            console.log(response);
-        } )*/
 
         return () => {console.log("END RECORD SCREEN ?")}
     }, [] )
@@ -201,36 +170,46 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     const setLength = (e) => {
+
         let lengthVal = e.target.value
         console.log(lengthVal)
         setlengthHook(prev => lengthVal)
-        /*
+
+        let lengthToAdd = tempAreaquantityRow.Lengthdimensions
+
+        lengthToAdd[0] = lengthVal
+
         settempAreaquantityRow(prev => {
-            return {...prev, Lengthdimensions: widthHook}
-        })*/
+            return {...prev, Lengthdimensions: lengthToAdd }
+        })
+
     }
 
     const setWidth = (e) => {
+
         let widthVal = e.target.value
         console.log(widthVal);
         setwidthHook(prev => widthVal)
 
-        settempAreaquantityRow(prev => {
-            return {...prev, Lengthdimensions: widthHook}
-        })
-    }
+        let widthToAdd = tempAreaquantityRow.Lengthdimensions
 
-    const test22 = () => {
-        console.log("tempquantity");
-        console.log(tempquantity);
-        console.log("area object");
-        console.log(tempAreaquantityRow);
+        if(kindOfDisplay == 1) {
+            widthToAdd[1] = widthVal
+        } else {
+
+        }
+
+        settempAreaquantityRow(prev => {
+            return {...prev, Lengthdimensions: widthToAdd}
+        })
+
     }
 
     const setAreaquantity = (e) => {
+
         let _quantity = e.target.value
 
-        settempquantity( prev => _quantity )
+        setquantityHook( prev => _quantity )
 
         settempAreaquantityRow(prev => {
             return {...prev, Quantity: _quantity}
@@ -246,6 +225,51 @@ export default function WorksheetRecord({ route, navigation }) {
         //console.log(tempAreaquantityRow)
 
     }
+
+    const updateData = () => {
+        console.log("quantityHook");
+        console.log(quantityHook);
+        console.log("area object");
+
+
+        let temp_ = {...tempAreaquantityRow }
+
+        let lengWid
+        if(kindOfDisplay == 1) {
+            lengWid = tempAreaquantityRow.Lengthdimensions[0]
+                        + " vs "
+                    + tempAreaquantityRow.Lengthdimensions[1]
+        } else {
+            lengWid = tempAreaquantityRow.Lengthdimensions[0]
+        }
+
+        temp_ = {...temp_,
+            Createdat: "2021-08-30T17:35:56.872Z",
+            Updatedat: "2021-08-30T17:35:56.872Z",
+            Lengthdimensions: lengWid
+        }
+
+
+        console.log(temp_);
+        if(connectService.isConnectedFunc()) {
+
+            fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
+                method: "POST",
+                body: JSON.stringify([temp_]) // arequantity
+            })
+            .then( response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        } else {
+            connectService.addDataToCache(temp_)
+        }
+
+    }
+
 
     const valueOf = (value) => { return value == "" ? "Empty Value.." : value }
 
@@ -282,17 +306,12 @@ export default function WorksheetRecord({ route, navigation }) {
 
                         </Text>
 
-                        {/* <Text style={worksheetRecord.updateButtonContainer}
-                            onPress={ () => updateValue(i) }>
-                            UPDATE
-                        </Text> */}
 
                     </View>
 
                 </View>
             )
 
-            //respo.push()  style={{width: '85%'}}
 
         }
 
@@ -302,7 +321,7 @@ export default function WorksheetRecord({ route, navigation }) {
     return (
         <View style={worksheetRecord.container}>
             <View style={ worksheetRecord.absoluteUpdate }>
-                <Text style={worksheetRecord.updateText} onPress={test22} >
+                <Text style={worksheetRecord.updateText} onPress={updateData} >
                     {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
                 </Text>
             </View>
@@ -368,7 +387,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 <Text>
                     <TextInput
                         style={worksheetRecord.inputStyle}
-                        value={tempquantity}
+                        value={quantityHook}
                         onChange={($event) => setAreaquantity($event)}
                     />
 

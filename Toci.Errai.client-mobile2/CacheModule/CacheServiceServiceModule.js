@@ -61,7 +61,7 @@ export class ConnectionService {
 
     }
 
-    isConnectedFunc = () => false
+    isConnectedFunc = () => this.isConnected
 
 
     addDataToCache(object_) {
@@ -95,7 +95,20 @@ export class ConnectionService {
 
         console.log("Flush cache data to API");
 
-        fetch(environment.apiUrl + "api/WorksheetContent/flushCache", {
+
+        fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
+            method: "POST",
+            body: JSON.stringify([temp_]) // arequantity
+        })
+        .then( response => {
+            console.log(response)
+            ConnectionService.cacheData = []
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+        /*fetch(environment.apiUrl + "api/WorksheetContent/flushCache", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -105,10 +118,10 @@ export class ConnectionService {
         })
         .then( response => response.json() )
         .then( response => { console.log(response) })
-        .catch( error => { console.log(error) } )
-        ConnectionService.cacheData = []
+        .catch( error => { console.log(error) } )*/
 
-        this.getDataFromNow()
+
+        //this.getDataFromNow()
     }
 
 
@@ -177,7 +190,7 @@ export class ConnectionService {
                 return
             }
 
-            //console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
+            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
             //console.log(this.nowContentData);
 
             if(!this.isConnected) {
