@@ -30,19 +30,10 @@ export default function Home( { navigation }) {
 
         console.log("USE_EFFECT_START");
 
-        setapiConnect(false)
+        /*setapiConnect(false)
         fetch(environment.apiUrl + "api/EntityOperations/LoadData")
         .then( response => response.json() )
         .then( response => {
-
-
-
-
-
-
-
-
-
 
             console.log(response)
             setloading(false)
@@ -55,14 +46,14 @@ export default function Home( { navigation }) {
             setapiConnect(true)
 
         })
-        .catch(error => {
-            console.log(error)
+        .catch(error => {*/
+            //console.log(error)
             setloading(false)
-            if(error) { setapiConnect(false) }
+            //if(error) { setapiConnect(false) }
 
             AsyncStorage.getItem('Workbooks')
             .then(response => {
-                console.log(response);
+                //console.log(response);
                 console.log(JSON.parse(response));
                 return JSON.parse(response)
             })
@@ -73,7 +64,7 @@ export default function Home( { navigation }) {
 
                 AsyncStorage.getItem('Areaquantity_cached')
                 .then(response => {
-                    console.log(response)
+                    //console.log(response)
                     let x =  JSON.parse(response)
                     console.log(x)
                     if(x) {console.log(11)} else {console.log(22)}
@@ -84,7 +75,7 @@ export default function Home( { navigation }) {
 
 
             })
-        })
+       // })
 
 
         const interval = setInterval(() => {
