@@ -22,6 +22,7 @@ namespace Toci.Earrai.Microservice.Controllers
         [HttpPost("register")]
         public int RegisterUser([FromBody] User user)
         {
+            user.Initials = "" + user.Firstname[0] + user.Lastname[0];
             return Logic.CreateAccount(user);
         }
 
