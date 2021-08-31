@@ -5,7 +5,6 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment'
-import { environment } from '../environment';
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -36,7 +35,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
     useEffect( () => {
         
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then(r => {
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + navigation.getParam('rowIndex') + '/2').then(r => {
             return r.json();
         }).then(r => {
             setDupa(r);
@@ -267,6 +266,10 @@ export default function WorksheetRecord({ route, navigation }) {
 
             fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
                 method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify([temp_]) // arequantity
             })
             .then( response => {
