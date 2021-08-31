@@ -81,6 +81,9 @@ export default function WorksheetRecord({ route, navigation }) {
 
 
 
+
+
+
             settempAreaquantityRow( prev => {
                 return {...prev,
                     Rowindex: _worksheetRecords[0].rowindex,
@@ -115,13 +118,24 @@ export default function WorksheetRecord({ route, navigation }) {
             let kind = _categories.filter(item => (
                 (item.code).trim() == code2 || ((item.code).trim() == code )))
             console.log(kind)
-            setkindOfDisplay(kind[0]['kind'])
+
+            let tempKind = kind[0]['kind']
+            setkindOfDisplay(tempKind)
+
+
+            if(tempKind == 1) {
+                setwidthHook(_worksheetRecords[4]['value'])
+                setlengthHook(_worksheetRecords[5]['value'])
+
+            } else {
+                setlengthHook(_worksheetRecords[6]['value'])
+            }
 
 
 
             settempAreaquantityRow(prev => {
                 return {...prev,
-                    Idcodesdimensions: kind[0]['id'],
+                    Idcodesdimensions: tempKind
                 }
             })
 
@@ -245,7 +259,7 @@ export default function WorksheetRecord({ route, navigation }) {
         console.log(quantityHook)
         console.log("arequantityRow")
         console.log(tempAreaquantityRow)
-        return
+        //return
         let temp_ = {...tempAreaquantityRow }
 
         let lengWid
