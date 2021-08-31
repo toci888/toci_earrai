@@ -88,6 +88,46 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: '#66b3ff',
         borderWidth: 0
     },
+    // containerProducts:{
+    //     paddingTop: 40,
+    //     paddingLeft: 15,
+    //     flexDirection: 'row',
+    //      },
+    productName: {
+        alignSelf: 'flex-start',
+    },
+    minus:{
+        width: 20,
+        height: 20,
+        borderRadius: 20/2,
+        backgroundColor: 'red',
+    },
+    containerInfo:{
+        paddingTop:15,
+        flexDirection:'row',
+        paddingLeft: 15,
+    },
+    unityName:{
+        fontWeight: 'bold',
+        paddingLeft: 15,
+    },
+    subInfo:{
+        color: 'gray',
+        paddingLeft: 15,
+    },
+    circle: {
+        width: 50,
+        height: 50,
+        borderRadius: 50/2,
+        backgroundColor: 'red',
+        justifyContent: 'flex-end',
+    },
+    containerProducts: {
+        paddingTop: 40,
+        paddingLeft: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
 
 
 });
