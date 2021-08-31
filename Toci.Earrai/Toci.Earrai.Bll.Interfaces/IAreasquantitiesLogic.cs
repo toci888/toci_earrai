@@ -12,6 +12,6 @@ namespace Toci.Earrai.Bll.Interfaces
     {
         List<Areasquantity> GetAllAreasQuantitiesFromDb();
 
-        Areasquantity GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId);
+        List<Areasquantity> GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId);
     }
 }

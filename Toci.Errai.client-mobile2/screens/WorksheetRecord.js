@@ -19,7 +19,8 @@ export default function WorksheetRecord({ route, navigation }) {
         Idarea: null,
         Idworksheet: null,
         Rowindex: null,
-        Idcodedimensions: null,
+        Idcodesdimensions: null,
+        Iduser: 1,
         Quantity: "",
         Lengthdimensions: [0, 0],
         Createdat: null,
@@ -35,13 +36,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
     useEffect( () => {
         
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + navigation.getParam('rowIndex') + '/2').then(r => {
-            return r.json();
-        }).then(r => {
-            setDupa(r);
-            console.log("QUANTITIES");
-            console.log(r);
-        })
+        
         // let json = await response.json();
         // console.log(json);
 
@@ -95,6 +90,13 @@ export default function WorksheetRecord({ route, navigation }) {
 
         }
 
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+            return r.json();
+        }).then(r => {
+            setDupa(r);
+            console.log("QUANTITIES");
+            console.log(r);
+        })
 
         Promise.all([
             AsyncStorage.getItem('Areas'),
@@ -118,7 +120,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             settempAreaquantityRow(prev => {
                 return {...prev,
-                    Idcodedimensions: kind[0]['id'],
+                    Idcodesdimensions: kind[0]['id'],
                 }
             })
 
@@ -334,10 +336,11 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     const displayQuantities = () => {
-        { dupa.id }
+
         { dupa.areacode }
         { dupa.areaname }
         { dupa.quantity }
+        { dupa.lengthdimensions }
         return (
         <View style={ worksheetRecord.rowContainer }>
             <View style={worksheetRecord.columns}>
@@ -383,7 +386,7 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     const getData = async () => {
-        let r = await fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1');
+        let r = await fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId());
         return r;
 
         
