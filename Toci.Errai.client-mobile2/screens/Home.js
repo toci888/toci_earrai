@@ -82,7 +82,7 @@ export default function Home( { navigation }) {
             connectService.checkConnect()
         }, 4000)
 
-
+        return () => { console.log("END_USE_EFFECT") }
     }, [] )
 
     const showWorksheets = (_workbook) => {
@@ -122,11 +122,17 @@ export default function Home( { navigation }) {
     }
 
     const getWorkbooksFromStorage = () => {
-
-
-
         //console.log(x)
         //return x
+    }
+
+    const noConnectHeader = () => {
+        if(connectService.isConnectedFunc()) return
+        return(
+            <View style={globalStyles.header} onPress={disconnect}>
+                <Text style={globalStyles.headerText}>You're not connected now!</Text>
+            </View>
+        )
     }
 
     const displayWorkbooks = () => {
@@ -156,9 +162,8 @@ export default function Home( { navigation }) {
     return (
 
         <View style={globalStyles.container}>
-            <View style={globalStyles.header} onPress={disconnect}>
-                <Text>You're not connected now!</Text>
-            </View>
+
+            { noConnectHeader() }
 
             <View style={ globalStyles.content } >
 

@@ -27,10 +27,13 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: 'rgb(204, 204, 204)'
     },
     header: {
-        backgroundColor: 'yellow',
+        backgroundColor: '#4a4a30',
         paddingTop: 15,
         textAlign: 'center',
         paddingBottom: 15,
+    },
+    headerText: {
+        color: 'yellow'
     },
     lists: {
         backgroundColor: 'white',
