@@ -336,53 +336,86 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     const displayQuantities = () => {
+        console.log("ZACZYNAMY");
+        console.log(dupa)
+        if(dupa.length < 1) return
 
-        { dupa.areacode }
-        { dupa.areaname }
-        { dupa.quantity }
-        { dupa.lengthdimensions }
-        return (
-        <View style={ worksheetRecord.rowContainer }>
-            <View style={worksheetRecord.columns}>
-                <View style={ worksheetRecord.listItem }>
-                    <Text>
-                        { dupa.id }
-                        { dupa.areacode }
-                        { dupa.areaname }
-                        { dupa.quantity }
-                    </Text>
+        let respo = []
+
+        for(let i = 0; i < dupa.length; i++) {
+            respo.push(
+                <View key={i} style={ worksheetRecord.rowContainer }>
+                    {/* <View style={worksheetRecord.columns}>
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>{valueOfCol(columnsName[0][i].value)}</Text>
+                        </View>
+
+                        <View style={ worksheetRecord.listItem }>
+                            <Text>{valueOfCol(columnsName[1][i].value)}</Text>
+                        </View>
+                    </View> */}
+
+                    <View key={i + "x"} style={worksheetRecord.value}>
+                        <Text>
+                            {dupa[i].areacode}
+                            {dupa[i].areaname}
+                            {dupa[i].quantity}
+                            {/* <TextInput
+                                style={worksheetRecord.inputStyle}
+                                value={dupa[i].value}
+                                onChange={($event) => testChangeValue($event, i)}
+                            /> */}
+
+                        </Text>
+                    </View>
                 </View>
+            )
+        }
 
-                <View style={ worksheetRecord.listItem }>
-                    <Text>
-                        { dupa.id }
-                        { dupa.areacode }
-                        { dupa.areaname }
-                        { dupa.quantity }
-                    </Text>
-                </View>
-            </View>
+        return respo;
 
-            <View style={worksheetRecord.value}>
-                <Text>
-                    { dupa.id }
-                    { dupa.areacode }
-                    { dupa.areaname }
-                    { dupa.quantity }
-                </Text>
-                <Text>
-                    { dupa.id }
-                    { dupa.areacode }
-                    { dupa.areaname }
-                    { dupa.quantity }
-                </Text>
-            </View>
-        </View>
-        )
-        // let response = fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then({});
-        // fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/1154/1').then({});
-        // let json = await response.json();
-        // console.log(json);
+        // { dupa.areacode }
+        // { dupa.areaname }
+        // { dupa.quantity }
+        // { dupa.lengthdimensions }
+        // return (
+        // <View style={ worksheetRecord.rowContainer }>
+        //     <View style={worksheetRecord.columns}>
+        //         <View style={ worksheetRecord.listItem }>
+        //             <Text>
+        //                 { dupa.id }
+        //                 { dupa.areacode }
+        //                 { dupa.areaname }
+        //                 { dupa.quantity }
+        //             </Text>
+        //         </View>
+
+        //         <View style={ worksheetRecord.listItem }>
+        //             <Text>
+        //                 { dupa.id }
+        //                 { dupa.areacode }
+        //                 { dupa.areaname }
+        //                 { dupa.quantity }
+        //             </Text>
+        //         </View>
+        //     </View>
+
+        //     <View style={worksheetRecord.value}>
+        //         <Text>
+        //             { dupa.id }
+        //             { dupa.areacode }
+        //             { dupa.areaname }
+        //             { dupa.quantity }
+        //         </Text>
+        //         <Text>
+        //             { dupa.id }
+        //             { dupa.areacode }
+        //             { dupa.areaname }
+        //             { dupa.quantity }
+        //         </Text>
+        //     </View>
+        // </View>
+        // )
     }
 
     const getData = async () => {
