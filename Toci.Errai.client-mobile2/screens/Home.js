@@ -156,7 +156,7 @@ export default function Home( { navigation }) {
     return (
 
         <View style={globalStyles.container}>
-            <View style={globalStyles.header}>
+            <View style={globalStyles.header} onPress={disconnect}>
                 <Text>You're not connected now!</Text>
             </View>
 

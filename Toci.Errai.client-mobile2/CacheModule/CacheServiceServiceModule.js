@@ -61,7 +61,17 @@ export class ConnectionService {
 
     }
 
-    isConnectedFunc = () => this.isConnected
+    /*setTestConnection = () => {
+        this.testPermanentDisconnect = !this.testPermanentDisconnect
+    }*/
+
+    isConnectedFunc = () => {
+        if(this.testPermanentDisconnect) {
+            return false
+        } else {
+            return this.isConnected
+        }
+    }
 
 
     addDataToCache(object_) {
@@ -98,7 +108,10 @@ export class ConnectionService {
 
         fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
             method: "POST",
-            body: JSON.stringify([temp_]) // arequantity
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ConnectionService.cacheData) // arequantity
         })
         .then( response => {
             console.log(response)

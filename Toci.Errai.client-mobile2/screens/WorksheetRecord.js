@@ -320,7 +320,11 @@ export default function WorksheetRecord({ route, navigation }) {
 
     return (
         <View style={worksheetRecord.container}>
+            <View style={globalStyles.header}>
+                <Text onPress={disconnect}>You're not connected now!</Text>
+            </View>
             <View style={ worksheetRecord.absoluteUpdate }>
+
                 <Text style={worksheetRecord.updateText} onPress={updateData} >
                     {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
                 </Text>
