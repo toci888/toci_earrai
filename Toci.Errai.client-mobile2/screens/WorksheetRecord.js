@@ -4,7 +4,7 @@ import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
-import { environment } from '../environment';
+import { environment } from '../environment'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -19,7 +19,8 @@ export default function WorksheetRecord({ route, navigation }) {
         Idarea: null,
         Idworksheet: null,
         Rowindex: null,
-        Idcodedimensions: null,
+        Idcodesdimensions: null,
+        Iduser: 1,
         Quantity: "",
         Lengthdimensions: [0, 0],
         Createdat: null,
@@ -30,9 +31,14 @@ export default function WorksheetRecord({ route, navigation }) {
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
     const [widthHook, setwidthHook] = useState("")
+    const [dupa, setDupa] = useState("")
     const [lengthHook, setlengthHook] = useState("")
 
     useEffect( () => {
+        
+        
+        // let json = await response.json();
+        // console.log(json);
 
         console.log("USE EFFECT")
 
@@ -84,6 +90,13 @@ export default function WorksheetRecord({ route, navigation }) {
 
         }
 
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+            return r.json();
+        }).then(r => {
+            setDupa(r);
+            console.log("QUANTITIES");
+            console.log(r);
+        })
 
         Promise.all([
             AsyncStorage.getItem('Areas'),
@@ -107,7 +120,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             settempAreaquantityRow(prev => {
                 return {...prev,
-                    Idcodedimensions: kind[0]['id'],
+                    Idcodesdimensions: kind[0]['id'],
                 }
             })
 
@@ -237,7 +250,7 @@ export default function WorksheetRecord({ route, navigation }) {
         let lengWid
         if(kindOfDisplay == 1) {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
-                        + " vs "
+                        + " x "
                     + tempAreaquantityRow.Lengthdimensions[1]
         } else {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
@@ -255,6 +268,10 @@ export default function WorksheetRecord({ route, navigation }) {
 
             fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
                 method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify([temp_]) // arequantity
             })
             .then( response => {
@@ -298,15 +315,7 @@ export default function WorksheetRecord({ route, navigation }) {
                     <View key={i + "x"} style={worksheetRecord.value}>
                         <Text>
                             {columnsData[i].value}
-                            {/* <TextInput
-                                style={worksheetRecord.inputStyle}
-                                value={columnsData[i].value}
-                                onChange={($event) => testChangeValue($event, i)}
-                            /> */}
-
                         </Text>
-
-
                     </View>
 
                 </View>
@@ -316,6 +325,109 @@ export default function WorksheetRecord({ route, navigation }) {
         }
 
         return respo
+    }
+
+    const displayQuantities = () => {
+        console.log("ZACZYNAMY");
+        console.log(dupa)
+        if(dupa.length < 1) return
+
+        let respo = []
+
+        
+        for(let i = 0; i < dupa.length; i++) {
+            respo.push(
+                
+       
+                <View key={i} style={ worksheetRecord.rowContainer }>
+                    <View key={i + "areacode"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].areacode}
+                        </Text>
+                    </View> 
+
+                    <View key={i + "areaname"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].areaname}
+                        </Text>
+                    </View> 
+                    <View key={i + "createdat"} style={worksheetRecord.grid}>
+                        <Text>
+                            { dupa[i].createdat.substr(0, 10) }
+                        </Text>
+                    </View> 
+                    <View key={i + "lengthdimensions"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].lengthdimensions}
+                        </Text>
+                    </View> 
+                    <View key={i + "quantity"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].quantity}
+                        </Text>
+                    </View> 
+                    <View key={i + "initials"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].initials}
+                        </Text>
+                    </View> 
+                </View>
+               
+ 
+            )
+        }
+
+        return respo;
+
+        // { dupa.areacode }
+        // { dupa.areaname }
+        // { dupa.quantity }
+        // { dupa.lengthdimensions }
+        // return (
+        // <View style={ worksheetRecord.rowContainer }>
+        //     <View style={worksheetRecord.columns}>
+        //         <View style={ worksheetRecord.listItem }>
+        //             <Text>
+        //                 { dupa.id }
+        //                 { dupa.areacode }
+        //                 { dupa.areaname }
+        //                 { dupa.quantity }
+        //             </Text>
+        //         </View>
+
+        //         <View style={ worksheetRecord.listItem }>
+        //             <Text>
+        //                 { dupa.id }
+        //                 { dupa.areacode }
+        //                 { dupa.areaname }
+        //                 { dupa.quantity }
+        //             </Text>
+        //         </View>
+        //     </View>
+
+        //     <View style={worksheetRecord.value}>
+        //         <Text>
+        //             { dupa.id }
+        //             { dupa.areacode }
+        //             { dupa.areaname }
+        //             { dupa.quantity }
+        //         </Text>
+        //         <Text>
+        //             { dupa.id }
+        //             { dupa.areacode }
+        //             { dupa.areaname }
+        //             { dupa.quantity }
+        //         </Text>
+        //     </View>
+        // </View>
+        // )
+    }
+
+    const getData = async () => {
+        let r = await fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId());
+        return r;
+
+        
     }
 
     return (
@@ -399,7 +511,9 @@ export default function WorksheetRecord({ route, navigation }) {
 
 
             </View>
-
+            <View>
+                    { displayQuantities() }
+            </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}
@@ -408,6 +522,8 @@ export default function WorksheetRecord({ route, navigation }) {
                 { displayRow() }
 
             </View>
+
+            
         </View>
     )
 }

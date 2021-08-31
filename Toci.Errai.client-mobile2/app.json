@@ -1,9 +1,9 @@
 {
-  "name": "reactNativeWheelo",
-  "displayName": "reactNativeWheelo",
+  "name": "Earrai",
+  "displayName": "Earrai",
   "expo": {
-    "name": "reactNativeWheelo",
-    "slug": "reactNativeWheelo",
+    "name": "Earrai",
+    "slug": "Earrai",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

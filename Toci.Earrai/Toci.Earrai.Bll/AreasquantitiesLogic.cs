@@ -12,19 +12,12 @@ namespace Toci.Earrai.Bll
     {
         public List<Areasquantity> GetAllAreasQuantitiesFromDb()
         {
-            Logic<Areasquantity> areasQuantities = new Logic<Areasquantity>();
-
-            return areasQuantities.Select(m => true).ToList();
+            return Select(m => true).ToList();
         }
 
-        public Areasquantity GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId)
+        public List<Areasquantity> GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId)
         {
-            Logic<Areasquantity> areasQuantities = new Logic<Areasquantity>();
-
-            var result = areasQuantities.Select(m => m.Idworksheet == worksheetId && m.Rowindex == rowindex).FirstOrDefault();
-
-            return result;
-
+            return Select(m => m.Idworksheet == worksheetId && m.Rowindex == rowindex).ToList();
         }
     }
 }
