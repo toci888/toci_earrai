@@ -170,7 +170,7 @@ export default function Home( { navigation }) {
                <Button title="Register" onPress={() => Alert.alert('Button')}/>
 
                 {/* <Login /> */}
-                {/* <Register /> */}
+                {/* <Register />  */}
                 <View>
                     <TextInput
                         value={ filteredValue }

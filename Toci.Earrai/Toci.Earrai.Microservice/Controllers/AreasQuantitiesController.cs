@@ -27,7 +27,7 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpGet("GetAreasQuantitiesByRowIndexAndWorksheet/{rowindex}/{worksheetId}")]
-        public ActionResult<Areasquantity> GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId)
+        public ActionResult<List<Areasquantity>> GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId)
         {
 
             var result = Logic.GetAreasQuantitiesByRowIndexAndWorksheet(rowindex, worksheetId);
