@@ -20,11 +20,11 @@ namespace Toci.Earrai.Bll
             return 1;
         }
 
-        public Areaquantity UpdateAreaQuantities(Areaquantity areaquantity)
+        public bool UpdateAreaQuantities(Areaquantity areaquantity)
         {
             var areaQuantity = Select(m => m.Id == areaquantity.Id).FirstOrDefault();
             if (areaQuantity == null)
-                return null;
+                return false;
 
             return Update(areaquantity);
         }

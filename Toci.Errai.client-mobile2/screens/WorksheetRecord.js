@@ -250,7 +250,7 @@ export default function WorksheetRecord({ route, navigation }) {
         let lengWid
         if(kindOfDisplay == 1) {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
-                        + " vs "
+                        + " x "
                     + tempAreaquantityRow.Lengthdimensions[1]
         } else {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
@@ -338,22 +338,41 @@ export default function WorksheetRecord({ route, navigation }) {
         for(let i = 0; i < dupa.length; i++) {
             respo.push(
                 
-                <View style={worksheetRecord.columns}>      
-                     
-                    <View key={i} style={ worksheetRecord.rowContainer }>
-                    <View key={i + "x"} style={worksheetRecord.value}>
+       
+                <View key={i} style={ worksheetRecord.rowContainer }>
+                    <View key={i + "areacode"} style={worksheetRecord.gridShort}>
                         <Text>
                             {dupa[i].areacode}
                         </Text>
                     </View> 
-                
-                    <View key={i + "x"} style={worksheetRecord.value}>
+
+                    <View key={i + "areaname"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].areaname}
+                        </Text>
+                    </View> 
+                    <View key={i + "createdat"} style={worksheetRecord.grid}>
+                        <Text>
+                            { dupa[i].createdat.substr(0, 10) }
+                        </Text>
+                    </View> 
+                    <View key={i + "lengthdimensions"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].lengthdimensions}
+                        </Text>
+                    </View> 
+                    <View key={i + "quantity"} style={worksheetRecord.gridShort}>
                         <Text>
                             {dupa[i].quantity}
                         </Text>
                     </View> 
+                    <View key={i + "initials"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].initials}
+                        </Text>
+                    </View> 
                 </View>
-                </View> 
+               
  
             )
         }

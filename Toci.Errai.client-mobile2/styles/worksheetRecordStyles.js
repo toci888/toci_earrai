@@ -55,6 +55,20 @@ export const worksheetRecord = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    grid: {
+        width: '15%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    gridShort: {
+        width: '5%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     rowContainer: {
         flexDirection: 'row',
         borderBottomColor: 'black',
