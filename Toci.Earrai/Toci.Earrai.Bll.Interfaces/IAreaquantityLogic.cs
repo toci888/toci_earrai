@@ -13,5 +13,7 @@ namespace Toci.Earrai.Bll.Interfaces
         List<Areaquantity> GetAllAreaQuantitiesFromDb();
 
         void PostAreaQuantities(List<Areaquantity> areaQuantityCollection);
+
+        void DeleteById(int id);
     }
 }

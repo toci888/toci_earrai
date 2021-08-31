@@ -10,6 +10,12 @@ namespace Toci.Earrai.Bll
 {
     public class AreaquantityLogic : Logic<Areaquantity>, IAreaquantityLogic
     {
+        public void DeleteById(int id)
+        {
+            var areaQuantity = Select(m => m.Id == id).FirstOrDefault();
+            Delete(areaQuantity);
+        }
+
         public List<Areaquantity> GetAllAreaQuantitiesFromDb()
         {
             Logic<Areaquantity> areaQuantities = new Logic<Areaquantity>();
