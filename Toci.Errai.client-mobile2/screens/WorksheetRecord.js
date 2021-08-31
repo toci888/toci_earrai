@@ -315,15 +315,7 @@ export default function WorksheetRecord({ route, navigation }) {
                     <View key={i + "x"} style={worksheetRecord.value}>
                         <Text>
                             {columnsData[i].value}
-                            {/* <TextInput
-                                style={worksheetRecord.inputStyle}
-                                value={columnsData[i].value}
-                                onChange={($event) => testChangeValue($event, i)}
-                            /> */}
-
                         </Text>
-
-
                     </View>
 
                 </View>
@@ -342,33 +334,27 @@ export default function WorksheetRecord({ route, navigation }) {
 
         let respo = []
 
+        
         for(let i = 0; i < dupa.length; i++) {
             respo.push(
-                <View key={i} style={ worksheetRecord.rowContainer }>
-                    {/* <View style={worksheetRecord.columns}>
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[0][i].value)}</Text>
-                        </View>
-
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[1][i].value)}</Text>
-                        </View>
-                    </View> */}
-
+                
+                <View style={worksheetRecord.columns}>      
+                     
+                    <View key={i} style={ worksheetRecord.rowContainer }>
                     <View key={i + "x"} style={worksheetRecord.value}>
                         <Text>
                             {dupa[i].areacode}
-                            {dupa[i].areaname}
-                            {dupa[i].quantity}
-                            {/* <TextInput
-                                style={worksheetRecord.inputStyle}
-                                value={dupa[i].value}
-                                onChange={($event) => testChangeValue($event, i)}
-                            /> */}
-
                         </Text>
-                    </View>
+                    </View> 
+                
+                    <View key={i + "x"} style={worksheetRecord.value}>
+                        <Text>
+                            {dupa[i].quantity}
+                        </Text>
+                    </View> 
                 </View>
+                </View> 
+ 
             )
         }
 
@@ -503,9 +489,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             </View>
             <View>
-                <Text>
                     { displayQuantities() }
-                </Text>
             </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
