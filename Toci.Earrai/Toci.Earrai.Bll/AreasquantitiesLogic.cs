@@ -17,7 +17,7 @@ namespace Toci.Earrai.Bll
 
         public List<Areasquantity> GetAreasQuantitiesByRowIndexAndWorksheet(int rowindex, int worksheetId)
         {
-            return Select(m => m.Idworksheet == worksheetId && m.Rowindex == rowindex).ToList();
+            return Select(m => m.Idworksheet == worksheetId && m.Rowindex == rowindex).OrderBy(m => m.Createdat).ToList();
         }
     }
 }
