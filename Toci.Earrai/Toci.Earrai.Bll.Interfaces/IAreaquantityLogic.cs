@@ -16,6 +16,6 @@ namespace Toci.Earrai.Bll.Interfaces
 
         int DeleteById(int id);
 
-        bool UpdateAreaQuantities(Areaquantity areaquantity);
+        Areaquantity UpdateAreaQuantities(Areaquantity areaquantity);
     }
 }
