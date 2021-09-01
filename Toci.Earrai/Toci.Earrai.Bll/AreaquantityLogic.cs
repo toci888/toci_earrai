@@ -22,11 +22,23 @@ namespace Toci.Earrai.Bll
 
         public Areaquantity UpdateAreaQuantities(Areaquantity areaquantity)
         {
-            var areaQuantity = Select(m => m.Id == areaquantity.Id).FirstOrDefault();
-            if (areaQuantity == null)
+            var areaQuantityOriginal = Select(m => m.Id == areaquantity.Id).FirstOrDefault();
+            if (areaQuantityOriginal == null)
                 return null;
 
-            return Update(areaquantity);
+            areaQuantityOriginal.Idworksheet = areaquantity.Idworksheet;
+            areaQuantityOriginal.Idcodesdimensions = areaquantity.Idcodesdimensions;
+            areaQuantityOriginal.Idarea = areaquantity.Idarea;
+            areaQuantityOriginal.Iduser = areaquantity.Iduser;
+            areaQuantityOriginal.Rowindex = areaquantity.Rowindex;
+            areaQuantityOriginal.Quantity = areaquantity.Quantity;
+            areaQuantityOriginal.Lengthdimensions = areaquantity.Lengthdimensions;
+            areaQuantityOriginal.Createdat = areaquantity.Createdat;
+            areaQuantityOriginal.Updatedat = DateTime.Now;
+
+            Update(areaQuantityOriginal);
+
+            return areaQuantityOriginal;
         }
 
         public List<Areaquantity> GetAllAreaQuantitiesFromDb()
