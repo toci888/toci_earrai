@@ -15,7 +15,6 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Rowindex { get; set; }
         public string Quantity { get; set; }
         public string Lengthdimensions { get; set; }
-        public string Widthdimensions { get; set; }
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
 

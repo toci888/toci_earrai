@@ -92,7 +92,6 @@ create table areaquantity
 	rowIndex int,
 	quantity text,
 	lengthDimensions text,
-	widthDimensions text,
 	createdAt timestamp default now(),
 	updatedAt timestamp default now()
 );
