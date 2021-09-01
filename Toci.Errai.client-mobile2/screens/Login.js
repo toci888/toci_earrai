@@ -1,43 +1,66 @@
-import React, { Component } from 'react';
-import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
-import { environment } from '../environment';
+import React, {useState} from 'react';
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  View,
+  StyleSheet,
+  Button,
+} from 'react-native';
+import {environment} from '../environment';
+import Register from './Register';
 
-export default class Login extends Component {
+export default function Login({navigation}) {
 
-    state = {
-        email: '',
-        password: '',
-    };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    onLogin = async () => {
-        const { email, password } = this.state;
-        console.log(`email: ${email} + password: ${password}`);
-        let response = await fetch(environment.apiUrl + 'api/Account/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email,password})
-        });
-        let json = await response.json();
-        console.log(json);
-    };
+  const onLogin = async () => {
+    //const {email, password} = this.state;
+    console.log(`email: ${email} + password: ${password}`);
+    let response = await fetch(environment.apiUrl + 'api/Account/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, password}),
+    });
+    let json = await response.json();
+    console.log(json);
+  };
 
-    render() {
-        return (
-            <View style={styles.container}>
-            <TextInput value={this.state.email} keyboardType = 'email-address' onChangeText={(email) => this.setState({ email })}
-                placeholder='email' placeholderTextColor = 'white' style={styles.input}/>
-            <TextInput value={this.state.password} onChangeText={(password) => this.setState({ password })} placeholder={'password'}
-                secureTextEntry={true} placeholderTextColor = 'white' style={styles.input}/>
-            
-            <TouchableOpacity style={styles.button} onPress={this.onLogin.bind(this)}>
-                <Text style={styles.buttonText}> Login </Text>
-            </TouchableOpacity>
-            </View>
-        );
-  }
+  return (
+    <View style={styles.container}>
+      <TextInput
+        value={email}
+        keyboardType="email-address"
+        onChangeText={text => setEmail(text)}
+        placeholder="E-Mail"
+        placeholderTextColor="white"
+        style={styles.input}
+      />
+      <TextInput
+        value={password}
+        onChangeText={text => setPassword(text)}
+        placeholder={'Password'}
+        secureTextEntry={true}
+        placeholderTextColor="white"
+        style={styles.input}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={() => onLogin()}>
+        <Text style={styles.buttonText}> Login </Text>
+      </TouchableOpacity>
+
+      <Text style={{marginTop: '2%', fontSize: 15}}>Not have an account?</Text>
+
+      <TouchableOpacity style={{marginTop: ''}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Register')}>Register now!</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -45,9 +68,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'gray',
+    //backgroundColor: 'gray',
+    backgroundColor: '#ddd',
   },
-  titleText:{
+  titleText: {
     fontFamily: 'Baskerville',
     fontSize: 50,
     alignItems: 'center',
@@ -55,16 +79,17 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: 'powderblue',
+    // backgroundColor: 'powderblue',
+    backgroundColor: 'cornflowerblue',
     width: 200,
     height: 44,
-    padding: 10,
+    padding: 5,
     borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 25,
-    marginBottom: 10,
+    borderColor: 'black',
+    //borderRadius: 25,
+    marginTop: 10,
   },
-  buttonText:{
+  buttonText: {
     fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
@@ -73,11 +98,22 @@ const styles = StyleSheet.create({
   input: {
     width: 200,
     fontFamily: 'Baskerville',
+    backgroundColor: '#777',
     fontSize: 20,
     height: 44,
     padding: 10,
     borderWidth: 1,
     borderColor: 'black',
     marginVertical: 10,
+  },
+  inputTextStyle: {
+    backgroundColor: '#ddd',
+    borderColor: '#777',
+    color: '#000',
+    letterSpacing: 0.5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    fontSize: 17,
   },
 });
