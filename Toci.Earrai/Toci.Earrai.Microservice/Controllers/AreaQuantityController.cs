@@ -27,11 +27,11 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost("PostAreaQuantities")]
-        public ActionResult PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
+        public ActionResult<List<Areasquantity>> PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
         {
-            Logic.PostAreaQuantities(areaQuantityCollection);
+            List<Areasquantity> x = Logic.PostAreaQuantities(areaQuantityCollection);
 
-            return Ok("OK");
+            return Ok(x);
         }
 
         [HttpDelete("DeleteById")]

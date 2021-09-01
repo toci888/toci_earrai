@@ -17,6 +17,7 @@ export default function WorksheetRecord({ route, navigation }) {
     const [quantityHook, setquantityHook] = useState("")
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
     const [tempNewToUpdate, settempNewToUpdate] = useState(null)
+    const [allCategories, setallCategories] = useState(null)
 
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
@@ -115,6 +116,7 @@ export default function WorksheetRecord({ route, navigation }) {
             let _categories = JSON.parse(response[1])
             console.log("areas")
             console.log(_areas)
+            setallCategories(_categories)
             setareas(_areas)
 
             let _nowArea = _areas[0]['id']
@@ -328,9 +330,12 @@ export default function WorksheetRecord({ route, navigation }) {
                 .then( response => {
                     console.log(response)
                     console.log("ADDED");
-                    setDupa(prev => {
+
+                    updateTableAfterPOST()
+
+                    /*setDupa(prev => {
                         return [...prev, x]
-                    })
+                    })*/
                 })
                 .catch(error => {
                     console.log(error)
@@ -369,6 +374,20 @@ export default function WorksheetRecord({ route, navigation }) {
 
     }
 
+    const updateTableAfterPOST = () => {
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
+            + columnsData[0].rowindex + '/'
+            + connectService.getNowWorksheetId()).then(r => {
+            return r.json();
+        }).then(r => {
+            setDupa(r);
+            console.log("RELOAD TABLE QUANTITIES");
+            console.log(r);
+        })
+    }
+
+
+
     const updateTableAfterDELETE = (id_) => {
 
         let x = tempAreaquantityRow['rowindex']
@@ -385,6 +404,9 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     const updateTableAfterPUT = () => {
+        updateTableAfterPOST()
+        return
+
         let x = tempAreaquantityRow['rowindex']
 
         let newDupa = [...dupa]
@@ -407,6 +429,15 @@ export default function WorksheetRecord({ route, navigation }) {
         }
 
         nowRow_['lengthdimensions'] = lengWid
+        nowRow_['quantity'] = tempAreaquantityRow.quantity
+
+        let nowCategory = areas.filter(item => item.id == tempAreaquantityRow['idarea'])
+        let nowCategoryRow = nowCategory[0]
+
+
+
+        nowRow_['areacode'] = nowCategoryRow.code
+        nowRow_['areaname'] = nowCategoryRow.name
 
         setDupa(newDupa)
 
@@ -641,7 +672,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         <Text style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
                                 style={worksheetRecord.inputStyle}
-                                value={tempAreaquantityRow.widthdimensions}
+                                value={tempAreaquantityRow.lengthdimensions}
                                 onChange={($event) => setWidth($event)}
                                 placeholder="Type Length.."
                             />
@@ -651,7 +682,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         <Text style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
                                 style={worksheetRecord.inputStyle}
-                                value={tempAreaquantityRow.lengthdimensions}
+                                value={tempAreaquantityRow.widthdimensions}
                                 onChange={($event) => setLength($event)}
                                 placeholder="Type Width.."
                             />
