@@ -5,6 +5,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment'
+import { DataTable } from 'react-native-paper'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -35,8 +36,8 @@ export default function WorksheetRecord({ route, navigation }) {
     const [lengthHook, setlengthHook] = useState("")
 
     useEffect( () => {
-        
-        
+
+
         // let json = await response.json();
         // console.log(json);
 
@@ -80,6 +81,9 @@ export default function WorksheetRecord({ route, navigation }) {
 
 
 
+
+
+
             settempAreaquantityRow( prev => {
                 return {...prev,
                     Rowindex: _worksheetRecords[0].rowindex,
@@ -114,13 +118,24 @@ export default function WorksheetRecord({ route, navigation }) {
             let kind = _categories.filter(item => (
                 (item.code).trim() == code2 || ((item.code).trim() == code )))
             console.log(kind)
-            setkindOfDisplay(kind[0]['kind'])
+
+            let tempKind = kind[0]['kind']
+            setkindOfDisplay(tempKind)
+
+
+            if(tempKind == 1) {
+                setwidthHook(_worksheetRecords[4]['value'])
+                setlengthHook(_worksheetRecords[5]['value'])
+
+            } else {
+                setlengthHook(_worksheetRecords[6]['value'])
+            }
 
 
 
             settempAreaquantityRow(prev => {
                 return {...prev,
-                    Idcodesdimensions: kind[0]['id'],
+                    Idcodesdimensions: tempKind
                 }
             })
 
@@ -239,18 +254,18 @@ export default function WorksheetRecord({ route, navigation }) {
 
     }
 
-    const updateData = () => {
-        console.log("quantityHook");
-        console.log(quantityHook);
-        console.log("area object");
-
-
+    const updatePOST = () => {
+        console.log("quantityHook")
+        console.log(quantityHook)
+        console.log("arequantityRow")
+        console.log(tempAreaquantityRow)
+        //return
         let temp_ = {...tempAreaquantityRow }
 
         let lengWid
         if(kindOfDisplay == 1) {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
-                        + " vs "
+                        + " x "
                     + tempAreaquantityRow.Lengthdimensions[1]
         } else {
             lengWid = tempAreaquantityRow.Lengthdimensions[0]
@@ -287,6 +302,69 @@ export default function WorksheetRecord({ route, navigation }) {
 
     }
 
+    const updateData = (index) => {
+        console.log(dupa[index]);
+
+        let foundRow = dupa[index]
+        let lengWid
+
+        if(kindOfDisplay == 1) {
+            let splittted = foundRow.lengthdimensions.split("x")
+
+            lengWid = [splittted[0].trim(), splittted[1].trim()]
+            setlengthHook(splittted[0].trim())
+            setwidthHook(splittted[1].trim())
+        } else {
+            lengWid = [foundRow.lengthdimensions.trim()]
+            setlengthHook(lengWid)
+        }
+
+        let _area = areas.filter(item => item.code == foundRow['areacode'])[0]
+        console.log(_area)
+
+        setareaId(_area.id)
+        setquantityHook(foundRow['quantity'])
+
+
+        let tempNewToAdd = {
+            areacode: _area.code,
+            areaname: _area.name,
+            idarea: _area.id,
+            idworksheet: connectService.getNowWorksheetId(),
+            rowindex: foundRow['Rowindex'],
+            idcodesdimensions: foundRow['Idcodedimensions'],
+            iuser: foundRow['Iduser'],
+            quantity: foundRow['quantity'],
+            lengthdimensions: lengWid,
+            createdat: "2021-08-30T17:35:56.872Z",
+            updatedat: "2021-08-30T17:35:56.872Z",
+        }
+
+        console.log("tempNewTodd");
+        console.log(tempNewToAdd);
+
+        setDupa(prev => {
+            return [...prev, tempNewToAdd]
+        })
+
+
+        settempAreaquantityRow(prev => {
+            return {...prev,
+                Quantity: foundRow['quantity'],
+                lengthdimensions: lengWid,
+                Idarea: _area.id,
+            }
+        })
+
+
+        // updatePOST()
+
+    }
+
+    const deleteData = (index) => {
+        console.log(dupa[index]);
+    }
+
 
     const valueOf = (value) => { return value == "" ? "Empty Value.." : value }
 
@@ -315,15 +393,7 @@ export default function WorksheetRecord({ route, navigation }) {
                     <View key={i + "x"} style={worksheetRecord.value}>
                         <Text>
                             {columnsData[i].value}
-                            {/* <TextInput
-                                style={worksheetRecord.inputStyle}
-                                value={columnsData[i].value}
-                                onChange={($event) => testChangeValue($event, i)}
-                            /> */}
-
                         </Text>
-
-
                     </View>
 
                 </View>
@@ -342,33 +412,55 @@ export default function WorksheetRecord({ route, navigation }) {
 
         let respo = []
 
+
         for(let i = 0; i < dupa.length; i++) {
             respo.push(
-                <View key={i} style={ worksheetRecord.rowContainer }>
-                    {/* <View style={worksheetRecord.columns}>
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[0][i].value)}</Text>
-                        </View>
 
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[1][i].value)}</Text>
-                        </View>
-                    </View> */}
-
-                    <View key={i + "x"} style={worksheetRecord.value}>
+                <DataTable.Row key={i} style={ worksheetRecord.rowContainer }>
+                    <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
                         <Text>
                             {dupa[i].areacode}
-                            {dupa[i].areaname}
-                            {dupa[i].quantity}
-                            {/* <TextInput
-                                style={worksheetRecord.inputStyle}
-                                value={dupa[i].value}
-                                onChange={($event) => testChangeValue($event, i)}
-                            /> */}
-
                         </Text>
-                    </View>
-                </View>
+                    </DataTable.Cell>
+
+                    <DataTable.Cell key={i + "areaname"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].areaname}
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "createdat"} style={worksheetRecord.grid}>
+                        <Text>
+                            { dupa[i].createdat.substr(0, 10) }
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "lengthdimensions"} style={worksheetRecord.grid}>
+                        <Text>
+                            {dupa[i].lengthdimensions}
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "quantity"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].quantity}
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "initials"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {dupa[i].initials}
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "update"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            <Button title="UPDATE" onPress={() => updateData(i)} />
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "delete"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            <Button title="DELETE" onPress={() => deleteData(i)} />
+                        </Text>
+                    </DataTable.Cell>
+                </DataTable.Row>
+
+
             )
         }
 
@@ -422,25 +514,38 @@ export default function WorksheetRecord({ route, navigation }) {
         let r = await fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId());
         return r;
 
-        
+
+    }
+
+    const noConnectHeader = () => {
+        if(connectService.isConnectedFunc()) return
+        return(
+            <View style={globalStyles.header} onPress={disconnect}>
+                <Text style={globalStyles.headerText}>You're not connected now!</Text>
+            </View>
+        )
     }
 
     return (
         <View style={worksheetRecord.container}>
+
+            { noConnectHeader() }
+
             <View style={ worksheetRecord.absoluteUpdate }>
-                <Text style={worksheetRecord.updateText} onPress={updateData} >
+
+                <Text style={worksheetRecord.updateText} onPress={updatePOST} >
                     {navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE" }
                 </Text>
             </View>
-            <View>
+            <View style={worksheetRecord.ComboView}>
                 <Picker
                     selectedValue="Choose"
-                    style={{ height: 50 }}
+                    style={worksheetRecord.ComboPicker}
                     selectedValue={areaId}
                     onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
                     {
                         areas.map( (item, index) => {
-                            return <Picker.Item key={index} label={item.name} value={item.id} />
+                            return <Picker.Item style={worksheetRecord.CombiItem} key={index} label={item.name} value={item.id} />
                         } )
                     }
 
@@ -449,53 +554,51 @@ export default function WorksheetRecord({ route, navigation }) {
 
             <View>
 
+                {
+                    kindOfDisplay == 1 ?
+                    (<View style={worksheetRecord.DimensionsView}>
 
-                    {
-                        kindOfDisplay == 1 ?
-                        (<View>
+                        <Text style={worksheetRecord.DimensionsInputContainer}>
+                            <TextInput
+                                style={worksheetRecord.inputStyle}
+                                value={widthHook}
+                                onChange={($event) => setWidth($event)}
+                                placeholder="Type Length.."
+                            />
 
-                            <Text>
-                                <Text>width</Text>
-                                <TextInput
-                                    style={worksheetRecord.inputStyle}
-                                    value={widthHook}
-                                    onChange={($event) => setWidth($event)}
-                                />
+                        </Text>
 
-                            </Text>
-
-                            <Text>
-                                <Text>length</Text>
-                                <TextInput
-                                    style={worksheetRecord.inputStyle}
-                                    value={lengthHook}
-                                    onChange={($event) => setLength($event)}
-                                />
-
-                            </Text>
-
-                        </View>)
-                        :
-                        (<Text>
-                            <Text>length</Text>
+                        <Text style={worksheetRecord.DimensionsInputContainer}>
                             <TextInput
                                 style={worksheetRecord.inputStyle}
                                 value={lengthHook}
                                 onChange={($event) => setLength($event)}
+                                placeholder="Type Width.."
                             />
 
-                        </Text>)
-                    }
+                        </Text>
 
+                    </View>)
+                    :
+                    (<Text style={worksheetRecord.DimensionsInputContainer}>
+                        <TextInput
+                            style={worksheetRecord.inputStyle}
+                            value={lengthHook}
+                            onChange={($event) => setLength($event)}
+                            placeholder="Type Length.."
+                        />
+
+                    </Text>)
+                }
 
             </View>
-            <View>
-                <Text>Quantity</Text>
-                <Text>
+            <View style={worksheetRecord.DimensionsView}>
+                <Text style={worksheetRecord.QuantityInputContainer}>
                     <TextInput
                         style={worksheetRecord.inputStyle}
                         value={quantityHook}
                         onChange={($event) => setAreaquantity($event)}
+                        placeholder="Type Quantity.."
                     />
 
                 </Text>
@@ -503,9 +606,9 @@ export default function WorksheetRecord({ route, navigation }) {
 
             </View>
             <View>
-                <Text>
+                <DataTable style={globalStyles.tableContainer}>
                     { displayQuantities() }
-                </Text>
+                </DataTable>
             </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
@@ -516,7 +619,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             </View>
 
-            
+
         </View>
     )
 }

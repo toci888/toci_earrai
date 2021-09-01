@@ -55,6 +55,20 @@ export const worksheetRecord = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    grid: {
+        width: '15%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    gridShort: {
+        width: '5%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     rowContainer: {
         flexDirection: 'row',
         borderBottomColor: 'black',
@@ -74,6 +88,54 @@ export const worksheetRecord = StyleSheet.create({
     updateText: {
         fontWeight: 'bold',
         fontSize: 15
+    },
+
+    ComboPicker: {
+        height: 50,
+        backgroundColor: '#c1c1d2',
+        borderWidth: 1,
+        borderColor: '#c7c7c7',
+        paddingLeft: 10
+    },
+    ComboView: {
+        marginTop: 15,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    CombiItem: {
+        backgroundColor: 'red',
+        color: 'yellow'
+    },
+
+
+    DimensionsView: {
+        flexDirection: 'row',
+        display: 'flex'
+    },
+    DimensionsInputContainer: {
+        width: '50%',
+        margin: 15,
+        height: 50
+
+    },
+    QuantityInputContainer: {
+        width: '100%',
+        marginBottom: 15,
+        marginLeft: 15,
+        marginRight: 15,
+        height: 50
+    },
+    dimensionsInput: {
+        backgroundColor: 'white',
+        width: '100%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        placeholderTextColor: '#002db3',
+        textAlign: 'center',
+        fontSize: 17
+
     }
 
 })
