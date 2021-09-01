@@ -7,6 +7,7 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
 
+import Header from '../components/header'
 import Login from './Login'
 import Register from './Register'
 import { environment } from '../environment';
@@ -160,9 +161,8 @@ export default function Home( { navigation }) {
     }
 
     return (
-
         <View style={globalStyles.container}>
-
+            <Header navigation={navigation} />
             { noConnectHeader() }
 
             <View style={ globalStyles.content } >
@@ -171,8 +171,8 @@ export default function Home( { navigation }) {
                     All Workbooks
                 </Text>
 
-               <Button title="Login" onPress={() => Alert.alert('Button')}/>
-               <Button title="Register" onPress={() => Alert.alert('Button')}/>
+               <Button title="Login" onPress={() => navigation.navigate('Login')}/>
+               <Button title="Register" onPress={() => navigation.navigate('Register')}/>
 
                 {/* <Login /> */}
                 {/* <Register />  */}

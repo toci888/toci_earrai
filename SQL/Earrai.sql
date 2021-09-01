@@ -1,4 +1,5 @@
 drop view userRoles;
+drop view AreasQuantities;
 
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
@@ -90,7 +91,7 @@ create table areaquantity
 	idUser int references users(id),
 	rowIndex int,
 	quantity text,
-	lengthDimensions text, -- 12 x 32, 234
+	lengthDimensions text,
 	createdAt timestamp default now(),
 	updatedAt timestamp default now()
 );
