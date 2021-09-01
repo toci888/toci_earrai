@@ -81,6 +81,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasColumnName("updatedat")
                     .HasDefaultValueSql("now()");
 
+                entity.Property(e => e.Widthdimensions).HasColumnName("widthdimensions");
+
                 entity.HasOne(d => d.IdareaNavigation)
                     .WithMany(p => p.Areaquantities)
                     .HasForeignKey(d => d.Idarea)
