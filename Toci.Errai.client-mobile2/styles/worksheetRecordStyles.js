@@ -112,11 +112,15 @@ export const worksheetRecord = StyleSheet.create({
         flexDirection: 'row',
         display: 'flex'
     },
-    DimensionsInputContainer: {
+    DimensionsInputContainerTwo: {
         width: '50%',
         margin: 15,
         height: 50
-
+    },
+    DimensionsInputContainerTwo: {
+        width: '100%',
+        margin: 15,
+        height: 50
     },
     QuantityInputContainer: {
         width: '100%',
