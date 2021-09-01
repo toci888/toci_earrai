@@ -51,6 +51,7 @@ namespace Toci.Earrai.Bll
                     Rowindex = element.Rowindex,
                     Quantity = element.Quantity,
                     Lengthdimensions = element.Lengthdimensions,
+                    Widthdimensions = element.Widthdimensions,
                     Createdat = DateTime.Now,
                     Updatedat = DateTime.Now
                 });
