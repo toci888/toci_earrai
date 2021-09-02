@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -22,39 +20,26 @@ namespace Toci.Earrai.Bll
 
         public Areaquantity UpdateAreaQuantities(Areaquantity areaquantity)
         {
-            var areaQuantityOriginal = Select(m => m.Id == areaquantity.Id).FirstOrDefault();
-            if (areaQuantityOriginal == null)
+            if (Select(m => m.Id == areaquantity.Id).FirstOrDefault() == null)
                 return null;
 
-            areaQuantityOriginal.Idworksheet = areaquantity.Idworksheet;
-            areaQuantityOriginal.Idcodesdimensions = areaquantity.Idcodesdimensions;
-            areaQuantityOriginal.Idarea = areaquantity.Idarea;
-            areaQuantityOriginal.Iduser = areaquantity.Iduser;
-            areaQuantityOriginal.Rowindex = areaquantity.Rowindex;
-            areaQuantityOriginal.Quantity = areaquantity.Quantity;
-            areaQuantityOriginal.Lengthdimensions = areaquantity.Lengthdimensions;
-            areaQuantityOriginal.Createdat = areaquantity.Createdat;
-            areaQuantityOriginal.Updatedat = DateTime.Now;
+            areaquantity.Updatedat = DateTime.Now;
 
-            Update(areaQuantityOriginal);
+            Update(areaquantity);
 
-            return areaQuantityOriginal;
+            return areaquantity;
         }
 
         public List<Areaquantity> GetAllAreaQuantitiesFromDb()
         {
-            Logic<Areaquantity> areaQuantities = new Logic<Areaquantity>();
-
-            return areaQuantities.Select(m => true).ToList();
+            return Select(m => true).ToList();
         }
 
         public void PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
         {
-            Logic<Areaquantity> areaQuantity = new Logic<Areaquantity>();
-
             foreach (var element in areaQuantityCollection)
             {
-                areaQuantity.Insert(new Areaquantity()
+                Insert(new Areaquantity()
                 {
                     Idworksheet = element.Idworksheet,
                     Idcodesdimensions = element.Idcodesdimensions,
