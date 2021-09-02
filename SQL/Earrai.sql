@@ -108,7 +108,7 @@ join users on areaquantity.idUser = users.id;
 select * from AreasQuantities;
 
 create or replace view userRoles as
-select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, roles.name
+select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, users.token ,roles.name
 from users 
 join roles on roles.id = users.idRole;
 
