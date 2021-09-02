@@ -11,6 +11,7 @@ import Header from '../components/header'
 import Login from './Login'
 import Register from './Register'
 import { environment } from '../environment';
+import VendorTable from '../components/VendorTable'
 
 export default function Home( { navigation }) {
 
@@ -164,7 +165,9 @@ export default function Home( { navigation }) {
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
-
+            <View>
+                <VendorTable />
+            </View>
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>

@@ -136,7 +136,6 @@ export const worksheetRecord = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        placeholderTextColor: '#002db3',
         textAlign: 'center',
         fontSize: 17
 
