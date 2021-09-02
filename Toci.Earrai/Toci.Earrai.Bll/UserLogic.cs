@@ -41,7 +41,7 @@ namespace Toci.Earrai.Bll
         public string GenerateJwt(LoginDto user)
         {
             string hash = HashPassword(user.Password);
-            Userrole u = Select(u => u.Email == user.Email && u.Password == hash).FirstOrDefault();
+            Userrole u = Select(x => x.Email == user.Email && x.Password == hash).FirstOrDefault();
 
             if (u is null)
             {
