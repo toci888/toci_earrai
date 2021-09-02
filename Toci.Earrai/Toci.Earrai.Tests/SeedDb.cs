@@ -24,6 +24,8 @@ namespace Toci.Earrai.Tests
         private Logic<Worksheetcontent> WorksheetContent = new Logic<Worksheetcontent>();
         private Logic<Area> Area = new Logic<Area>();
         private Logic<Codesdimension> codesdimensions = new Logic<Codesdimension>();
+        private Logic<Vendor> Vendor = new Logic<Vendor>();
+        private Logic<Quoteandmetric> Quoteandmetric = new Logic<Quoteandmetric>();
 
         private Random r = new Random();
 
@@ -285,6 +287,32 @@ CON".Split("\n", StringSplitOptions.None);
             foreach (string code in size)
             {
                 codesdimensions.Insert(new Codesdimension() { Code = code, Kind = 2 });
+            }
+        }
+
+        [TestMethod]
+        public void Vendors()
+        {
+            string[] values = { "McCance", "Wwatson", "McArdle", "Hannon", "RFL"};
+            for (int i = 0; i < values.Length; i++)
+            {
+                Vendor.Insert(new Vendor()
+                {
+                    Name = values[i]
+                });
+            }
+        }
+
+        [TestMethod]
+        public void QuotesAndMetrics()
+        {
+            string[] values = { "£/T", "£/L", "£/m", "£/Sht" };
+            for (int i = 0; i < values.Length; i++)
+            {
+                Quoteandmetric.Insert(new Quoteandmetric()
+                {
+                    Valuation = values[i]
+                });
             }
         }
     }

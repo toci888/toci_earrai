@@ -26,6 +26,7 @@ create table users
 	email text,
 	password text,
 	emailConfirmed int default 0,
+	token text,
 	idRole int references roles(id) default 1
 );
 
@@ -107,7 +108,7 @@ join users on areaquantity.idUser = users.id;
 select * from AreasQuantities;
 
 create or replace view userRoles as
-select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, roles.name
+select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, users.token ,roles.name
 from users 
 join roles on roles.id = users.idRole;
 
@@ -121,3 +122,6 @@ select * from worksheets;
 select * from worksheetcontents;
 select * from worksheetcontentshistory;
 select * from areas;
+select * from userRoles;
+
+

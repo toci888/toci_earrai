@@ -8,6 +8,13 @@ import Login from '../screens/Login'
 import Register from '../screens/Register'
 
 const screens = {
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            title : "Logging in",
+            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+        }
+    },
     Home: {
         screen: Home,
         navigationOptions: {
@@ -56,13 +63,6 @@ const screens = {
         screen: WorksheetRecord,
         navigationOptions: {
             title : "Worksheets Record",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
-        }
-    },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            title : "Logging in",
             headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
         }
     },

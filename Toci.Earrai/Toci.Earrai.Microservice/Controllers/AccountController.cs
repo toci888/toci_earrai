@@ -27,10 +27,10 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult Login([FromBody]LoginDto user)
+        public ActionResult<User> Login([FromBody]LoginDto user)
         {
-            string token = Logic.GenerateJwt(user);
-            return Ok(token);
+            Userrole loggedUser = Logic.GenerateJwt(user);
+            return Ok(loggedUser);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Toci.Earrai.Bll.Warehouse
             return wch;
         }
 
-        public virtual IQueryable<Worksheetcontent> GetIncreaseOffline(DateTime dateTime)
+        public virtual IEnumerable<Worksheetcontent> GetIncreaseOffline(DateTime dateTime)
         {
             return Select(m => m.Updatedat > dateTime);
         }
@@ -73,11 +73,11 @@ namespace Toci.Earrai.Bll.Warehouse
 
         public virtual Dictionary<string, object> LoadData()
         {
-            IQueryable<Area> areas = AreaLogic.Select(m => true);
-            IQueryable<Codesdimension> categories = CdLogic.Select(m => true);
-            IQueryable<Workbook> workbooks = WorkbookLogic.Select(m => true);
-            IQueryable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
-            IQueryable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
+            IEnumerable<Area> areas = AreaLogic.Select(m => true);
+            IEnumerable<Codesdimension> categories = CdLogic.Select(m => true);
+            IEnumerable<Workbook> workbooks = WorkbookLogic.Select(m => true);
+            IEnumerable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
+            IEnumerable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
 
             return new Dictionary<string, object>()
             {

@@ -40,7 +40,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United Kingdom.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -177,6 +177,8 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Password).HasColumnName("password");
 
+                entity.Property(e => e.Token).HasColumnName("token");
+
                 entity.HasOne(d => d.IdroleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Idrole)
@@ -202,6 +204,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Password).HasColumnName("password");
+
+                entity.Property(e => e.Token).HasColumnName("token");
             });
 
             modelBuilder.Entity<Workbook>(entity =>
