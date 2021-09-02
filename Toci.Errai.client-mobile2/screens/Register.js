@@ -1,49 +1,78 @@
-import React, { Component } from 'react';
-import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
-import { environment } from '../environment';
+import React, {useState} from 'react';
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  View,
+  StyleSheet,
+} from 'react-native';
+import {environment} from '../environment';
+import Login from './Login';
 
-export default class Register extends Component {
+export default function Register({navigation}) {
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    state = {
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-    };
+  const onRegister = async () => {
+    //const {firstname, lastname, email, password} = this.state;
+    console.log(firstname, lastname, email, password);
+    let response = await fetch(environment.apiUrl + 'api/Account/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({firstname, lastname, email, password}),
+    });
+    let json = await response.json();
+    console.log(json);
+  };
+  return (
+    <View style={styles.container}>
+      <TextInput
+        value={firstname}
+        onChangeText={text => setFirstname(text)}
+        placeholder="firstname"
+        placeholderTextColor="white"
+        style={styles.input}
+      />
+      <TextInput
+        value={lastname}
+        onChangeText={text => setLastname(text)}
+        placeholder="lastname"
+        placeholderTextColor="white"
+        style={styles.input}
+      />
+      <TextInput
+        value={email}
+        keyboardType="email-address"
+        onChangeText={text => setEmail(text)}
+        placeholder="email"
+        placeholderTextColor="white"
+        style={styles.input}
+      />
+      <TextInput
+        value={password}
+        onChangeText={text => setPassword(text)}
+        placeholder={'password'}
+        secureTextEntry={true}
+        placeholderTextColor="white"
+        style={styles.input}
+      />
 
-    onRegister = async () => {
-        const { firstname, lastname, email, password } = this.state;
-        console.log(firstname, lastname, email, password);
-        let response = await fetch(environment.apiUrl + 'api/Account/register', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({firstname, lastname, email,password})
-        });
-        let json = await response.json();
-        console.log(json);
-    };
+      <TouchableOpacity style={styles.button} onPress={() => onRegister()}>
+        <Text style={styles.buttonText}> Register </Text>
+      </TouchableOpacity>
+      <Text style={{marginTop: '2%', fontSize: 15}}>Have already an account?</Text>
 
-    render() {
-        return (
-            <View style={styles.container}>
-            <TextInput value={this.state.firstname} onChangeText={(firstname) => this.setState({ firstname })}
-                placeholder='firstname' placeholderTextColor = 'white' style={styles.input}/>
-            <TextInput value={this.state.lastname} onChangeText={(lastname) => this.setState({ lastname })}
-                placeholder='lastname' placeholderTextColor = 'white' style={styles.input}/>
-            <TextInput value={this.state.email} keyboardType = 'email-address' onChangeText={(email) => this.setState({ email })}
-                placeholder='email' placeholderTextColor = 'white' style={styles.input}/>
-            <TextInput value={this.state.password} onChangeText={(password) => this.setState({ password })} placeholder={'password'}
-                secureTextEntry={true} placeholderTextColor = 'white' style={styles.input}/>
-            
-            <TouchableOpacity style={styles.button} onPress={this.onRegister.bind(this)}>
-                <Text style={styles.buttonText}> Register </Text>
-            </TouchableOpacity>
-            </View>
-        );
-  }
+      <TouchableOpacity style={{marginTop: ''}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Login')}>Back to login</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -51,9 +80,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: '#ddd',
   },
-  titleText:{
+  titleText: {
     fontFamily: 'Baskerville',
     fontSize: 50,
     alignItems: 'center',
@@ -61,16 +90,17 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: 'powderblue',
+    // backgroundColor: 'powderblue',
+    backgroundColor: 'cornflowerblue',
     width: 200,
     height: 44,
-    padding: 10,
+    padding: 5,
     borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 25,
-    marginBottom: 10,
+    borderColor: 'black',
+    //borderRadius: 25,
+    marginTop: 10,
   },
-  buttonText:{
+  buttonText: {
     fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
@@ -79,6 +109,7 @@ const styles = StyleSheet.create({
   input: {
     width: 200,
     fontFamily: 'Baskerville',
+    backgroundColor: '#777',
     fontSize: 20,
     height: 44,
     padding: 10,

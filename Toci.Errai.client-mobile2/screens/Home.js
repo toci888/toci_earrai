@@ -174,11 +174,6 @@ export default function Home( { navigation }) {
                     All Workbooks
                 </Text>
 
-               <Button title="Login" onPress={() => navigation.navigate('Login')}/>
-               <Button title="Register" onPress={() => navigation.navigate('Register')}/>
-
-                {/* <Login /> */}
-                {/* <Register />  */}
                 <View>
                     <TextInput
                         value={ filteredValue }

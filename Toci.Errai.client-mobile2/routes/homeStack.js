@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, TextInput, Button, Left, Right } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import Home from '../screens/Home'
@@ -8,14 +6,13 @@ import WorksheetsList from '../screens/WorksheetsList'
 import WorksheetRecord from '../screens/WorksheetRecord'
 import Login from '../screens/Login'
 import Register from '../screens/Register'
-import { globalStyles } from '../styles/globalStyles'
 
 const screens = {
     Home: {
         screen: Home,
         navigationOptions: {
             
-            // title : "Home / Workbooks",
+            title : "",//"Home / Workbooks",
             // headerStyle: { backgroundColor: '#ccc', color: '#ffffff' },
             // headerTitle : () => 
             // <View style={{flex: 1, flexDirection:'row', flexWrap:'wrap'}}>
