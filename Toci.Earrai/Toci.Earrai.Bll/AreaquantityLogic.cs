@@ -39,8 +39,6 @@ namespace Toci.Earrai.Bll
 
         public List<Areasquantity> PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
         {
-            Logic<Areaquantity> areaQuantity = new Logic<Areaquantity>();
-
             List<int> ids = new List<int>();
             int counter = 0;
 
@@ -48,7 +46,7 @@ namespace Toci.Earrai.Bll
             {
                 counter++;
 
-                areaQuantity.Insert(new Areaquantity()
+                Insert(new Areaquantity()
                 {
                     Idworksheet = element.Idworksheet,
                     Idcodesdimensions = element.Idcodesdimensions,
@@ -66,9 +64,7 @@ namespace Toci.Earrai.Bll
             var newList = areasQuantity.Select(item => true).ToList();
 
             return newList.Take(counter).Reverse().ToList();
-
-            
-
+        
         }
     }
 }
