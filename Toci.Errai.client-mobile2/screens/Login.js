@@ -6,10 +6,8 @@ import {
   TextInput,
   View,
   StyleSheet,
-  Button,
 } from 'react-native';
 import {environment} from '../environment';
-import Register from './Register';
 
 export default function Login({navigation}) {
 
@@ -17,8 +15,6 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
 
   const onLogin = async () => {
-    //const {email, password} = this.state;
-    console.log(`email: ${email} + password: ${password}`);
     let response = await fetch(environment.apiUrl + 'api/Account/login', {
       method: 'POST',
       headers: {
@@ -29,26 +25,19 @@ export default function Login({navigation}) {
     });
     let json = await response.json();
     console.log(json);
+
+    if(json != "Invalid username or password")
+    {
+        navigation.navigate('Home');
+    }
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        value={email}
-        keyboardType="email-address"
-        onChangeText={text => setEmail(text)}
-        placeholder="E-Mail"
-        placeholderTextColor="white"
-        style={styles.input}
-      />
-      <TextInput
-        value={password}
-        onChangeText={text => setPassword(text)}
-        placeholder={'Password'}
-        secureTextEntry={true}
-        placeholderTextColor="white"
-        style={styles.input}
-      />
+      <TextInput value={email} keyboardType="email-address" onChangeText={text => setEmail(text)}
+        placeholder="E-Mail" placeholderTextColor="#aaa" style={styles.input}/>
+      <TextInput value={password} onChangeText={text => setPassword(text)} placeholder={'Password'}
+        secureTextEntry={true} placeholderTextColor="#aaa" style={styles.input}/>
 
       <TouchableOpacity style={styles.button} onPress={() => onLogin()}>
         <Text style={styles.buttonText}> Login </Text>
@@ -56,7 +45,7 @@ export default function Login({navigation}) {
 
       <Text style={{marginTop: '2%', fontSize: 15}}>Not have an account?</Text>
 
-      <TouchableOpacity style={{marginTop: ''}}>
+      <TouchableOpacity>
         <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Register')}>Register now!</Text>
       </TouchableOpacity>
     </View>
@@ -68,42 +57,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    //backgroundColor: 'gray',
     backgroundColor: '#ddd',
-  },
-  titleText: {
-    fontFamily: 'Baskerville',
-    fontSize: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   button: {
     alignItems: 'center',
-    // backgroundColor: 'powderblue',
-    backgroundColor: 'cornflowerblue',
-    width: 200,
+    width: '200px',
     height: 44,
     padding: 5,
     borderWidth: 1,
-    borderColor: 'black',
-    //borderRadius: 25,
+    borderColor: '#8781d8',
+    // borderRadius: 25,
     marginTop: 10,
+    backgroundColor: '#8781d8'
   },
   buttonText: {
     fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    fontWeight: 'bold',
+    color: '#ddd'
   },
   input: {
     width: 200,
     fontFamily: 'Baskerville',
-    backgroundColor: '#777',
+    backgroundColor: '#ddd',
     fontSize: 20,
     height: 44,
     padding: 10,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#777',
     marginVertical: 10,
   },
   inputTextStyle: {

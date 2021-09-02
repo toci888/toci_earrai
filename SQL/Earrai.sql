@@ -1,6 +1,7 @@
 drop view userRoles;
 drop view AreasQuantities;
 
+drop table quoteandprice;
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
 drop table areaquantity;
@@ -10,6 +11,8 @@ drop table worksheets;
 drop table workbooks;
 drop table users;
 drop table roles;
+drop table vendors;
+drop table quoteandmetric;
 
 create table roles
 (
@@ -96,6 +99,29 @@ create table areaquantity
 	updatedAt timestamp default now()
 );
 
+create table vendors
+(
+ 	id serial primary key,
+	name text
+);
+
+create table quoteandmetric
+(
+ 	id serial primary key,
+	valuation text
+);
+
+create table quoteandprice
+(
+ 	id serial primary key,
+	idworksheet int references worksheets (id),
+	rowIndex int,
+	price text,
+	idvendor int references vendors (id),
+	idquoteandmetric int references quoteandmetric (id),
+	iduser int references users (id)
+);
+
 
 create or replace view AreasQuantities as 
 select areaquantity.id, areaquantity.idworksheet, areaquantity.idcodesdimensions, areaquantity.idArea, areaquantity.idUser, 
@@ -104,13 +130,10 @@ users.initials
 from areaquantity join areas on areaquantity.idArea = areas.id 
 join users on areaquantity.idUser = users.id;
 
-select * from AreasQuantities;
-
 create or replace view userRoles as
 select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, roles.name
 from users 
 join roles on roles.id = users.idRole;
-
 
 
 select * from users;
@@ -121,3 +144,9 @@ select * from worksheets;
 select * from worksheetcontents;
 select * from worksheetcontentshistory;
 select * from areas;
+select * from vendors;
+select * from areaquantity;
+select * from codesdimensions;
+select * from AreasQuantities;
+select * from quoteandmetric;
+select * from quoteandprice;

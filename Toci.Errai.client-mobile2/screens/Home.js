@@ -11,6 +11,8 @@ import Header from '../components/header'
 import Login from './Login'
 import Register from './Register'
 import { environment } from '../environment';
+import VendorTable from '../components/VendorTable'
+import { set } from 'react-native-reanimated'
 
 export default function Home( { navigation }) {
 
@@ -31,51 +33,57 @@ export default function Home( { navigation }) {
 
         console.log("USE_EFFECT_START");
 
-        /*setapiConnect(false)
+        setapiConnect(false)
         fetch(environment.apiUrl + "api/EntityOperations/LoadData")
         .then( response => response.json() )
         .then( response => {
 
             console.log(response)
             setloading(false)
-            for (const iterator in response) {
-                AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
-            }
+            // for (const iterator in response) {
+            //     AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+            // }
 
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
-            setapiConnect(true)
+            // setapiConnect(true)
 
         })
-        .catch(error => {*/
+        //.catch(error => {
             //console.log(error)
-            setloading(false)
-            //if(error) { setapiConnect(false) }
-
-            AsyncStorage.getItem('Workbooks')
-            .then(response => {
-                //console.log(response);
-                console.log(JSON.parse(response));
-                return JSON.parse(response)
-            })
-            .then(response => {
-                setdisplayedWorkbooks(response)
-            })
-            .then( () => {
-
-                AsyncStorage.getItem('Areaquantity_cached')
-                .then(response => {
-                    //console.log(response)
-                    let x =  JSON.parse(response)
-                    console.log(x)
-                    if(x) {console.log(11)} else {console.log(22)}
-                })
+            // setloading(false)
+            // //if(error) { setapiConnect(false) }
 
 
 
 
+            // AsyncStorage.getItem('x')
+            // .then(response => {
+            //     //console.log(response);
+            //     //console.log(JSON.parse(response))
+            //     //return JSON.parse(response)
+            //     return 1
+            // })
+            // .then( (response) => {
+            //     //setdisplayedWorkbooks(response)
+            //     // AsyncStorage.getItem('Areaquantity_cached')
+            //     // .then(response => {
+            //     //     //console.log(response)
+            //     //     let x =  JSON.parse(response)
+            //     //     console.log(x)
+            //     //     if(x) {console.log(11)} else {console.log(22)}
+            //     // })
 
-            })
+
+
+
+
+            // }).catch(error => {
+            //     //console.log(error)
+            //     //setdisplayedWorkbooks([])
+            // }).finally(data => {
+            //     setloading(false)
+            // })
        // })
 
 
@@ -164,7 +172,9 @@ export default function Home( { navigation }) {
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
-
+            <View>
+                <VendorTable />
+            </View>
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>

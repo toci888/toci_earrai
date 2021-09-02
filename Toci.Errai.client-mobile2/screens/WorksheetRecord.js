@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput, Picker } from 'react-native'
+import { Button, Text, View, TextInput/*, Picker*/ } from 'react-native'
 import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
@@ -99,13 +99,15 @@ export default function WorksheetRecord({ route, navigation }) {
 
         }
 
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+        setDupa([])
+
+        /*fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json();
         }).then(r => {
             setDupa(r);
             console.log("QUANTITIES");
             console.log(r);
-        })
+        })*/
 
         Promise.all([
             AsyncStorage.getItem('Areas'),
@@ -649,7 +651,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 </Text>
             </View>
             <View style={worksheetRecord.ComboView}>
-                <Picker
+                {/* <Picker
                     selectedValue="Choose"
                     style={worksheetRecord.ComboPicker}
                     selectedValue={tempAreaquantityRow.idarea}
@@ -660,7 +662,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         } )
                     }
 
-                </Picker>
+                </Picker> */}
             </View>
 
             <View>

@@ -24,7 +24,6 @@ export const worksheetRecord = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 17,
         width: '100%',
-
     },
     updateButtonContainer: {
         width: '15%',
@@ -46,7 +45,6 @@ export const worksheetRecord = StyleSheet.create({
     },
     columns: {
         width: '60%',
-
     },
     value: {
         width: '40%',
@@ -136,10 +134,8 @@ export const worksheetRecord = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        placeholderTextColor: '#002db3',
         textAlign: 'center',
         fontSize: 17
-
     }
 
 })

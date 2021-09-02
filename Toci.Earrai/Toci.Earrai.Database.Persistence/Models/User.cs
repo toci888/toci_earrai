@@ -10,6 +10,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public User()
         {
             Areaquantities = new HashSet<Areaquantity>();
+            Quoteandprices = new HashSet<Quoteandprice>();
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual Role IdroleNavigation { get; set; }
         public virtual ICollection<Areaquantity> Areaquantities { get; set; }
+        public virtual ICollection<Quoteandprice> Quoteandprices { get; set; }
     }
 }
