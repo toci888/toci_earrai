@@ -11,7 +11,7 @@ namespace Toci.Earrai.Bll.Warehouse.Interfaces
     {
         Worksheetcontentshistory InsertToHistory(int idWorksheet, int columnNumber, int rowNumber, string value);
 
-        IQueryable<Worksheetcontent> GetIncreaseOffline(DateTime dateTime);
+        IEnumerable<Worksheetcontent> GetIncreaseOffline(DateTime dateTime);
 
         Dictionary<string, object> LoadData();
     }
