@@ -3,16 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, TextInput, Button } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { globalStyles } from '../styles/globalStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import { Picker } from '@react-native-community/picker'
 import Header from '../components/header'
-import Login from './Login'
-import Register from './Register'
 import { environment } from '../environment';
 import VendorTable from '../components/VendorTable'
-import { set } from 'react-native-reanimated'
 
 export default function Home( { navigation }) {
 
@@ -34,53 +30,48 @@ export default function Home( { navigation }) {
         console.log("USE_EFFECT_START");
 
         setapiConnect(false)
-        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
-        .then( response => response.json() )
+        fetch(environment.apiUrl2 + "api/EntityOperations/LoadData")
+        .then( response => {console.log(1); return response.json()} )
         .then( response => {
 
             console.log(response)
             setloading(false)
-            // for (const iterator in response) {
-            //     AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
-            // }
+            for (const iterator in response) {
+                AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+            }
 
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
-            // setapiConnect(true)
+            setapiConnect(true)
 
         })
-        //.catch(error => {
-            //console.log(error)
-            // setloading(false)
-            // //if(error) { setapiConnect(false) }
+        .catch(error => {
+            console.log(error)
+            setloading(false)
+            //if(error) { setapiConnect(false) }
+        })
 
 
 
-
-            AsyncStorage.getItem('x')
+            AsyncStorage.getItem('Workbooks')
             .then(response => {
-                //console.log(response);
-                //console.log(JSON.parse(response))
-                //return JSON.parse(response)
-                //return 1
+                console.log(JSON.parse(response))
+                return JSON.parse(response)
             })
-            //.then( (response) => {
-                //setdisplayedWorkbooks(response)
-                // AsyncStorage.getItem('Areaquantity_cached')
-                // .then(response => {
-                //     //console.log(response)
-                //     let x =  JSON.parse(response)
-                //     console.log(x)
-                //     if(x) {console.log(11)} else {console.log(22)}
-                // })
+            .then( (response) => {
 
-            // }).catch(error => {
-            //     //console.log(error)
-            //     //setdisplayedWorkbooks([])
-            // }).finally(data => {
-            //     setloading(false)
-            // })
-       // })
+                setdisplayedWorkbooks(response)
+
+
+            }).catch(error => {
+                //console.log(error)
+                //setdisplayedWorkbooks([])
+            }).finally(data => {
+                setloading(false)
+            })
+    //    }).finally(x => {
+    //        console.log(x);
+    //    })
 
 
         const interval = setInterval(() => {
@@ -159,7 +150,7 @@ export default function Home( { navigation }) {
     if(loading) {
        return(
         <View onPress={ () => test1() } >
-            <Text>Loading...</Text>
+            <Text>Loading2...</Text>
         </View>
        )
     }
@@ -168,6 +159,14 @@ export default function Home( { navigation }) {
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
+
+            <View>
+                <Picker>
+                    <Picker.Item  label="c" value="a" />
+                    <Picker.Item  label="dc" value="da" />
+
+                </Picker>
+            </View>
 
             <View style={ globalStyles.content } >
 

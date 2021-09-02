@@ -11,10 +11,10 @@ const screens = {
     Home: {
         screen: Home,
         navigationOptions: {
-            
-            title : "",//"Home / Workbooks",
+
+            title : "Home / Workbooks",
             // headerStyle: { backgroundColor: '#ccc', color: '#ffffff' },
-            // headerTitle : () => 
+            // headerTitle : () =>
             // <View style={{flex: 1, flexDirection:'row', flexWrap:'wrap'}}>
             //     <Text style={{textAlign: 'right'}}>Home / Workbooks</Text>
 
@@ -22,7 +22,7 @@ const screens = {
             //         <Button title="Login" onPress={() => navigation.navigate('Login')}/>
             //         <Button title="Register" onPress={() => navigation.navigate('Register')}/>
             //     </View>
-                
+
             // </View>,
 
             // <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
@@ -35,7 +35,7 @@ const screens = {
             //         <Text onPress={() => navigation.navigate('Register')}>Register</Text>
             //     </View>
             // </View>
-            
+
         }
     },
     WorksheetsList: {

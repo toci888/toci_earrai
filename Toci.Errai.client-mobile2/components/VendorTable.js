@@ -29,56 +29,40 @@ export default function VendorTable() {
 
     return (
         <View>
+
             <View>
-            <Picker
-                style={{width: 85}}
-                selectedValue="abc"
-                onValueChange={(itemValue, itemIndex) => setVendorsFunc(itemValue, itemIndex)}>
-                <Picker.Item  label="c" value="a" />
-                <Picker.Item  label="dc" value="da" />
 
-            </Picker>
+                {/* <Picker>
+                    <Picker.Item  label="c" value="a" />
+                    <Picker.Item  label="dc" value="da" />
+
+                </Picker> */}
+
+                {/* <Picker
+                    style={{width: 85}}
+                    selectedValue="abc"
+                    onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
+
+                    {
+                        countTypesHook.map( (item, index) => {
+                            return <Picker.Item key={index} label={item} value={item} />
+                        } )
+                    }
+
+                </Picker> */}
+
             </View>
-            <DataTable>
 
-                <DataTable.Row>
-                    <DataTable.Cell>
-                            <Text>xxx</Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        <Picker
-                            style={{width: 85}}
-                            selectedValue="abc"
-                            onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
-                            {
-                                countTypesHook.map( (item, index) => {
-                                    return <Picker.Item key={index} label={item} value={item} />
-                                } )
-                            }
+            <View>
 
-                        </Picker>
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        <TextInput
-                            value="0"
-                            placeholder="Value.."
-                            onChange={ ($event) => filterWorkbooks($event) }
-                        />
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        <TextInput
-                            value="0"
-                            placeholder="Value.."
-                            onChange={ ($event) => filterWorkbooks($event) }
-                        />
-                    </DataTable.Cell>
-                </DataTable.Row>
+             <TextInput
+                    value="0"
+                    placeholder="Value.."
+                    onChange={ ($event) => filterWorkbooks($event) }
+                />
 
+            </View>
 
-
-
-
-            </DataTable>
         </View>
     )
 }
