@@ -56,7 +56,7 @@ export default function Login({navigation}) {
 
       <Text style={{marginTop: '2%', fontSize: 15}}>Not have an account?</Text>
 
-      <TouchableOpacity style={{marginTop: ''}}>
+      <TouchableOpacity>
         <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Register')}>Register now!</Text>
       </TouchableOpacity>
     </View>

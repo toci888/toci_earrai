@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-export const worksheetContent = StyleSheet.create({
+export const VendorTableStyle = StyleSheet.create({
+
     addNewRecordView: {
         backgroundColor: '#365d96',
 

@@ -7,7 +7,7 @@ export const worksheetsList = StyleSheet.create({
         paddingTop: 15,
         paddingBottom: 15,
         borderBottomWidth: 2,
-        borderBottomColor: 'rgb(204, 204, 204)',
+        borderBottomColor: '#cccccc',
         textAlign: 'center'
     }
 

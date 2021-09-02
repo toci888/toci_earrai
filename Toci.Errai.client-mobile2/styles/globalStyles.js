@@ -24,7 +24,7 @@ export const globalStyles = StyleSheet.create({
         paddingTop: 15,
         paddingBottom: 15,
         fontSize: 25,
-        backgroundColor: 'rgb(204, 204, 204)'
+        backgroundColor: '#cccccc'
     },
     header: {
         backgroundColor: '#4a4a30',
@@ -40,7 +40,7 @@ export const globalStyles = StyleSheet.create({
         paddingTop: 10,
         textAlign: 'center',
         borderBottomWidth: 2,
-        borderBottomColor: 'rgb(204, 204, 204)',
+        borderBottomColor: '#cccccc',
     },
     content: {
         backgroundColor: 'white',
@@ -48,12 +48,12 @@ export const globalStyles = StyleSheet.create({
         borderTopWidth: 3
     },
     listItem: {
-        backgroundColor: 'rgb(204, 204, 204)',
+        backgroundColor: '#cccccc',
         color: 'black',
         paddingTop: 15,
         paddingBottom: 15,
         borderBottomWidth: 1,
-        borderBottomColor: 'rgb(177, 177, 177)',
+        borderBottomColor: '#b1b1b1',
     },
     inputStyle: {
         backgroundColor: '#ddd',
@@ -73,14 +73,13 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 25,
         borderBottomWidth: 1,
-        borderBottomColor: 'rgb(204, 204, 204)',
+        borderBottomColor: '#cccccc',
     },
     cell: {
         fontSize: 7,
         padding: 4,
-        clear: 'both'
+        //clear: 'both'
         //borderLeftWidth: 1,
-        //borderLeftColor: 'rgb(51, 153, 255)',
         //borderBottomWidth: 1,
         //borderBottomColor: 'blue',
     },
@@ -110,8 +109,8 @@ export const globalStyles = StyleSheet.create({
     unityName:{
         fontWeight: 'bold',
         paddingLeft: 15,
-        fontSize: 20, 
-        margin: '20px'
+        fontSize: 20,
+        margin: 20
     },
     subInfo:{
         color: 'gray',
