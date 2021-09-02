@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput, Picker } from 'react-native'
+import { Button, Text, View, TextInput/*, Picker*/ } from 'react-native'
 import { animationFrames } from 'rxjs'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
@@ -651,7 +651,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 </Text>
             </View>
             <View style={worksheetRecord.ComboView}>
-                <Picker
+                {/* <Picker
                     selectedValue="Choose"
                     style={worksheetRecord.ComboPicker}
                     selectedValue={tempAreaquantityRow.idarea}
@@ -662,7 +662,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         } )
                     }
 
-                </Picker>
+                </Picker> */}
             </View>
 
             <View>

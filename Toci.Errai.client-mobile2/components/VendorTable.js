@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput, Picker } from 'react-native'
+import { Button, Text, View, TextInput/*, Picker*/ } from 'react-native'
 import { DataTable } from 'react-native-paper'
 
 export default function VendorTable() {
@@ -29,7 +29,7 @@ export default function VendorTable() {
 
                 <DataTable.Row>
                     <DataTable.Cell>
-                        <Picker
+                        {/* <Picker
                             selectedValue={vendorsHook[0]}
                             onValueChange={(itemValue, itemIndex) => setVendorsFunc(itemValue, itemIndex)}>
                             {
@@ -38,10 +38,10 @@ export default function VendorTable() {
                                 } )
                             }
 
-                        </Picker>
+                        </Picker> */}
                     </DataTable.Cell>
                     <DataTable.Cell>
-                        <Picker
+                        {/* <Picker
                             selectedValue={countTypesHook[0]}
                             onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
                             {
@@ -50,7 +50,7 @@ export default function VendorTable() {
                                 } )
                             }
 
-                        </Picker>
+                        </Picker> */}
                     </DataTable.Cell>
                     <DataTable.Cell>
                         <TextInput

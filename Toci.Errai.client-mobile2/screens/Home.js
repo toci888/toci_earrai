@@ -33,54 +33,57 @@ export default function Home( { navigation }) {
 
         console.log("USE_EFFECT_START");
 
-        //setapiConnect(false)
-        // fetch(environment.apiUrl + "api/EntityOperations/LoadData")
-        // .then( response => response.json() )
-        // .then( response => {
+        setapiConnect(false)
+        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
+        .then( response => response.json() )
+        .then( response => {
 
-        //     //console.log(response)
-        //     setloading(false)
-        //     for (const iterator in response) {
-        //         AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
-        //     }
+            console.log(response)
+            setloading(false)
+            // for (const iterator in response) {
+            //     AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+            // }
 
-        //     setworkbooks(response.Workbooks)
-        //     setdisplayedWorkbooks(response.Workbooks)
-        //     setapiConnect(true)
+            setworkbooks(response.Workbooks)
+            setdisplayedWorkbooks(response.Workbooks)
+            // setapiConnect(true)
 
-        // })
+        })
         //.catch(error => {
             //console.log(error)
             // setloading(false)
             // //if(error) { setapiConnect(false) }
 
-            AsyncStorage.getItem('x')
-            .then(response => {
-                //console.log(response);
-                //console.log(JSON.parse(response))
-                //return JSON.parse(response)
-                return 1
-            })
-            .then( (response) => {
-                //setdisplayedWorkbooks(response)
-                // AsyncStorage.getItem('Areaquantity_cached')
-                // .then(response => {
-                //     //console.log(response)
-                //     let x =  JSON.parse(response)
-                //     console.log(x)
-                //     if(x) {console.log(11)} else {console.log(22)}
-                // })
+
+
+
+            // AsyncStorage.getItem('x')
+            // .then(response => {
+            //     //console.log(response);
+            //     //console.log(JSON.parse(response))
+            //     //return JSON.parse(response)
+            //     return 1
+            // })
+            // .then( (response) => {
+            //     //setdisplayedWorkbooks(response)
+            //     // AsyncStorage.getItem('Areaquantity_cached')
+            //     // .then(response => {
+            //     //     //console.log(response)
+            //     //     let x =  JSON.parse(response)
+            //     //     console.log(x)
+            //     //     if(x) {console.log(11)} else {console.log(22)}
+            //     // })
 
 
 
 
 
-            }).catch(error => {
-                //console.log(error)
-                //setdisplayedWorkbooks([])
-            }).finally(data => {
-                setloading(false)
-            })
+            // }).catch(error => {
+            //     //console.log(error)
+            //     //setdisplayedWorkbooks([])
+            // }).finally(data => {
+            //     setloading(false)
+            // })
        // })
 
 

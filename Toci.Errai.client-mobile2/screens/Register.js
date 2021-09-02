@@ -68,7 +68,7 @@ export default function Register({navigation}) {
       </TouchableOpacity>
       <Text style={{marginTop: '2%', fontSize: 15}}>Have already an account?</Text>
 
-      <TouchableOpacity style={{marginTop: ''}}>
+      <TouchableOpacity>
         <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Login')}>Back to login</Text>
       </TouchableOpacity>
     </View>

@@ -109,8 +109,8 @@ export const globalStyles = StyleSheet.create({
     unityName:{
         fontWeight: 'bold',
         paddingLeft: 15,
-        fontSize: 20, 
-        margin: '20px'
+        fontSize: 20,
+        margin: 20
     },
     subInfo:{
         color: 'gray',
