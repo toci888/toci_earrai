@@ -99,13 +99,15 @@ export default function WorksheetRecord({ route, navigation }) {
 
         }
 
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+        setDupa([])
+
+        /*fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json();
         }).then(r => {
             setDupa(r);
             console.log("QUANTITIES");
             console.log(r);
-        })
+        })*/
 
         Promise.all([
             AsyncStorage.getItem('Areas'),
