@@ -57,26 +57,22 @@ export default function Home( { navigation }) {
 
 
 
-            // AsyncStorage.getItem('x')
-            // .then(response => {
-            //     //console.log(response);
-            //     //console.log(JSON.parse(response))
-            //     //return JSON.parse(response)
-            //     return 1
-            // })
-            // .then( (response) => {
-            //     //setdisplayedWorkbooks(response)
-            //     // AsyncStorage.getItem('Areaquantity_cached')
-            //     // .then(response => {
-            //     //     //console.log(response)
-            //     //     let x =  JSON.parse(response)
-            //     //     console.log(x)
-            //     //     if(x) {console.log(11)} else {console.log(22)}
-            //     // })
-
-
-
-
+            AsyncStorage.getItem('x')
+            .then(response => {
+                //console.log(response);
+                //console.log(JSON.parse(response))
+                //return JSON.parse(response)
+                //return 1
+            })
+            //.then( (response) => {
+                //setdisplayedWorkbooks(response)
+                // AsyncStorage.getItem('Areaquantity_cached')
+                // .then(response => {
+                //     //console.log(response)
+                //     let x =  JSON.parse(response)
+                //     console.log(x)
+                //     if(x) {console.log(11)} else {console.log(22)}
+                // })
 
             // }).catch(error => {
             //     //console.log(error)
@@ -172,15 +168,15 @@ export default function Home( { navigation }) {
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
-            <View>
-                <VendorTable />
-            </View>
+
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>
                     All Workbooks
                 </Text>
-
+                <View>
+                    <VendorTable />
+                </View>
                 <View>
                     <TextInput
                         value={ filteredValue }

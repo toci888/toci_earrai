@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import {environment} from '../environment';
-import Login from './Login';
 
 export default function Register({navigation}) {
   const [firstname, setFirstname] = useState('');
