@@ -8,6 +8,8 @@ namespace Toci.Earrai.Bll
 {
     public class AreaquantityLogic : Logic<Areaquantity>, IAreaquantityLogic
     {
+
+        protected Logic<Areasquantity> areasQuantity = new Logic<Areasquantity>();
         public int DeleteById(int id)
         {
             var areaQuantity = Select(m => m.Id == id).FirstOrDefault();
@@ -35,11 +37,18 @@ namespace Toci.Earrai.Bll
             return Select(m => true).ToList();
         }
 
-        public void PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
+        public List<Areasquantity> PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
         {
+            Logic<Areaquantity> areaQuantity = new Logic<Areaquantity>();
+
+            List<int> ids = new List<int>();
+            int counter = 0;
+
             foreach (var element in areaQuantityCollection)
             {
-                Insert(new Areaquantity()
+                counter++;
+
+                areaQuantity.Insert(new Areaquantity()
                 {
                     Idworksheet = element.Idworksheet,
                     Idcodesdimensions = element.Idcodesdimensions,
@@ -51,7 +60,15 @@ namespace Toci.Earrai.Bll
                     Createdat = DateTime.Now,
                     Updatedat = DateTime.Now
                 });
+                
             }
+            
+            var newList = areasQuantity.Select(item => true).ToList();
+
+            return newList.Take(counter).Reverse().ToList();
+
+            
+
         }
     }
 }

@@ -13,12 +13,12 @@ import { globalStyles } from '../styles/globalStyles'
 export default function Header({navigation}) {
     return (<View style={{flexDirection:'row',justifyContent : 'space-between'}}>
         <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
-            <Text style={globalStyles.unityName, {fontSize: 20}}>Home / Workbooks1</Text>
+            <Text style={globalStyles.unityName}>Home / Workbooks</Text>
             {/* <Text style={globalStyles.subInfo}>Home / Workbooks2</Text> */}
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{marginRight: 20}} onPress={() => navigation.navigate('Login')}>Login</Text>
-            <Text onPress={() => navigation.navigate('Register')}>Register</Text>
+            <Text style={globalStyles.unityName} onPress={() => navigation.navigate('Login')}>Login</Text>
+            <Text style={globalStyles.unityName} onPress={() => navigation.navigate('Register')}>Register</Text>
         </View>
     </View>);
 }
