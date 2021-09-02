@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Toci.Common.Bll;
 using Toci.Common.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
@@ -10,6 +11,6 @@ namespace Toci.Earrai.Bll.Interfaces
     {
         public int CreateAccount(User user);
         public string GenerateJwt(LoginDto user);
-        public IQueryable<User> GetAll();
+        public IEnumerable<User> GetAll();
     }
 }

@@ -37,7 +37,7 @@ namespace Toci.Earrai.Microservice.Controllers
 
         [HttpGet]
         [Route("GetIncrease")]
-        public IQueryable<Worksheetcontent> GetIncreaseWorksheetcontents(DateTime dateTime)
+        public IEnumerable<Worksheetcontent> GetIncreaseWorksheetcontents(DateTime dateTime)
         {
             return Logic.GetIncreaseOffline(dateTime);
         }

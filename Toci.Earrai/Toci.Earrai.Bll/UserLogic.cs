@@ -69,7 +69,7 @@ namespace Toci.Earrai.Bll
             return tokenHandler.WriteToken(token);
         }
 
-        public IQueryable<User> GetAll()
+        public IEnumerable<User> GetAll()
         {
             return userLogic.Select(m => m.Id > 0);
         }
