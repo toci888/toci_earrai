@@ -38,7 +38,7 @@ namespace Toci.Earrai.Bll
             return newUser.Id;
         }
 
-        public string GenerateJwt(LoginDto user)
+        public Userrole GenerateJwt(LoginDto user)
         {
             string hash = HashPassword(user.Password);
             Userrole u = Select(x => x.Email == user.Email && x.Password == hash).FirstOrDefault();
@@ -47,7 +47,7 @@ namespace Toci.Earrai.Bll
             {
                 //throw new Exception("Invalid username or password");
                 //throw new BadRequestException("Invalid username or password");
-                return "Invalid username or password";
+                return null;
             }
 
             List<Claim> claims = new List<Claim>()
@@ -65,8 +65,8 @@ namespace Toci.Earrai.Bll
                 _authenticationSettings.JwtIssuer, claims, expires: expires, signingCredentials: cred);
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-
-            return tokenHandler.WriteToken(token);
+            u.Token = tokenHandler.WriteToken(token);
+            return u;
         }
 
         public IQueryable<User> GetAll()

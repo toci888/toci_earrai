@@ -21,12 +21,9 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Areaquantity> Areaquantities { get; set; }
         public virtual DbSet<Areasquantity> Areasquantities { get; set; }
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
-        public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
-        public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
-        public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Workbook> Workbooks { get; set; }
         public virtual DbSet<Worksheet> Worksheets { get; set; }
         public virtual DbSet<Worksheetcontent> Worksheetcontents { get; set; }
@@ -43,7 +40,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United Kingdom.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -147,54 +144,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Kind).HasColumnName("kind");
             });
 
-            modelBuilder.Entity<Quoteandmetric>(entity =>
-            {
-                entity.ToTable("quoteandmetric");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Valuation).HasColumnName("valuation");
-            });
-
-            modelBuilder.Entity<Quoteandprice>(entity =>
-            {
-                entity.ToTable("quoteandprice");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
-
-                entity.Property(e => e.Iduser).HasColumnName("iduser");
-
-                entity.Property(e => e.Idvendor).HasColumnName("idvendor");
-
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
-
-                entity.Property(e => e.Price).HasColumnName("price");
-
-                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
-
-                entity.HasOne(d => d.IdquoteandmetricNavigation)
-                    .WithMany(p => p.Quoteandprices)
-                    .HasForeignKey(d => d.Idquoteandmetric)
-                    .HasConstraintName("quoteandprice_idquoteandmetric_fkey");
-
-                entity.HasOne(d => d.IduserNavigation)
-                    .WithMany(p => p.Quoteandprices)
-                    .HasForeignKey(d => d.Iduser)
-                    .HasConstraintName("quoteandprice_iduser_fkey");
-
-                entity.HasOne(d => d.IdvendorNavigation)
-                    .WithMany(p => p.Quoteandprices)
-                    .HasForeignKey(d => d.Idvendor)
-                    .HasConstraintName("quoteandprice_idvendor_fkey");
-
-                entity.HasOne(d => d.IdworksheetNavigation)
-                    .WithMany(p => p.Quoteandprices)
-                    .HasForeignKey(d => d.Idworksheet)
-                    .HasConstraintName("quoteandprice_idworksheet_fkey");
-            });
-
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("roles");
@@ -228,6 +177,8 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Password).HasColumnName("password");
 
+                entity.Property(e => e.Token).HasColumnName("token");
+
                 entity.HasOne(d => d.IdroleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Idrole)
@@ -253,15 +204,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Password).HasColumnName("password");
-            });
 
-            modelBuilder.Entity<Vendor>(entity =>
-            {
-                entity.ToTable("vendors");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name).HasColumnName("name");
+                entity.Property(e => e.Token).HasColumnName("token");
             });
 
             modelBuilder.Entity<Workbook>(entity =>
