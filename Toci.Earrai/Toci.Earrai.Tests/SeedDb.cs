@@ -37,6 +37,8 @@ namespace Toci.Earrai.Tests
             Workbooks();
             Worksheets();
             WorksheetContents();
+            Vendors();
+            QuotesAndMetrics();
         }
 
         [TestMethod]
@@ -63,7 +65,8 @@ namespace Toci.Earrai.Tests
                 Lastname = "User",
                 Initials = "UU",
                 Email = "user@wp.pl",
-                Password = "12345678",
+                Password = "123456789",
+                Token = "empty token",
                 Idrole = 1
             });
 
@@ -73,7 +76,8 @@ namespace Toci.Earrai.Tests
                 Lastname = "Office",
                 Initials = "OO",
                 Email = "office@wp.pl",
-                Password = "12345678",
+                Password = "123456785",
+                Token = "empty token",
                 Idrole = 2
             });
 
@@ -83,7 +87,8 @@ namespace Toci.Earrai.Tests
                 Lastname = "Pc",
                 Initials = "PP",
                 Email = "pc@wp.pl",
-                Password = "12345678",
+                Password = "123456784",
+                Token = "empty token",
                 Idrole = 3
             });
 
@@ -93,7 +98,8 @@ namespace Toci.Earrai.Tests
                 Lastname = "Admin",
                 Initials = "AA",
                 Email = "admin@wp.pl",
-                Password = "12345678",
+                Password = "123456783",
+                Token = "empty token",
                 Idrole = 4
             });
         }
