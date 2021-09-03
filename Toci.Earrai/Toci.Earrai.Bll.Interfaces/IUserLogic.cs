@@ -11,6 +11,6 @@ namespace Toci.Earrai.Bll.Interfaces
     {
         public int CreateAccount(User user);
         public Userrole GenerateJwt(LoginDto user);
-        public IQueryable<User> GetAll();
+        public IEnumerable<User> GetAll();
     }
 }
