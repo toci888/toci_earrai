@@ -10,6 +10,7 @@ namespace Toci.Earrai.Bll
     {
         protected Logic<Quoteandmetric> Quoteandmetric = new Logic<Quoteandmetric>();
         protected Logic<Vendor> Vendor = new Logic<Vendor>();
+        protected Logic<Quotesandprice> Quotesandprices = new Logic<Quotesandprice>();
         public List<Quoteandmetric> GetAllQuotesAndMetrics()
         {
             List<Quoteandmetric> quoteandmetric = new List<Quoteandmetric>();
@@ -24,6 +25,13 @@ namespace Toci.Earrai.Bll
             return quoteandprice;
         }
 
+        public List<Quotesandprice> GetAllQuotesAndPricesView()
+        {
+            List<Quotesandprice> quotesandprices = new List<Quotesandprice>();
+            quotesandprices = Quotesandprices.Select(m => true).ToList();
+            return quotesandprices;
+        }
+
         public List<Vendor> GetAllVendors()
         {
             List<Vendor> vendor = new List<Vendor>();
@@ -34,17 +42,6 @@ namespace Toci.Earrai.Bll
         public int PostQuoteAndPrice(Quoteandprice quoteandprice)
         {
             int id = Insert(quoteandprice).Id;
-            /*
-            int id = Insert(new Quoteandprice()
-            {
-                Idworksheet = quoteandprice.Idworksheet,
-                Rowindex = quoteandprice.Rowindex,
-                Price = quoteandprice.Price,
-                Idvendor = quoteandprice.Idvendor,
-                Idquoteandmetric = quoteandprice.Idquoteandmetric,
-                Iduser = quoteandprice.Iduser
-            }).Id;
-            */
 
             return id;
         }

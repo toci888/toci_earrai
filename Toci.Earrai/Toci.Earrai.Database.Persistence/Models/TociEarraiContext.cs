@@ -23,6 +23,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
+        public virtual DbSet<Quotesandprice> Quotesandprices { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
@@ -193,6 +194,33 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Quoteandprices)
                     .HasForeignKey(d => d.Idworksheet)
                     .HasConstraintName("quoteandprice_idworksheet_fkey");
+            });
+
+            modelBuilder.Entity<Quotesandprice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("quotesandprices");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
+
+                entity.Property(e => e.Iduser).HasColumnName("iduser");
+
+                entity.Property(e => e.Idvendor).HasColumnName("idvendor");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Initials).HasColumnName("initials");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Valuation).HasColumnName("valuation");
+
+                entity.Property(e => e.Vendor).HasColumnName("vendor");
             });
 
             modelBuilder.Entity<Role>(entity =>
