@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -29,6 +29,24 @@ namespace Toci.Earrai.Bll
             List<Vendor> vendor = new List<Vendor>();
             vendor = Vendor.Select(m => true).ToList();
             return vendor;
+        }
+
+        public int PostQuoteAndPrice(Quoteandprice quoteandprice)
+        {
+            int id = Insert(quoteandprice).Id;
+            /*
+            int id = Insert(new Quoteandprice()
+            {
+                Idworksheet = quoteandprice.Idworksheet,
+                Rowindex = quoteandprice.Rowindex,
+                Price = quoteandprice.Price,
+                Idvendor = quoteandprice.Idvendor,
+                Idquoteandmetric = quoteandprice.Idquoteandmetric,
+                Iduser = quoteandprice.Iduser
+            }).Id;
+            */
+
+            return id;
         }
     }
 }
