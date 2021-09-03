@@ -216,6 +216,7 @@ namespace OneDriveWithMSGraph {
 
                             for(int ii = 0; ii < ele.Value.Count; ii++)
                             {
+                                Console.WriteLine("kolejny worksheet jest gotowy");
                                 int idOfWorksheet = Worksheet.Insert(new Worksheet()
                                 {
                                     Idworkbook = idOfWorkbook,
