@@ -42,6 +42,9 @@ export default function WorksheetRecord({ route, navigation }) {
     })
 
 
+
+
+
     useEffect( () => {
 
 
@@ -738,6 +741,9 @@ export default function WorksheetRecord({ route, navigation }) {
                     { displayQuantities() }
                 </DataTable>
             </View>
+
+
+
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}

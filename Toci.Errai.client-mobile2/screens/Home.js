@@ -10,6 +10,7 @@ import Header from '../components/header'
 import { environment } from '../environment';
 import VendorTable from '../components/VendorTable'
 import AppUser from '../shared/AppUser'
+import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function Home( { navigation }) {
 
@@ -31,17 +32,17 @@ export default function Home( { navigation }) {
 
     useEffect( () => {
 
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + 2 + '/' +connectService.getNowWorksheetId()).then(r => {
+        /*fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/2/1').then(r => {
             return r.json();
         }).then(r => {
             console.log("QUANTITIES");
             console.log(r);
-        })
+        })*/
 
         console.log("USE_EFFECT_START");
 
         setapiConnect(false)
-        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
+        fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
         .then( response => {console.log(1); return response.json()} )
         .then( response => {
 
@@ -182,16 +183,6 @@ export default function Home( { navigation }) {
             </View>
             <View>
                 <Text>{apiInfo}</Text>
-            </View>
-
-
-
-            <View>
-                <Picker>
-                    <Picker.Item  label="c" value="a" />
-                    <Picker.Item  label="dc" value="da" />
-
-                </Picker>
             </View>
 
             <View style={ globalStyles.content } >

@@ -136,6 +136,38 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         fontSize: 17
+    },
+
+
+    vendorContainer: {
+        flexDirection: 'row',
+        display: 'flex',
+
+    },
+    vendorColumn: {
+        padding: 5,
+        width: '25%'
+    },
+    vendorColumnOK: {
+        width: '100%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: '#9999cc',
+        fontSize: 18
+    },
+    vendorColumnInput: {
+        backgroundColor: '#dddde6',
+        width: '100%',
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontSize: 17
     }
+
 
 })
