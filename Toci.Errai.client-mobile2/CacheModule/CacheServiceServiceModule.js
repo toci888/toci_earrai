@@ -203,7 +203,7 @@ export class ConnectionService {
                 return
             }
 
-            console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
+            //console.log('Is connected?', state.isConnected, "cacheData: ", ConnectionService.cacheData)
             //console.log(this.nowContentData);
 
             if(!this.isConnected) {

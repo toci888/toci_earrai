@@ -12,7 +12,7 @@ const screens = {
         screen: Login,
         navigationOptions: {
             title : "Logging in",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     Home: {
@@ -49,28 +49,29 @@ const screens = {
         screen: WorksheetsList,
         navigationOptions: {
             title : "Worksheets List",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     WorksheetContent: {
         screen: WorksheetContent,
         navigationOptions: {
             title : "Worksheets Content",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     WorksheetRecord: {
         screen: WorksheetRecord,
         navigationOptions: {
             title : "Worksheets Record",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
+
     Register: {
         screen: Register,
         navigationOptions: {
             title : "Register",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     }
 }

@@ -9,6 +9,7 @@ import { Picker } from '@react-native-community/picker'
 import Header from '../components/header'
 import { environment } from '../environment';
 import VendorTable from '../components/VendorTable'
+import AppUser from '../shared/AppUser'
 
 export default function Home( { navigation }) {
 
@@ -18,6 +19,9 @@ export default function Home( { navigation }) {
     const [filteredValue, setfilteredValue] = useState("")
     const [apiConnect, setapiConnect] = useState(false)
     const [loading, setloading] = useState(true)
+    const [error, seterror] = useState("")
+    const [error2, seterror2] = useState("")
+    const [apiInfo, setapiInfo] = useState("")
 
     const test1 = () => {
         let x = AsyncStorage.getItem('Areas');
@@ -27,10 +31,17 @@ export default function Home( { navigation }) {
 
     useEffect( () => {
 
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + 2 + '/' +connectService.getNowWorksheetId()).then(r => {
+            return r.json();
+        }).then(r => {
+            console.log("QUANTITIES");
+            console.log(r);
+        })
+
         console.log("USE_EFFECT_START");
 
         setapiConnect(false)
-        fetch(environment.apiUrl2 + "api/EntityOperations/LoadData")
+        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
         .then( response => {console.log(1); return response.json()} )
         .then( response => {
 
@@ -48,35 +59,35 @@ export default function Home( { navigation }) {
         .catch(error => {
             console.log(error)
             setloading(false)
+            seterror(JSON.stringify(error))
+            setapiInfo("CHYBA NIE LACZY API ???  ")
             //if(error) { setapiConnect(false) }
         })
 
 
 
-            AsyncStorage.getItem('Workbooks')
-            .then(response => {
-                console.log(JSON.parse(response))
-                return JSON.parse(response)
-            })
-            .then( (response) => {
+        AsyncStorage.getItem('Workbooks')
+        .then(response => {
+            console.log(JSON.parse(response))
+            return JSON.parse(response)
+        })
+        .then( (response) => {
 
-                setdisplayedWorkbooks(response)
+            setdisplayedWorkbooks(response)
 
 
-            }).catch(error => {
-                //console.log(error)
-                //setdisplayedWorkbooks([])
-            }).finally(data => {
-                setloading(false)
-            })
-    //    }).finally(x => {
-    //        console.log(x);
-    //    })
+        }).catch(error => {
+            console.log(error)
+            seterror2(JSON.stringify(error))
+            setapiInfo(prev => prev + "NIE LACZY STORAGE")
+        }).finally(data => {
+            setloading(false)
+        })
 
 
         const interval = setInterval(() => {
             connectService.checkConnect()
-        }, 4000)
+        }, 6000)
 
         return () => { console.log("END_USE_EFFECT") }
     }, [] )
@@ -148,17 +159,32 @@ export default function Home( { navigation }) {
     }
 
     if(loading) {
-       return(
-        <View onPress={ () => test1() } >
-            <Text>Loading2...</Text>
-        </View>
-       )
+       return (
+            <View onPress={ () => test1() } >
+                <Text>Loading2...</Text>
+            </View>
+        )
     }
 
     return (
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
+
+
+
+            {/* do wyswietlania bledow na telefonie */}
+            <View>
+                <Text>{error}</Text>
+            </View>
+            <View>
+                <Text>{error2}</Text>
+            </View>
+            <View>
+                <Text>{apiInfo}</Text>
+            </View>
+
+
 
             <View>
                 <Picker>

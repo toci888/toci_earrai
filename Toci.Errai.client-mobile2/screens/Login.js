@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import {
   Alert,
   Text,
@@ -8,11 +8,39 @@ import {
   StyleSheet,
 } from 'react-native';
 import {environment} from '../environment';
+import AppUser from '../shared/AppUser';
 
 export default function Login({navigation}) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const checkIfLogged = async () => {
+    let logged = await AppUser.checkIfAlreadyExists()
+    console.log(logged)
+
+
+    // trzeba przerobic listy i tabele ktore moga wychodzic poza ekran na dole,
+    // na FlatList jak w WorksheetList: line 98
+
+    // nie moge robic w ogole requestow na localhoscie bo mam jakis err-ssl-protocol-error
+    // i nie moge sprawdzic tych tabel z areaquantity, ale wczoraj ogolnie dzialalo
+
+    // text align center nie dziala na telefonie
+
+    // TODO, if already logged, go to Home
+    if(!logged) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Home');
+    }
+  }
+
+  useEffect(() => {
+    console.log("LOGIN EFFECT")
+    checkIfLogged()
+
+  }, [])
 
   const onLogin = async () => {
     let response = await fetch(environment.apiUrl + 'api/Account/login', {
@@ -61,7 +89,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    width: '200px',
+    width: 200,
     height: 44,
     padding: 5,
     borderWidth: 1,
@@ -71,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8781d8'
   },
   buttonText: {
-    fontFamily: 'Baskerville',
+    //fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -80,7 +108,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 200,
-    fontFamily: 'Baskerville',
+    //fontFamily: 'Baskerville',
     backgroundColor: '#ddd',
     fontSize: 20,
     height: 44,

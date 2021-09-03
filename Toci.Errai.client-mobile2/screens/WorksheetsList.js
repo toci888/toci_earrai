@@ -4,6 +4,7 @@ import { worksheetsList } from '../styles/worksheetsListStyles'
 import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment'
+import { FlatList } from 'react-native-gesture-handler'
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -94,7 +95,27 @@ export default function WorksheetsList({ route, navigation }) {
 
             </View>
 
-            { displayedWorksheets.map( (item, index) =>
+            <FlatList
+                keyExtractor={ (item) => item.id.toString() }
+                data={displayedWorksheets}
+                renderItem={ ( { item } ) => (
+
+                    <View style={ worksheetsList.listItem } key={ item.id } >
+
+                        <Text onPress={ () => showWorksheets(item) }>
+                            { item.sheetname }
+                        </Text>
+
+                    </View>
+
+
+                )}
+            />
+
+
+
+
+            {/* { displayedWorksheets.map( (item, index) =>
                 <View style={ worksheetsList.listItem } key={ index } >
 
                     <Text onPress={ () => showWorksheets(item) }>
@@ -102,7 +123,7 @@ export default function WorksheetsList({ route, navigation }) {
                     </Text>
 
                 </View>
-            ) }
+            ) } */}
 
         </View>
     )
