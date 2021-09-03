@@ -43,5 +43,13 @@ namespace Toci.Earrai.Microservice.Controllers
 
             return Ok(vendors);
         }
+
+        [HttpPost("PostQuoteandPrice")]
+        public ActionResult<int> PostAreaQuantities(Quoteandprice quoteandprice)
+        {
+            int id = Logic.PostQuoteAndPrice(quoteandprice);
+
+            return Ok(id);
+        }
     }
 }

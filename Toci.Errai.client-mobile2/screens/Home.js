@@ -3,16 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, TextInput, Button } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { globalStyles } from '../styles/globalStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import { Picker } from '@react-native-community/picker'
 import Header from '../components/header'
-import Login from './Login'
-import Register from './Register'
 import { environment } from '../environment';
 import VendorTable from '../components/VendorTable'
-import { set } from 'react-native-reanimated'
+import AppUser from '../shared/AppUser'
 
 export default function Home( { navigation }) {
 
@@ -22,6 +19,9 @@ export default function Home( { navigation }) {
     const [filteredValue, setfilteredValue] = useState("")
     const [apiConnect, setapiConnect] = useState(false)
     const [loading, setloading] = useState(true)
+    const [error, seterror] = useState("")
+    const [error2, seterror2] = useState("")
+    const [apiInfo, setapiInfo] = useState("")
 
     const test1 = () => {
         let x = AsyncStorage.getItem('Areas');
@@ -31,65 +31,63 @@ export default function Home( { navigation }) {
 
     useEffect( () => {
 
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + 2 + '/' +connectService.getNowWorksheetId()).then(r => {
+            return r.json();
+        }).then(r => {
+            console.log("QUANTITIES");
+            console.log(r);
+        })
+
         console.log("USE_EFFECT_START");
 
         setapiConnect(false)
         fetch(environment.apiUrl + "api/EntityOperations/LoadData")
-        .then( response => response.json() )
+        .then( response => {console.log(1); return response.json()} )
         .then( response => {
 
             console.log(response)
             setloading(false)
-            // for (const iterator in response) {
-            //     AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
-            // }
+            for (const iterator in response) {
+                AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+            }
 
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
-            // setapiConnect(true)
+            setapiConnect(true)
 
         })
-        //.catch(error => {
-            //console.log(error)
-            // setloading(false)
-            // //if(error) { setapiConnect(false) }
+        .catch(error => {
+            console.log(error)
+            setloading(false)
+            seterror(JSON.stringify(error))
+            setapiInfo("CHYBA NIE LACZY API ???  ")
+            //if(error) { setapiConnect(false) }
+        })
 
 
 
+        AsyncStorage.getItem('Workbooks')
+        .then(response => {
+            console.log(JSON.parse(response))
+            return JSON.parse(response)
+        })
+        .then( (response) => {
 
-            // AsyncStorage.getItem('x')
-            // .then(response => {
-            //     //console.log(response);
-            //     //console.log(JSON.parse(response))
-            //     //return JSON.parse(response)
-            //     return 1
-            // })
-            // .then( (response) => {
-            //     //setdisplayedWorkbooks(response)
-            //     // AsyncStorage.getItem('Areaquantity_cached')
-            //     // .then(response => {
-            //     //     //console.log(response)
-            //     //     let x =  JSON.parse(response)
-            //     //     console.log(x)
-            //     //     if(x) {console.log(11)} else {console.log(22)}
-            //     // })
+            setdisplayedWorkbooks(response)
 
 
-
-
-
-            // }).catch(error => {
-            //     //console.log(error)
-            //     //setdisplayedWorkbooks([])
-            // }).finally(data => {
-            //     setloading(false)
-            // })
-       // })
+        }).catch(error => {
+            console.log(error)
+            seterror2(JSON.stringify(error))
+            setapiInfo(prev => prev + "NIE LACZY STORAGE")
+        }).finally(data => {
+            setloading(false)
+        })
 
 
         const interval = setInterval(() => {
             connectService.checkConnect()
-        }, 4000)
+        }, 6000)
 
         return () => { console.log("END_USE_EFFECT") }
     }, [] )
@@ -161,26 +159,49 @@ export default function Home( { navigation }) {
     }
 
     if(loading) {
-       return(
-        <View onPress={ () => test1() } >
-            <Text>Loading...</Text>
-        </View>
-       )
+       return (
+            <View onPress={ () => test1() } >
+                <Text>Loading2...</Text>
+            </View>
+        )
     }
 
     return (
         <View style={globalStyles.container}>
             <Header navigation={navigation} />
             { noConnectHeader() }
+
+
+
+            {/* do wyswietlania bledow na telefonie */}
             <View>
-                <VendorTable />
+                <Text>{error}</Text>
             </View>
+            <View>
+                <Text>{error2}</Text>
+            </View>
+            <View>
+                <Text>{apiInfo}</Text>
+            </View>
+
+
+
+            <View>
+                <Picker>
+                    <Picker.Item  label="c" value="a" />
+                    <Picker.Item  label="dc" value="da" />
+
+                </Picker>
+            </View>
+
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>
                     All Workbooks
                 </Text>
-
+                <View>
+                    <VendorTable />
+                </View>
                 <View>
                     <TextInput
                         value={ filteredValue }

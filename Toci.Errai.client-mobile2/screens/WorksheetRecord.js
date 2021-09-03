@@ -6,6 +6,8 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment'
 import { DataTable } from 'react-native-paper'
+import AppUser from '../shared/AppUser'
+import { Picker } from '@react-native-community/picker'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -31,7 +33,7 @@ export default function WorksheetRecord({ route, navigation }) {
         idworksheet: null,
         rowindex: null,
         idcodesdimensions: null,
-        iduser: 1,
+        iduser: AppUser.getId(),
         quantity: "",
         lengthdimensions: "",
         widthdimensions: "",
@@ -96,18 +98,17 @@ export default function WorksheetRecord({ route, navigation }) {
                 }
             })
 
-
         }
 
         setDupa([])
 
-        /*fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json();
         }).then(r => {
             setDupa(r);
             console.log("QUANTITIES");
             console.log(r);
-        })*/
+        })
 
         Promise.all([
             AsyncStorage.getItem('Areas'),
@@ -122,8 +123,8 @@ export default function WorksheetRecord({ route, navigation }) {
             setareas(_areas)
 
             let _nowArea = _areas[0]['id']
-            console.log("NOW AREA SELECTED")
-            console.log(_nowArea)
+            //console.log("NOW AREA SELECTED")
+            //console.log(_nowArea)
             setareaId(_nowArea)
 
 
@@ -171,7 +172,19 @@ export default function WorksheetRecord({ route, navigation }) {
             })
 
 
+            let savedArea = AppUser.getIdArea()
+            console.log(savedArea)
+            if(savedArea) {
+                console.log("SET SAVED AREA");
+                setareaId(savedArea)
 
+                settempAreaquantityRow(prev => {
+                    return {...prev, idarea: savedArea}
+                })
+
+            } else {
+                console.log("NOTHNIG");
+            }
 
 
 
@@ -225,6 +238,8 @@ export default function WorksheetRecord({ route, navigation }) {
         settempAreaquantityRow(prev => {
             return {...prev, idarea: _id}
         })
+
+        AppUser.setIdArea(_id)
 
     }
 
@@ -651,7 +666,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 </Text>
             </View>
             <View style={worksheetRecord.ComboView}>
-                {/* <Picker
+                <Picker
                     selectedValue="Choose"
                     style={worksheetRecord.ComboPicker}
                     selectedValue={tempAreaquantityRow.idarea}
@@ -662,7 +677,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         } )
                     }
 
-                </Picker> */}
+                </Picker>
             </View>
 
             <View>

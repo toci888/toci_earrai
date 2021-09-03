@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput/*, Picker*/ } from 'react-native'
+import { Button, Text, View, TextInput } from 'react-native'
 import { DataTable } from 'react-native-paper'
-
+import { Picker } from '@react-native-community/picker'
 export default function VendorTable() {
 
     const [valueHook, setvalueHook] = useState(0)
@@ -21,58 +21,48 @@ export default function VendorTable() {
         console.log(itemValue)
     }
 
-
+    /*{
+        vendorsHook.map( (item, index) => {
+            return <Picker.Item key={index} label={item} value={item} />
+        } )
+    } */
 
     return (
         <View>
-            <DataTable>
 
-                <DataTable.Row>
-                    <DataTable.Cell>
-                        {/* <Picker
-                            selectedValue={vendorsHook[0]}
-                            onValueChange={(itemValue, itemIndex) => setVendorsFunc(itemValue, itemIndex)}>
-                            {
-                                vendorsHook.map( (item, index) => {
-                                    return <Picker.Item key={index} label={item} value={item} />
-                                } )
-                            }
+            <View>
 
-                        </Picker> */}
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        {/* <Picker
-                            selectedValue={countTypesHook[0]}
-                            onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
-                            {
-                                countTypesHook.map( (item, index) => {
-                                    return <Picker.Item key={index} label={item} value={item} />
-                                } )
-                            }
+                {/* <Picker>
+                    <Picker.Item  label="c" value="a" />
+                    <Picker.Item  label="dc" value="da" />
 
-                        </Picker> */}
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        <TextInput
-                            value="0"
-                            placeholder="Value.."
-                            onChange={ ($event) => filterWorkbooks($event) }
-                        />
-                    </DataTable.Cell>
-                    <DataTable.Cell>
-                        <TextInput
-                            value="0"
-                            placeholder="Value.."
-                            onChange={ ($event) => filterWorkbooks($event) }
-                        />
-                    </DataTable.Cell>
-                </DataTable.Row>
+                </Picker> */}
 
+                {/* <Picker
+                    style={{width: 85}}
+                    selectedValue="abc"
+                    onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
 
+                    {
+                        countTypesHook.map( (item, index) => {
+                            return <Picker.Item key={index} label={item} value={item} />
+                        } )
+                    }
 
+                </Picker> */}
 
+            </View>
 
-            </DataTable>
+            <View>
+
+             <TextInput
+                    value="0"
+                    placeholder="Value.."
+                    onChange={ ($event) => filterWorkbooks($event) }
+                />
+
+            </View>
+
         </View>
     )
 }

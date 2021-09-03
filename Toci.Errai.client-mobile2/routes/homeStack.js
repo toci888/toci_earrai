@@ -12,16 +12,16 @@ const screens = {
         screen: Login,
         navigationOptions: {
             title : "Logging in",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     Home: {
         screen: Home,
         navigationOptions: {
-            
-            title : "",//"Home / Workbooks",
+
+            title : "Home / Workbooks",
             // headerStyle: { backgroundColor: '#ccc', color: '#ffffff' },
-            // headerTitle : () => 
+            // headerTitle : () =>
             // <View style={{flex: 1, flexDirection:'row', flexWrap:'wrap'}}>
             //     <Text style={{textAlign: 'right'}}>Home / Workbooks</Text>
 
@@ -29,7 +29,7 @@ const screens = {
             //         <Button title="Login" onPress={() => navigation.navigate('Login')}/>
             //         <Button title="Register" onPress={() => navigation.navigate('Register')}/>
             //     </View>
-                
+
             // </View>,
 
             // <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
@@ -42,35 +42,36 @@ const screens = {
             //         <Text onPress={() => navigation.navigate('Register')}>Register</Text>
             //     </View>
             // </View>
-            
+
         }
     },
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {
             title : "Worksheets List",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     WorksheetContent: {
         screen: WorksheetContent,
         navigationOptions: {
             title : "Worksheets Content",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
     WorksheetRecord: {
         screen: WorksheetRecord,
         navigationOptions: {
             title : "Worksheets Record",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
+
     Register: {
         screen: Register,
         navigationOptions: {
             title : "Register",
-            headerStyle: { backgroundColor: '#ccc', color: '#66b3ff' }
+            headerStyle: { backgroundColor: '#ccc' }
         }
     }
 }

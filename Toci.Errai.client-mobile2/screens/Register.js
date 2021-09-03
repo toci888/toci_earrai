@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import {environment} from '../environment';
-import Login from './Login';
 
 export default function Register({navigation}) {
   const [firstname, setFirstname] = useState('');
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    width: '200px',
+    width: 200,
     height: 44,
     padding: 5,
     borderWidth: 1,
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8781d8'
   },
   buttonText: {
-    fontFamily: 'Baskerville',
+    //fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 200,
-    fontFamily: 'Baskerville',
+    //fontFamily: 'Baskerville',
     backgroundColor: '#ddd',
     fontSize: 20,
     height: 44,

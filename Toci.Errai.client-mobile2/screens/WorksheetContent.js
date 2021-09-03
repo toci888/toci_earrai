@@ -20,6 +20,10 @@ export default function WorksheetContent({ route, navigation }) {
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(true)
+    const [storageError, setstorageError] = useState({
+        error: false,
+        message: null,
+    })
 
     useEffect(() => {
         connectService.setNowWorksheetId(navigation.getParam('worksheetId'))
@@ -39,6 +43,13 @@ export default function WorksheetContent({ route, navigation }) {
             console.log(response)
             setColumns(response)
             setloading(false)
+        })
+        .catch(error => {
+            setloading(false)
+            setstorageError(prev => {
+                return {...prev, error: true, message: JSON.stringify(error)
+                            + " --- Maybe no Worksheetcontents data in local storage?" }
+            })
         })
 
         // fetch(environment.apiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
@@ -181,6 +192,16 @@ export default function WorksheetContent({ route, navigation }) {
         return (
             <View style={globalStyles.loading}>
                 <Text style={globalStyles.loadingText}>Loading..</Text>
+            </View>
+        )
+    }
+
+    if (storageError.error) {
+        return (
+            <View style={globalStyles.loading}>
+                <Text style={globalStyles.loadingText}>
+                    { storageError.message }
+                </Text>
             </View>
         )
     }

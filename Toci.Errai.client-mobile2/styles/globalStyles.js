@@ -84,7 +84,7 @@ export const globalStyles = StyleSheet.create({
         //borderBottomColor: 'blue',
     },
     HalfHeader: {
-        backgroundColor: '#66b3ff',
+        //backgroundColor: '#66b3ff',
         borderWidth: 0
     },
     // containerProducts:{
