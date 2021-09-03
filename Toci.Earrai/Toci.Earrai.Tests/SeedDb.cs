@@ -16,8 +16,6 @@ namespace Toci.Earrai.Tests
     {
         protected AccountController Account = new AccountController(new UserLogic(new AuthenticationSettings()));
 
-        //protected AccountController Account = new AccountController(new UserLogic());
-
         private Logic<Role> Role = new Logic<Role>();
         private Logic<Workbook> Workbook = new Logic<Workbook>();
         private Logic<Worksheet> Worksheet = new Logic<Worksheet>();
@@ -32,11 +30,10 @@ namespace Toci.Earrai.Tests
         [TestMethod]
         public void SeedAllDb()
         {
-            Roles();
-            Users();
-            Workbooks();
-            Worksheets();
-            WorksheetContents();
+            SeedUsersAndRoles();
+            SeedWorksheets();
+            SeedAreas();
+            SeedWlOrSizeCategories();
             Vendors();
             QuotesAndMetrics();
         }
@@ -221,7 +218,7 @@ namespace Toci.Earrai.Tests
         }
 
         [TestMethod]
-        public void SeedWlOrSizeCategories()
+        public void SeedWlOrSizeCategories() 
         {
             //wl - width, length
             // size - size
@@ -297,7 +294,7 @@ CON".Split("\n", StringSplitOptions.None);
         }
 
         [TestMethod]
-        public void Vendors()
+        public void Vendors()  
         {
             string[] values = { "McCance", "Wwatson", "McArdle", "Hannon", "RFL"};
             for (int i = 0; i < values.Length; i++)
@@ -310,7 +307,7 @@ CON".Split("\n", StringSplitOptions.None);
         }
 
         [TestMethod]
-        public void QuotesAndMetrics()
+        public void QuotesAndMetrics() 
         {
             string[] values = { "£/T", "£/L", "£/m", "£/Sht" };
             for (int i = 0; i < values.Length; i++)
