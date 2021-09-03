@@ -151,7 +151,7 @@ export const worksheetRecord = StyleSheet.create({
     vendorColumnOK: {
         width: '100%',
         display: 'flex',
-        height: '100%',
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
@@ -162,7 +162,7 @@ export const worksheetRecord = StyleSheet.create({
         backgroundColor: '#dddde6',
         width: '100%',
         display: 'flex',
-        height: '100%',
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
