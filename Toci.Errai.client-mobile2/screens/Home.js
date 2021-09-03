@@ -19,27 +19,19 @@ export default function Home( { navigation }) {
     useEffect( () => {
 
         fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
-        .then( response => { return response.json()} )
+        .then( response => response.json() )
         .then( response => {
 
             setloading(false)
 
-            for (const iterator in response) {
-
-                if(iterator == 'Worksheetrecords') {
-                    AppUser.setWorksheetsRecords(response[iterator])
-                } else {
-                    AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
-                }
-            }
+            AppUser.setWorksheetsRecords(response)
+            //AsyncStorage.setItem('allData', JSON.stringify(response))
 
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
-
         })
         .catch(error => {
             setloading(false)
-            seterror(JSON.stringify(error))
             getWorkbooksFromStorage()
         })
 

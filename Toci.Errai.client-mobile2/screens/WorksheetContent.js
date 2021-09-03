@@ -1,148 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
-import { Button, Text, View, TextInput } from 'react-native'
-import { DataTable } from 'react-native-paper'
+import { Text, View, TextInput } from 'react-native'
 import { worksheetContent as worksheetContentCSS } from '../styles/worksheetContent'
-import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
-import AsyncStorage from '@react-native-community/async-storage'
-import { environment } from '../environment';
 import AppUser from '../shared/AppUser'
-
 
 let tempColumns = 6
 
-let testValues = ["hehe", "dupa1", "xD", "Bartłomiej"]
-
 export default function WorksheetContent({ route, navigation }) {
 
-
-    const [connectService, setconnectService] = useState( navigation.getParam('connectService') )
+    const [connectService] = useState( navigation.getParam('connectService') )
     const [columns, setColumns] = useState([[], []])
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
-    const [storageError, setstorageError] = useState({
-        error: false,
-        message: null,
-    })
-
-
-
-
-    const [test1, settest1] = useState(0)
 
     useEffect(() => {
-        //const x = navigation.getParam('worksheetId')
-        //console.log(x);
-        //settest1(x)
-
 
         connectService.setNowWorksheetId(navigation.getParam('worksheetId'))
 
-        //AsyncStorage.getItem('Worksheetcontents')
-        //.then(response => {
-            //console.log(response);
-            //setColumns(response)
-            //console.log(JSON.parse(response))
-            let x = AppUser.getWorksheetsRecords()
-            console.log(x)
-            //const tempWorksheetId = navigation.getParam('worksheetId')
-            //console.log(worksheetId)
-            x = x.filter(item => item.idworksheet == navigation.getParam('worksheetId')
-                                && (item.rowindex == 0 || item.rowindex == 1) )
-            x = [[...x.slice(0, (x.length / 2))], [...x.slice(x.length / 2)]]
-            console.log(x)
+        let x = AppUser.getWorksheetsRecords()
 
-        //})
-        ///.then(response => {
-            //console.log(response)
-            setColumns(x)
-            //setloading(false)
-        //})
-        //.catch(error => {
-            //console.log(error);
-            // setloading(false)
-            // setstorageError(prev => {
-            //     return {...prev, error: true, message: JSON.stringify(error)
-            //                 + " --- Maybe no Worksheetcontents data in local storage?" }
-            // })
-        //})
+        x = x.filter(item => item.idworksheet == navigation.getParam('worksheetId')
+                            && (item.rowindex == 0 || item.rowindex == 1) )
+        x = [[...x.slice(0, (x.length / 2))], [...x.slice(x.length / 2)]]
 
-        // fetch(environment.apiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
-        //     .then(response => response.json())
-        //     .then(response => {
-        //         console.log(response)
-        //         //console.log(JSON.stringify(response))
-        //         setColumns(response)
-        //         setloading(false)
-        //     }).catch(error => {
-        //         console.log(error)
+        setColumns(x)
 
-        //     })
-            return () => {console.log("GARBAGE");}
     }, [])
 
-    // const searchForData = () => {
+    const searchForData = () => {
 
-    //     AsyncStorage.getItem('Worksheetcontents')
-    //     .then(response => {
-    //         //console.log(response);
-    //         console.log(JSON.parse(response));
-    //         response = JSON.parse(response)
-    //         let x = response.filter(item => item.idworksheet == navigation.getParam('worksheetId')
-    //                             && item.rowindex > 1 && item.value.includes(filteredValue) )
-    //         console.log(x)
-
-    //         let rows = []
-
-    //         let returnList = []
-
-    //         x.forEach(element => {
-    //             if(!rows.includes(element.rowindex)) rows.push(element.rowindex)
-    //         })
-
-    //         let tempRow
-
-    //         rows.forEach(tempRow_ => {
-    //             tempRow = []
-    //             let tempRows = response.filter(item =>
-    //                 item.rowindex == tempRow_ &&
-    //                 item.idworksheet == navigation.getParam('worksheetId'))
-
-    //             tempRows.forEach(element => {
-    //                 tempRow.push(element)
-    //             });
-
-    //             returnList.push(tempRow)
-    //         });
-
-    //         console.log(returnList);
-
-    //         return returnList
-    //     })
-    //     .then(response => {
-    //         //console.log(response);
-    //         setworksheetContent(response)
-    //     })
-
-    //     /*fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
-    //                 + navigation.getParam('worksheetId') + "/" + filteredValue)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         console.log(response)
-    //         //console.log(JSON.stringify(response))
-    //         setworksheetContent(response)
-    //     }).catch(error => {
-    //         console.log(error)
-
-
-    //     })*/
-    // }
+        fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
+                    + navigation.getParam('worksheetId') + "/" + filteredValue)
+        .then(response => response.json())
+        .then(response => {
+            setworksheetContent(response)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     const showRecordData = (rowIndex) => {
-
-        console.log(worksheetContent[rowIndex])
-
 
         navigation.navigate('WorksheetRecord', {
             worksheetColumns: columns,
@@ -150,64 +48,14 @@ export default function WorksheetContent({ route, navigation }) {
             workSheetRecord: worksheetContent[rowIndex],
             connectService: connectService
         })
-
-
-
     }
-
 
     const filterContent = (text) => {
-
-        console.log(text);
-        let x = text
-
-
         setfilteredValue(text)
 
-
-
-
-        if(x < 3) return
+        if(text < 3) return
 
         searchForData()
-
-        //let filtered = worksheetContent.filter(item => item.name.toLowerCase().includes(text.toLowerCase()))
-        //setdisplayedworksheetContent(filtered)
-    }
-
-    const testChangeValue = (rowIndex, columnIndex) => {
-        console.log(rowIndex, columnIndex)
-
-        let random = Math.floor(Math.random() * (testValues.length - 0)) + 0
-
-        let val = testValues[random]
-
-
-        const tempContent = [...worksheetContent]
-        console.log(tempContent)
-
-        tempContent[rowIndex][columnIndex].value = val
-        console.log(connectService.isConnectedFunc())
-        if(!connectService.isConnectedFunc() ) {
-            connectService.addDataToCache(tempContent[rowIndex][columnIndex])
-        } else {
-            connectService.updateRecord(tempContent[rowIndex][columnIndex])
-        }
-
-        setworksheetContent(tempContent)
-
-    }
-
-    const addNewRecord = () => {
-        navigation.navigate('WorksheetRecord', {
-            worksheetColumns: columns,
-            workSheetRecord: null,
-            connectService: connectService
-        })
-    }
-
-    const disconnect = () => {
-        connectService.disconnect()
     }
 
     if (loading) {
@@ -218,48 +66,25 @@ export default function WorksheetContent({ route, navigation }) {
         )
     }
 
-    if (storageError.error) {
-        return (
-            <View style={globalStyles.loading}>
-                <Text style={globalStyles.loadingText}>
-                    { storageError.message }
-                </Text>
-            </View>
-        )
-    }
-
     return (
         <View style={globalStyles.content}>
-            <View>
-                <Text>{test1}</Text>
-            </View>
-            {/* <View style={globalStyles.header}>
-                <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
-            </View> */}
-            <View style={worksheetContentCSS.addNewRecordView}>
-                <Text style={worksheetContentCSS.addNewRecordBtn} onPress={addNewRecord}> ADD NEW RECORD </Text>
-            </View>
 
             <View>
                 <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
             </View>
 
             <View>
-
                 <TextInput
                     value={filteredValue}
                     style={globalStyles.inputStyle}
                     onChangeText={(text) => filterContent(text)}
                     placeholder="Filter.."
                 />
-
             </View>
 
             <View>
 
                 <View style={globalStyles.tableContainer}>
-
-                    {/* Chwilowo tylko kilka column widocznych */}
 
                     <View style={globalStyles.HalfHeader}>
 
@@ -287,15 +112,14 @@ export default function WorksheetContent({ route, navigation }) {
                             return(<View key={ rowIndex } style={worksheetContentCSS.customRow} >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
-                                    return <View
-                                                class="dupa"
-                                                key={column.id}
-                                                onPress={ () => showRecordData(rowIndex) }
-                                                // onPress={ () => testChangeValue(rowIndex, columnIndex) }
-                                                style={worksheetContentCSS.cell}>
+                                    return (
+                                    <View
+                                        key={column.id}
+                                        onPress={ () => showRecordData(rowIndex) }
+                                        style={worksheetContentCSS.cell}>
 
-                                                <Text>{column.value}</Text>
-                                            </View>
+                                        <Text>{column.value}</Text>
+                                    </View>)
                                 } ) }
                             </View>)
                         } )
@@ -304,7 +128,6 @@ export default function WorksheetContent({ route, navigation }) {
                 </View>
 
             </View>
-
 
         </View>
     )

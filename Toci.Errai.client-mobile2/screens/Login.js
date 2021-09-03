@@ -17,29 +17,11 @@ export default function Login({navigation}) {
 
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
-    console.log(logged)
-
-
-    // trzeba przerobic listy i tabele ktore moga wychodzic poza ekran na dole,
-    // na FlatList jak w WorksheetList: line 98
-
-    // nie moge robic w ogole requestow na localhoscie bo mam jakis err-ssl-protocol-error
-    // i nie moge sprawdzic tych tabel z areaquantity, ale wczoraj ogolnie dzialalo
-
-    // text align center nie dziala na telefonie
-
-    // TODO, if already logged, go to Home
-    if(!logged) {
       navigation.navigate('Home');
-    } else {
-      navigation.navigate('Home');
-    }
   }
 
   useEffect(() => {
-    console.log("LOGIN EFFECT")
     checkIfLogged()
-
   }, [])
 
   const onLogin = async () => {
