@@ -6,6 +6,7 @@ import { worksheetContent as worksheetContentCSS } from '../styles/worksheetCont
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment';
+import AppUser from '../shared/AppUser'
 
 
 let tempColumns = 6
@@ -16,41 +17,56 @@ export default function WorksheetContent({ route, navigation }) {
 
 
     const [connectService, setconnectService] = useState( navigation.getParam('connectService') )
-    const [columns, setColumns] = useState(() => [])
+    const [columns, setColumns] = useState([[], []])
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
-    const [loading, setloading] = useState(true)
+    const [loading, setloading] = useState(false)
     const [storageError, setstorageError] = useState({
         error: false,
         message: null,
     })
 
+
+
+
+    const [test1, settest1] = useState(0)
+
     useEffect(() => {
+        //const x = navigation.getParam('worksheetId')
+        //console.log(x);
+        //settest1(x)
+
+
         connectService.setNowWorksheetId(navigation.getParam('worksheetId'))
 
-        AsyncStorage.getItem('Worksheetcontents')
-        .then(response => {
+        //AsyncStorage.getItem('Worksheetcontents')
+        //.then(response => {
             //console.log(response);
-            console.log(JSON.parse(response))
-            let x = JSON.parse(response)
+            //setColumns(response)
+            //console.log(JSON.parse(response))
+            let x = AppUser.getWorksheetsRecords()
+            console.log(x)
+            //const tempWorksheetId = navigation.getParam('worksheetId')
+            //console.log(worksheetId)
             x = x.filter(item => item.idworksheet == navigation.getParam('worksheetId')
                                 && (item.rowindex == 0 || item.rowindex == 1) )
             x = [[...x.slice(0, (x.length / 2))], [...x.slice(x.length / 2)]]
             console.log(x)
-            return x
-        })
-        .then(response => {
-            console.log(response)
-            setColumns(response)
-            setloading(false)
-        })
-        .catch(error => {
-            setloading(false)
-            setstorageError(prev => {
-                return {...prev, error: true, message: JSON.stringify(error)
-                            + " --- Maybe no Worksheetcontents data in local storage?" }
-            })
-        })
+
+        //})
+        ///.then(response => {
+            //console.log(response)
+            setColumns(x)
+            //setloading(false)
+        //})
+        //.catch(error => {
+            //console.log(error);
+            // setloading(false)
+            // setstorageError(prev => {
+            //     return {...prev, error: true, message: JSON.stringify(error)
+            //                 + " --- Maybe no Worksheetcontents data in local storage?" }
+            // })
+        //})
 
         // fetch(environment.apiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
         //     .then(response => response.json())
@@ -66,62 +82,62 @@ export default function WorksheetContent({ route, navigation }) {
             return () => {console.log("GARBAGE");}
     }, [])
 
-    const searchForData = () => {
+    // const searchForData = () => {
 
-        AsyncStorage.getItem('Worksheetcontents')
-        .then(response => {
-            //console.log(response);
-            console.log(JSON.parse(response));
-            response = JSON.parse(response)
-            let x = response.filter(item => item.idworksheet == navigation.getParam('worksheetId')
-                                && item.rowindex > 1 && item.value.includes(filteredValue) )
-            console.log(x)
+    //     AsyncStorage.getItem('Worksheetcontents')
+    //     .then(response => {
+    //         //console.log(response);
+    //         console.log(JSON.parse(response));
+    //         response = JSON.parse(response)
+    //         let x = response.filter(item => item.idworksheet == navigation.getParam('worksheetId')
+    //                             && item.rowindex > 1 && item.value.includes(filteredValue) )
+    //         console.log(x)
 
-            let rows = []
+    //         let rows = []
 
-            let returnList = []
+    //         let returnList = []
 
-            x.forEach(element => {
-                if(!rows.includes(element.rowindex)) rows.push(element.rowindex)
-            })
+    //         x.forEach(element => {
+    //             if(!rows.includes(element.rowindex)) rows.push(element.rowindex)
+    //         })
 
-            let tempRow
+    //         let tempRow
 
-            rows.forEach(tempRow_ => {
-                tempRow = []
-                let tempRows = response.filter(item =>
-                    item.rowindex == tempRow_ &&
-                    item.idworksheet == navigation.getParam('worksheetId'))
+    //         rows.forEach(tempRow_ => {
+    //             tempRow = []
+    //             let tempRows = response.filter(item =>
+    //                 item.rowindex == tempRow_ &&
+    //                 item.idworksheet == navigation.getParam('worksheetId'))
 
-                tempRows.forEach(element => {
-                    tempRow.push(element)
-                });
+    //             tempRows.forEach(element => {
+    //                 tempRow.push(element)
+    //             });
 
-                returnList.push(tempRow)
-            });
+    //             returnList.push(tempRow)
+    //         });
 
-            console.log(returnList);
+    //         console.log(returnList);
 
-            return returnList
-        })
-        .then(response => {
-            //console.log(response);
-            setworksheetContent(response)
-        })
+    //         return returnList
+    //     })
+    //     .then(response => {
+    //         //console.log(response);
+    //         setworksheetContent(response)
+    //     })
 
-        /*fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
-                    + navigation.getParam('worksheetId') + "/" + filteredValue)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            //console.log(JSON.stringify(response))
-            setworksheetContent(response)
-        }).catch(error => {
-            console.log(error)
+    //     /*fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
+    //                 + navigation.getParam('worksheetId') + "/" + filteredValue)
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         console.log(response)
+    //         //console.log(JSON.stringify(response))
+    //         setworksheetContent(response)
+    //     }).catch(error => {
+    //         console.log(error)
 
 
-        })*/
-    }
+    //     })*/
+    // }
 
     const showRecordData = (rowIndex) => {
 
@@ -140,16 +156,22 @@ export default function WorksheetContent({ route, navigation }) {
     }
 
 
-    const filterContent = (e) => {
+    const filterContent = (text) => {
 
-        console.log(e.target.value);
-        setfilteredValue(e.target.value)
+        console.log(text);
+        let x = text
 
-        if(e.target.value.length < 3) return
+
+        setfilteredValue(text)
+
+
+
+
+        if(x < 3) return
 
         searchForData()
 
-        //let filtered = worksheetContent.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        //let filtered = worksheetContent.filter(item => item.name.toLowerCase().includes(text.toLowerCase()))
         //setdisplayedworksheetContent(filtered)
     }
 
@@ -208,6 +230,9 @@ export default function WorksheetContent({ route, navigation }) {
 
     return (
         <View style={globalStyles.content}>
+            <View>
+                <Text>{test1}</Text>
+            </View>
             {/* <View style={globalStyles.header}>
                 <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
             </View> */}
@@ -215,14 +240,16 @@ export default function WorksheetContent({ route, navigation }) {
                 <Text style={worksheetContentCSS.addNewRecordBtn} onPress={addNewRecord}> ADD NEW RECORD </Text>
             </View>
 
-            <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
+            <View>
+                <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
+            </View>
 
             <View>
 
                 <TextInput
                     value={filteredValue}
                     style={globalStyles.inputStyle}
-                    onChange={($event) => filterContent($event)}
+                    onChangeText={(text) => filterContent(text)}
                     placeholder="Filter.."
                 />
 
@@ -230,50 +257,51 @@ export default function WorksheetContent({ route, navigation }) {
 
             <View>
 
-                <DataTable style={globalStyles.tableContainer}>
+                <View style={globalStyles.tableContainer}>
 
                     {/* Chwilowo tylko kilka column widocznych */}
 
-                    <DataTable.Header style={globalStyles.HalfHeader}>
+                    <View style={globalStyles.HalfHeader}>
 
                         {columns && columns[0]?.map((column, index) => {
                             if(index > tempColumns) return
                             return (
-                                <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
+                                <View key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </View>
                             )
                         })}
 
-                    </DataTable.Header>
+                    </View>
 
-                    <DataTable.Header style={globalStyles.HalfHeader}>
+                    <View style={globalStyles.HalfHeader}>
 
                         {columns && columns[1]?.map((column, index) => {
                             if(index > tempColumns) return
-                            return <DataTable.Title key={column.id} style={globalStyles.cell} > {column.value} </DataTable.Title>
+                            return <View key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </View>
                         })}
 
-                    </DataTable.Header>
+                    </View>
 
                     {
                         worksheetContent?.map( (row, rowIndex) => {
                             console.log(row)
-                            return(<DataTable.Row key={ rowIndex } style={worksheetContentCSS.customRow} >
+                            return(<View key={ rowIndex } style={worksheetContentCSS.customRow} >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
-                                    return <DataTable.Cell
+                                    return <View
                                                 class="dupa"
                                                 key={column.id}
                                                 onPress={ () => showRecordData(rowIndex) }
                                                 // onPress={ () => testChangeValue(rowIndex, columnIndex) }
                                                 style={worksheetContentCSS.cell}>
-                                                {column.value}
-                                            </DataTable.Cell>
+
+                                                <Text>{column.value}</Text>
+                                            </View>
                                 } ) }
-                            </DataTable.Row>)
+                            </View>)
                         } )
                     }
 
-                </DataTable>
+                </View>
 
             </View>
 

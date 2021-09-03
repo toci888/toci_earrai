@@ -10,6 +10,7 @@ import Header from '../components/header'
 import { environment } from '../environment';
 import VendorTable from '../components/VendorTable'
 import AppUser from '../shared/AppUser'
+import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function Home( { navigation }) {
 
@@ -31,29 +32,44 @@ export default function Home( { navigation }) {
 
     useEffect( () => {
 
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + 2 + '/' +connectService.getNowWorksheetId()).then(r => {
+        AsyncStorage.removeItem('Worksheetrecords')
+
+        /*fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/2/1').then(r => {
             return r.json();
         }).then(r => {
             console.log("QUANTITIES");
             console.log(r);
-        })
+        })*/
 
-        console.log("USE_EFFECT_START");
+        console.log("USE_EFFECT_STARThome");
 
         setapiConnect(false)
-        fetch(environment.apiUrl + "api/EntityOperations/LoadData")
-        .then( response => {console.log(1); return response.json()} )
+        fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
+        .then( response => { return response.json()} )
         .then( response => {
 
+            console.log(JSON.stringify(response))
+
             console.log(response)
+
             setloading(false)
+
             for (const iterator in response) {
-                AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+
+
+
+                console.log(iterator);
+                if(iterator == 'Worksheetrecords') {
+                    AppUser.setWorksheetsRecords(response[iterator])
+                } else {
+                    AsyncStorage.setItem(iterator, JSON.stringify(response[iterator]));
+                }
             }
 
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
             setapiConnect(true)
+            displayWorkbooks()
 
         })
         .catch(error => {
@@ -61,28 +77,13 @@ export default function Home( { navigation }) {
             setloading(false)
             seterror(JSON.stringify(error))
             setapiInfo("CHYBA NIE LACZY API ???  ")
+            assignWorkbooks()
             //if(error) { setapiConnect(false) }
         })
 
 
 
-        AsyncStorage.getItem('Workbooks')
-        .then(response => {
-            console.log(JSON.parse(response))
-            return JSON.parse(response)
-        })
-        .then( (response) => {
 
-            setdisplayedWorkbooks(response)
-
-
-        }).catch(error => {
-            console.log(error)
-            seterror2(JSON.stringify(error))
-            setapiInfo(prev => prev + "NIE LACZY STORAGE")
-        }).finally(data => {
-            setloading(false)
-        })
 
 
         const interval = setInterval(() => {
@@ -92,6 +93,27 @@ export default function Home( { navigation }) {
         return () => { console.log("END_USE_EFFECT") }
     }, [] )
 
+    const assignWorkbooks = () => {
+        AsyncStorage.getItem('Workbooks')
+        .then(response => {
+            console.log(JSON.parse(response))
+            return JSON.parse(response)
+        })
+        .then( (response) => {
+
+            setdisplayedWorkbooks(response)
+            setworkbooks(response)
+
+        }).catch(error => {
+            console.log(error)
+            seterror2(JSON.stringify(error))
+            setapiInfo(prev => prev + "NIE LACZY STORAGE")
+        }).finally(data => {
+            setloading(false)
+        })
+    }
+
+
     const showWorksheets = (_workbook) => {
         navigation.navigate('WorksheetsList', {
             workbookId : _workbook.id,
@@ -100,11 +122,13 @@ export default function Home( { navigation }) {
     }
 
     const filterWorkbooks = (e) => {
-
-        setfilteredValue(e.target.value)
+        let text = e
+        console.log(e);
+        console.log(workbooks);
+        setfilteredValue(e/*.target.value*/)
 
         let filtered = workbooks.filter(item =>
-            item.name.toLowerCase().includes( e.target.value.toLowerCase() ))
+            item.filename.toLowerCase().includes( text.toLowerCase() ))
 
         setdisplayedWorkbooks(filtered)
     }
@@ -184,16 +208,6 @@ export default function Home( { navigation }) {
                 <Text>{apiInfo}</Text>
             </View>
 
-
-
-            <View>
-                <Picker>
-                    <Picker.Item  label="c" value="a" />
-                    <Picker.Item  label="dc" value="da" />
-
-                </Picker>
-            </View>
-
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>
@@ -207,7 +221,7 @@ export default function Home( { navigation }) {
                         value={ filteredValue }
                         style={ globalStyles.inputStyle }
                         placeholder="Filter.."
-                        onChange={ ($event) => filterWorkbooks($event) }
+                        onChangeText={ (text) => filterWorkbooks(text) }
                     />
                 </View>
 

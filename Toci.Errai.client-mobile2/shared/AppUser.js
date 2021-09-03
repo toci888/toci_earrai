@@ -8,6 +8,12 @@ export default class AppUser {
 
     static savedIdArea = null
 
+    static workSheetsRecords = []
+
+    static getWorksheetsRecords = () => AppUser.workSheetsRecords
+
+    static setWorksheetsRecords = (data) => AppUser.workSheetsRecords = data
+
     static setIdArea = (idArea_) => { AppUser.savedIdArea = idArea_ }
 
     static getIdArea = () => AppUser.savedIdArea
