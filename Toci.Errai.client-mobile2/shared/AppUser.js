@@ -10,11 +10,18 @@ export default class AppUser {
 
     static setApiData = []
 
+    static userData
+
     static setApiData = () => AppUser.setApiData
 
     static setApiData = (data) => {
         AppUser.setApiData = data
         AsyncStorage.setItem('allData', JSON.stringify(data))
+    }
+
+    static setUserData = (data) => {
+        AppUser.userData = data
+        AsyncStorage.setItem('userData', JSON.stringify(data))
     }
 
     static setIdArea = (idArea_) => { AppUser.savedIdArea = idArea_ }
