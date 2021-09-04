@@ -74,22 +74,24 @@ export default function WorksheetRecord({ route, navigation }) {
         }
 
         let url2 = environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()
-        console.log(url2)
+
         fetch(url2).then(r => {
             return r.json()
         }).then(r => {
-            console.log(r);
+            console.log(r)
             setDupa(r)
         })
 
-        Promise.all([
-            AsyncStorage.getItem('Areas'),
-            AsyncStorage.getItem('Categories'),
-        ]).then( response => {
+        AppUser.getApiData()
+        .then( response => {
 
-            let _areas = JSON.parse(response[0])
-            let _categories = JSON.parse(response[1])
-            //setallCategories(_categories)
+            console.log("appuser response")
+            response = JSON.parse(response)
+            console.log(response)
+
+            let _areas = response['Areas']
+            let _categories = response['Categories']
+
             setareas(_areas)
 
             let _nowArea = _areas[0]['id']
@@ -408,37 +410,37 @@ export default function WorksheetRecord({ route, navigation }) {
                     kindOfDisplay == 1 ?
                     (<View style={worksheetRecord.DimensionsView}>
 
-                        <Text style={worksheetRecord.DimensionsInputContainerTwo}>
+                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={worksheetRecord.inputStyle}
+                                style={globalStyles.inputStyle}
                                 value={tempAreaquantityRow.lengthdimensions}
-                                onChangeText={($event) => setLength($event)}
+                                onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
                             />
 
-                        </Text>
+                        </View>
 
-                        <Text style={worksheetRecord.DimensionsInputContainerTwo}>
+                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={worksheetRecord.inputStyle}
+                                style={globalStyles.inputStyle}
                                 value={tempAreaquantityRow.widthdimensions}
-                                onChangeText={($event) => setWidth($event)}
+                                onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
                             />
 
-                        </Text>
+                        </View>
 
                     </View>)
                     :
-                    (<Text style={worksheetRecord.DimensionsInputContainerOne}>
+                    (<View style={worksheetRecord.DimensionsInputContainerOne}>
                         <TextInput
-                            style={worksheetRecord.inputStyle}
+                            style={globalStyles.inputStyle}
                             value={tempAreaquantityRow.lengthdimensions}
-                            onChangeText={($event) => setLength($event)}
+                            onChangeText={(text) => setLength(text)}
                             placeholder="Type Length.."
                         />
 
-                    </Text>)
+                    </View>)
                 }
 
             </View>
