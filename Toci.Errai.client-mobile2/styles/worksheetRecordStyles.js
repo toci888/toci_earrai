@@ -107,8 +107,9 @@ export const worksheetRecord = StyleSheet.create({
 
 
     DimensionsView: {
-        flexDirection: 'row',
-        display: 'flex'
+        //flexDirection: 'row',
+        display: 'flex',
+        marginRight: 25
     },
     DimensionsInputContainerTwo: {
         width: '50%',

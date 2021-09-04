@@ -90,20 +90,6 @@ export default function WorksheetsList({ route, navigation }) {
 
                 )}
             />
-
-
-
-
-            {/* { displayedWorksheets.map( (item, index) =>
-                <View style={ worksheetsList.listItem } key={ index } >
-
-                    <Text onPress={ () => showWorksheets(item) }>
-                        { item.sheetname }
-                    </Text>
-
-                </View>
-            ) } */}
-
         </View>
     )
 }

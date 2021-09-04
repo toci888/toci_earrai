@@ -445,15 +445,15 @@ export default function WorksheetRecord({ route, navigation }) {
 
             </View>
             <View style={worksheetRecord.DimensionsView}>
-                <Text style={worksheetRecord.QuantityInputContainer}>
+                <View style={worksheetRecord.QuantityInputContainer}>
                     <TextInput
-                        style={worksheetRecord.inputStyle}
+                        style={globalStyles.inputStyle}
                         value={tempAreaquantityRow.quantity}
                         onChangeText={($event) => setAreaquantity($event)}
                         placeholder="Type Quantity.."
                     />
 
-                </Text>
+                </View>
 
 
             </View>
