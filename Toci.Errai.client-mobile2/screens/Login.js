@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {environment} from '../environment';
+import RestClient from '../RestClient';
 import AppUser from '../shared/AppUser';
 
 export default function Login({navigation}) {
@@ -17,46 +18,21 @@ export default function Login({navigation}) {
 
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
-    console.log(logged)
-
-
-    // trzeba przerobic listy i tabele ktore moga wychodzic poza ekran na dole,
-    // na FlatList jak w WorksheetList: line 98
-
-    // nie moge robic w ogole requestow na localhoscie bo mam jakis err-ssl-protocol-error
-    // i nie moge sprawdzic tych tabel z areaquantity, ale wczoraj ogolnie dzialalo
-
-    // text align center nie dziala na telefonie
-
-    // TODO, if already logged, go to Home
-    if(!logged) {
       navigation.navigate('Home');
-    } else {
-      navigation.navigate('Home');
-    }
   }
 
   useEffect(() => {
-    console.log("LOGIN EFFECT")
     checkIfLogged()
-
   }, [])
 
   const onLogin = async () => {
-    let response = await fetch(environment.apiUrl + 'api/Account/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email, password}),
-    });
-    let json = await response.json();
-    console.log(json);
+    let restClient = new RestClient();
+    let response = await restClient.POST('api/Account/login', {email, password})
+    console.log(response);
 
-    if(json != "Invalid username or password")
+    if(response)
     {
-        navigation.navigate('Home');
+      navigation.navigate('Home');
     }
   };
 
