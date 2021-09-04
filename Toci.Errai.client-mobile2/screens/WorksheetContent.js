@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput } from 'react-native'
-import { worksheetContent as worksheetContentCSS } from '../styles/worksheetContent'
+import { worksheetContentCSS } from '../styles/worksheetContent'
 import { DataTable } from 'react-native-paper'
 import { environment } from '../environment'
 
-let tempColumns = 6
+let tempColumns = 4
 
 export default function WorksheetContent({ route, navigation }) {
 
     const [connectService] = useState( navigation.getParam('connectService') )
-    //const [columns, setColumns] = useState([[], []])
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
-
     const [columns, setColumns] = useState([[],[]])
 
     useEffect(() => {
@@ -48,7 +46,7 @@ export default function WorksheetContent({ route, navigation }) {
         .then(response => response.json())
         .then(response => {
             console.log(response);
-            console.log(JSON.stringify(response))
+            //console.log(JSON.stringify(response))
             //console.log("------");
             //console.log(JSON.stringify(response[0]));
             setworksheetContent(response)

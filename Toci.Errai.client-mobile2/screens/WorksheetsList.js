@@ -17,47 +17,26 @@ export default function WorksheetsList({ route, navigation }) {
     useEffect( () => {
         connectService.setNowWorkbookId(navigation.getParam('workbookId'))
         setloading(true)
-
-        AsyncStorage.getItem('Worksheets')
-        .then(response => {
-            //console.log(response);
-            console.log(JSON.parse(response));
-            let x = JSON.parse(response)
-            return x.filter(item => item.idworkbook == navigation.getParam('workbookId'))
-        })
-        .then(response => {
+        let tempWorkbook = environment.prodApiUrl + "api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('workbook')['idoffile']
+        fetch(tempWorkbook)
+        .then( response => response.json() )
+        .then( response => {
             setworksheets(response)
             setdisplayedWorksheets(response)
             setloading(false)
+
+        }).catch(error => {
+            setworksheets(x)
+            setloading(false)
         })
 
-
-
-        /*fetch(environment.apiUrl + "api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('workbookId'))
-            .then( response => response.json() )
-            .then( response => {
-                console.log(response)
-                //console.log(JSON.stringify(response));
-                 setworksheets(response)
-                setdisplayedWorksheets(response)
-                setloading(false)
-
-            }).catch(error => {
-                console.log(error);
-
-                setworksheets(x)
-                setloading(false)
-            })*/
-
-        return () => { console.log("END WorksheetsList SCREEN ?") }
     }, [] )
 
-    const filterWorkbooks = (e) => {
+    const filterWorkbooks = (text) => {
 
-        console.log(e.target.value);
-        setfilteredValue(e.target.value)
+        setfilteredValue(text)
 
-        let filtered = worksheets.filter(item => item.sheetname.toLowerCase().includes( e.target.value.toLowerCase() ))
+        let filtered = worksheets.filter(item => item.sheetname.toLowerCase().includes( text.toLowerCase() ))
 
         setdisplayedWorksheets(filtered)
 
@@ -89,7 +68,7 @@ export default function WorksheetsList({ route, navigation }) {
                 <TextInput
                     value={filteredValue}
                     style={globalStyles.inputStyle}
-                    onChange={ ($event) => filterWorkbooks($event) }
+                    onChangeText={ (text) => filterWorkbooks(text) }
                     placeholder="Filter.."
                 />
 
