@@ -63,7 +63,7 @@ export default function Home( { navigation }) {
 
     const getWorkbooksFromStorage = () => {
         AppUser.getApiData().then(response => {
-            etworkbooks(response.Workbooks)
+            setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
         })
     }
@@ -73,6 +73,7 @@ export default function Home( { navigation }) {
 
         navigation.navigate('WorksheetsList', {
             workbookId : _workbook.id,
+            workbook : _workbook,
             workbookFileId: _workbook.idoffile,
             connectService} )
     }
