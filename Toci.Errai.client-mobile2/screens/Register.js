@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {environment} from '../environment';
+import RestClient from '../RestClient';
 
 export default function Register({navigation}) {
   const [firstname, setFirstname] = useState('');
@@ -17,17 +18,10 @@ export default function Register({navigation}) {
 
   const onRegister = async () => {
     //const {firstname, lastname, email, password} = this.state;
+    let restClient = new RestClient();
     console.log(firstname, lastname, email, password);
-    let response = await fetch(environment.apiUrl + 'api/Account/register', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({firstname, lastname, email, password}),
-    });
-    let json = await response.json();
-    console.log(json);
+    let response = await restClient.POST('api/Account/register', {firstname, lastname, email, password})
+    console.log(response);
   };
   return (
     <View style={styles.container}>

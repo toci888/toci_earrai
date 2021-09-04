@@ -1,7 +1,8 @@
 import React, {useState, useEffect } from 'react'
 import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native'
-import {environment} from '../environment'
 import AppUser from '../shared/AppUser'
+import {environment} from '../environment';
+import RestClient from '../RestClient';
 
 export default function Login({navigation}) {
 
@@ -18,20 +19,13 @@ export default function Login({navigation}) {
   }, [])
 
   const onLogin = async () => {
-    let response = await fetch(environment.apiUrl + 'api/Account/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email, password}),
-    });
-    let json = await response.json();
-    console.log(json);
+    let restClient = new RestClient();
+    let response = await restClient.POST('api/Account/login', {email, password})
+    console.log(response);
 
-    if(json != "Invalid username or password")
+    if(response)
     {
-        navigation.navigate('Home');
+      navigation.navigate('Home');
     }
   };
 
