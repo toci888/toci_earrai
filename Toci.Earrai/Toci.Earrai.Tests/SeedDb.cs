@@ -37,6 +37,8 @@ namespace Toci.Earrai.Tests
             Workbooks();
             Worksheets();
             WorksheetContents();
+            SeedAreas();
+            SeedWlOrSizeCategories();
         }
 
         [TestMethod]
