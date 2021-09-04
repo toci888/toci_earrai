@@ -19,7 +19,7 @@ export default function WorksheetContent({ route, navigation }) {
 
     useEffect(() => {
         let x2 = environment.prodApiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId')
-        console.log(x2)
+        //console.log(x2)
         fetch(x2)
         .then(response => response.json())
         .then(response => {
@@ -48,9 +48,9 @@ export default function WorksheetContent({ route, navigation }) {
         .then(response => response.json())
         .then(response => {
             console.log(response);
-            //console.log(JSON.stringify(response))
-            console.log("------");
-            console.log(JSON.stringify(response[0]));
+            console.log(JSON.stringify(response))
+            //console.log("------");
+            //console.log(JSON.stringify(response[0]));
             setworksheetContent(response)
         }).catch(error => {
             console.log(error)

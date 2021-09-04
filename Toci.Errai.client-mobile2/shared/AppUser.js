@@ -12,7 +12,9 @@ export default class AppUser {
 
     static userData
 
-    static setApiData = () => AppUser.setApiData
+    static getApiData = async () => {
+        return AsyncStorage.getItem('allData')
+    }
 
     static setApiData = (data) => {
         AppUser.setApiData = data
@@ -58,7 +60,7 @@ export default class AppUser {
         x = JSON.parse(x)
         console.log(x)
 
-        return x ? true : false
+        return x ? x : false
 
     }
 

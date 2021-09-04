@@ -180,7 +180,7 @@ export default function WorksheetRecord({ route, navigation }) {
         })
         .then( response => {
             console.log(response)
-            updateTableAfterDELETE(id_)
+            updateTableAfterRequest()
         })
         .catch(error => {
             console.log(error)
@@ -349,12 +349,12 @@ export default function WorksheetRecord({ route, navigation }) {
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "update"} style={worksheetRecord.gridShort}>
                         <Text>
-                            <Button title="UPDATE" onPress={() => updateData(i)} />
+                            <Button title="UPD" onPress={() => updateData(i)} />
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "delete"} style={worksheetRecord.gridShort}>
                         <Text>
-                            <Button title="DELETE" onPress={() => deleteData(i)} />
+                            <Button title="DEL" onPress={() => deleteData(i)} />
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>

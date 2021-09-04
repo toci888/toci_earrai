@@ -44,11 +44,12 @@ export default function Home( { navigation }) {
 
     const apiFetch = () => {
         let url = environment.prodApiUrl + "api/EntityOperations/LoadData"
-        console.log(url);
+        //console.log(url)
         fetch(url)
         .then(response => response.json())
         .then(response => {
             console.log(response)
+            //console.log(JSON.stringify(response))
             setloading(false)
             AppUser.setApiData(response)
             setworkbooks(response.Workbooks)
@@ -61,7 +62,10 @@ export default function Home( { navigation }) {
     }
 
     const getWorkbooksFromStorage = () => {
-
+        AppUser.getApiData().then(response => {
+            etworkbooks(response.Workbooks)
+            setdisplayedWorkbooks(response.Workbooks)
+        })
     }
 
 

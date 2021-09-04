@@ -11,7 +11,12 @@ export default function Login({navigation}) {
 
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
+    console.log(logged)
+    if(logged) {
       navigation.navigate('Home')
+    } else {
+
+    }
   }
 
   useEffect(() => {
@@ -27,6 +32,8 @@ export default function Login({navigation}) {
     {
       AppUser.setUserData(response)
       navigation.navigate('Home');
+    } else {
+      console.log(123);
     }
   };
 
