@@ -1,23 +1,16 @@
-import React, {useState, useEffect } from 'react';
-import {
-  Alert,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  View,
-  StyleSheet,
-} from 'react-native';
-import {environment} from '../environment';
-import AppUser from '../shared/AppUser';
+import React, {useState, useEffect } from 'react'
+import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native'
+import {environment} from '../environment'
+import AppUser from '../shared/AppUser'
 
 export default function Login({navigation}) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
-      navigation.navigate('Home');
+      navigation.navigate('Home')
   }
 
   useEffect(() => {
@@ -109,4 +102,4 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 17,
   },
-});
+})

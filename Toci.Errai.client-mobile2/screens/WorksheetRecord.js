@@ -7,7 +7,6 @@ import { environment } from '../environment'
 import { DataTable } from 'react-native-paper'
 import AppUser from '../shared/AppUser'
 import { Picker } from '@react-native-community/picker'
-import WorksheetRecordData from './WorksheetRecordData'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -28,7 +27,7 @@ export default function WorksheetRecord({ route, navigation }) {
         idworksheet: null,
         rowindex: null,
         idcodesdimensions: null,
-        iduser: AppUser.getId(),
+        iduser: 3,
         quantity: "",
         lengthdimensions: "",
         widthdimensions: "",
@@ -74,11 +73,12 @@ export default function WorksheetRecord({ route, navigation }) {
 
         }
 
-        setDupa([])
-
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
+        let url2 = environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()
+        console.log(url2)
+        fetch(url2).then(r => {
             return r.json()
         }).then(r => {
+            console.log(r);
             setDupa(r)
         })
 
@@ -89,7 +89,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             let _areas = JSON.parse(response[0])
             let _categories = JSON.parse(response[1])
-            setallCategories(_categories)
+            //setallCategories(_categories)
             setareas(_areas)
 
             let _nowArea = _areas[0]['id']
@@ -170,7 +170,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
         let id_ = x['id']
 
-        fetch(environment.apiUrl + "api/AreaQuantity/DeleteById?Id=" + id_, {
+        fetch(environment.prodApiUrl + "api/AreaQuantity/DeleteById?Id=" + id_, {
             method: "DELETE",
             headers: {
                 Accept: 'application/json',
@@ -189,37 +189,36 @@ export default function WorksheetRecord({ route, navigation }) {
 
     const sendRequest = () => {
 
-        let x = JSON.parse(JSON.stringify(tempAreaquantityRow));
+        let dataToSend = JSON.parse(JSON.stringify(tempAreaquantityRow));
 
-        let lengWid
+        let Length_Width
         if(kindOfDisplay == 1) {
-            lengWid = tempAreaquantityRow.lengthdimensions
+            Length_Width = tempAreaquantityRow.lengthdimensions
                         + " x "
                     + tempAreaquantityRow.widthdimensions
         } else {
-            lengWid = tempAreaquantityRow.lengthdimensions
+            Length_Width = tempAreaquantityRow.lengthdimensions
         }
 
-        x = {...x,  lengthdimensions: lengWid }
+        dataToSend = {...dataToSend,  lengthdimensions: Length_Width }
 
-        delete x.widthdimensions
+        delete dataToSend.widthdimensions
 
-        if(widthHook == "" || lengthHook == "" || quantityHook == "") {
-            console.log("jakis pusty input")
-        }
+        // TODO validate inputs
 
         if(btnvalueHook == "ADD") {
             if(connectService.isConnectedFunc()) {
 
-                fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
+                fetch(environment.prodApiUrl + "api/AreaQuantity/PostAreaQuantities", {
                     method: "POST",
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify([x]) // arequantity
+                    body: JSON.stringify([dataToSend]) // arequantity
                 })
                 .then( response => {
+                    console.log(response);
                     updateTableAfterRequest()
                 })
                 .catch(error => {
@@ -227,19 +226,19 @@ export default function WorksheetRecord({ route, navigation }) {
                 })
 
             } else {
-                connectService.addDataToCache(x)
+                connectService.addDataToCache(dataToSend)
             }
         } else if(btnvalueHook == "UPDATE") {
 
             if(connectService.isConnectedFunc()) {
 
-                fetch(environment.apiUrl + "api/AreaQuantity/UpdateAreaQuantity", {
+                fetch(environment.prodApiUrl + "api/AreaQuantity/UpdateAreaQuantity", {
                     method: "PUT",
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(x) // arequantity
+                    body: JSON.stringify(dataToSend) // arequantity
                 })
                 .then( response => {
                     updateTableAfterRequest()
@@ -248,18 +247,20 @@ export default function WorksheetRecord({ route, navigation }) {
                     console.log(error)
                 })
             } else {
-                connectService.addDataToCache(x)
+                connectService.addDataToCache(dataToSend)
             }
         }
     }
 
     const updateTableAfterRequest = () => {
-        fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
+        fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
             + columnsData[0].rowindex + '/'
             + connectService.getNowWorksheetId()).then(r => {
             return r.json()
         }).then(r => {
             setDupa(r)
+        }).catch(error => {
+            console.log(error);
         })
     }
 
@@ -411,7 +412,7 @@ export default function WorksheetRecord({ route, navigation }) {
                             <TextInput
                                 style={worksheetRecord.inputStyle}
                                 value={tempAreaquantityRow.lengthdimensions}
-                                onChange={($event) => setWidth($event)}
+                                onChangeText={($event) => setLength($event)}
                                 placeholder="Type Length.."
                             />
 
@@ -421,7 +422,7 @@ export default function WorksheetRecord({ route, navigation }) {
                             <TextInput
                                 style={worksheetRecord.inputStyle}
                                 value={tempAreaquantityRow.widthdimensions}
-                                onChange={($event) => setLength($event)}
+                                onChangeText={($event) => setWidth($event)}
                                 placeholder="Type Width.."
                             />
 
@@ -433,7 +434,7 @@ export default function WorksheetRecord({ route, navigation }) {
                         <TextInput
                             style={worksheetRecord.inputStyle}
                             value={tempAreaquantityRow.lengthdimensions}
-                            onChange={($event) => setLength($event)}
+                            onChangeText={($event) => setLength($event)}
                             placeholder="Type Length.."
                         />
 
@@ -446,7 +447,7 @@ export default function WorksheetRecord({ route, navigation }) {
                     <TextInput
                         style={worksheetRecord.inputStyle}
                         value={tempAreaquantityRow.quantity}
-                        onChange={($event) => setAreaquantity($event)}
+                        onChangeText={($event) => setAreaquantity($event)}
                         placeholder="Type Quantity.."
                     />
 
@@ -460,11 +461,9 @@ export default function WorksheetRecord({ route, navigation }) {
                 </DataTable>
             </View>
 
-            <View>
 
-                <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} />
+            {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
 
-            </View>
 
         </View>
     )

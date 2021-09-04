@@ -8,11 +8,14 @@ export default class AppUser {
 
     static savedIdArea = null
 
-    static workSheetsRecords = []
+    static setApiData = []
 
-    static getWorksheetsRecords = () => AppUser.workSheetsRecords
+    static setApiData = () => AppUser.setApiData
 
-    static setWorksheetsRecords = (data) => AppUser.workSheetsRecords = data
+    static setApiData = (data) => {
+        AppUser.setApiData = data
+        AsyncStorage.setItem('allData', JSON.stringify(data))
+    }
 
     static setIdArea = (idArea_) => { AppUser.savedIdArea = idArea_ }
 

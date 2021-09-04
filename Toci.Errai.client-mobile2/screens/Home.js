@@ -18,22 +18,23 @@ export default function Home( { navigation }) {
 
     useEffect( () => {
 
-        fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
-        .then( response => response.json() )
-        .then( response => {
-
-            setloading(false)
-
+        /*AsyncStorage.getItem('allData')
+        .then(response => {
+            return JSON.parse(response)
+        })
+        .then( (response) => {
+            console.log(response);
+            if(!response) return
             AppUser.setWorksheetsRecords(response)
-            //AsyncStorage.setItem('allData', JSON.stringify(response))
-
-            setworkbooks(response.Workbooks)
-            setdisplayedWorkbooks(response.Workbooks)
-        })
-        .catch(error => {
+            setdisplayedWorkbooks(response['Workbooks'])
+            setworkbooks(response['Workbooks'])
+        }).finally(data => {
             setloading(false)
-            getWorkbooksFromStorage()
-        })
+            apiFetch()
+        })*/
+
+        apiFetch()
+
 
         const interval = setInterval(() => {
             connectService.checkConnect()
@@ -41,18 +42,26 @@ export default function Home( { navigation }) {
 
     }, [] )
 
-    const getWorkbooksFromStorage = () => {
-        AsyncStorage.getItem('Workbooks')
+    const apiFetch = () => {
+        let url = environment.prodApiUrl + "api/EntityOperations/LoadData"
+        console.log(url);
+        fetch(url)
+        .then(response => response.json())
         .then(response => {
-            return JSON.parse(response)
-        })
-        .then( (response) => {
-            setdisplayedWorkbooks(response)
-            setworkbooks(response)
-
-        }).finally(data => {
+            console.log(response)
             setloading(false)
+            AppUser.setApiData(response)
+            setworkbooks(response.Workbooks)
+            setdisplayedWorkbooks(response.Workbooks)
         })
+        .catch(error => {
+            setloading(false)
+            getWorkbooksFromStorage()
+        })
+    }
+
+    const getWorkbooksFromStorage = () => {
+
     }
 
 

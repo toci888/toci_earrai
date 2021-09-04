@@ -2,38 +2,55 @@ import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput } from 'react-native'
 import { worksheetContent as worksheetContentCSS } from '../styles/worksheetContent'
-import AppUser from '../shared/AppUser'
+import { DataTable } from 'react-native-paper'
+import { environment } from '../environment'
 
 let tempColumns = 6
 
 export default function WorksheetContent({ route, navigation }) {
 
     const [connectService] = useState( navigation.getParam('connectService') )
-    const [columns, setColumns] = useState([[], []])
+    //const [columns, setColumns] = useState([[], []])
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
 
+    const [columns, setColumns] = useState([[],[]])
+
     useEffect(() => {
+        let x2 = environment.prodApiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId')
+        console.log(x2)
+        fetch(x2)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            setColumns(response)
+        }).catch(error => {
+            console.log(error)
+        })
 
         connectService.setNowWorksheetId(navigation.getParam('worksheetId'))
 
-        let x = AppUser.getWorksheetsRecords()
+        /*let x = AppUser.getWorksheetsRecords()['Worksheets']
 
         x = x.filter(item => item.idworksheet == navigation.getParam('worksheetId')
                             && (item.rowindex == 0 || item.rowindex == 1) )
-        x = [[...x.slice(0, (x.length / 2))], [...x.slice(x.length / 2)]]
+        x = [[...x.slice(0, (x.length / 2))], [...x.slice(x.length / 2)]]*/
 
-        setColumns(x)
+        //setworksheetContent(x)
 
     }, [])
 
     const searchForData = () => {
 
-        fetch(environment.apiUrl + "api/WorksheetContent/searchWorksheet/"
+        fetch(environment.prodApiUrl + "api/WorksheetContent/searchWorksheet/"
                     + navigation.getParam('worksheetId') + "/" + filteredValue)
         .then(response => response.json())
         .then(response => {
+            console.log(response);
+            //console.log(JSON.stringify(response))
+            console.log("------");
+            console.log(JSON.stringify(response[0]));
             setworksheetContent(response)
         }).catch(error => {
             console.log(error)
@@ -41,7 +58,7 @@ export default function WorksheetContent({ route, navigation }) {
     }
 
     const showRecordData = (rowIndex) => {
-
+        console.log(rowIndex);
         navigation.navigate('WorksheetRecord', {
             worksheetColumns: columns,
             rowIndex: rowIndex,
@@ -53,7 +70,7 @@ export default function WorksheetContent({ route, navigation }) {
     const filterContent = (text) => {
         setfilteredValue(text)
 
-        if(text < 3) return
+        if(text.length < 3) return
 
         searchForData()
     }
@@ -86,42 +103,41 @@ export default function WorksheetContent({ route, navigation }) {
 
                 <View style={globalStyles.tableContainer}>
 
-                    <View style={globalStyles.HalfHeader}>
+                    <DataTable.Header style={globalStyles.HalfHeader}>
 
                         {columns && columns[0]?.map((column, index) => {
                             if(index > tempColumns) return
                             return (
-                                <View key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </View>
+                                <DataTable.Title key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </DataTable.Title>
                             )
                         })}
 
-                    </View>
+                    </DataTable.Header>
 
-                    <View style={globalStyles.HalfHeader}>
+                    <DataTable.Header style={globalStyles.HalfHeader}>
 
                         {columns && columns[1]?.map((column, index) => {
                             if(index > tempColumns) return
-                            return <View key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </View>
+                            return <DataTable.Title key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </DataTable.Title>
                         })}
 
-                    </View>
+                    </DataTable.Header>
 
                     {
                         worksheetContent?.map( (row, rowIndex) => {
-                            console.log(row)
-                            return(<View key={ rowIndex } style={worksheetContentCSS.customRow} >
+                            return(<DataTable.Row key={ rowIndex } style={worksheetContentCSS.customRow} >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
                                     return (
-                                    <View
+                                    <DataTable.Cell
                                         key={column.id}
                                         onPress={ () => showRecordData(rowIndex) }
                                         style={worksheetContentCSS.cell}>
 
                                         <Text>{column.value}</Text>
-                                    </View>)
+                                    </DataTable.Cell>)
                                 } ) }
-                            </View>)
+                            </DataTable.Row>)
                         } )
                     }
 
