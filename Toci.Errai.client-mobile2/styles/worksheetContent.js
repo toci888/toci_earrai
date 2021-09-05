@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 
 export const worksheetContent = StyleSheet.create({
     addNewRecordView: {
@@ -12,7 +13,8 @@ export const worksheetContent = StyleSheet.create({
 
     },
     cell: {
-        width: 'fit-content'
+        width: 'fit-content',
+        color: 'black'
     },
 
     addNewRecordBtn: {

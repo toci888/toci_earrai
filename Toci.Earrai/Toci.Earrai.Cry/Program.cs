@@ -206,6 +206,7 @@ namespace OneDriveWithMSGraph {
 
                         foreach (KeyValuePair<string, List<string[]>> ele in ExcelFilesAccessPoints)
                         {
+                            Console.WriteLine("workbook" + ele.Value[0][2]);
                             int idOfWorkbook = Workbook.Insert(new Workbook()
                             {
                                 Idoffile = ele.Key,
@@ -216,6 +217,7 @@ namespace OneDriveWithMSGraph {
 
                             for(int ii = 0; ii < ele.Value.Count; ii++)
                             {
+                                Console.WriteLine("workbook" + ele.Value[ii][0]);
                                 int idOfWorksheet = Worksheet.Insert(new Worksheet()
                                 {
                                     Idworkbook = idOfWorkbook,

@@ -26,6 +26,15 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(quoteandprice);
         }
 
+        [HttpGet("GetAllQuotesAndPricesView")]
+        public ActionResult<List<Quotesandprice>> GetAllQuotesAndPricesView()
+        {
+
+            List<Quotesandprice> quotesandprice = Logic.GetAllQuotesAndPricesView();
+
+            return Ok(quotesandprice);
+        }
+
         [HttpGet("GetAllQuotesAndMetricsFromDb")]
         public ActionResult<List<Quoteandmetric>> GetAllQuotesAndMetricsFromDb()
         {

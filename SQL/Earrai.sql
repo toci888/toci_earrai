@@ -1,5 +1,6 @@
 drop view userRoles;
 drop view AreasQuantities;
+drop view QuotesAndPrices;
 
 drop table quoteandprice;
 drop table worksheetcontents;
@@ -131,13 +132,17 @@ users.initials
 from areaquantity join areas on areaquantity.idArea = areas.id 
 join users on areaquantity.idUser = users.id;
 
-select * from AreasQuantities;
+create or replace view QuotesAndPrices as
+select quoteandprice.id, quoteandprice.idworksheet, quoteandprice.rowindex, quoteandprice.price, quoteandprice.idvendor, 
+quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials
+from quoteandprice join quoteandmetric on quoteandprice.idquoteandmetric = quoteandmetric.id
+join vendors on quoteandprice.idvendor = vendors.id
+join users on quoteandprice.iduser = users.id;
 
 create or replace view userRoles as
 select users.id, users.firstName, users.lastName, users.email, users.password, users.emailConfirmed, users.token ,roles.name
 from users 
 join roles on roles.id = users.idRole;
-
 
 
 select * from users;
@@ -154,4 +159,5 @@ select * from codesdimensions;
 select * from AreasQuantities;
 select * from quoteandmetric;
 select * from quoteandprice; 
+select * from QuotesAndPrices;
 

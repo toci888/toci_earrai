@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput/*, Picker*/ } from 'react-native'
-import { animationFrames } from 'rxjs'
+import { Button, Text, View, TextInput } from 'react-native'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -8,6 +7,7 @@ import { environment } from '../environment'
 import { DataTable } from 'react-native-paper'
 import AppUser from '../shared/AppUser'
 import { Picker } from '@react-native-community/picker'
+import WorksheetRecordData from './WorksheetRecordData'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -16,16 +16,11 @@ export default function WorksheetRecord({ route, navigation }) {
     const [columnsData, setColumnsData] = useState([])
     const [areas, setareas] = useState([])
     const [areaId, setareaId] = useState("")
-    const [quantityHook, setquantityHook] = useState("")
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
-    const [tempNewToUpdate, settempNewToUpdate] = useState(null)
-    const [allCategories, setallCategories] = useState(null)
 
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
-    const [widthHook, setwidthHook] = useState("")
     const [dupa, setDupa] = useState("")
-    const [lengthHook, setlengthHook] = useState("")
 
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
@@ -41,22 +36,12 @@ export default function WorksheetRecord({ route, navigation }) {
         updatedat: null,
     })
 
-
     useEffect( () => {
-
-
-        // let json = await response.json();
-        // console.log(json);
-
-        console.log("USE EFFECT")
 
         connectService.setRowIndex(navigation.getParam('rowIndex') || null)
 
         setColumnsName(navigation.getParam('worksheetColumns'))
         const _worksheetRecords = navigation.getParam('workSheetRecord')
-        console.log('workSheetRecord');
-        console.log(_worksheetRecords)
-
 
         let code, code2;
         if(_worksheetRecords == null) {
@@ -75,21 +60,10 @@ export default function WorksheetRecord({ route, navigation }) {
             setColumnsData(newArr)
         } else {
 
-            //let _worksheetRecords = navigation.getParam('workSheetRecord')
             setColumnsData(_worksheetRecords)
-            //console.log(_worksheetRecords)
 
             code = _worksheetRecords[0].value
             code2 = _worksheetRecords[1].value
-
-            console.log("code")
-            console.log(code)
-            console.log(code2)
-
-
-
-
-
 
             settempAreaquantityRow( prev => {
                 return {...prev,
@@ -103,11 +77,9 @@ export default function WorksheetRecord({ route, navigation }) {
         setDupa([])
 
         fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
-            return r.json();
+            return r.json()
         }).then(r => {
-            setDupa(r);
-            console.log("QUANTITIES");
-            console.log(r);
+            setDupa(r)
         })
 
         Promise.all([
@@ -117,52 +89,34 @@ export default function WorksheetRecord({ route, navigation }) {
 
             let _areas = JSON.parse(response[0])
             let _categories = JSON.parse(response[1])
-            console.log("areas")
-            console.log(_areas)
             setallCategories(_categories)
             setareas(_areas)
 
             let _nowArea = _areas[0]['id']
-            //console.log("NOW AREA SELECTED")
-            //console.log(_nowArea)
             setareaId(_nowArea)
-
-
-            console.log("categories")
-            console.log(_categories)
 
             let kind = _categories.filter(item => (
                 (item.code).trim() == code2 || ((item.code).trim() == code )))
-            console.log(kind)
 
             let tempKind = kind[0]['kind']
             setkindOfDisplay(tempKind)
 
 
             if(tempKind == 1) {
-                setwidthHook(_worksheetRecords[4]['value'])
-                setlengthHook(_worksheetRecords[5]['value'])
-
                 settempAreaquantityRow(prev => {
                     return {...prev,
                         lengthdimensions: _worksheetRecords[5]['value'],
                         widthdimensions: _worksheetRecords[4]['value'],
-
-
                     }
                 })
 
             } else {
-                setlengthHook(_worksheetRecords[6]['value'])
-
                 settempAreaquantityRow(prev => {
                     return {...prev,
                         lengthdimensions: _worksheetRecords[5]['value'],
                     }
                 })
             }
-
-
 
             settempAreaquantityRow(prev => {
                 return {...prev,
@@ -171,108 +125,43 @@ export default function WorksheetRecord({ route, navigation }) {
                 }
             })
 
-
             let savedArea = AppUser.getIdArea()
-            console.log(savedArea)
             if(savedArea) {
-                console.log("SET SAVED AREA");
                 setareaId(savedArea)
 
                 settempAreaquantityRow(prev => {
                     return {...prev, idarea: savedArea}
                 })
-
-            } else {
-                console.log("NOTHNIG");
             }
-
-
-
         } )
 
-        return () => {console.log("END RECORD SCREEN ?")}
     }, [] )
 
-    const testChangeValue = (e, index) => {
-        console.log(e.target.value, index)
-
-
-        let val = columnsData[index].value
-
-
-        const tempContent = [...columnsData]
-
-        //console.log(tempContent)
-
-        tempContent[index].value = e.target.value
-
-
-
-        setColumnsData(tempContent)
-        return
-
-    }
-
-    const disconnect = () => {
-        connectService.disconnect()
-    }
-
-    const updateValue = (index) => {
-
-        const tempContent = columnsData[index]
-
-        console.log(columnsData[index])
-        if(!connectService.isConnectedFunc() ) {
-            connectService.addDataToCache(tempContent)
-        } else {
-            connectService.updateRecord(tempContent)
-        }
-    }
-
     const setAreaFunc = (_id, index) => {
-        console.log(_id)
-        setareaId(_id)
-
-
-
         settempAreaquantityRow(prev => {
             return {...prev, idarea: _id}
         })
 
         AppUser.setIdArea(_id)
-
     }
 
-    const setLength = (e) => {
-
-        let lengthVal = e.target.value
-        console.log(lengthVal)
-        setlengthHook(prev => lengthVal)
+    const setLength = text => {
         settempAreaquantityRow(prev => {
-            return {...prev, lengthdimensions: lengthVal }
+            return {...prev, lengthdimensions: text }
         })
 
     }
 
-    const setWidth = (e) => {
-
-        let widthVal = e.target.value
-        console.log(widthVal);
-        setwidthHook(prev => widthVal)
+    const setWidth = text => {
         settempAreaquantityRow(prev => {
-            return {...prev, widthdimensions: widthVal}
+            return {...prev, widthdimensions: text}
         })
 
     }
 
-    const setAreaquantity = (e) => {
-
-        let _quantity = e.target.value
-
-        setquantityHook( prev => _quantity )
-
+    const setAreaquantity = text => {
         settempAreaquantityRow(prev => {
-            return {...prev, quantity: _quantity}
+            return {...prev, quantity: text}
         })
     }
 
@@ -287,7 +176,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify([x]) // arequantity
+            body: JSON.stringify([x])
         })
         .then( response => {
             console.log(response)
@@ -296,21 +185,11 @@ export default function WorksheetRecord({ route, navigation }) {
         .catch(error => {
             console.log(error)
         })
-
-
     }
 
     const sendRequest = () => {
 
-        console.log("arequantityRow")
-        console.log(tempAreaquantityRow)
-
-
-
-        let x = JSON.stringify(tempAreaquantityRow);
-
-        x = JSON.parse(x)
-
+        let x = JSON.parse(JSON.stringify(tempAreaquantityRow));
 
         let lengWid
         if(kindOfDisplay == 1) {
@@ -324,10 +203,6 @@ export default function WorksheetRecord({ route, navigation }) {
         x = {...x,  lengthdimensions: lengWid }
 
         delete x.widthdimensions
-
-        console.log(x)
-
-
 
         if(widthHook == "" || lengthHook == "" || quantityHook == "") {
             console.log("jakis pusty input")
@@ -345,14 +220,7 @@ export default function WorksheetRecord({ route, navigation }) {
                     body: JSON.stringify([x]) // arequantity
                 })
                 .then( response => {
-                    console.log(response)
-                    console.log("ADDED");
-
-                    updateTableAfterPOST()
-
-                    /*setDupa(prev => {
-                        return [...prev, x]
-                    })*/
+                    updateTableAfterRequest()
                 })
                 .catch(error => {
                     console.log(error)
@@ -374,97 +242,28 @@ export default function WorksheetRecord({ route, navigation }) {
                     body: JSON.stringify(x) // arequantity
                 })
                 .then( response => {
-                    console.log(response)
-                    console.log("UPDATED")
-
-                    updateTableAfterPUT()
+                    updateTableAfterRequest()
                 })
                 .catch(error => {
                     console.log(error)
                 })
-
             } else {
                 connectService.addDataToCache(x)
             }
-
         }
-
     }
 
-    const updateTableAfterPOST = () => {
+    const updateTableAfterRequest = () => {
         fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
             + columnsData[0].rowindex + '/'
             + connectService.getNowWorksheetId()).then(r => {
-            return r.json();
+            return r.json()
         }).then(r => {
-            setDupa(r);
-            console.log("RELOAD TABLE QUANTITIES");
-            console.log(r);
+            setDupa(r)
         })
     }
 
-
-
-    const updateTableAfterDELETE = (id_) => {
-
-        let x = tempAreaquantityRow['rowindex']
-
-        let newDupa = [...dupa]
-
-        let nowRow_ = newDupa.findIndex(item => item.id == id_)
-
-        newDupa.splice(nowRow_, 1)
-
-        setDupa(newDupa)
-
-        console.log("delete row from table");
-    }
-
-    const updateTableAfterPUT = () => {
-        updateTableAfterPOST()
-        return
-
-        let x = tempAreaquantityRow['rowindex']
-
-        let newDupa = [...dupa]
-
-        let nowRow_ = newDupa.findIndex(item => item.id == tempAreaquantityRow['id'])
-            nowRow_ = newDupa[nowRow_]
-
-        let lengWid
-
-        //let splittted
-
-        if(kindOfDisplay == 1) {
-            //splittted = nowRow_.lengthdimensions.split("x")
-
-            lengWid = tempAreaquantityRow.lengthdimensions
-                        + " x "
-                    + tempAreaquantityRow.widthdimensions
-        } else {
-            lengWid = tempAreaquantityRow.lengthdimensions
-        }
-
-        nowRow_['lengthdimensions'] = lengWid
-        nowRow_['quantity'] = tempAreaquantityRow.quantity
-
-        let nowCategory = areas.filter(item => item.id == tempAreaquantityRow['idarea'])
-        let nowCategoryRow = nowCategory[0]
-
-
-
-        nowRow_['areacode'] = nowCategoryRow.code
-        nowRow_['areaname'] = nowCategoryRow.name
-
-        setDupa(newDupa)
-
-        console.log("updated row from table");
-
-    }
-
     const updateData = (index) => {
-        console.log(dupa[index])
-
         let foundRow = dupa[index]
         let lengWid
 
@@ -480,23 +279,18 @@ export default function WorksheetRecord({ route, navigation }) {
                 }
             })
 
-            //setlengthHook()
-            //setwidthHook()
         } else {
 
             lengWid = foundRow.lengthdimensions.trim()
-            //setlengthHook(lengWid)
             settempAreaquantityRow(prev => {
                 return {...prev,
                     lengthdimensions: lengWid,
                     widthdimensions: 0
                 }
             })
-
         }
 
         let _area = areas.filter(item => item.code == foundRow['areacode'])[0]
-        console.log(_area)
 
         setareaId(_area.id)
 
@@ -510,81 +304,12 @@ export default function WorksheetRecord({ route, navigation }) {
         })
 
         setbtnvalueHook("UPDATE")
-        //setquantityHook(foundRow['quantity'])
-
-
-        /*let tempNewToUpdate_ = {
-            id: foundRow['id'],
-            areacode: _area.code,
-            areaname: _area.name,
-            idarea: parseInt(_area.id),
-            idworksheet: connectService.getNowWorksheetId(),
-            rowindex: foundRow['rowindex'],
-            idcodesdimensions: foundRow['idcodesdimensions'],
-            iuser: foundRow['iduser'],
-            quantity: foundRow['quantity'],
-            lengthdimensions: lengWid,
-            createdat: "2021-08-30T17:35:56.872Z",
-            updatedat: "2021-08-30T17:35:56.872Z",
-        }*/
-
-        //console.log("tempNewToAdd");
-        //console.log(tempNewToUpdate_);
-
-        //settempNewToUpdate(tempNewToUpdate_)
-
-        /*setDupa(prev => {
-            return [...prev, tempNewToUpdate_]
-        })*/
-    }
-
-
-    const valueOf = (value) => { return value == "" ? "Empty Value.." : value }
-
-    const valueOfCol = (value) => { return value == "" ? "Empty Column" : value }
-
-
-    const displayRow = () => {
-        if(columnsName.length < 1) return
-
-        let respo = []
-        for(let i = 0; i < columnsData.length; i++) {
-
-            respo.push(
-                <View key={i} style={ worksheetRecord.rowContainer }>
-
-                    <View style={worksheetRecord.columns}>
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[0][i].value)}</Text>
-                        </View>
-
-                        <View style={ worksheetRecord.listItem }>
-                            <Text>{valueOfCol(columnsName[1][i].value)}</Text>
-                        </View>
-                    </View>
-
-                    <View key={i + "x"} style={worksheetRecord.value}>
-                        <Text>
-                            {columnsData[i].value}
-                        </Text>
-                    </View>
-
-                </View>
-            )
-
-
-        }
-
-        return respo
     }
 
     const displayQuantities = () => {
-        console.log("ZACZYNAMY");
-        console.log(dupa)
         if(dupa.length < 1) return
 
         let respo = []
-
 
         for(let i = 0; i < dupa.length; i++) {
             respo.push(
@@ -648,10 +373,6 @@ export default function WorksheetRecord({ route, navigation }) {
                 <Text style={globalStyles.headerText}>You're not connected now!</Text>
             </View>
         )
-    }
-
-    const setButtonValue = () => {
-        return navigation.getParam('rowIndex') == null ? "ADD NEW RECORD" : "UPDATE"
     }
 
     return (
@@ -738,15 +459,12 @@ export default function WorksheetRecord({ route, navigation }) {
                     { displayQuantities() }
                 </DataTable>
             </View>
-            {/* <View style={globalStyles.header}>
-                <Text onPress={ () => disconnect() }> !!! DISCONNECT !!!</Text>
-            </View> */}
+
             <View>
 
-                { displayRow() }
+                <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} />
 
             </View>
-
 
         </View>
     )

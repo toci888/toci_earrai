@@ -78,13 +78,18 @@ export const globalStyles = StyleSheet.create({
     cell: {
         fontSize: 7,
         padding: 4,
+        color: 'black'
         //clear: 'both'
         //borderLeftWidth: 1,
         //borderBottomWidth: 1,
         //borderBottomColor: 'blue',
     },
+    tableContainer: {
+        color: 'black'
+    },
     HalfHeader: {
-        //backgroundColor: '#66b3ff',
+        backgroundColor: 'red',
+        color: 'black',
         borderWidth: 0
     },
     // containerProducts:{
