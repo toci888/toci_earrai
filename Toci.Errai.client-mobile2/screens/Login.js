@@ -1,21 +1,19 @@
-import React, {useState, useEffect } from 'react'
-import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native'
+import React, {useEffect } from 'react'
+import { Alert, Text, TextInput, View, Button } from 'react-native'
 import AppUser from '../shared/AppUser'
-import {environment} from '../environment';
 import RestClient from '../RestClient';
+import { formStyles } from '../styles/formStyles';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 export default function Login({navigation}) {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
     console.log(logged)
     if(logged) {
       navigation.navigate('Home')
     } else {
-
+      console.log("Failed to login")
     }
   }
 
@@ -23,9 +21,9 @@ export default function Login({navigation}) {
     checkIfLogged()
   }, [])
 
-  const onLogin = async () => {
+  const login = async (values) => {
     let restClient = new RestClient();
-    let response = await restClient.POST('api/Account/login', {email, password})
+    let response = await restClient.POST('api/Account/login', values)
     console.log(response);
 
     if(response)
@@ -38,70 +36,37 @@ export default function Login({navigation}) {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput value={email} keyboardType="email-address" onChangeText={text => setEmail(text)}
-        placeholder="E-Mail" placeholderTextColor="#aaa" style={styles.input}/>
-      <TextInput value={password} onChangeText={text => setPassword(text)} placeholder={'Password'}
-        secureTextEntry={true} placeholderTextColor="#aaa" style={styles.input}/>
+    <Formik initialValues={{
+      email: '',
+      password: ''
+    }}
+    validationSchema={yup.object().shape({
+        email: yup.string()
+            .email('Email is invalid')
+            .required('Email is required'),
+        password: yup.string()
+            .min(6, 'Password must be at least 6 characters')
+            .required('Password is required'),
+    })}
+    onSubmit={values => {login(values)}}
+    validationSchema={yup.object().shape({
+      email: yup.string()
+        .email()
+        .required('E-Mail is required.'),
+      password: yup.string()
+        .min(4)
+        .required(),
+    })}>
 
-      <TouchableOpacity style={styles.button} onPress={() => onLogin()}>
-        <Text style={styles.buttonText}> Login </Text>
-      </TouchableOpacity>
-
-      <Text style={{marginTop: '2%', fontSize: 15}}>Not have an account?</Text>
-
-      <TouchableOpacity>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}} onPress={() => navigation.navigate('Register')}>Register now!</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ddd',
-  },
-  button: {
-    alignItems: 'center',
-    width: 200,
-    height: 44,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: '#8781d8',
-    // borderRadius: 25,
-    marginTop: 10,
-    backgroundColor: '#8781d8'
-  },
-  buttonText: {
-    //fontFamily: 'Baskerville',
-    fontSize: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    color: '#ddd'
-  },
-  input: {
-    width: 200,
-    //fontFamily: 'Baskerville',
-    backgroundColor: '#ddd',
-    fontSize: 20,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#777',
-    marginVertical: 10,
-  },
-  inputTextStyle: {
-    backgroundColor: '#ddd',
-    borderColor: '#777',
-    color: '#000',
-    letterSpacing: 0.5,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    fontSize: 17,
-  },
-})
+    {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
+      <View style={formStyles.container}>         
+            <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
+            { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
+            <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
+            { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
+            <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={handleSubmit} />
+          </View>
+      )}
+    </Formik>
+    );
+  }
