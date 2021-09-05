@@ -2,7 +2,7 @@ import { environment } from './environment';
 
 
 export default class RestClient {
-    constructor (baseUrl = environment.apiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
+    constructor (baseUrl = environment.prodApiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
       if (!baseUrl) throw new Error('missing baseUrl');
       this.headers = {
         'Accept': 'application/json',
@@ -13,7 +13,7 @@ export default class RestClient {
       this.simulatedDelay = simulatedDelay;
       this.devMode = devMode;
     }
-  
+
     _simulateDelay () {
       return new Promise(resolve => {
         setTimeout(() => {
@@ -21,11 +21,11 @@ export default class RestClient {
         }, this.simulatedDelay);
       });
     }
-  
+
     _fullRoute (url) {
       return `${this.baseUrl}${url}`;
     }
-  
+
     _fetch (route, method, body, isQuery = false) {
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
@@ -45,7 +45,7 @@ export default class RestClient {
       const fetchPromise = () => fetch(fullRoute, opts);
       const extractResponse = response =>
         response.text().then(text => text? JSON.parse(text) : undefined);
-  
+
       if (this.devMode && this.simulatedDelay > 0) {
         // Simulate an n-second delay in every request
         return this._simulateDelay()
@@ -56,7 +56,7 @@ export default class RestClient {
           .then(extractResponse);
       }
     }
-  
+
     GET (route, query) { return this._fetch(route, 'GET', query, true); }
     POST (route, body) { return this._fetch(route, 'POST', body); }
     PUT (route, body) { return this._fetch(route, 'PUT', body); }

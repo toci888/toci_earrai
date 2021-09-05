@@ -8,11 +8,23 @@ export default class AppUser {
 
     static savedIdArea = null
 
-    static workSheetsRecords = []
+    static setApiData = []
 
-    static getWorksheetsRecords = () => AppUser.workSheetsRecords
+    static userData
 
-    static setWorksheetsRecords = (data) => AppUser.workSheetsRecords = data
+    static getApiData = async () => {
+        return AsyncStorage.getItem('allData')
+    }
+
+    static setApiData = (data) => {
+        AppUser.setApiData = data
+        AsyncStorage.setItem('allData', JSON.stringify(data))
+    }
+
+    static setUserData = (data) => {
+        AppUser.userData = data
+        AsyncStorage.setItem('userData', JSON.stringify(data))
+    }
 
     static setIdArea = (idArea_) => { AppUser.savedIdArea = idArea_ }
 
@@ -48,7 +60,7 @@ export default class AppUser {
         x = JSON.parse(x)
         console.log(x)
 
-        return x ? true : false
+        return x ? x : false
 
     }
 

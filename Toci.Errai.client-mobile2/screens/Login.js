@@ -1,24 +1,22 @@
-import React, {useState, useEffect } from 'react';
-import {
-  Alert,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  View,
-  StyleSheet,
-} from 'react-native';
+import React, {useState, useEffect } from 'react'
+import { Alert, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native'
+import AppUser from '../shared/AppUser'
 import {environment} from '../environment';
 import RestClient from '../RestClient';
-import AppUser from '../shared/AppUser';
 
 export default function Login({navigation}) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const checkIfLogged = async () => {
     let logged = await AppUser.checkIfAlreadyExists()
-      navigation.navigate('Home');
+    console.log(logged)
+    if(logged) {
+      navigation.navigate('Home')
+    } else {
+
+    }
   }
 
   useEffect(() => {
@@ -32,7 +30,10 @@ export default function Login({navigation}) {
 
     if(response)
     {
+      AppUser.setUserData(response)
       navigation.navigate('Home');
+    } else {
+      console.log(123);
     }
   };
 
@@ -103,4 +104,4 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 17,
   },
-});
+})
