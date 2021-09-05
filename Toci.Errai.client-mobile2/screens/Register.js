@@ -20,12 +20,12 @@ export default function Register({navigation}) {
   };
 
   return (
-    <Formik initialValues={{ 
+    <Formik initialValues={{
         firstName: '',
         lastName: '',
-        email: '', 
+        email: '',
         password: '' ,
-        confirmPassword: '
+        confirmPassword: ''
       }}
       onSubmit={values => register(values)}
       validationSchema={yup.object().shape({
@@ -48,9 +48,9 @@ export default function Register({navigation}) {
       {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
         <View style={formStyles.container}>
           <TextInput value={values.firstName} style={formStyles.input} onChangeText={handleChange('firstName')} onBlur={() => setFieldTouched('firstName')} placeholder="First name" />
-          { touched.firstName && errors.firstName && <Text style={formStyles.required}>{errors.firstName}</Text> }            
+          { touched.firstName && errors.firstName && <Text style={formStyles.required}>{errors.firstName}</Text> }
           <TextInput value={values.lastName} style={formStyles.input} onChangeText={handleChange('lastName')} onBlur={() => setFieldTouched('lastName')} placeholder="Last name" />
-          { touched.lastName && errors.lastName && <Text style={formStyles.required}>{errors.lastName}</Text> }            
+          { touched.lastName && errors.lastName && <Text style={formStyles.required}>{errors.lastName}</Text> }
           <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
           { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
           <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>

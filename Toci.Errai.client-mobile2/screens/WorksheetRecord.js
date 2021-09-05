@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput } from 'react-native'
+import { Text, View } from 'react-native'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
-import AsyncStorage from '@react-native-community/async-storage'
 import { environment } from '../environment'
-import { DataTable } from 'react-native-paper'
 import AppUser from '../shared/AppUser'
-import { Picker } from '@react-native-community/picker'
+import WorksheetRecord_Inputs from '../components/WorksheetRecord_Inputs'
+import WorksheetRecord_Grid from '../components/WorksheetRecord_Grid'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -78,16 +77,12 @@ export default function WorksheetRecord({ route, navigation }) {
         fetch(url2).then(r => {
             return r.json()
         }).then(r => {
-            console.log(r)
             setDupa(r)
         })
 
         AppUser.getApiData()
         .then( response => {
-
-            console.log("appuser response")
             response = JSON.parse(response)
-            console.log(response)
 
             let _areas = response['Areas']
             let _categories = response['Categories']
@@ -139,55 +134,6 @@ export default function WorksheetRecord({ route, navigation }) {
 
     }, [] )
 
-    const setAreaFunc = (_id, index) => {
-        settempAreaquantityRow(prev => {
-            return {...prev, idarea: _id}
-        })
-
-        AppUser.setIdArea(_id)
-    }
-
-    const setLength = text => {
-        settempAreaquantityRow(prev => {
-            return {...prev, lengthdimensions: text }
-        })
-
-    }
-
-    const setWidth = text => {
-        settempAreaquantityRow(prev => {
-            return {...prev, widthdimensions: text}
-        })
-
-    }
-
-    const setAreaquantity = text => {
-        settempAreaquantityRow(prev => {
-            return {...prev, quantity: text}
-        })
-    }
-
-    const deleteData = (index) => {
-        let x = dupa[index]
-
-        let id_ = x['id']
-
-        fetch(environment.prodApiUrl + "api/AreaQuantity/DeleteById?Id=" + id_, {
-            method: "DELETE",
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([x])
-        })
-        .then( response => {
-            console.log(response)
-            updateTableAfterRequest()
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    }
 
     const sendRequest = () => {
 
@@ -266,111 +212,9 @@ export default function WorksheetRecord({ route, navigation }) {
         })
     }
 
-    const updateData = (index) => {
-        let foundRow = dupa[index]
-        let lengWid
-
-        if(kindOfDisplay == 1) {
-            let splittted = foundRow.lengthdimensions.split("x")
-
-            lengWid = [splittted[0].trim(), splittted[1].trim()]
-
-            settempAreaquantityRow(prev => {
-                return {...prev,
-                    lengthdimensions: lengWid[0],
-                    widthdimensions: lengWid[1]
-                }
-            })
-
-        } else {
-
-            lengWid = foundRow.lengthdimensions.trim()
-            settempAreaquantityRow(prev => {
-                return {...prev,
-                    lengthdimensions: lengWid,
-                    widthdimensions: 0
-                }
-            })
-        }
-
-        let _area = areas.filter(item => item.code == foundRow['areacode'])[0]
-
-        setareaId(_area.id)
-
-        settempAreaquantityRow(prev => {
-            return {...prev,
-                id: foundRow['id'],
-                quantity: foundRow['quantity'],
-                idarea: _area.id,
-                createdat: foundRow['createdat'],
-            }
-        })
-
-        setbtnvalueHook("UPDATE")
-    }
-
-    const displayQuantities = () => {
-        if(dupa.length < 1) return
-
-        let respo = []
-
-        for(let i = 0; i < dupa.length; i++) {
-            respo.push(
-
-                <DataTable.Row key={i} style={ worksheetRecord.rowContainer }>
-                    <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            {dupa[i].areacode}
-                        </Text>
-                    </DataTable.Cell>
-
-                    <DataTable.Cell key={i + "areaname"} style={worksheetRecord.grid}>
-                        <Text>
-                            {dupa[i].areaname}
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "createdat"} style={worksheetRecord.grid}>
-                        <Text>
-                            { dupa[i].createdat?.substr(0, 10) }
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "lengthdimensions"} style={worksheetRecord.grid}>
-                        <Text>
-                            {dupa[i].lengthdimensions}
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "quantity"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            {dupa[i].quantity}
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "initials"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            {dupa[i].initials}
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "update"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            <Button title="UPD" onPress={() => updateData(i)} />
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "delete"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            <Button title="DEL" onPress={() => deleteData(i)} />
-                        </Text>
-                    </DataTable.Cell>
-                </DataTable.Row>
-
-
-            )
-        }
-
-        return respo;
-
-    }
 
     const noConnectHeader = () => {
-        if(connectService.isConnectedFunc()) return
+        //if(connectService.isConnectedFunc()) return
         return(
             <View style={globalStyles.header} onPress={disconnect}>
                 <Text style={globalStyles.headerText}>You're not connected now!</Text>
@@ -389,83 +233,19 @@ export default function WorksheetRecord({ route, navigation }) {
                     { btnvalueHook }
                 </Text>
             </View>
-            <View style={worksheetRecord.ComboView}>
-                <Picker
-                    selectedValue="Choose"
-                    style={worksheetRecord.ComboPicker}
-                    selectedValue={tempAreaquantityRow.idarea}
-                    onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
-                    {
-                        areas.map( (item, index) => {
-                            return <Picker.Item style={worksheetRecord.CombiItem} key={index} label={item.name} value={item.id} />
-                        } )
-                    }
 
-                </Picker>
-            </View>
+            <WorksheetRecord_Inputs
+                tempAreaquantityRow={tempAreaquantityRow}
+                kindOfDisplay={kindOfDisplay}
+                areas={areas}
+                />
 
-            <View>
-
-                {
-                    kindOfDisplay == 1 ?
-                    (<View style={worksheetRecord.DimensionsView}>
-
-                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
-                            <TextInput
-                                style={globalStyles.inputStyle}
-                                value={tempAreaquantityRow.lengthdimensions}
-                                onChangeText={(text) => setLength(text)}
-                                placeholder="Type Length.."
-                            />
-
-                        </View>
-
-                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
-                            <TextInput
-                                style={globalStyles.inputStyle}
-                                value={tempAreaquantityRow.widthdimensions}
-                                onChangeText={(text) => setWidth(text)}
-                                placeholder="Type Width.."
-                            />
-
-                        </View>
-
-                    </View>)
-                    :
-                    (<View style={worksheetRecord.DimensionsInputContainerOne}>
-                        <TextInput
-                            style={globalStyles.inputStyle}
-                            value={tempAreaquantityRow.lengthdimensions}
-                            onChangeText={(text) => setLength(text)}
-                            placeholder="Type Length.."
-                        />
-
-                    </View>)
-                }
-
-            </View>
-            <View style={worksheetRecord.DimensionsView}>
-                <View style={worksheetRecord.QuantityInputContainer}>
-                    <TextInput
-                        style={globalStyles.inputStyle}
-                        value={tempAreaquantityRow.quantity}
-                        onChangeText={($event) => setAreaquantity($event)}
-                        placeholder="Type Quantity.."
-                    />
-
-                </View>
-
-
-            </View>
-            <View>
-                <DataTable style={globalStyles.tableContainer}>
-                    { displayQuantities() }
-                </DataTable>
-            </View>
-
+            <WorksheetRecord_Grid
+                dupa={dupa}
+                updateTableAfterRequest={updateTableAfterRequest}
+                />
 
             {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
-
 
         </View>
     )
