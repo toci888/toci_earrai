@@ -115,7 +115,7 @@ export default function Home( { navigation }) {
     if(loading) {
        return (
             <View>
-                <Text>Loading2...</Text>
+                <Text>Loading ...</Text>
             </View>
         )
     }

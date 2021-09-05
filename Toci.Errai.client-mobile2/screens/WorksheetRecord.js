@@ -107,15 +107,15 @@ export default function WorksheetRecord({ route, navigation }) {
             if(tempKind == 1) {
                 settempAreaquantityRow(prev => {
                     return {...prev,
-                        lengthdimensions: _worksheetRecords[5]['value'],
-                        widthdimensions: _worksheetRecords[4]['value'],
+                        lengthdimensions: _worksheetRecords[4]['value'],
+                        widthdimensions: _worksheetRecords[5]['value'],
                     }
                 })
 
             } else {
                 settempAreaquantityRow(prev => {
                     return {...prev,
-                        lengthdimensions: _worksheetRecords[5]['value'],
+                        lengthdimensions: _worksheetRecords[4]['value'],
                     }
                 })
             }

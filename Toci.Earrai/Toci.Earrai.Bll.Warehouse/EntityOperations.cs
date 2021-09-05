@@ -76,16 +76,16 @@ namespace Toci.Earrai.Bll.Warehouse
             IEnumerable<Area> areas = AreaLogic.Select(m => true);
             IEnumerable<Codesdimension> categories = CdLogic.Select(m => true);
             IEnumerable<Workbook> workbooks = WorkbookLogic.Select(m => true);
-            IEnumerable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
-            IEnumerable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
+            //IEnumerable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
+            //IEnumerable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
 
             return new Dictionary<string, object>()
             {
                 { "Areas", areas },
                 { "Categories", categories },
                 { "Workbooks", workbooks },
-                { "Worksheets", worksheets },
-                { "Worksheetcontents", workSheetContent }
+               // { "Worksheets", worksheets },
+               // { "Worksheetcontents", workSheetContent }
             };
         }
     }
