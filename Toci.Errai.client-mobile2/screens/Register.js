@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Text, TextInput, View, Button} from 'react-native';
+import { Alert, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import RestClient from '../RestClient';
 import { formStyles } from '../styles/formStyles';
 import { Formik } from 'formik';
@@ -27,7 +27,9 @@ export default function Register({navigation}) {
         password: '' ,
         confirmPassword: ''
       }}
+
       onSubmit={values => register(values)}
+      
       validationSchema={yup.object().shape({
         firstName: yup.string()
           .required('First name is required.'),
@@ -58,6 +60,11 @@ export default function Register({navigation}) {
           <TextInput value={values.confirmPassword} style={formStyles.input} onChangeText={handleChange('confirmPassword')} placeholder="Confirm password" onBlur={() => setFieldTouched('confirmPassword')} secureTextEntry={true}/>
           { touched.confirmPassword && errors.confirmPassword && <Text style={formStyles.required}>{errors.confirmPassword}</Text> }
           <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={handleSubmit} />
+
+          <Text style={formStyles.text}>Have already an account?</Text>
+          <TouchableOpacity>
+            <Text style={formStyles.touchableText} onPress={() => navigation.navigate('Login')}>Back to login</Text>
+          </TouchableOpacity>
         </View>
       )}
     </Formik>

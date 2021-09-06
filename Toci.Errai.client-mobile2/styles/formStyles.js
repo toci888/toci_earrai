@@ -21,5 +21,13 @@ export const formStyles = StyleSheet.create({
     fontSize: 18, 
     color: '#FF0D10'
   },
+  text: {
+    marginTop: '2%', 
+    fontSize: 15
+  },
+  touchableText: {
+    fontSize: 20, 
+    fontWeight: 'bold'
+  }
 })
   

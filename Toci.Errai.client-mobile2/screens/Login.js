@@ -1,5 +1,5 @@
 import React, {useEffect } from 'react'
-import { Alert, Text, TextInput, View, Button } from 'react-native'
+import { Alert, Text, TextInput, View, Button, TouchableOpacity } from 'react-native'
 import AppUser from '../shared/AppUser'
 import RestClient from '../RestClient';
 import { formStyles } from '../styles/formStyles';
@@ -40,6 +40,7 @@ export default function Login({navigation}) {
       email: '',
       password: ''
     }}
+
     validationSchema={yup.object().shape({
         email: yup.string()
             .email('Email is invalid')
@@ -48,7 +49,9 @@ export default function Login({navigation}) {
             .min(6, 'Password must be at least 6 characters')
             .required('Password is required'),
     })}
+
     onSubmit={values => {login(values)}}
+    
     validationSchema={yup.object().shape({
       email: yup.string()
         .email()
@@ -60,12 +63,17 @@ export default function Login({navigation}) {
 
     {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
       <View style={formStyles.container}>         
-            <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
-            { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
-            <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
-            { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
-            <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={handleSubmit} />
-          </View>
+        <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
+        { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
+        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
+        { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
+        <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={handleSubmit} />
+
+        <Text style={formStyles.text}>Don't have an account?</Text>
+        <TouchableOpacity>
+          <Text style={formStyles.touchableText} onPress={() => navigation.navigate('Register')}>Sign up</Text>
+        </TouchableOpacity>
+      </View>
       )}
     </Formik>
     );
