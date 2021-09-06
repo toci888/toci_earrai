@@ -108,24 +108,27 @@ export const worksheetRecord = StyleSheet.create({
 
     DimensionsView: {
         //flexDirection: 'row',
-        display: 'flex',
-        marginRight: 25
-    },
-    DimensionsInputContainerTwo: {
-        width: '50%',
-        margin: 15,
-        height: 50
+       // display: 'flex',
+        //marginRight: 25
+        marginTop: 15,
+        marginLeft: 15,
+        marginRight: 15,
     },
     DimensionsInputContainerTwo: {
         width: '100%',
-        margin: 15,
+        //margin: 15,
+        height: 50
+    },
+    DimensionsInputContainerOne: {
+        width: '100%',
+        //margin: 15,
         height: 50
     },
     QuantityInputContainer: {
         width: '100%',
-        marginBottom: 15,
-        marginLeft: 15,
-        marginRight: 15,
+        // marginBottom: 15,
+        // marginLeft: 15,
+        // marginRight: 15,
         height: 50
     },
     dimensionsInput: {
@@ -168,6 +171,16 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         fontSize: 17
+    },
+    inputStyle: {
+        backgroundColor: '#ddd',
+        borderColor: '#777',
+        color: '#000',
+        letterSpacing: 0.5,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 17,
+        paddingLeft: 15
     }
 
 

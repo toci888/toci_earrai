@@ -88,7 +88,7 @@ export const globalStyles = StyleSheet.create({
         color: 'black'
     },
     HalfHeader: {
-        backgroundColor: 'red',
+        backgroundColor: '#c6c4f3',
         color: 'black',
         borderWidth: 0
     },

@@ -168,6 +168,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 .then( response => {
                     console.log(response);
                     updateTableAfterRequest()
+                    clearInputs()
                 })
                 .catch(error => {
                     console.log(error)
@@ -190,6 +191,7 @@ export default function WorksheetRecord({ route, navigation }) {
                 })
                 .then( response => {
                     updateTableAfterRequest()
+                    clearInputs()
                 })
                 .catch(error => {
                     console.log(error)
@@ -216,7 +218,7 @@ export default function WorksheetRecord({ route, navigation }) {
     const noConnectHeader = () => {
         //if(connectService.isConnectedFunc()) return
         return(
-            <View style={globalStyles.header} onPress={disconnect}>
+            <View style={globalStyles.header}>
                 <Text style={globalStyles.headerText}>You're not connected now!</Text>
             </View>
         )
@@ -225,7 +227,7 @@ export default function WorksheetRecord({ route, navigation }) {
     return (
         <View style={worksheetRecord.container}>
 
-            { noConnectHeader() }
+            {/* { noConnectHeader() } */}
 
             <View style={ worksheetRecord.absoluteUpdate }>
 
@@ -236,6 +238,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
             <WorksheetRecord_Inputs
                 tempAreaquantityRow={tempAreaquantityRow}
+                settempAreaquantityRow={settempAreaquantityRow}
                 kindOfDisplay={kindOfDisplay}
                 areas={areas}
                 />
@@ -243,6 +246,11 @@ export default function WorksheetRecord({ route, navigation }) {
             <WorksheetRecord_Grid
                 dupa={dupa}
                 updateTableAfterRequest={updateTableAfterRequest}
+                settempAreaquantityRow={settempAreaquantityRow}
+                kindOfDisplay={kindOfDisplay}
+                areas={areas}
+                setareaId={setareaId}
+                setbtnvalueHook={setbtnvalueHook}
                 />
 
             {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}

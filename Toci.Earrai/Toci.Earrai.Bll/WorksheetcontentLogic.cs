@@ -30,22 +30,22 @@ namespace Toci.Earrai.Bll {
                 }
             }
 
-            List<List<Worksheetcontent>> returnRows = new List<List<Worksheetcontent>>(); 
+            List<List<Worksheetcontent>> returnRows = new List<List<Worksheetcontent>>();
 
+            int counter = 0;
             foreach (var row in rows)
             {
                 var tempRow =  worksheetLogic.Select(m => m.Rowindex == row && m.Idworksheet == worksheetId).ToList();
 
                 foreach (var tempRow_ in tempRow)
                 {
-                    tempRow_.Value.Replace("[", "");
-                    tempRow_.Value.Replace("]", "");
-                                    tempRow_.Value.Replace("\\\"", "");
+                    tempRow_.Value.Replace("[", "")
+                                    .Replace("]", "")
+                                    .Replace("\\\"", "");
                 }
-
-                Console.WriteLine(tempRow);
-
+                
                 returnRows.Add(tempRow);
+                if (counter++ > 3) break;
 
             }
             

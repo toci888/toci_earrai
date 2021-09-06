@@ -32,12 +32,12 @@ export default function WorksheetRecord_Grid(props) {
         let foundRow = props.dupa[index]
         let lengWid
 
-        if(kindOfDisplay == 1) {
+        if(props.kindOfDisplay == 1) {
             let splittted = foundRow.lengthdimensions.split("x")
 
             lengWid = [splittted[0].trim(), splittted[1].trim()]
 
-            settempAreaquantityRow(prev => {
+            props.settempAreaquantityRow(prev => {
                 return {...prev,
                     lengthdimensions: lengWid[0],
                     widthdimensions: lengWid[1]
@@ -47,7 +47,7 @@ export default function WorksheetRecord_Grid(props) {
         } else {
 
             lengWid = foundRow.lengthdimensions.trim()
-            settempAreaquantityRow(prev => {
+            props.settempAreaquantityRow(prev => {
                 return {...prev,
                     lengthdimensions: lengWid,
                     widthdimensions: 0
@@ -55,11 +55,11 @@ export default function WorksheetRecord_Grid(props) {
             })
         }
 
-        let _area = areas.filter(item => item.code == foundRow['areacode'])[0]
+        let _area = props.areas.filter(item => item.code == foundRow['areacode'])[0]
 
-        setareaId(_area.id)
+        props.setareaId(_area.id)
 
-        settempAreaquantityRow(prev => {
+        props.settempAreaquantityRow(prev => {
             return {...prev,
                 id: foundRow['id'],
                 quantity: foundRow['quantity'],
@@ -68,7 +68,7 @@ export default function WorksheetRecord_Grid(props) {
             }
         })
 
-        setbtnvalueHook("UPDATE")
+        props.setbtnvalueHook("UPDATE")
     }
 
     const displayQuantities = () => {
