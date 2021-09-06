@@ -17,10 +17,10 @@ namespace Toci.Earrai.Microservice.Controllers {
         public WorksheetContentController(IWorksheetcontentLogic logic) : base(logic) { }
 
 
-        [HttpGet("searchWorksheet/{worksheetId}/{phrase}")]
-        public List<List<Worksheetcontent>> searchWorksheet(int worksheetId, string phrase) {
+        [HttpGet("searchWorksheet/{worksheetId}/{phrase}/{skipCounter}")]
+        public List<List<Worksheetcontent>> searchWorksheet(int worksheetId, string phrase, int skipCounter) {
 
-            var workbooks = Logic.SearchWorksheet(worksheetId, phrase);
+            var workbooks = Logic.SearchWorksheet(worksheetId, phrase, skipCounter);
 
             return workbooks;
         }

@@ -134,6 +134,30 @@ export const globalStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    noConnectionView: {
+        margin: 10,
+        backgroundColor: '#ea7272',
+        borderColor: '#860c0c',
+        borderWidth: 3
+    },
+    noConnectionText: {
+        color: 'black',
+        fontSize: 25,
+        textAlign: 'center',
+        padding: 20
+    },
+    reloadView: {
+        margin: 10,
+        backgroundColor: '#b7aeae',
+        borderColor: '#948484',
+        borderWidth: 3
+    },
+    reloadText: {
+        color: 'black',
+        fontSize: 25,
+        textAlign: 'center',
+        padding: 20
+    }
 
 
 });

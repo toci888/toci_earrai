@@ -41,7 +41,7 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
     },
     container: {
-        paddingTop: 40,
+        paddingTop: 55,
     },
     columns: {
         width: '60%',
@@ -61,7 +61,7 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
     },
     gridShort: {
-        width: '5%',
+        width: 40,
         display: 'flex',
         height: '100%',
         alignItems: 'center',
@@ -70,23 +70,12 @@ export const worksheetRecord = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         borderBottomColor: 'black',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        paddingLeft: 0,
+        paddingStart: 0
     },
-    absoluteUpdate: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: 40,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#8781d8'
-    },
-    updateText: {
-        fontWeight: 'bold',
-        fontSize: 15
-    },
+
+
 
     ComboPicker: {
         height: 50,

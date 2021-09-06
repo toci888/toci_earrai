@@ -6,6 +6,8 @@ import { environment } from '../environment'
 import AppUser from '../shared/AppUser'
 import WorksheetRecord_Inputs from '../components/WorksheetRecord_Inputs'
 import WorksheetRecord_Grid from '../components/WorksheetRecord_Grid'
+import WorksheetRecord_AddBtn from '../components/WorksheetRecord_AddBtn'
+import { modalStyles } from '../styles/modalStyles'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -13,12 +15,12 @@ export default function WorksheetRecord({ route, navigation }) {
     const [columnsName, setColumnsName] = useState([])
     const [columnsData, setColumnsData] = useState([])
     const [areas, setareas] = useState([])
-    const [areaId, setareaId] = useState("")
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
+    const [loading, setloading] = useState(true)
 
     const [kindOfDisplay, setkindOfDisplay] = useState(null)
 
-    const [dupa, setDupa] = useState("")
+    const [gridData, setgridData] = useState("")
 
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
@@ -41,63 +43,37 @@ export default function WorksheetRecord({ route, navigation }) {
         setColumnsName(navigation.getParam('worksheetColumns'))
         const _worksheetRecords = navigation.getParam('workSheetRecord')
 
-        let code, code2;
-        if(_worksheetRecords == null) {
-            const newArr = []
-            for(let i=0; i < navigation.getParam('worksheetColumns')[0].length; i++) {
-                newArr.push(
-                    {
-                        idworksheet: 1,
-                        createdat: new Date().getTime(),
-                        updatedat: new Date().getTime(),
-                        columnindex: i,
-                        rowindex: null
-                    }
-                )
+        setColumnsData(_worksheetRecords)
+
+        let code = _worksheetRecords[0].value
+        let code2 = _worksheetRecords[1].value
+
+        settempAreaquantityRow( prev => {
+            return {...prev,
+                rowindex: _worksheetRecords[0].rowindex,
+                idworksheet: connectService.getNowWorksheetId()
             }
-            setColumnsData(newArr)
-        } else {
-
-            setColumnsData(_worksheetRecords)
-
-            code = _worksheetRecords[0].value
-            code2 = _worksheetRecords[1].value
-
-            settempAreaquantityRow( prev => {
-                return {...prev,
-                    rowindex: _worksheetRecords[0].rowindex,
-                    idworksheet: connectService.getNowWorksheetId()
-                }
-            })
-
-        }
-
-        let url2 = environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()
-
-        fetch(url2).then(r => {
+        })
+        setloading(true)
+        fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json()
         }).then(r => {
-            setDupa(r)
+            setgridData(r)
+        }).finally(x => {
+            setloading(false)
         })
 
         AppUser.getApiData()
         .then( response => {
             response = JSON.parse(response)
 
-            let _areas = response['Areas']
-            let _categories = response['Categories']
+            setareas(response['Areas'])
 
-            setareas(_areas)
-
-            let _nowArea = _areas[0]['id']
-            setareaId(_nowArea)
-
-            let kind = _categories.filter(item => (
+            let kind = response['Categories'].filter(item => (
                 (item.code).trim() == code2 || ((item.code).trim() == code )))
 
             let tempKind = kind[0]['kind']
             setkindOfDisplay(tempKind)
-
 
             if(tempKind == 1) {
                 settempAreaquantityRow(prev => {
@@ -118,14 +94,12 @@ export default function WorksheetRecord({ route, navigation }) {
             settempAreaquantityRow(prev => {
                 return {...prev,
                     idcodesdimensions: tempKind,
-                    idarea: _nowArea
+                    idarea: response['Areas'][0]['id']
                 }
             })
 
             let savedArea = AppUser.getIdArea()
             if(savedArea) {
-                setareaId(savedArea)
-
                 settempAreaquantityRow(prev => {
                     return {...prev, idarea: savedArea}
                 })
@@ -134,83 +108,30 @@ export default function WorksheetRecord({ route, navigation }) {
 
     }, [] )
 
-
-    const sendRequest = () => {
-
-        let dataToSend = JSON.parse(JSON.stringify(tempAreaquantityRow));
-
-        let Length_Width
-        if(kindOfDisplay == 1) {
-            Length_Width = tempAreaquantityRow.lengthdimensions
-                        + " x "
-                    + tempAreaquantityRow.widthdimensions
-        } else {
-            Length_Width = tempAreaquantityRow.lengthdimensions
-        }
-
-        dataToSend = {...dataToSend,  lengthdimensions: Length_Width }
-
-        delete dataToSend.widthdimensions
-
-        // TODO validate inputs
-
-        if(btnvalueHook == "ADD") {
-            if(connectService.isConnectedFunc()) {
-
-                fetch(environment.prodApiUrl + "api/AreaQuantity/PostAreaQuantities", {
-                    method: "POST",
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify([dataToSend]) // arequantity
-                })
-                .then( response => {
-                    console.log(response);
-                    updateTableAfterRequest()
-                    clearInputs()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-
-            } else {
-                connectService.addDataToCache(dataToSend)
-            }
-        } else if(btnvalueHook == "UPDATE") {
-
-            if(connectService.isConnectedFunc()) {
-
-                fetch(environment.prodApiUrl + "api/AreaQuantity/UpdateAreaQuantity", {
-                    method: "PUT",
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(dataToSend) // arequantity
-                })
-                .then( response => {
-                    updateTableAfterRequest()
-                    clearInputs()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            } else {
-                connectService.addDataToCache(dataToSend)
-            }
-        }
-    }
-
     const updateTableAfterRequest = () => {
         fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
             + columnsData[0].rowindex + '/'
             + connectService.getNowWorksheetId()).then(r => {
             return r.json()
         }).then(r => {
-            setDupa(r)
+            setgridData(r)
         }).catch(error => {
             console.log(error);
+        })
+    }
+
+    const clearInputs = () => {
+        settempAreaquantityRow(prev => {
+            return {...prev,
+                id: 0,
+                idarea: AppUser.getIdArea() || 0,
+                iduser: 3,
+                quantity: "",
+                lengthdimensions: "",
+                widthdimensions: "",
+                createdat: null,
+                updatedat: null,
+            }
         })
     }
 
@@ -229,29 +150,37 @@ export default function WorksheetRecord({ route, navigation }) {
 
             {/* { noConnectHeader() } */}
 
-            <View style={ worksheetRecord.absoluteUpdate }>
+            { loading && (
+                <View style={modalStyles.tempContainer}>
+                    <Text style={modalStyles.tempText}>Wait..</Text>
+                </View>
+            )}
 
-                <Text style={worksheetRecord.updateText} onPress={ () => sendRequest() } >
-                    { btnvalueHook }
-                </Text>
-            </View>
+            <WorksheetRecord_AddBtn
+                tempAreaquantityRow={tempAreaquantityRow}
+                btnvalueHook={btnvalueHook}
+                updateTableAfterRequest={updateTableAfterRequest}
+                clearInputs={clearInputs}
+                kindOfDisplay={kindOfDisplay}
+                setloading={setloading}
+            />
 
             <WorksheetRecord_Inputs
                 tempAreaquantityRow={tempAreaquantityRow}
                 settempAreaquantityRow={settempAreaquantityRow}
                 kindOfDisplay={kindOfDisplay}
                 areas={areas}
-                />
+            />
 
             <WorksheetRecord_Grid
-                dupa={dupa}
+                gridData={gridData}
                 updateTableAfterRequest={updateTableAfterRequest}
                 settempAreaquantityRow={settempAreaquantityRow}
                 kindOfDisplay={kindOfDisplay}
                 areas={areas}
-                setareaId={setareaId}
                 setbtnvalueHook={setbtnvalueHook}
-                />
+                setloading={setloading}
+            />
 
             {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
 

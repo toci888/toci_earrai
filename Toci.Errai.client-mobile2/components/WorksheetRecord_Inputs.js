@@ -1,13 +1,10 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import AppUser from '../shared/AppUser'
-import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function WorksheetRecord_Inputs(props) {
-
-    console.log(props)
 
     const setLength = text => {
         props.settempAreaquantityRow(prev => {

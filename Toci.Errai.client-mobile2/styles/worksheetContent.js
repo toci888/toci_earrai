@@ -30,5 +30,28 @@ export const worksheetContentCSS = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    loadMoreView: {
+        height: 60,
+        backgroundColor: 'green',
+        display: 'flex',
+        justifyContent: 'center',
+        margin: 15,
+    },
+    loadMoreText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 18
+    },
+    nomoredataView: {
+        marginTop: 10,
+        padding: 22,
+        backgroundColor: '#d6caca',
+
+    },
+    nomoredataText: {
+        color: 'black',
+        textAlign: 'center',
+        fontSize: 18
+    }
 
 })
