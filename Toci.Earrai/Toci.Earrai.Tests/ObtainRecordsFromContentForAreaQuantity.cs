@@ -35,7 +35,8 @@ namespace Toci.Earrai.Tests
                 Iduser = 1,
                 Rowindex = wsad.rowIndex,
                 Quantity = wsad.quantity,
-                Lengthdimensions = wsad.dimension,
+                Length = wsad.lengthDimension,
+                Width = wsad.widthDimension,
                 Createdat = DateTime.Now,
                 Updatedat = DateTime.Now
             });
@@ -118,15 +119,15 @@ namespace Toci.Earrai.Tests
                             {
                                 if (columnIndex == areaQuantityData[j].LengthColumn)
                                 {
-                                    aqInsert.dimension = "" + value + " * ";
+                                    aqInsert.lengthDimension = value;
                                 }
                                 else if (columnIndex == areaQuantityData[j].WidthColumn)
                                 {
-                                    aqInsert.dimension += value;
+                                    aqInsert.widthDimension = value;
                                 }
                                 else
                                 {
-                                    if (aqInsert.dimension != null)
+                                    if (aqInsert.lengthDimension != null)
                                     {
                                         for (int i = 0; i < areaQuantityData[j].AreaQuantityRanges.Count; i++)
                                         {
@@ -177,7 +178,7 @@ namespace Toci.Earrai.Tests
                                     var area = temp[i][l - 1];
                                     if(columnIndex == dim)
                                     {
-                                        aqInsert.dimension = value;
+                                        aqInsert.lengthDimension = value;
                                         break;
                                     }
                                     else if (columnIndex == qty)
@@ -220,7 +221,8 @@ namespace Toci.Earrai.Tests
         {
             public int idCodeDimension;
             public int idWorkSheet;
-            public string dimension = null;
+            public string lengthDimension = null;
+            public string widthDimension = null;
             public string quantity = null;
             public int idArea;
             public int rowIndex;

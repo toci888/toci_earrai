@@ -54,7 +54,8 @@ namespace Toci.Earrai.Bll
                     Iduser = element.Iduser,
                     Rowindex = element.Rowindex,
                     Quantity = element.Quantity,
-                    Lengthdimensions = element.Lengthdimensions,
+                    Length = element.Length,
+                    Width = element.Width,
                     Createdat = DateTime.Now,
                     Updatedat = DateTime.Now
                 });

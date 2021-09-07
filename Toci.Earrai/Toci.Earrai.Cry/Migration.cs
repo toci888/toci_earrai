@@ -9,16 +9,10 @@ namespace Toci.Earrai.Cry
 {
     public class Migration
     {
-        protected Dictionary<string, ??> dsadfas;
+ 
         public void SetupStock()
         {
-            dsadfas.Add("Chan & Bms", ??);
-
-            Worksheetcontent dfsadfas = new Worksheetcontent();
-
-            Where dfsadfas.Columnindex
-
-                insert
+      
         }
     }
 }
