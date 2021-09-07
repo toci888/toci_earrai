@@ -24,6 +24,7 @@ namespace Toci.Earrai.Tests
         private Logic<Codesdimension> codesdimensions = new Logic<Codesdimension>();
         private Logic<Vendor> Vendor = new Logic<Vendor>();
         private Logic<Quoteandmetric> Quoteandmetric = new Logic<Quoteandmetric>();
+        private Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
 
         private Random r = new Random();
 
@@ -240,7 +241,7 @@ EX_MET".Split("\n", StringSplitOptions.None);
 
             foreach (string code in wl)
             {
-                codesdimensions.Insert(new Codesdimension() { Code = code, Kind = 1 });
+                codesdimensions.Insert(new Codesdimension() { Code = code.Trim(), Kind = 1 });
             }
 
             string[] size = @"SHS
@@ -296,7 +297,7 @@ CON".Split("\n", StringSplitOptions.None);
 
             foreach (string code in size)
             {
-                codesdimensions.Insert(new Codesdimension() { Code = code, Kind = 2 });
+                codesdimensions.Insert(new Codesdimension() { Code = code.Trim(), Kind = 2 });
             }
         }
 
@@ -324,6 +325,19 @@ CON".Split("\n", StringSplitOptions.None);
                     Valuation = values[i]
                 });
             }
+        }
+
+        [TestMethod]
+        public void AreaQuantities()
+        {
+
+
+            var ele = new ObtainRecordsFromContentForAreaQuantity();
+
+            ele.ObtainRecords();
+
+
+
         }
     }
 }
