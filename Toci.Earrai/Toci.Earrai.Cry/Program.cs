@@ -10,6 +10,7 @@ using Microsoft.Graph;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Tests;
 using Toci.Microsoft.Graph.Excel;
 using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
@@ -57,6 +58,7 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("4. GraphHelper.GetContentOfFileAsync");
                 Console.WriteLine("5. Seed the db by excel files");
                 Console.WriteLine("6. The test of updating excel cells");
+                Console.WriteLine("7. Seed the areaquantity");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -107,8 +109,10 @@ namespace OneDriveWithMSGraph {
                          * lastly filtering process of cells take a place
                          * meanwhile db is seeded according to current stage of the entire process
                          */
-
-
+                        Console.WriteLine("Lets start");
+                        var ele = new SeedWorkBook();
+                        ele.SeedDBByWorkbook();
+                        /*
                         string[] wsadSheet1 = new string[3];
                         string[] wsadSheet2 = new string[2];
                         string[] wsadSheet3 = new string[2];
@@ -252,6 +256,8 @@ namespace OneDriveWithMSGraph {
 
                             }
                         }
+
+                        */
                         Console.WriteLine("Press any button if finished");
                         Console.ReadKey();
                         choice = 0;
@@ -259,6 +265,11 @@ namespace OneDriveWithMSGraph {
                     case 6:
                         var TestObject = new EntityOperations();
                         TestObject.UpdateExcelCell(0, 0, "01SCYADGJKJP7FBEP3MFHZ77VLHI7AJ5RD", "Arkusz1", "dupa22");
+                        choice = 0;
+                        break;
+                    case 7:
+                        var ele2 = new ObtainRecordsFromContentForAreaQuantity();
+                        ele2.ObtainRecords();
                         choice = 0;
                         break;
                     default:

@@ -32,16 +32,12 @@ namespace Toci.Earrai.Tests
         public void SeedAllDb()
         {
             SeedUsersAndRoles();
-            SeedWorksheets();
             SeedAreas();
             SeedWlOrSizeCategories();
             Vendors();
             QuotesAndMetrics();
             Roles();
             Users();
-            Workbooks();
-            Worksheets();
-            WorksheetContents();
             SeedAreas();
             SeedWlOrSizeCategories();
         }
@@ -51,14 +47,6 @@ namespace Toci.Earrai.Tests
         {
             Roles();
             Users();
-        }
-
-        [TestMethod]
-        public void SeedWorksheets()
-        {
-            Workbooks();
-            Worksheets();
-            WorksheetContents();
         }
 
         [TestMethod]
@@ -131,58 +119,6 @@ namespace Toci.Earrai.Tests
             {
                 Name = "Admin"
             });
-        }
-
-        [TestMethod]
-        public void Workbooks()
-        {
-            string[] ids = {"IUYG13IG214HSABGIY123", "1J3G2U124G12UYHVGB4H", "HJG123HGVB21HJ4", "H2J1G3H421GB4HV35" };
-            string[] filenames = {"excel", "onedrive", "powerpoint", "powershell" };
-
-            for (int i = 0; i < 4; i++)
-            {
-                Workbook.Insert(new Workbook()
-                {
-                    Idoffile = ids[r.Next(0, ids.Length)],
-                    Filename = filenames[r.Next(0, filenames.Length)],
-                    Createdat = DateTime.Today.AddDays(r.Next(-100, 20)),
-                    Updatedat = DateTime.Today.AddDays(r.Next(-100, 20))
-                });
-            }
-        }
-
-        [TestMethod]
-        public void Worksheets()
-        {
-            for (int i = 0; i < 30; i++)
-            {
-                Worksheet.Insert(new Worksheet()
-                {
-                    Idworkbook = r.Next(1, 4),
-                    Sheetname = "Arkusz" + r.Next(1, 20),
-                    Createdat = DateTime.Today.AddDays(r.Next(-100, 20)),
-                    Updatedat = DateTime.Today.AddDays(r.Next(-100, 20))
-                });
-            }
-        }
-
-
-        [TestMethod]
-        public void WorksheetContents()
-        {
-            string[] values = {"sad", "zxc", "qwe", "123", "sdafa", "asdda", "asdasd", "zxczx", "123123asdf", "123asd", "zxcvadqw"};
-            for (int i = 0; i < 100; i++)
-            {
-                WorksheetContent.Insert(new Worksheetcontent()
-                {
-                    Idworksheet = r.Next(1, 20),
-                    Columnindex = r.Next(0, 20),
-                    Rowindex = r.Next(0, 20),
-                    Value = values[r.Next(0, values.Length)],
-                    Createdat = DateTime.Today.AddDays(r.Next(-100, 20)),
-                    Updatedat = DateTime.Today.AddDays(r.Next(-100, 20))
-                });
-            }
         }
 
         [TestMethod]
@@ -330,14 +266,17 @@ CON".Split("\n", StringSplitOptions.None);
         [TestMethod]
         public void AreaQuantities()
         {
-
-
+            Console.WriteLine("Lets start");
             var ele = new ObtainRecordsFromContentForAreaQuantity();
-
             ele.ObtainRecords();
+        }
 
-
-
+        [TestMethod]
+        public void Workbooks()
+        {
+            Console.WriteLine("Lets start");
+            var ele = new SeedWorkBook();
+            ele.SeedDBByWorkbook();
         }
     }
 }
