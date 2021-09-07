@@ -25,6 +25,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
         public virtual DbSet<Quotesandprice> Quotesandprices { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
@@ -44,7 +45,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United Kingdom.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -75,7 +76,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
-                entity.Property(e => e.Lengthdimensions).HasColumnName("lengthdimensions");
+                entity.Property(e => e.Length).HasColumnName("length");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -84,6 +85,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Updatedat)
                     .HasColumnName("updatedat")
                     .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.Width).HasColumnName("width");
 
                 entity.HasOne(d => d.IdareaNavigation)
                     .WithMany(p => p.Areaquantities)
@@ -130,11 +133,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Initials).HasColumnName("initials");
 
-                entity.Property(e => e.Lengthdimensions).HasColumnName("lengthdimensions");
+                entity.Property(e => e.Length).HasColumnName("length");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Width).HasColumnName("width");
             });
 
             modelBuilder.Entity<Codesdimension>(entity =>
@@ -230,6 +235,34 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Stock>(entity =>
+            {
+                entity.ToTable("stock");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Category).HasColumnName("category");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Length).HasColumnName("length");
+
+                entity.Property(e => e.Productaccountreference).HasColumnName("productaccountreference");
+
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Thickness).HasColumnName("thickness");
+
+                entity.Property(e => e.Width).HasColumnName("width");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Stocks)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("stock_idworksheet_fkey");
             });
 
             modelBuilder.Entity<User>(entity =>
