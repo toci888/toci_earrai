@@ -41,7 +41,7 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
     },
     container: {
-        paddingTop: 40,
+        paddingTop: 55,
     },
     columns: {
         width: '60%',
@@ -61,7 +61,7 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
     },
     gridShort: {
-        width: '5%',
+        width: 40,
         display: 'flex',
         height: '100%',
         alignItems: 'center',
@@ -70,23 +70,12 @@ export const worksheetRecord = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         borderBottomColor: 'black',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        paddingLeft: 0,
+        paddingStart: 0
     },
-    absoluteUpdate: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: 40,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#8781d8'
-    },
-    updateText: {
-        fontWeight: 'bold',
-        fontSize: 15
-    },
+
+
 
     ComboPicker: {
         height: 50,
@@ -108,24 +97,27 @@ export const worksheetRecord = StyleSheet.create({
 
     DimensionsView: {
         //flexDirection: 'row',
-        display: 'flex',
-        marginRight: 25
-    },
-    DimensionsInputContainerTwo: {
-        width: '50%',
-        margin: 15,
-        height: 50
+       // display: 'flex',
+        //marginRight: 25
+        marginTop: 15,
+        marginLeft: 15,
+        marginRight: 15,
     },
     DimensionsInputContainerTwo: {
         width: '100%',
-        margin: 15,
+        //margin: 15,
+        height: 50
+    },
+    DimensionsInputContainerOne: {
+        width: '100%',
+        //margin: 15,
         height: 50
     },
     QuantityInputContainer: {
         width: '100%',
-        marginBottom: 15,
-        marginLeft: 15,
-        marginRight: 15,
+        // marginBottom: 15,
+        // marginLeft: 15,
+        // marginRight: 15,
         height: 50
     },
     dimensionsInput: {
@@ -168,6 +160,16 @@ export const worksheetRecord = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         fontSize: 17
+    },
+    inputStyle: {
+        backgroundColor: '#ddd',
+        borderColor: '#777',
+        color: '#000',
+        letterSpacing: 0.5,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 17,
+        paddingLeft: 15
     }
 
 

@@ -1,13 +1,10 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import AppUser from '../shared/AppUser'
-import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function WorksheetRecord_Inputs(props) {
-
-    console.log(props)
 
     const setLength = text => {
         props.settempAreaquantityRow(prev => {
@@ -60,7 +57,7 @@ export default function WorksheetRecord_Inputs(props) {
 
                         <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={globalStyles.inputStyle}
+                                style={worksheetRecord.inputStyle}
                                 value={props.tempAreaquantityRow.lengthdimensions}
                                 onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
@@ -70,7 +67,7 @@ export default function WorksheetRecord_Inputs(props) {
 
                         <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={globalStyles.inputStyle}
+                                style={worksheetRecord.inputStyle}
                                 value={props.tempAreaquantityRow.widthdimensions}
                                 onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
@@ -82,7 +79,7 @@ export default function WorksheetRecord_Inputs(props) {
                     :
                     (<View style={worksheetRecord.DimensionsInputContainerOne}>
                         <TextInput
-                            style={globalStyles.inputStyle}
+                            style={worksheetRecord.inputStyle}
                             value={props.tempAreaquantityRow.lengthdimensions}
                             onChangeText={(text) => props.setLength(text)}
                             placeholder="Type Length.."
@@ -96,7 +93,7 @@ export default function WorksheetRecord_Inputs(props) {
             <View style={worksheetRecord.DimensionsView}>
                 <View style={worksheetRecord.QuantityInputContainer}>
                     <TextInput
-                        style={globalStyles.inputStyle}
+                        style={worksheetRecord.inputStyle}
                         value={props.tempAreaquantityRow.quantity}
                         onChangeText={($event) => setAreaquantity($event)}
                         placeholder="Type Quantity.."

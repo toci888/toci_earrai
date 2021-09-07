@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/worksheetsListStyles'
-import { Button, Text, View, TextInput, Alert, Keyboard } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import { Text, View, TextInput } from 'react-native'
+import { modalStyles } from '../styles/modalStyles'
 import { environment } from '../environment'
 import { FlatList } from 'react-native-gesture-handler'
 
@@ -13,9 +13,17 @@ export default function WorksheetsList({ route, navigation }) {
     const [displayedWorksheets, setdisplayedWorksheets] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(true)
+    const [apierror, setApierror] = useState(false)
 
     useEffect( () => {
         connectService.setNowWorkbookId(navigation.getParam('workbookId'))
+
+        apiFetch()
+
+    }, [] )
+
+
+    const apiFetch = () => {
         setloading(true)
         let tempWorkbook = environment.prodApiUrl + "api/Workbook/GetAllWorksheetsFromDb/" + navigation.getParam('workbook')['idoffile']
         fetch(tempWorkbook)
@@ -26,11 +34,17 @@ export default function WorksheetsList({ route, navigation }) {
             setloading(false)
 
         }).catch(error => {
-            setworksheets(x)
             setloading(false)
+            setApierror(true)
         })
+    }
 
-    }, [] )
+    const reloadApp = () => {
+        setloading(true)
+        setApierror(false)
+
+        apiFetch()
+    }
 
     const filterWorkbooks = (text) => {
 
@@ -49,13 +63,18 @@ export default function WorksheetsList({ route, navigation }) {
             connectService: navigation.getParam('connectService') } )
     }
 
-    if(loading) {
-        return(
-            <View style={ globalStyles.loading }>
-                <Text style={ globalStyles.loadingText }>Loading..</Text>
+    if(apierror) return(
+        <View>
+            <View style={globalStyles.noConnectionView}>
+                <Text style={globalStyles.noConnectionText}> NO CONNECTION </Text>
             </View>
-        )
-    }
+
+            <View style={globalStyles.reloadView}>
+                <Text onPress={reloadApp} style={globalStyles.reloadText}> RELOAD </Text>
+            </View>
+
+        </View>
+    )
 
     return (
 

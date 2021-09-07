@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, TextInput } from 'react-native'
 import { globalStyles } from '../styles/globalStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
-import AsyncStorage from '@react-native-community/async-storage'
 import Header from '../components/header'
 import { environment } from '../environment';
 import AppUser from '../shared/AppUser'
+import { modalStyles } from '../styles/modalStyles'
 
 export default function Home( { navigation }) {
 
@@ -15,26 +15,11 @@ export default function Home( { navigation }) {
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(true)
+    const [apierror, setApierror] = useState(false)
 
     useEffect( () => {
 
-        /*AsyncStorage.getItem('allData')
-        .then(response => {
-            return JSON.parse(response)
-        })
-        .then( (response) => {
-            console.log(response);
-            if(!response) return
-            AppUser.setWorksheetsRecords(response)
-            setdisplayedWorkbooks(response['Workbooks'])
-            setworkbooks(response['Workbooks'])
-        }).finally(data => {
-            setloading(false)
-            apiFetch()
-        })*/
-
         apiFetch()
-
 
         const interval = setInterval(() => {
             connectService.checkConnect()
@@ -42,14 +27,17 @@ export default function Home( { navigation }) {
 
     }, [] )
 
+    const reloadApp = () => {
+        setloading(true)
+        setApierror(false)
+
+        apiFetch()
+    }
+
     const apiFetch = () => {
-        let url = environment.prodApiUrl + "api/EntityOperations/LoadData"
-        //console.log(url)
-        fetch(url)
+        fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            //console.log(JSON.stringify(response))
             setloading(false)
             AppUser.setApiData(response)
             setworkbooks(response.Workbooks)
@@ -57,14 +45,17 @@ export default function Home( { navigation }) {
         })
         .catch(error => {
             setloading(false)
-            getWorkbooksFromStorage()
+            setApierror(true)
         })
     }
 
     const getWorkbooksFromStorage = () => {
         AppUser.getApiData().then(response => {
+            console.log(response)
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
+        }).catch(error => {
+
         })
     }
 
@@ -112,20 +103,21 @@ export default function Home( { navigation }) {
         )
     }
 
-    if(loading) {
-       return (
+    const displayContent = () => {
+        if(apierror) return(
             <View>
-                <Text>Loading ...</Text>
+                <View style={globalStyles.noConnectionView}>
+                    <Text style={globalStyles.noConnectionText}> NO CONNECTION </Text>
+                </View>
+
+                <View style={globalStyles.reloadView}>
+                    <Text onPress={reloadApp} style={globalStyles.reloadText}> RELOAD </Text>
+                </View>
+
             </View>
         )
-    }
 
-    return (
-        <View style={globalStyles.container}>
-            <Header navigation={navigation} />
-
-            { noConnectHeader() }
-
+        return(
             <View style={ globalStyles.content } >
 
                 <Text style={ globalStyles.chooseWorkbookHeader }>
@@ -145,6 +137,23 @@ export default function Home( { navigation }) {
                 { displayWorkbooks() }
 
             </View>
+        )
+    }
+
+    return (
+        <View style={globalStyles.container}>
+
+            { loading && (
+                <View style={modalStyles.tempContainer}>
+                    <Text style={modalStyles.tempText}>Wait..</Text>
+                </View>
+            )}
+
+            <Header navigation={navigation} />
+
+            { noConnectHeader() }
+
+            { displayContent() }
 
             <StatusBar style="auto" />
 
