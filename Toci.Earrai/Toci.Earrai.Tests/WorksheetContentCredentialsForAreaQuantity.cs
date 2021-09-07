@@ -143,7 +143,7 @@ namespace Toci.Earrai.Tests
             return areaQuantityWsad;
         }
 
- 
+        
 
     }
 

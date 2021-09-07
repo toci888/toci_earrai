@@ -53,7 +53,8 @@ namespace Toci.Earrai.Tests
 
             foreach (var content in worksheetcontents)
             {
-                string sheetName = "PLT & SHEET";
+                catFlag = 0;
+                string sheetName = "FLTS";
                 int? idworksheet = content.Idworksheet;
                 int idarea;
 
@@ -111,7 +112,7 @@ namespace Toci.Earrai.Tests
                                 aqInsert.rowIndex = rowIndex;
                             }
                         }
-                        else if(catFlag == 1)
+                        else if(aqInsert.idCodeDimension != null)
                         {
                             if (areaQuantityData[j].LengthColumn != -1)
                             {
@@ -188,6 +189,7 @@ namespace Toci.Earrai.Tests
                                     {
                                         if (value == null)
                                         {
+                                            InsertAreaQuantity(aqInsert);
                                             catFlag = 0;
                                             break;
                                         }
@@ -198,6 +200,7 @@ namespace Toci.Earrai.Tests
                                                 if (ar.Code.Equals(value))
                                                 {
                                                     aqInsert.idArea = ar.Id;
+                                                    InsertAreaQuantity(aqInsert);
                                                     catFlag = 0;
                                                     break;
                                                 }
@@ -210,8 +213,6 @@ namespace Toci.Earrai.Tests
                             }
                         }
                     }
-                    if (catFlag == 1)
-                        break;
                 }
             }
         }
