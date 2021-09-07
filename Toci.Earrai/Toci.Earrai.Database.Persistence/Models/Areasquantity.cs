@@ -14,7 +14,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Iduser { get; set; }
         public int? Rowindex { get; set; }
         public string Quantity { get; set; }
-        public string Lengthdimensions { get; set; }
+        public string Length { get; set; }
+        public string Width { get; set; }
         public DateTime? Createdat { get; set; }
         public string Areacode { get; set; }
         public string Areaname { get; set; }

@@ -3,6 +3,7 @@ drop view AreasQuantities;
 drop view QuotesAndPrices;
 
 drop table quoteandprice;
+drop table stock;
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
 drop table areaquantity;
@@ -63,6 +64,19 @@ create table worksheetcontents
 	updatedAt timestamp
 );
 
+create table stock
+(
+ 	id serial primary key,
+	idworksheet int references worksheets (id),
+	rowIndex int,
+	category text,
+	productaccountreference text,
+	description text,
+	length text,
+	width text,
+	thickness text
+);
+
 create table worksheetcontentshistory
 (
 	id serial primary key,
@@ -96,7 +110,8 @@ create table areaquantity
 	idUser int references users(id),
 	rowIndex int,
 	quantity text,
-	lengthDimensions text,
+	length text,
+	width text,
 	createdAt timestamp default now(),
 	updatedAt timestamp default now()
 );
@@ -127,7 +142,7 @@ create table quoteandprice
 
 create or replace view AreasQuantities as 
 select areaquantity.id, areaquantity.idworksheet, areaquantity.idcodesdimensions, areaquantity.idArea, areaquantity.idUser, 
-areaquantity.rowIndex, areaquantity.quantity, areaquantity.lengthDimensions, areaquantity.createdAt, areas.code as areacode, areas.name as areaname, 
+areaquantity.rowIndex, areaquantity.quantity, areaquantity.length, areaquantity.width, areaquantity.createdAt, areas.code as areacode, areas.name as areaname, 
 users.initials 
 from areaquantity join areas on areaquantity.idArea = areas.id 
 join users on areaquantity.idUser = users.id;
