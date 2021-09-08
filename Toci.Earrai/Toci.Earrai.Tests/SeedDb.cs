@@ -149,7 +149,8 @@ namespace Toci.Earrai.Tests
                 QJ	Quarry Area J
                 QK	Quarry Area K
                 QL	Quarry Area L
-                QM	Quarry Area M";
+                QM	Quarry Area M
+                empty	empty";
 
             string[] elements = items.Split(new string[] { "\n"} , StringSplitOptions.None);
 
