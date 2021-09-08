@@ -21,8 +21,9 @@ export const modalStyles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: '100%',
+        flex: 0,
         backgroundColor: '#171819',
-        opacity: 0.6,
+        opacity: 0.85,
         zIndex: 2000,
         display: 'flex',
         alignItems: 'center',
@@ -30,7 +31,7 @@ export const modalStyles = StyleSheet.create({
     },
     tempText: {
         color: 'white',
-        fontSize: 25
+        fontSize: 35
 
     }
 

@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 export default function Login({navigation}) {
   const checkIfLogged = async () => {
-    let logged = await AppUser.checkIfAlreadyExists()
+    let logged = true// await AppUser.checkIfAlreadyExists()
     console.log(logged)
     if(logged) {
       navigation.navigate('Home')
@@ -51,7 +51,7 @@ export default function Login({navigation}) {
     })}
 
     onSubmit={values => {login(values)}}
-    
+
     validationSchema={yup.object().shape({
       email: yup.string()
         .email()
@@ -62,7 +62,7 @@ export default function Login({navigation}) {
     })}>
 
     {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
-      <View style={formStyles.container}>         
+      <View style={formStyles.container}>
         <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
         { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
         <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>

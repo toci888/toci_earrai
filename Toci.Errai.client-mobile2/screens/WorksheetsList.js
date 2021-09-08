@@ -4,7 +4,7 @@ import { worksheetsList } from '../styles/worksheetsListStyles'
 import { Text, View, TextInput } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
 import { environment } from '../environment'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -19,7 +19,7 @@ export default function WorksheetsList({ route, navigation }) {
         connectService.setNowWorkbookId(navigation.getParam('workbookId'))
 
         apiFetch()
-
+        console.log(1)
     }, [] )
 
 
@@ -80,6 +80,12 @@ export default function WorksheetsList({ route, navigation }) {
 
         <View style={ globalStyles.content }>
 
+            { loading && (
+                <View style={modalStyles.tempContainer}>
+                    <Text style={modalStyles.tempText}>Wait..</Text>
+                </View>
+            )}
+
             <Text style={globalStyles.chooseWorkbookHeader}> All Worksheets </Text>
 
             <View>
@@ -97,15 +103,15 @@ export default function WorksheetsList({ route, navigation }) {
                 keyExtractor={ (item) => item.id.toString() }
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
+                    // <TouchableOpacity>
+                        <View key={ item.id } style={ worksheetsList.listItem }>
 
-                    <View style={ worksheetsList.listItem } key={ item.id } >
+                            <Text onPress={ () => showWorksheets(item) } style={ worksheetsList.listText }>
+                                { item.sheetname }
+                            </Text>
 
-                        <Text onPress={ () => showWorksheets(item) }>
-                            { item.sheetname }
-                        </Text>
-
-                    </View>
-
+                        </View>
+                    // </TouchableOpacity>
 
                 )}
             />

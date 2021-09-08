@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 import { globalStyles } from '../styles/globalStyles'
 import {ConnectionService } from '../CacheModule/CacheServiceServiceModule'
 import Header from '../components/header'
 import { environment } from '../environment';
 import AppUser from '../shared/AppUser'
 import { modalStyles } from '../styles/modalStyles'
+import { worksheetsList } from '../styles/worksheetsListStyles'
 
 export default function Home( { navigation }) {
 
@@ -18,12 +19,11 @@ export default function Home( { navigation }) {
     const [apierror, setApierror] = useState(false)
 
     useEffect( () => {
-
         apiFetch()
 
-        const interval = setInterval(() => {
-            connectService.checkConnect()
-        }, 6000)
+        // const interval = setInterval(() => {
+        //     connectService.checkConnect()
+        // }, 6000)
 
     }, [] )
 
@@ -38,12 +38,14 @@ export default function Home( { navigation }) {
         fetch(environment.prodApiUrl + "api/EntityOperations/LoadData")
         .then(response => response.json())
         .then(response => {
+            console.log(response)
             setloading(false)
             AppUser.setApiData(response)
             setworkbooks(response.Workbooks)
             setdisplayedWorkbooks(response.Workbooks)
         })
         .catch(error => {
+            console.log(error);
             setloading(false)
             setApierror(true)
         })
@@ -79,28 +81,21 @@ export default function Home( { navigation }) {
     }
 
     const noConnectHeader = () => {
-        if(connectService.isConnectedFunc()) return
-        return(
-            <View style={globalStyles.header} onPress={disconnect}>
-                <Text style={globalStyles.headerText}>You're not connected now!</Text>
-            </View>
-        )
+        //if(connectService.isConnectedFunc())
+        return
     }
 
     const displayWorkbooks = () => {
         return(
-            <View style={ globalStyles.lists }>
-
-                { displayedWorkbooks?.map( (item, index) =>
-
-                    <Text key={ index } style={globalStyles.listItem} onPress={ () => showWorksheets(item) }>
+            displayedWorkbooks?.map( (item, index) =>
+            <TouchableOpacity key={ index } onPress={ () => showWorksheets(item) }>
+                <View style={ worksheetsList.listItem }>
+                    <Text style={worksheetsList.listText}>
                         { item.filename }
                     </Text>
-
-                ) }
-
-            </View>
-        )
+                </View>
+            </TouchableOpacity>
+        ))
     }
 
     const displayContent = () => {
@@ -109,11 +104,11 @@ export default function Home( { navigation }) {
                 <View style={globalStyles.noConnectionView}>
                     <Text style={globalStyles.noConnectionText}> NO CONNECTION </Text>
                 </View>
-
-                <View style={globalStyles.reloadView}>
-                    <Text onPress={reloadApp} style={globalStyles.reloadText}> RELOAD </Text>
-                </View>
-
+                <TouchableOpacity onPress={reloadApp}>
+                    <View style={globalStyles.reloadView}>
+                        <Text style={globalStyles.reloadText}> RELOAD </Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
 

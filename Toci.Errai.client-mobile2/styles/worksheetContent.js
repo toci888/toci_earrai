@@ -52,6 +52,47 @@ export const worksheetContentCSS = StyleSheet.create({
         color: 'black',
         textAlign: 'center',
         fontSize: 18
+    },
+    filterContent: {
+        flexDirection: 'row',
+
+    },
+    inputStyle: {
+        backgroundColor: '#ddd',
+        borderColor: '#777',
+        color: '#000',
+        letterSpacing: 0.5,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        fontSize: 17,
+        width: '80%'
+
+    },
+    filterInput: {
+        backgroundColor: '#ddd',
+        borderColor: '#777',
+        color: '#000',
+        letterSpacing: 0.5,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 10,
+        fontSize: 17,
+        width: '80%'
+    },
+    filterButtonView: {
+        width: '20%',
+    },
+    filterButton: {
+        height: 52,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#6f1111'
+    },
+    textUpdate: {
+        color: 'white',
+        fontSize: 20
     }
 
 })

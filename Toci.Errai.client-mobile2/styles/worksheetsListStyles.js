@@ -8,7 +8,14 @@ export const worksheetsList = StyleSheet.create({
         paddingBottom: 15,
         borderBottomWidth: 2,
         borderBottomColor: '#cccccc',
-        textAlign: 'center'
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    listText: {
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center'
     }
 
 

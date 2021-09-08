@@ -37,7 +37,7 @@ export const globalStyles = StyleSheet.create({
     },
     lists: {
         backgroundColor: 'white',
-        paddingTop: 10,
+        //paddingTop: 10,
         textAlign: 'center',
         borderBottomWidth: 2,
         borderBottomColor: '#cccccc',
@@ -45,7 +45,8 @@ export const globalStyles = StyleSheet.create({
     content: {
         backgroundColor: 'white',
         borderTopColor: 'green',
-        borderTopWidth: 3
+        borderTopWidth: 3,
+        flex: 1,
     },
     listItem: {
         backgroundColor: '#cccccc',

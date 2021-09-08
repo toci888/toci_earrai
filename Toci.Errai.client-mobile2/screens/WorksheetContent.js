@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
 import { worksheetContentCSS } from '../styles/worksheetContent'
 import { DataTable } from 'react-native-paper'
 import { environment } from '../environment'
 import { modalStyles } from '../styles/modalStyles'
+import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
-let tempColumns = 4
+let tempColumns = 3
 
 export default function WorksheetContent({ route, navigation }) {
 
@@ -29,25 +30,20 @@ export default function WorksheetContent({ route, navigation }) {
         setloading(true)
         fetch(environment.prodApiUrl + "api/WorksheetContent/GetColumnsForWorksheet/" + navigation.getParam('worksheetId'))
         .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            setColumns(response)
-        }).catch(error => {
-            console.log(error)
-            setApierror(true)
-        }).finally(x => {
-            setloading(false)
-        })
+        .then(response => { setColumns(response) })
+        .catch(error => { setApierror(true) })
+        .finally(() => { setloading(false) })
     }
 
-    const searchForData = () => {
+    const searchForData = (filteredValue_, skipCounter_) => {
         setloading(true)
         let x = environment.prodApiUrl + "api/WorksheetContent/searchWorksheet/"
-                    + navigation.getParam('worksheetId') + "/" + filteredValue + "/" + skipCounter
+                    + navigation.getParam('worksheetId') + "/" + filteredValue_ + "/" + skipCounter_
         console.log(x)
         fetch(x)
         .then(response => response.json())
         .then(response => {
+            setSkipCounter(prev => prev + 1)
             setworksheetContent(prev => {
                 return [...prev, ...response]
             })
@@ -60,12 +56,11 @@ export default function WorksheetContent({ route, navigation }) {
             console.log(error)
         }).finally(x => {
             setloading(false)
-            setSkipCounter(prev => prev + 1)
         })
     }
 
     const loadMore = () => {
-        if(!nomoredata) searchForData()
+        if(!nomoredata) searchForData(filteredValue, skipCounter)
     }
 
     const showRecordData = (rowIndex) => {
@@ -78,21 +73,20 @@ export default function WorksheetContent({ route, navigation }) {
         })
     }
 
-    const filterContent = (text) => {
-        setSkipCounter(0)
-        setfilteredValue(text)
+    const filterContent = () => {
+        setworksheetContent(prev => {return []})
+        setNomoredata(prev => {return false})
+        setSkipCounter(prev => {return 0})
 
-        if(text.length < 3) return
-
-        searchForData()
+        searchForData(filteredValue, 0)
     }
 
-    if (loading) {
-        return(
-            <View style={modalStyles.tempContainer}>
-                <Text style={modalStyles.tempText}>Wait..</Text>
-            </View>
-        )
+    const setFilterText = (text) => {
+        setfilteredValue(prev => {return text})
+    }
+
+    const reloadApp = () => {
+        apiFetch()
     }
 
     if(apierror) return(
@@ -109,7 +103,7 @@ export default function WorksheetContent({ route, navigation }) {
     )
 
     return (
-        <View style={globalStyles.content}>
+        <ScrollView style={globalStyles.content}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -121,16 +115,22 @@ export default function WorksheetContent({ route, navigation }) {
                 <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
             </View>
 
-            <View>
+            <View style={worksheetContentCSS.filterContent}>
                 <TextInput
                     value={filteredValue}
-                    style={globalStyles.inputStyle}
-                    onChangeText={(text) => filterContent(text)}
+                    style={worksheetContentCSS.filterInput}
+                    onChangeText={(text) => setFilterText(text)}
                     placeholder="Filter.."
                 />
+                <View style={worksheetContentCSS.filterButtonView}>
+                    <Pressable style={worksheetContentCSS.filterButton} onPress={filterContent}>
+                        <Text style={worksheetContentCSS.textUpdate}>Find</Text>
+                    </Pressable>
+                </View>
+
             </View>
 
-            <View>
+            {/* <ScrollView> */}
 
                 <View style={globalStyles.tableContainer}>
 
@@ -139,7 +139,7 @@ export default function WorksheetContent({ route, navigation }) {
                         {columns && columns[0]?.map((column, index) => {
                             if(index > tempColumns) return
                             return (
-                                <DataTable.Title key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </DataTable.Title>
+                                <DataTable.Title key={column.id} style={globalStyles.cell, {flex: 3}} > <Text>{column.value}</Text> </DataTable.Title>
                             )
                         })}
 
@@ -159,7 +159,7 @@ export default function WorksheetContent({ route, navigation }) {
                             return(<DataTable.Row key={ rowIndex } style={worksheetContentCSS.customRow} >
                                 { row.map( (column, columnIndex) => {
                                     if(columnIndex > tempColumns) return
-                                    console.log(column.id)
+                                    //console.log(column.id)
                                     return (
                                     <DataTable.Cell
                                         key={column.id}
@@ -175,7 +175,7 @@ export default function WorksheetContent({ route, navigation }) {
 
                 </View>
 
-            </View>
+            {/* </ScrollView> */}
 
             { nomoredata && (
                 <View style={worksheetContentCSS.nomoredataView}>
@@ -191,6 +191,6 @@ export default function WorksheetContent({ route, navigation }) {
                 </View>
             ) }
 
-        </View>
+        </ScrollView>
     )
 }

@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const worksheetRecord = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     item: {
         borderTopWidth: 12,
         borderTopColor: '#807373',
@@ -40,9 +43,6 @@ export const worksheetRecord = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    container: {
-        paddingTop: 55,
-    },
     columns: {
         width: '60%',
     },
@@ -74,9 +74,6 @@ export const worksheetRecord = StyleSheet.create({
         paddingLeft: 0,
         paddingStart: 0
     },
-
-
-
     ComboPicker: {
         height: 50,
         backgroundColor: '#c1c1d2',
@@ -93,32 +90,27 @@ export const worksheetRecord = StyleSheet.create({
         backgroundColor: 'red',
         color: 'yellow'
     },
-
-
     DimensionsView: {
-        //flexDirection: 'row',
-       // display: 'flex',
-        //marginRight: 25
-        marginTop: 15,
         marginLeft: 15,
         marginRight: 15,
+        marginTop: 15,
+    },
+    QuantityView: {
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
     },
     DimensionsInputContainerTwo: {
         width: '100%',
-        //margin: 15,
         height: 50
     },
     DimensionsInputContainerOne: {
         width: '100%',
-        //margin: 15,
         height: 50
     },
     QuantityInputContainer: {
         width: '100%',
-        // marginBottom: 15,
-        // marginLeft: 15,
-        // marginRight: 15,
-        height: 50
+        //height: 50
     },
     dimensionsInput: {
         backgroundColor: 'white',
@@ -130,8 +122,38 @@ export const worksheetRecord = StyleSheet.create({
         textAlign: 'center',
         fontSize: 17
     },
-
-
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 8,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#ff0000',
+    },
+    text: {
+        fontSize: 13,
+        lineHeight: 18,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+    },
+    buttonUpdate: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#1c4423',
+    },
+    textUpdate: {
+        fontSize: 13,
+        lineHeight: 18,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'black',
+    },
     vendorContainer: {
         flexDirection: 'row',
         display: 'flex',

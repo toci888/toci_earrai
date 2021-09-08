@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import { environment } from '../environment'
@@ -30,8 +30,8 @@ export default function WorksheetRecord({ route, navigation }) {
         idcodesdimensions: null,
         iduser: 3,
         quantity: "",
-        lengthdimensions: "",
-        widthdimensions: "",
+        length: "",
+        width: "",
         createdat: null,
         updatedat: null,
     })
@@ -42,7 +42,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
         setColumnsName(navigation.getParam('worksheetColumns'))
         const _worksheetRecords = navigation.getParam('workSheetRecord')
-
+        console.log(_worksheetRecords)
         setColumnsData(_worksheetRecords)
 
         let code = _worksheetRecords[0].value
@@ -58,6 +58,7 @@ export default function WorksheetRecord({ route, navigation }) {
         fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json()
         }).then(r => {
+            console.log(r)
             setgridData(r)
         }).finally(x => {
             setloading(false)
@@ -65,7 +66,7 @@ export default function WorksheetRecord({ route, navigation }) {
 
         AppUser.getApiData()
         .then( response => {
-            response = JSON.parse(response)
+            console.log(response)
 
             setareas(response['Areas'])
 
@@ -78,15 +79,15 @@ export default function WorksheetRecord({ route, navigation }) {
             if(tempKind == 1) {
                 settempAreaquantityRow(prev => {
                     return {...prev,
-                        lengthdimensions: _worksheetRecords[4]['value'],
-                        widthdimensions: _worksheetRecords[5]['value'],
+                        length: _worksheetRecords[4]['value'],
+                        width: _worksheetRecords[5]['value'],
                     }
                 })
 
             } else {
                 settempAreaquantityRow(prev => {
                     return {...prev,
-                        lengthdimensions: _worksheetRecords[4]['value'],
+                        length: _worksheetRecords[4]['value'],
                     }
                 })
             }
@@ -117,6 +118,8 @@ export default function WorksheetRecord({ route, navigation }) {
             setgridData(r)
         }).catch(error => {
             console.log(error);
+        }).finally(x => {
+            setloading(false)
         })
     }
 
@@ -127,12 +130,13 @@ export default function WorksheetRecord({ route, navigation }) {
                 idarea: AppUser.getIdArea() || 0,
                 iduser: 3,
                 quantity: "",
-                lengthdimensions: "",
-                widthdimensions: "",
+                length: "",
+                width: "",
                 createdat: null,
                 updatedat: null,
             }
         })
+        setbtnvalueHook("ADD")
     }
 
 
@@ -146,7 +150,7 @@ export default function WorksheetRecord({ route, navigation }) {
     }
 
     return (
-        <View style={worksheetRecord.container}>
+        <ScrollView style={worksheetRecord.container}>
 
             {/* { noConnectHeader() } */}
 
@@ -184,6 +188,6 @@ export default function WorksheetRecord({ route, navigation }) {
 
             {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
 
-        </View>
+        </ScrollView>
     )
 }

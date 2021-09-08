@@ -9,19 +9,6 @@ export default function WorksheetRecord_AddBtn(props) {
 
         let dataToSend = JSON.parse(JSON.stringify(props.tempAreaquantityRow));
 
-        let Length_Width
-        if(props.kindOfDisplay == 1) {
-            Length_Width = props.tempAreaquantityRow.lengthdimensions
-                        + " x "
-                    + props.tempAreaquantityRow.widthdimensions
-        } else {
-            Length_Width = props.tempAreaquantityRow.lengthdimensions
-        }
-
-        dataToSend = {...dataToSend,  lengthdimensions: Length_Width }
-
-        delete dataToSend.widthdimensions
-
         // TODO validate inputs
         props.setloading(true)
         if(props.btnvalueHook == "ADD") {
@@ -33,16 +20,13 @@ export default function WorksheetRecord_AddBtn(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify([dataToSend]) // arequantity
-            })
-            .then( response => {
+            }).then( response => {
                 console.log(response);
                 props.updateTableAfterRequest()
                 props.clearInputs()
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.log(error)
-            })
-            .finally(x => {
+            }).finally(x => {
                 props.setloading(false)
             })
 
@@ -55,15 +39,12 @@ export default function WorksheetRecord_AddBtn(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(dataToSend) // arequantity
-            })
-            .then( response => {
+            }).then( response => {
                 props.updateTableAfterRequest()
                 props.clearInputs()
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.log(error)
-            })
-            .finally(x => {
+            }).finally(x => {
                 props.setloading(false)
             })
 

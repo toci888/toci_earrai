@@ -8,13 +8,13 @@ export default function WorksheetRecord_Inputs(props) {
 
     const setLength = text => {
         props.settempAreaquantityRow(prev => {
-            return {...prev, lengthdimensions: text }
+            return {...prev, length: text }
         })
     }
 
     const setWidth = text => {
         props.settempAreaquantityRow(prev => {
-            return {...prev, widthdimensions: text}
+            return {...prev, width: text}
         })
 
     }
@@ -58,7 +58,7 @@ export default function WorksheetRecord_Inputs(props) {
                         <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
                                 style={worksheetRecord.inputStyle}
-                                value={props.tempAreaquantityRow.lengthdimensions}
+                                value={props.tempAreaquantityRow.length}
                                 onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
                             />
@@ -68,7 +68,7 @@ export default function WorksheetRecord_Inputs(props) {
                         <View style={worksheetRecord.DimensionsInputContainerTwo}>
                             <TextInput
                                 style={worksheetRecord.inputStyle}
-                                value={props.tempAreaquantityRow.widthdimensions}
+                                value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
                             />
@@ -80,7 +80,7 @@ export default function WorksheetRecord_Inputs(props) {
                     (<View style={worksheetRecord.DimensionsInputContainerOne}>
                         <TextInput
                             style={worksheetRecord.inputStyle}
-                            value={props.tempAreaquantityRow.lengthdimensions}
+                            value={props.tempAreaquantityRow.length}
                             onChangeText={(text) => props.setLength(text)}
                             placeholder="Type Length.."
                         />
@@ -90,7 +90,7 @@ export default function WorksheetRecord_Inputs(props) {
 
             </View>
 
-            <View style={worksheetRecord.DimensionsView}>
+            <View style={worksheetRecord.QuantityView}>
                 <View style={worksheetRecord.QuantityInputContainer}>
                     <TextInput
                         style={worksheetRecord.inputStyle}
