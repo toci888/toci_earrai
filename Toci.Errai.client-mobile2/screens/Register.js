@@ -1,20 +1,27 @@
-import React from 'react';
-import { Alert, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react'
+import { Alert, Text, TextInput, View, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
 import RestClient from '../RestClient';
 import { formStyles } from '../styles/formStyles';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
 export default function Register({navigation}) {
+  
+  const [indicator, setIndicator] = useState(false);
+
   const register = async (values) => {
+    setIndicator(true)
     let restClient = new RestClient();
     let response = await restClient.POST('api/Account/register', values)
-    console.log(response);
+    setIndicator(false);
+
     if(response > 0) {
       navigation.navigate('Login');
-    } else if (response > 0) {
+    } else if (response == 0) {
+      Alert.alert("Register error", "This email is already used.");
       console.log("This email is already used")
     } else {
+      Alert.alert("Failed to register", "Failed to register.");
       console.log("Failed to register")
     }
   };
@@ -27,8 +34,24 @@ export default function Register({navigation}) {
         password: '' ,
         confirmPassword: ''
       }}
+    // <Formik initialValues={{
+        // firstName: 'b',
+        // lastName: 'b',
+        // email: 'b@wp.pl',
+        // password: '1234' ,
+        // confirmPassword: '1234'
+      // }}
 
-      onSubmit={values => register(values)}
+      onSubmit={(values, {resetForm}) => {
+        register(values);
+        resetForm({values: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: '',
+          confirmPassword: ''
+        }});
+      }}
       
       validationSchema={yup.object().shape({
         firstName: yup.string()
@@ -47,7 +70,7 @@ export default function Register({navigation}) {
           .required('Confirm Password is required')
       })}>
 
-      {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
+      {({ values, handleChange, errors, setFieldTouched, touched, isValid=false, handleSubmit }) => (
         <View style={formStyles.container}>
           <TextInput value={values.firstName} style={formStyles.input} onChangeText={handleChange('firstName')} onBlur={() => setFieldTouched('firstName')} placeholder="First name" />
           { touched.firstName && errors.firstName && <Text style={formStyles.required}>{errors.firstName}</Text> }
@@ -59,7 +82,8 @@ export default function Register({navigation}) {
           { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
           <TextInput value={values.confirmPassword} style={formStyles.input} onChangeText={handleChange('confirmPassword')} placeholder="Confirm password" onBlur={() => setFieldTouched('confirmPassword')} secureTextEntry={true}/>
           { touched.confirmPassword && errors.confirmPassword && <Text style={formStyles.required}>{errors.confirmPassword}</Text> }
-          <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={handleSubmit} />
+          <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={() => handleSubmit()} />
+          <ActivityIndicator size="large" color="blue" animating={indicator}/>
 
           <Text style={formStyles.text}>Have already an account?</Text>
           <TouchableOpacity>
