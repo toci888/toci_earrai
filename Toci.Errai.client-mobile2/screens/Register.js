@@ -41,7 +41,16 @@ export default function Register({navigation}) {
         confirmPassword: '1234'
       }}
 
-      onSubmit={values => register(values)}
+      onSubmit={(values, {resetForm}) => {
+        register(values);
+        resetForm({values: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: '',
+          confirmPassword: ''
+        }});
+      }}
       
       validationSchema={yup.object().shape({
         firstName: yup.string()

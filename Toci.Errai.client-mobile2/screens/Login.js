@@ -25,6 +25,7 @@ export default function Login({navigation}) {
   }, [])
 
   const login = async (values) => {
+    // Alert("xd");
     setIndicator(true);
     let restClient = new RestClient();
     let response = await restClient.POST('api/Account/login', values)
@@ -40,25 +41,22 @@ export default function Login({navigation}) {
   };
 
   return (
-    <Formik initialValues={{
-      email: '',
-      password: ''
-    }}
     // <Formik initialValues={{
-    //   email: 'admin@wp.pl',
-    //   password: '12345678'
+    //   email: '',
+    //   password: ''
     // }}
+    <Formik initialValues={{
+      email: 'admin@wp.pl',
+      password: '12345678'
+    }}
 
-    validationSchema={yup.object().shape({
-        email: yup.string()
-            .email('Email is invalid')
-            .required('Email is required'),
-        password: yup.string()
-            .min(6, 'Password must be at least 6 characters')
-            .required('Password is required'),
-    })}
-
-    onSubmit={values => login(values)}
+    onSubmit={(values, {resetForm}) => {
+      login(values);
+      resetForm({values: {
+        email: values.email,
+        password: ''
+      }});
+    }}
     
     validationSchema={yup.object().shape({
       email: yup.string()
