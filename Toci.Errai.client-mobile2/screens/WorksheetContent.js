@@ -33,9 +33,32 @@ export default function WorksheetContent({ route, navigation }) {
         .then(response => { setColumns(response) })
         .catch(error => { setApierror(true) })
         .finally(() => { setloading(false) })
+
+        // setColumns([
+        //     [{id: 1, value: "hehe1"},
+        //     {id: 2, value: "hehe2"},],
+        //     [{id: 3, value: "hehe3"},
+        //     {id: 4, value: "hehe4"},],
+        // ])
+        // setloading(false)
     }
 
     const searchForData = (filteredValue_, skipCounter_) => {
+        // setworksheetContent([
+        //     [
+        //         {id: 5, value: "jakis"},
+        //         {id: 6, value: "jakis2"},
+        //     ],
+        //     [
+        //         {id: 7, value: "jakis3"},
+        //         {id: 8, value: "jakis4"},
+        //     ]
+        // ])
+
+        // setloading(false)
+        // return
+
+
         setloading(true)
         let x = environment.prodApiUrl + "api/WorksheetContent/searchWorksheet/"
                     + navigation.getParam('worksheetId') + "/" + filteredValue_ + "/" + skipCounter_

@@ -19,6 +19,11 @@ export default function Home( { navigation }) {
     const [apierror, setApierror] = useState(false)
 
     useEffect( () => {
+        // setdisplayedWorkbooks([
+        //     {filename: "hehe"},
+        //     {filename: "hehe2"},
+        // ])
+        // setloading(false)
         apiFetch()
 
         // const interval = setInterval(() => {

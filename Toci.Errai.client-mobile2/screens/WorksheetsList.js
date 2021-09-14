@@ -17,9 +17,13 @@ export default function WorksheetsList({ route, navigation }) {
 
     useEffect( () => {
         connectService.setNowWorkbookId(navigation.getParam('workbookId'))
+        setdisplayedWorksheets([
+            {sheetname: "heh1", id: 1},
+            {sheetname: "heh2", id: 2},
+        ])
+        setloading(false)
 
-        apiFetch()
-        console.log(1)
+        //apiFetch()
     }, [] )
 
 

@@ -8,13 +8,13 @@ import Login from '../screens/Login'
 import Register from '../screens/Register'
 
 const screens = {
-    // Login: {
-    //     screen: Login,
-    //     navigationOptions: {
-    //         title : "Logging in",
-    //         headerStyle: { backgroundColor: '#ccc' }
-    //     }
-    // },
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            title : "Logging in",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
     Home: {
         screen: Home,
         navigationOptions: {

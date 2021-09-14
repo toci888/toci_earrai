@@ -78,13 +78,13 @@ export const worksheetContentCSS = StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 10,
         fontSize: 17,
-        width: '80%'
+        width: '75%'
     },
     filterButtonView: {
-        width: '20%',
+        width: '25%',
     },
     filterButton: {
-        height: 52,
+        height: 58,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

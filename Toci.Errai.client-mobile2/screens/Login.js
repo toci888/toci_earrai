@@ -21,7 +21,8 @@ export default function Login({navigation}) {
   }
 
   useEffect(() => {
-    checkIfLogged()
+    //checkIfLogged()
+    //navigation.navigate('Home')
   }, [])
 
   const login = async (values) => {
@@ -57,7 +58,7 @@ export default function Login({navigation}) {
         password: ''
       }});
     }}
-    
+
     validationSchema={yup.object().shape({
       email: yup.string()
         .email()
@@ -68,7 +69,7 @@ export default function Login({navigation}) {
     })}>
 
     {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
-      <View style={formStyles.container}>         
+      <View style={formStyles.container}>
         <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
         { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
         <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
