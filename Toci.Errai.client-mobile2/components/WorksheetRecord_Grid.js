@@ -48,6 +48,10 @@ export default function WorksheetRecord_Grid(props) {
         props.setbtnvalueHook("UPDATE")
     }
 
+    const nowUpdating = (i) => {
+        return props.settempAreaquantityRow['id'] == props.gridData[i]['id']
+    }
+
     const displayQuantities = () => {
         if(props.gridData.length < 1) return
 
@@ -55,61 +59,56 @@ export default function WorksheetRecord_Grid(props) {
 
         for(let i = 0; i < props.gridData.length; i++) {
             respo.push(
-
-                <DataTable.Row key={i} style={ worksheetRecord.rowContainer }>
-                    <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
-                        <Text>
-                            {props.gridData[i].areacode}
-                        </Text>
-                    </DataTable.Cell>
-
-                    <DataTable.Cell key={i + "areaname"} style={worksheetRecord.grid}>
-                        <Text>
-                            {props.gridData[i].areaname}
-                        </Text>
-                    </DataTable.Cell>
-                    <DataTable.Cell key={i + "createdat"} style={worksheetRecord.grid}>
-                        <Text>
+            <>
+                <DataTable.Row key={i} style={[ worksheetRecord.rowContainerTop    ]}>
+                    <DataTable.Cell key={i + "createdat"} style={[worksheetRecord.grid, {backgroundColor: nowUpdating(i) ? "red" : "" }]}>
+                        <Text style={{backgroundColor: nowUpdating(i) ? "red" : "" }}>
                             { props.gridData[i].createdat?.substr(0, 10) }
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "length"} style={worksheetRecord.grid}>
                         <Text>
-                            {props.gridData[i].length}
+                            L: {props.gridData[i].length}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "width"} style={worksheetRecord.grid}>
                         <Text>
-                            {props.gridData[i].width}
+                            W: {props.gridData[i].width}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "quantity"} style={worksheetRecord.gridShort}>
                         <Text>
-                            {props.gridData[i].quantity}
+                            Q: {props.gridData[i].quantity}
                         </Text>
                     </DataTable.Cell>
+                </DataTable.Row>
+                <DataTable.Row key={i + "2nd"} style={ worksheetRecord.rowContainerBottom }>
                     <DataTable.Cell key={i + "initials"} style={worksheetRecord.gridShort}>
                         <Text>
-                            {props.gridData[i].initials}
+                            Initials: {props.gridData[i].initials}
+                        </Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
+                        <Text>
+                            {props.gridData[i].areacode}: {props.gridData[i].areaname}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "updDateF"} style={worksheetRecord.gridShort}>
-                        <Text onPress={() => updateData(i)}>UPDATE</Text>
-                        {/* <Text>
-                            <Pressable style={worksheetRecord.button}>
+                        <Text>
+                            <Pressable style={worksheetRecord.buttonUpdate} onPress={() => updateData(i)}>
                                 <Text style={worksheetRecord.text}>UPDATE</Text>
                             </Pressable>
-                        </Text> */}
+                        </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "delete"} style={worksheetRecord.gridShort}>
                         <Text>
                             <Pressable style={worksheetRecord.button} onPress={() => deleteData(i)}>
-                                <Text style={worksheetRecord.text}>X</Text>
+                                <Text style={worksheetRecord.text}>DELETE</Text>
                             </Pressable>
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>
-
+            </>
 
             )
         }

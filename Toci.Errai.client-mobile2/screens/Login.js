@@ -22,7 +22,7 @@ export default function Login({navigation}) {
 
   useEffect(() => {
     //checkIfLogged()
-    //navigation.navigate('Home')
+    navigation.navigate('Home')
   }, [])
 
   const login = async (values) => {

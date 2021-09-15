@@ -55,10 +55,19 @@ export default function WorksheetRecord({ route, navigation }) {
             }
         })
         setloading(true)
+
+        // const response = JSON.parse('[{"id":1432,"idworksheet":4,"idcodesdimensions":1,"idarea":8,"iduser":3,"rowindex":2,"quantity":"89","length":"37","width":"89","createdat":"2021-09-07T22:39:54.325104","areacode":"PO","areaname":"Porch","initials":"PP"},{"id":1434,"idworksheet":4,"idcodesdimensions":1,"idarea":1,"iduser":3,"rowindex":2,"quantity":"44","length":"2503","width":"1253","createdat":"2021-09-08T00:17:54.502021","areacode":"RH","areaname":"Rack House","initials":"PP"}]')
+        // setgridData(response)
+        // setloading(false)
+
+
+
+
         fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
             return r.json()
         }).then(r => {
             console.log(r)
+            console.log(JSON.stringify(r))
             setgridData(r)
         }).finally(x => {
             setloading(false)

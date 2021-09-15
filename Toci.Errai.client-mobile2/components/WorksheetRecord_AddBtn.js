@@ -52,11 +52,12 @@ export default function WorksheetRecord_AddBtn(props) {
     }
 
     return (
+            <Pressable onPress={ () => sendRequest()}>
         <View style={ worksheetRecordAddBtn.absoluteUpdate }>
-
-            <Text style={worksheetRecordAddBtn.updateText} onPress={ () => sendRequest() } >
-                { props.btnvalueHook }
-            </Text>
+                <Text style={worksheetRecordAddBtn.updateText}>
+                    { props.btnvalueHook }
+                </Text>
         </View>
+            </Pressable>
     )
 }

@@ -67,12 +67,20 @@ export const worksheetRecord = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    rowContainer: {
+    rowContainerTop: {
+        flexDirection: 'row',
+        //borderTopColor: 'black',
+        //borderTopWidth: 1,
+        paddingLeft: 0,
+        //paddingStart: 0
+    },
+    rowContainerBottom: {
         flexDirection: 'row',
         borderBottomColor: 'black',
-        borderBottomWidth: 1,
+        borderBottomWidth: 3,
         paddingLeft: 0,
-        paddingStart: 0
+        paddingStart: 0,
+        marginBottom: 3
     },
     ComboPicker: {
         height: 50,
@@ -131,6 +139,19 @@ export const worksheetRecord = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#ff0000',
     },
+    buttonUpdate: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 8,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#1ab736',
+    },
+
+
+
+
     text: {
         fontSize: 13,
         lineHeight: 18,
