@@ -2,8 +2,17 @@ drop view userRoles;
 drop view AreasQuantities;
 drop view QuotesAndPrices;
 
+drop table productsize;
+drop table sizecategories;
+drop table sizes;
 drop table quoteandprice;
-drop table stock;
+drop table productoptionvalues;
+drop table productcategoryoptions;
+drop table productoptions;
+drop table products;
+drop table commisions;
+drop table categories;
+drop table categorygroups;
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
 drop table areaquantity;
@@ -64,17 +73,62 @@ create table worksheetcontents
 	updatedAt timestamp
 );
 
-create table stock
+create table categorygroups
+(
+	id serial primary key,
+	name text
+);
+
+create table categories
+(
+	id serial primary key,
+	idcategorygroups int references categorygroups(id),
+	name text,
+	prefix text,
+	description text
+);
+
+create table commisions
+(
+	id serial primary key,
+	idcategories int references categories(id),
+	title text,
+	quotient float
+);
+
+create table products
 (
  	id serial primary key,
+	idcategories int references categories(id),
 	idworksheet int references worksheets (id),
 	rowIndex int,
-	category text,
 	productaccountreference text,
 	description text,
 	length text,
 	width text,
 	thickness text
+);
+
+create table productoptions
+(
+	id serial primary key,
+	code text,
+	name text
+);
+
+create table productcategoryoptions
+(
+	id serial primary key,
+	idcategories int references categories(id),
+	idproductoptions int references productoptions(id)
+);
+
+create table productoptionvalues
+(
+	id serial primary key,
+	idproductcategoryoptions int references productcategoryoptions(id),
+	idproducts int references products(id),
+	value text
 );
 
 create table worksheetcontentshistory
@@ -125,6 +179,7 @@ create table vendors
 create table quoteandmetric
 (
  	id serial primary key,
+	name text,
 	valuation text
 );
 
@@ -137,6 +192,27 @@ create table quoteandprice
 	idvendor int references vendors (id),
 	idquoteandmetric int references quoteandmetric (id),
 	iduser int references users (id)
+);
+
+create table sizes
+(
+	id serial primary key,
+	name text
+);
+
+create table sizecategories
+(
+	id serial primary key,
+	idsizes int references sizes(id),
+	idcategories int references categories(id)
+);
+
+create table productsize
+(
+	id serial primary key,
+	idsizes int references sizes(id),
+	idproducts int references products(id),
+	value text
 );
 
 
