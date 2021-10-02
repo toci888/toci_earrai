@@ -126,7 +126,7 @@ create table productcategoryoptions
 create table productoptionvalues
 (
 	id serial primary key,
-	idproductcategoryoptions int references productcategoryoptions(id),
+	idproductoptions int references productoptions(id),
 	idproducts int references products(id),
 	value text
 );
