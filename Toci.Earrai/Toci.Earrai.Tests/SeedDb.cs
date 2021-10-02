@@ -17,36 +17,44 @@ namespace Toci.Earrai.Tests
         protected AccountController Account = new AccountController(new UserLogic(new AuthenticationSettings()));
 
         private Logic<Role> Role = new Logic<Role>();
-        private Logic<Workbook> Workbook = new Logic<Workbook>();
-        private Logic<Worksheet> Worksheet = new Logic<Worksheet>();
-        private Logic<Worksheetcontent> WorksheetContent = new Logic<Worksheetcontent>();
         private Logic<Area> Area = new Logic<Area>();
         private Logic<Codesdimension> codesdimensions = new Logic<Codesdimension>();
         private Logic<Vendor> Vendor = new Logic<Vendor>();
         private Logic<Quoteandmetric> Quoteandmetric = new Logic<Quoteandmetric>();
-        private Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
+        private Logic<Categorygroup> CategoryGroup = new Logic<Categorygroup>();
+        private Logic<Category> Categories = new Logic<Category>();
+        private Logic<Size> Sizes = new Logic<Size>();
+        private Logic<Sizecategory> SizeCategory = new Logic<Sizecategory>();
+        private Logic<Quoteandprice> QuotesAndPrice = new Logic<Quoteandprice>();
+        private Logic<Product> Product_ = new Logic<Product>();
+        private Logic<Productsize> ProductSize = new Logic<Productsize>();
+        private Logic<Productoption> ProductOption = new Logic<Productoption>();
+        private Logic<Productcategoryoption> ProductCategoryOption = new Logic<Productcategoryoption>();
+        private Logic<Productoptionvalue> ProductOptionValue = new Logic<Productoptionvalue>();
 
         private Random r = new Random();
 
         [TestMethod]
         public void SeedAllDb()
         {
-            SeedUsersAndRoles();
+            Roles();
+            Users();
             SeedAreas();
             SeedWlOrSizeCategories();
             Vendors();
             QuotesAndMetrics();
-            Roles();
-            Users();
-            SeedAreas();
-            SeedWlOrSizeCategories();
-        }
-
-        [TestMethod]
-        public void SeedUsersAndRoles()
-        {
-            Roles();
-            Users();
+            Workbooks();
+            AreaQuantities();
+            CategoryGroups();
+            Category();
+            Size();
+            SizeCategories();
+            QuotesAndPrices();
+            Products();
+            ProductSizes();
+            ProductOptions();
+            ProductCategoryOptions();
+            ProductOptionValues();
         }
 
         [TestMethod]
@@ -249,6 +257,228 @@ CON".Split("\n", StringSplitOptions.None);
                     Name = values[i]
                 });
             }
+        }
+
+        [TestMethod]
+        public void CategoryGroups()
+        {
+            string[] values = { "Plt/Sht/Mesh", "Sections & Bars", "Finished Products", "Miscelanneous"};
+            for (int i = 0; i < values.Length; i++)
+            {
+                CategoryGroup.Insert(new Categorygroup()
+                {
+                    Name = values[i]
+                });
+            }
+        }
+
+        [TestMethod]
+        public void ProductOptionValues()
+        {
+            ProductOptionValue.Insert(new Productoptionvalue()
+            {
+                Idproductoptions = 1,
+                Idproducts = 1,
+                Value = "300"
+            });
+            ProductOptionValue.Insert(new Productoptionvalue()
+            {
+                Idproductoptions = 2,
+                Idproducts = 2,
+                Value = "400"
+            });
+            ProductOptionValue.Insert(new Productoptionvalue()
+            {
+                Idproductoptions = 3,
+                Idproducts = 3,
+                Value = "500"
+            });
+        }
+
+            [TestMethod]
+        public void ProductCategoryOptions()
+        {
+            ProductCategoryOption.Insert(new Productcategoryoption()
+            {
+                Idcategories = 1,
+                Idproductoptions = 1
+            });
+            ProductCategoryOption.Insert(new Productcategoryoption()
+            {
+                Idcategories = 2,
+                Idproductoptions = 2
+            });
+            ProductCategoryOption.Insert(new Productcategoryoption()
+            {
+                Idcategories = 3,
+                Idproductoptions = 3
+            });
+        }
+
+            [TestMethod]
+        public void ProductOptions()
+        {
+            ProductOption.Insert(new Productoption()
+            {
+                Code = "123",
+                Name = "dupa1"
+            });
+            ProductOption.Insert(new Productoption()
+            {
+                Code = "1234",
+                Name = "dupa12"
+            });
+            ProductOption.Insert(new Productoption()
+            {
+                Code = "12345",
+                Name = "dupa17"
+            });
+        }
+            [TestMethod]
+        public void ProductSizes()
+        {
+            ProductSize.Insert(new Productsize()
+            {
+                Idsizes = 1,
+                Idproducts = 1,
+                Value = "2500"
+            });
+            ProductSize.Insert(new Productsize()
+            {
+                Idsizes = 1,
+                Idproducts = 2,
+                Value = "2500"
+            });
+            ProductSize.Insert(new Productsize()
+            {
+                Idsizes = 1,
+                Idproducts = 3,
+                Value = "3000"
+            });
+        }
+
+            [TestMethod]
+        public void Products()
+        {
+            Product_.Insert(new Product()
+            {
+                Idcategories = 1,
+                Idworksheet = 4,
+                Rowindex = 443,
+                Productaccountreference = "ALSH_0.9_2500_1250",
+                Description = "0.8mm PLAIN"
+            });
+            Product_.Insert(new Product()
+            {
+                Idcategories = 1,
+                Idworksheet = 4,
+                Rowindex = 445,
+                Productaccountreference = "ALSH_2_2500_1250",
+                Description = "2mm PLAIN"
+            });
+            Product_.Insert(new Product()
+            {
+                Idcategories = 1,
+                Idworksheet = 4,
+                Rowindex = 444,
+                Productaccountreference = "ALSH_2_3000_1500",
+                Description = "2mm PLAIN"
+            });
+        }
+
+            [TestMethod]
+        public void QuotesAndPrices()
+        {
+            QuotesAndPrice.Insert(new Quoteandprice()
+            {
+                Idworksheet = 2,
+                Rowindex = 34,
+                Price = "485.00",
+                Idvendor = 2,
+                Idquoteandmetric = 1,
+                Iduser = 2
+            });
+            QuotesAndPrice.Insert(new Quoteandprice()
+            {
+                Idworksheet = 3,
+                Rowindex = 343,
+                Price = "48.10",
+                Idvendor = 3,
+                Idquoteandmetric = 3,
+                Iduser = 3
+            });
+            QuotesAndPrice.Insert(new Quoteandprice()
+            {
+                Idworksheet = 6,
+                Rowindex = 3234,
+                Price = "85.00",
+                Idvendor = 1,
+                Idquoteandmetric = 2,
+                Iduser = 1
+            });
+        }
+
+            [TestMethod]
+        public void Category()
+        {
+            Categories.Insert(new Category()
+            {
+                Idcategorygroups = 1,
+                Name = "PL_Plate Mild Steel",
+                Prefix = "PL",
+                Description = ""
+            });
+            Categories.Insert(new Category()
+            {
+                Idcategorygroups = 2,
+                Name = "SHS_Square Hollow Section",
+                Prefix = "SHS",
+                Description = ""
+            });
+            Categories.Insert(new Category()
+            {
+                Idcategorygroups = 3,
+                Name = "F_BH_Finished_Bale Handlers",
+                Prefix = "F_BH",
+                Description = ""
+            });
+        }
+
+        [TestMethod]
+        public void SizeCategories()
+        {
+            SizeCategory.Insert(new Sizecategory()
+            {
+                Idsizes = 1,
+                Idcategories = 1
+            });
+            SizeCategory.Insert(new Sizecategory()
+            {
+                Idsizes = 2,
+                Idcategories = 2
+            });
+            SizeCategory.Insert(new Sizecategory()
+            {
+                Idsizes = 3,
+                Idcategories = 3
+            });
+        }
+
+            [TestMethod]
+        public void Size()
+        {
+            Sizes.Insert(new Size()
+            {
+                Name = "Length"
+            });
+            Sizes.Insert(new Size()
+            {
+                Name = "CHS Bore"
+            });
+            Sizes.Insert(new Size()
+            {
+                Name = "Size"
+            });
         }
 
         [TestMethod]

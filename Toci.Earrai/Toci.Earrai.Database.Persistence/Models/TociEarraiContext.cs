@@ -20,12 +20,21 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Areaquantity> Areaquantities { get; set; }
         public virtual DbSet<Areasquantity> Areasquantities { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Categorygroup> Categorygroups { get; set; }
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
+        public virtual DbSet<Commision> Commisions { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Productcategoryoption> Productcategoryoptions { get; set; }
+        public virtual DbSet<Productoption> Productoptions { get; set; }
+        public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
+        public virtual DbSet<Productsize> Productsizes { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
         public virtual DbSet<Quotesandprice> Quotesandprices { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<Sizecategory> Sizecategories { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
@@ -142,6 +151,35 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Width).HasColumnName("width");
             });
 
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.ToTable("categories");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.Idcategorygroups).HasColumnName("idcategorygroups");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Prefix).HasColumnName("prefix");
+
+                entity.HasOne(d => d.IdcategorygroupsNavigation)
+                    .WithMany(p => p.Categories)
+                    .HasForeignKey(d => d.Idcategorygroups)
+                    .HasConstraintName("categories_idcategorygroups_fkey");
+            });
+
+            modelBuilder.Entity<Categorygroup>(entity =>
+            {
+                entity.ToTable("categorygroups");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
             modelBuilder.Entity<Codesdimension>(entity =>
             {
                 entity.ToTable("codesdimensions");
@@ -153,11 +191,136 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Kind).HasColumnName("kind");
             });
 
+            modelBuilder.Entity<Commision>(entity =>
+            {
+                entity.ToTable("commisions");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idcategories).HasColumnName("idcategories");
+
+                entity.Property(e => e.Quotient).HasColumnName("quotient");
+
+                entity.Property(e => e.Title).HasColumnName("title");
+
+                entity.HasOne(d => d.IdcategoriesNavigation)
+                    .WithMany(p => p.Commisions)
+                    .HasForeignKey(d => d.Idcategories)
+                    .HasConstraintName("commisions_idcategories_fkey");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("products");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.Idcategories).HasColumnName("idcategories");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Productaccountreference).HasColumnName("productaccountreference");
+
+                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.HasOne(d => d.IdcategoriesNavigation)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.Idcategories)
+                    .HasConstraintName("products_idcategories_fkey");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("products_idworksheet_fkey");
+            });
+
+            modelBuilder.Entity<Productcategoryoption>(entity =>
+            {
+                entity.ToTable("productcategoryoptions");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idcategories).HasColumnName("idcategories");
+
+                entity.Property(e => e.Idproductoptions).HasColumnName("idproductoptions");
+
+                entity.HasOne(d => d.IdcategoriesNavigation)
+                    .WithMany(p => p.Productcategoryoptions)
+                    .HasForeignKey(d => d.Idcategories)
+                    .HasConstraintName("productcategoryoptions_idcategories_fkey");
+
+                entity.HasOne(d => d.IdproductoptionsNavigation)
+                    .WithMany(p => p.Productcategoryoptions)
+                    .HasForeignKey(d => d.Idproductoptions)
+                    .HasConstraintName("productcategoryoptions_idproductoptions_fkey");
+            });
+
+            modelBuilder.Entity<Productoption>(entity =>
+            {
+                entity.ToTable("productoptions");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Code).HasColumnName("code");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Productoptionvalue>(entity =>
+            {
+                entity.ToTable("productoptionvalues");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idproductoptions).HasColumnName("idproductoptions");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+
+                entity.HasOne(d => d.IdproductoptionsNavigation)
+                    .WithMany(p => p.Productoptionvalues)
+                    .HasForeignKey(d => d.Idproductoptions)
+                    .HasConstraintName("productoptionvalues_idproductoptions_fkey");
+
+                entity.HasOne(d => d.IdproductsNavigation)
+                    .WithMany(p => p.Productoptionvalues)
+                    .HasForeignKey(d => d.Idproducts)
+                    .HasConstraintName("productoptionvalues_idproducts_fkey");
+            });
+
+            modelBuilder.Entity<Productsize>(entity =>
+            {
+                entity.ToTable("productsize");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Idsizes).HasColumnName("idsizes");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+
+                entity.HasOne(d => d.IdproductsNavigation)
+                    .WithMany(p => p.Productsizes)
+                    .HasForeignKey(d => d.Idproducts)
+                    .HasConstraintName("productsize_idproducts_fkey");
+
+                entity.HasOne(d => d.IdsizesNavigation)
+                    .WithMany(p => p.Productsizes)
+                    .HasForeignKey(d => d.Idsizes)
+                    .HasConstraintName("productsize_idsizes_fkey");
+            });
+
             modelBuilder.Entity<Quoteandmetric>(entity =>
             {
                 entity.ToTable("quoteandmetric");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Valuation).HasColumnName("valuation");
             });
@@ -237,32 +400,34 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
             });
 
-            modelBuilder.Entity<Stock>(entity =>
+            modelBuilder.Entity<Size>(entity =>
             {
-                entity.ToTable("stock");
+                entity.ToTable("sizes");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Category).HasColumnName("category");
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
 
-                entity.Property(e => e.Description).HasColumnName("description");
+            modelBuilder.Entity<Sizecategory>(entity =>
+            {
+                entity.ToTable("sizecategories");
 
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+                entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Length).HasColumnName("length");
+                entity.Property(e => e.Idcategories).HasColumnName("idcategories");
 
-                entity.Property(e => e.Productaccountreference).HasColumnName("productaccountreference");
+                entity.Property(e => e.Idsizes).HasColumnName("idsizes");
 
-                entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+                entity.HasOne(d => d.IdcategoriesNavigation)
+                    .WithMany(p => p.Sizecategories)
+                    .HasForeignKey(d => d.Idcategories)
+                    .HasConstraintName("sizecategories_idcategories_fkey");
 
-                entity.Property(e => e.Thickness).HasColumnName("thickness");
-
-                entity.Property(e => e.Width).HasColumnName("width");
-
-                entity.HasOne(d => d.IdworksheetNavigation)
-                    .WithMany(p => p.Stocks)
-                    .HasForeignKey(d => d.Idworksheet)
-                    .HasConstraintName("stock_idworksheet_fkey");
+                entity.HasOne(d => d.IdsizesNavigation)
+                    .WithMany(p => p.Sizecategories)
+                    .HasForeignKey(d => d.Idsizes)
+                    .HasConstraintName("sizecategories_idsizes_fkey");
             });
 
             modelBuilder.Entity<User>(entity =>

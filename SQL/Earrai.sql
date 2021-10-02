@@ -103,10 +103,7 @@ create table products
 	idworksheet int references worksheets (id),
 	rowIndex int,
 	productaccountreference text,
-	description text,
-	length text,
-	width text,
-	thickness text
+	description text
 );
 
 create table productoptions

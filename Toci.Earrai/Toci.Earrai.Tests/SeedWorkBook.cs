@@ -37,7 +37,7 @@ namespace Toci.Earrai.Tests
                 Console.WriteLine(workbookfile.Id);
                 Ids.Add(workbookfile.Id);
             }
-            fileId = Ids[2];
+            fileId = Ids[3];
         }
 
         public void SeedDBByWorkbook()
