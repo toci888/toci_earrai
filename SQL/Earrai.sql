@@ -1,3 +1,4 @@
+drop view ProductsSizes;
 drop view userRoles;
 drop view AreasQuantities;
 drop view QuotesAndPrices;
@@ -9,13 +10,13 @@ drop table quoteandprice;
 drop table productoptionvalues;
 drop table productcategoryoptions;
 drop table productoptions;
+drop table areaquantity;
 drop table products;
 drop table commisions;
 drop table categories;
 drop table categorygroups;
 drop table worksheetcontents;
 drop table worksheetcontentshistory;
-drop table areaquantity;
 drop table areas;
 drop table codesdimensions;
 drop table worksheets;
@@ -155,7 +156,7 @@ create table codesdimensions
 create table areaquantity
 (
 	id serial primary key,
-	idworksheet int references worksheets (id),
+	idproducts int references products(id),
 	idcodesdimensions int references codesdimensions (id),
 	idArea int references areas(id),
 	idUser int references users(id),
@@ -183,7 +184,7 @@ create table quoteandmetric
 create table quoteandprice
 (
  	id serial primary key,
-	idworksheet int references worksheets (id),
+	idproducts int references products(id),
 	rowIndex int,
 	price text,
 	idvendor int references vendors (id),
@@ -212,16 +213,19 @@ create table productsize
 	value text
 );
 
+create or replace view ProductsSizes as 
+select productsize.id, productsize.idproducts, productsize.value, sizes.name
+from productsize join sizes on productsize.idsizes = sizes.id;
 
 create or replace view AreasQuantities as 
-select areaquantity.id, areaquantity.idworksheet, areaquantity.idcodesdimensions, areaquantity.idArea, areaquantity.idUser, 
+select areaquantity.id, areaquantity.idproducts, areaquantity.idcodesdimensions, areaquantity.idArea, areaquantity.idUser, 
 areaquantity.rowIndex, areaquantity.quantity, areaquantity.length, areaquantity.width, areaquantity.createdAt, areas.code as areacode, areas.name as areaname, 
 users.initials 
 from areaquantity join areas on areaquantity.idArea = areas.id 
 join users on areaquantity.idUser = users.id;
 
 create or replace view QuotesAndPrices as
-select quoteandprice.id, quoteandprice.idworksheet, quoteandprice.rowindex, quoteandprice.price, quoteandprice.idvendor, 
+select quoteandprice.id, quoteandprice.idproducts, quoteandprice.rowindex, quoteandprice.price, quoteandprice.idvendor, 
 quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials
 from quoteandprice join quoteandmetric on quoteandprice.idquoteandmetric = quoteandmetric.id
 join vendors on quoteandprice.idvendor = vendors.id
@@ -232,6 +236,7 @@ select users.id, users.firstName, users.lastName, users.email, users.password, u
 from users 
 join roles on roles.id = users.idRole;
 
+select * from ProductsSizes;
 
 select * from users;
 select * from roles;
