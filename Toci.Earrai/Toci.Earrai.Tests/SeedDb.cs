@@ -421,27 +421,60 @@ CON".Split("\n", StringSplitOptions.None);
             [TestMethod]
         public void Category()
         {
-            Categories.Insert(new Category()
+            string[][] prefixes = new string[4][];
+            prefixes[0] = new string[] { "PL", "PLCHQ", "HD", "GS", "ALSH", "ALCHQ", "MSH", "EX_MET" };
+            prefixes[1] = new string[] { "SHS", "RHS", "PFC", "UB", "UC", "IPE", "EA", "UA", "TS",
+                "CHS", "GCHS", "FL", "FLB", "RB_BLK", "RB_BRI", "SQ_BLK", "SQ_BRI", "HB" };
+            prefixes[2] = new string[] { "F_BH", "F_PB", "F_TB", "F_PS", "F_LL", "F_TS", "F_LR", "F_CF",
+                "F_BT", "F_FT", "F_PL", "F_FLB", "F_YS", "F_SP", "PF_BH", "PF_PB", "PF_TB", "PF_PS",
+                "PF_LL", "PF_TS", "PF_LR", "PF_CF", "PF_CA", "PF_BT", "PF_FT", "PF_PL", "PF_FLB", "PF_YS", "PF_SP" };
+            prefixes[3] = new string[] { "RAM_", "PAI", "CON" };
+
+            string[][] names = new string[4][];
+            names[0] = new string[] { "PL_Plate Mild Steel", "PLCHQ_Chequer Plate Mild Steel", "HD_Hardox Plate", "GS_Galvanised Sheet",
+                "ALSH_Aluminium Sheet", "ALCHQ_Aluminium Chequer Plate", "MSH_Wire Weld Mesh", "EX_MET_Expanded Metal" };
+            names[1] = new string[] { "SHS_Square Hollow Section", "RHS_Rectangular Hollow Section", "PFC_Parallel Flange Channel", "UB_Universal Beam",
+                "UC_Universal Column", "IPE_Continental I Beams (I-Sections)", "EA_Equal Angles", "UA_Unequal Angles", "TS_T-Section T-Bar",
+                "CHS_Circular Hollow Section", "GCHS_Galv Cirular Hollow Section", "FL_Flat Bar Mild Steel", "FLB_Flat Bar Bright", "RB_BLK_Black Round Bar",
+                "RB_BRI_Bright Round Bar", "SQ_BLK_Square Bar Black", "SQ_BRI_Square Bar Bright", "HB_Hollow Bore Bar" };
+            names[2] = new string[] { "F_BH_Finished_Bale Handlers", "F_PB_Finished_Power Boxes", "F_TB_Finished_Transport Boxes", "F_PS_Finished_Power Scoop",
+                "F_LL_Finished_Land Leveller", "F_TS_Finished_Tip Skip", "F_LR_Finished_Land Rollers", "F_CF_Finished_Circular Feeders", "F_BT_Finished_Bale Trailer",
+                "F_FT_Finished_Feeding Troughs", "F_PL_Finished_Pallet Lifter", "F_FLB_Finished_Fork Lift Bucket", "F_YS_Finished_Yardscraper", 
+                "F_SP_Finished_Snow Plough", "PF_BH_Part Finished_Bale Handlers", "PF_PB_Part Finished_Power Boxes", "PF_TB_Part Finished_Transport Boxes",
+                "PF_PS_Part Finished_Power Scoop", "PF_LL_Part Finished_Land Leveller", "PF_TS_Part Finished_Tip Skip", "PF_LR_Part Finished_Land Rollers",
+                "PF_CF_Part Finished_Circular Feeders", "PF_CA_Part Finished_Crush Assemblies", "PF_BT_Part Finished_Bale Trailer", "PF_FT_Part Finished_Feeding Troughs",
+                "PF_PL_Part Finished_Pallet Lifter", "PF_FLB_Part Finished_Fork Lift Bucket", "PF_YS_Part Finished_Yardscraper", "PF_SP_Part Finished_Snow Plough" };
+            names[3] = new string[] { "RAM__Rams", "PAI_Paint", "CON_Consumables" };
+
+            string[][] descriptions = new string[4][];
+            descriptions[0] = new string[] { "Plate Mild Steel", "Chequer Plate Mild Steel", "Hardox Plate", "Galvanised Sheet", "Aluminium Sheet",
+                "Aluminium Chequer Plate", "Wire Weld Mesh", "Expanded Metal" };
+            descriptions[1] = new string[] { "Square Hollow Section", "Rectangular Hollow Section", "Parallel Flange Channel", "Universal Beam", "Universal Column",
+                "Continental I Beams (I-Sections)", "Equal Angles", "Unequal Angles", "T-Section T-Bar", "Circular Hollow Section", "Galv Cirular Hollow Section",
+                "Flat Bar Mild Steel", "Flat Bar Bright", "Black Round Bar", "Bright Round Bar", "Square Bar Black", "Square Bar Bright", "Hollow Bore Bar" };
+            descriptions[2] = new string[] { "Bale Handlers", "Power Boxes", "Transport Boxes", "Power Scoop", "Land Leveller", "Tip Skip", "Land Rollers",
+                "Circular Feeders","Bale Trailer", "Feeding Troughs", "Pallet Lifter", "Fork Lift Bucket", "Yardscraper", "Snow Plough", "Bale Handlers",
+                "Power Boxes", "Transport Boxes", "Power Scoop", "Land Leveller", "Tip Skip", "Land Rollers", "Circular Feeders", "Crush Assemblies", "Bale Trailer",
+                "Feeding Troughs", "Pallet Lifter", "Fork Lift Bucket", "Yardscraper", "Snow Plough" };
+            descriptions[3] = new string[] { "Rams", "Paint", "Consumables" };
+
+            for(int i = 0; i < 4; i++)
             {
-                Idcategorygroups = 1,
-                Name = "PL_Plate Mild Steel",
-                Prefix = "PL",
-                Description = ""
-            });
-            Categories.Insert(new Category()
-            {
-                Idcategorygroups = 2,
-                Name = "SHS_Square Hollow Section",
-                Prefix = "SHS",
-                Description = ""
-            });
-            Categories.Insert(new Category()
-            {
-                Idcategorygroups = 3,
-                Name = "F_BH_Finished_Bale Handlers",
-                Prefix = "F_BH",
-                Description = ""
-            });
+                int jLength = prefixes[i].Length;
+                for(int j = 0; j < jLength; j++)
+                {
+                    string pref = prefixes[i][j];
+                    string name = names[i][j];
+                    string descr = descriptions[i][j];
+                    Categories.Insert(new Category()
+                    {
+                        Idcategorygroups = i + 1,
+                        Name = name,
+                        Prefix = pref,
+                        Description = descr
+                    });
+                }
+            }
         }
 
         [TestMethod]
