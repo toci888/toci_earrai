@@ -8,7 +8,7 @@ namespace Toci.Earrai.Database.Persistence.Models
     public partial class Areasquantity
     {
         public int? Id { get; set; }
-        public int? Idworksheet { get; set; }
+        public int? Idproducts { get; set; }
         public int? Idcodesdimensions { get; set; }
         public int? Idarea { get; set; }
         public int? Iduser { get; set; }

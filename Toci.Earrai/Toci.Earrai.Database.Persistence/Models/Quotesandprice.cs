@@ -8,7 +8,7 @@ namespace Toci.Earrai.Database.Persistence.Models
     public partial class Quotesandprice
     {
         public int? Id { get; set; }
-        public int? Idworksheet { get; set; }
+        public int? Idproducts { get; set; }
         public int? Rowindex { get; set; }
         public string Price { get; set; }
         public int? Idvendor { get; set; }

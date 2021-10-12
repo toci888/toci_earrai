@@ -48,7 +48,7 @@ namespace Toci.Earrai.Bll
 
                 Insert(new Areaquantity()
                 {
-                    Idworksheet = element.Idworksheet,
+                    Idproducts = element.Idproducts,
                     Idcodesdimensions = element.Idcodesdimensions,
                     Idarea = element.Idarea,
                     Iduser = element.Iduser,

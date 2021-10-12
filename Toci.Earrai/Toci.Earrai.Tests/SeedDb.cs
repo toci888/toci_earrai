@@ -391,7 +391,7 @@ CON".Split("\n", StringSplitOptions.None);
         {
             QuotesAndPrice.Insert(new Quoteandprice()
             {
-                Idworksheet = 2,
+                //Idworksheet = 2,
                 Rowindex = 34,
                 Price = "485.00",
                 Idvendor = 2,
@@ -400,7 +400,7 @@ CON".Split("\n", StringSplitOptions.None);
             });
             QuotesAndPrice.Insert(new Quoteandprice()
             {
-                Idworksheet = 3,
+                //Idworksheet = 3,
                 Rowindex = 343,
                 Price = "48.10",
                 Idvendor = 3,
@@ -409,7 +409,7 @@ CON".Split("\n", StringSplitOptions.None);
             });
             QuotesAndPrice.Insert(new Quoteandprice()
             {
-                Idworksheet = 6,
+                //Idworksheet = 6,
                 Rowindex = 3234,
                 Price = "85.00",
                 Idvendor = 1,

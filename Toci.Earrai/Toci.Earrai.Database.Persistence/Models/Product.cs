@@ -9,8 +9,10 @@ namespace Toci.Earrai.Database.Persistence.Models
     {
         public Product()
         {
+            Areaquantities = new HashSet<Areaquantity>();
             Productoptionvalues = new HashSet<Productoptionvalue>();
             Productsizes = new HashSet<Productsize>();
+            Quoteandprices = new HashSet<Quoteandprice>();
         }
 
         public int Id { get; set; }
@@ -22,7 +24,9 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual Category IdcategoriesNavigation { get; set; }
         public virtual Worksheet IdworksheetNavigation { get; set; }
+        public virtual ICollection<Areaquantity> Areaquantities { get; set; }
         public virtual ICollection<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual ICollection<Productsize> Productsizes { get; set; }
+        public virtual ICollection<Quoteandprice> Quoteandprices { get; set; }
     }
 }

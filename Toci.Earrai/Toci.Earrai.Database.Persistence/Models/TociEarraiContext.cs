@@ -29,6 +29,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Productoption> Productoptions { get; set; }
         public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual DbSet<Productsize> Productsizes { get; set; }
+        public virtual DbSet<Productssize> Productssizes { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
         public virtual DbSet<Quotesandprice> Quotesandprices { get; set; }
@@ -54,7 +55,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United Kingdom.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -81,9 +82,9 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Idcodesdimensions).HasColumnName("idcodesdimensions");
 
-                entity.Property(e => e.Iduser).HasColumnName("iduser");
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
 
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+                entity.Property(e => e.Iduser).HasColumnName("iduser");
 
                 entity.Property(e => e.Length).HasColumnName("length");
 
@@ -107,15 +108,15 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasForeignKey(d => d.Idcodesdimensions)
                     .HasConstraintName("areaquantity_idcodesdimensions_fkey");
 
+                entity.HasOne(d => d.IdproductsNavigation)
+                    .WithMany(p => p.Areaquantities)
+                    .HasForeignKey(d => d.Idproducts)
+                    .HasConstraintName("areaquantity_idproducts_fkey");
+
                 entity.HasOne(d => d.IduserNavigation)
                     .WithMany(p => p.Areaquantities)
                     .HasForeignKey(d => d.Iduser)
                     .HasConstraintName("areaquantity_iduser_fkey");
-
-                entity.HasOne(d => d.IdworksheetNavigation)
-                    .WithMany(p => p.Areaquantities)
-                    .HasForeignKey(d => d.Idworksheet)
-                    .HasConstraintName("areaquantity_idworksheet_fkey");
             });
 
             modelBuilder.Entity<Areasquantity>(entity =>
@@ -136,9 +137,9 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Idcodesdimensions).HasColumnName("idcodesdimensions");
 
-                entity.Property(e => e.Iduser).HasColumnName("iduser");
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
 
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+                entity.Property(e => e.Iduser).HasColumnName("iduser");
 
                 entity.Property(e => e.Initials).HasColumnName("initials");
 
@@ -314,6 +315,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasConstraintName("productsize_idsizes_fkey");
             });
 
+            modelBuilder.Entity<Productssize>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productssizes");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+            });
+
             modelBuilder.Entity<Quoteandmetric>(entity =>
             {
                 entity.ToTable("quoteandmetric");
@@ -331,17 +347,22 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
                 entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
 
                 entity.Property(e => e.Iduser).HasColumnName("iduser");
 
                 entity.Property(e => e.Idvendor).HasColumnName("idvendor");
 
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
-
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.HasOne(d => d.IdproductsNavigation)
+                    .WithMany(p => p.Quoteandprices)
+                    .HasForeignKey(d => d.Idproducts)
+                    .HasConstraintName("quoteandprice_idproducts_fkey");
 
                 entity.HasOne(d => d.IdquoteandmetricNavigation)
                     .WithMany(p => p.Quoteandprices)
@@ -357,11 +378,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Quoteandprices)
                     .HasForeignKey(d => d.Idvendor)
                     .HasConstraintName("quoteandprice_idvendor_fkey");
-
-                entity.HasOne(d => d.IdworksheetNavigation)
-                    .WithMany(p => p.Quoteandprices)
-                    .HasForeignKey(d => d.Idworksheet)
-                    .HasConstraintName("quoteandprice_idworksheet_fkey");
             });
 
             modelBuilder.Entity<Quotesandprice>(entity =>
@@ -372,13 +388,13 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
                 entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
 
                 entity.Property(e => e.Iduser).HasColumnName("iduser");
 
                 entity.Property(e => e.Idvendor).HasColumnName("idvendor");
-
-                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
 
                 entity.Property(e => e.Initials).HasColumnName("initials");
 

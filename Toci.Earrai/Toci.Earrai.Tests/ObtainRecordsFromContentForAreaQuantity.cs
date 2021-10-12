@@ -36,7 +36,7 @@ namespace Toci.Earrai.Tests
         {
             AreaQuantity.Insert(new Areaquantity
             {
-                Idworksheet = wsad.idWorkSheet,
+                //Idworksheet = wsad.idWorkSheet,
                 Idcodesdimensions = wsad.idCodeDimension,
                 Idarea = wsad.idArea,
                 Iduser = 1,
