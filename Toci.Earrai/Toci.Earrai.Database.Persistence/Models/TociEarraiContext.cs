@@ -29,6 +29,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Productoption> Productoptions { get; set; }
         public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual DbSet<Productsize> Productsizes { get; set; }
+        public virtual DbSet<Productsoptionsstate> Productsoptionsstates { get; set; }
         public virtual DbSet<Productssize> Productssizes { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
@@ -313,6 +314,19 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Productsizes)
                     .HasForeignKey(d => d.Idsizes)
                     .HasConstraintName("productsize_idsizes_fkey");
+            });
+
+            modelBuilder.Entity<Productsoptionsstate>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productsoptionsstate");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Value).HasColumnName("value");
             });
 
             modelBuilder.Entity<Productssize>(entity =>

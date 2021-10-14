@@ -1,3 +1,4 @@
+drop view productsoptionsstate ;
 drop view ProductsSizes;
 drop view userRoles;
 drop view AreasQuantities;
@@ -129,6 +130,7 @@ create table productoptionvalues
 	value text
 );
 
+
 create table worksheetcontentshistory
 (
 	id serial primary key,
@@ -212,6 +214,11 @@ create table productsize
 	idproducts int references products(id),
 	value text
 );
+
+create or replace view productsoptionsstate as 
+select productoptions.name, productoptionvalues.idproducts, productoptionvalues.value from
+productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions
+
 
 create or replace view ProductsSizes as 
 select productsize.id, productsize.idproducts, productsize.value, sizes.name
