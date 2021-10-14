@@ -10,5 +10,6 @@ namespace Toci.Earrai.Bll.Interfaces
 {
     public interface IProductSizeLogic : ILogicBase<Productsize>
     {
+        List<Productssize> GetProductSizes(int productId);
     }
 }

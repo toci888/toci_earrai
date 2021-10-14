@@ -45,6 +45,7 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<IAreasquantitiesLogic, AreasquantitiesLogic>();
             services.AddScoped<IAreasLogic, AreasLogic>();
             services.AddScoped<IQuoteandpriceLogic, QuoteandpriceLogic>();
+            services.AddScoped<IProductLogic, ProductLogic>(); 
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
