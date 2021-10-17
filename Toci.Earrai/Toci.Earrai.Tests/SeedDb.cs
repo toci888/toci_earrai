@@ -320,8 +320,8 @@ CON".Split("\n", StringSplitOptions.None);
         {
             ProductOption.Insert(new Productoption()
             {
-                Code = "123",
-                Name = "dupa1"
+                Code = "KgSqrtM",
+                Name = "Kg/M2"
             });
             ProductOption.Insert(new Productoption()
             {
@@ -334,7 +334,37 @@ CON".Split("\n", StringSplitOptions.None);
                 Name = "dupa17"
             });
         }
-            [TestMethod]
+
+
+        [TestMethod]
+        public void Size()
+        {
+            Sizes.Insert(new Size()
+            {
+                Id = 1,
+                Name = "Length"
+            });
+            Sizes.Insert(new Size()
+            {
+                Id = 2,
+                Name = "Width"
+            });
+            Sizes.Insert(new Size()
+            {
+                Id = 3,
+                Name = "Thickness"
+            });
+            Sizes.Insert(new Size()
+            {
+                Name = "CHS Bore"
+            });
+            Sizes.Insert(new Size()
+            {
+                Name = "Size"
+            });
+        }
+
+        [TestMethod]
         public void ProductSizes()
         {
             ProductSize.Insert(new Productsize()
@@ -494,23 +524,6 @@ CON".Split("\n", StringSplitOptions.None);
             {
                 Idsizes = 3,
                 Idcategories = 3
-            });
-        }
-
-            [TestMethod]
-        public void Size()
-        {
-            Sizes.Insert(new Size()
-            {
-                Name = "Length"
-            });
-            Sizes.Insert(new Size()
-            {
-                Name = "CHS Bore"
-            });
-            Sizes.Insert(new Size()
-            {
-                Name = "Size"
             });
         }
 
