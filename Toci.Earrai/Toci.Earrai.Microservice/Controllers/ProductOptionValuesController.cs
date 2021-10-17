@@ -9,6 +9,8 @@ using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Microservice.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProductOptionValuesController : ApiControllerBase<IProductOptionValuesLogic, Productoptionvalue>
     {
         public ProductOptionValuesController(IProductOptionValuesLogic logic) : base(logic)

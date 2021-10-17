@@ -13,7 +13,16 @@ namespace Toci.Earrai.Bll.Calculations
         {
             KgPerSheetDto data = (KgPerSheetDto)factors;
 
-            return 0;
+            double result = 1.00;
+
+            
+            result *= data.Length_;
+            result *= data.Width_;
+            result *= data.Thickness_;
+
+            result /= 1000000;
+
+            return result;
         }
     }
 }
