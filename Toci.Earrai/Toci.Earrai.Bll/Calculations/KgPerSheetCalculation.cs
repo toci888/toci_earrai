@@ -9,7 +9,9 @@ namespace Toci.Earrai.Bll.Calculations
 {
     public class KgPerSheetCalculation : Calculation
     {
-        protected override double Calculate(CalculationsBaseDto factors)
+        /// 
+
+        public override double Calculate(CalculationsBaseDto factors)
         {
             KgPerSheetDto data = (KgPerSheetDto)factors;
 

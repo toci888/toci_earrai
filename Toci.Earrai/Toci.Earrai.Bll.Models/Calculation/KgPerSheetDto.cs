@@ -12,6 +12,7 @@ namespace Toci.Earrai.Bll.Models.Calculation
         protected double length_;
         protected double width_;
         protected double thickness_;
+        public double thickness { get; private set; }
 
         public double Length_ {
             get { return length_; }
@@ -29,7 +30,7 @@ namespace Toci.Earrai.Bll.Models.Calculation
         }
 
 
-        public void assignValues(List<Productssize> productsizes) {
+        public override void AssignValues(List<Productssize> productsizes) {
 
             foreach (var dimensionType in productsizes) {
 

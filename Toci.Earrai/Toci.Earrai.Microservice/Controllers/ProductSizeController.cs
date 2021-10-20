@@ -25,7 +25,7 @@ namespace Toci.Earrai.Microservice.Controllers
 
             KgPerSheetDto kgPerSheetDto = new KgPerSheetDto();
 
-            kgPerSheetDto.assignValues(productsizes);
+            kgPerSheetDto.AssignValues(productsizes);
 
             KgPerSheetCalculation kgPerSheetCalculation = new KgPerSheetCalculation();
 

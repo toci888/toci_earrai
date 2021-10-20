@@ -9,6 +9,6 @@ namespace Toci.Earrai.Bll.Calculations
 {
     public abstract class Calculation
     {
-        protected abstract double Calculate(CalculationsBaseDto factors);
+        public abstract double Calculate(CalculationsBaseDto factors);
     }
 }
