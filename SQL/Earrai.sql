@@ -26,6 +26,29 @@ drop table users;
 drop table roles;
 drop table vendors;
 drop table quoteandmetric;
+drop table density;
+drop table densitymaterial;
+drop table densityopdict;
+
+
+create table densityopdict
+(
+	id serial primary key,
+	name text
+);
+
+create table densitymaterial
+(
+	id serial primary key,
+	name text
+);
+create table density
+(
+	id serial primary key,
+	iddensityopdict int references densityopdict(id),
+	iddensitymaterial int references densitymaterial (id),
+	value text
+);
 
 create table roles
 (
@@ -217,7 +240,7 @@ create table productsize
 
 create or replace view productsoptionsstate as 
 select productoptions.name, productoptionvalues.idproducts, productoptionvalues.value from
-productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions
+productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions;
 
 
 create or replace view ProductsSizes as 
@@ -244,7 +267,6 @@ from users
 join roles on roles.id = users.idRole;
 
 select * from ProductsSizes;
-
 select * from users;
 select * from roles;
 select * from userRoles;
@@ -260,4 +282,5 @@ select * from AreasQuantities;
 select * from quoteandmetric;
 select * from quoteandprice; 
 select * from QuotesAndPrices;
+
 
