@@ -12,8 +12,8 @@ namespace Toci.Earrai.Bll.Models.Calculation {
 
         protected const int DivideBy = 1000;
 
-        public int getValue() {
-            return Density / DivideBy;
+        public double getValue(double thickness_) {
+            return thickness_ * (Density / DivideBy);
         }
     }
 }

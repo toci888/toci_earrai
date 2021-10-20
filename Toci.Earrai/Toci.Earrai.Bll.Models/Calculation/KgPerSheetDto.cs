@@ -10,7 +10,8 @@ namespace Toci.Earrai.Bll.Models.Calculation
     public class KgPerSheetDto : CalculationsBaseDto
     {
         public double length_ { private set;  get; }
-        public double width_ { private set;  get; }
+        public double width_ { private set; get; }
+        public double thickness_ { private set; get; }
         public KgPerSqrtMeterDto kgPerSqrtMeterDto_ { private set; get; }
         public KgPerSheetDto() {
             kgPerSqrtMeterDto_ = new KgPerSqrtMeterDto();
@@ -24,6 +25,8 @@ namespace Toci.Earrai.Bll.Models.Calculation
                     length_ = float.Parse(dimensionType.Value);
                 } else if (dimensionType.Name == "Width") {
                     width_ = float.Parse(dimensionType.Value);
+                } else if (dimensionType.Name == "Thickness") {
+                    thickness_ = float.Parse(dimensionType.Value);
                 }
 
             }

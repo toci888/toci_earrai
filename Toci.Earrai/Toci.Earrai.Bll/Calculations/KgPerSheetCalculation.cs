@@ -18,7 +18,7 @@ namespace Toci.Earrai.Bll.Calculations
 
             result *= data.length_;
             result *= data.width_;
-            result *= data.kgPerSqrtMeterDto_.getValue();
+            result *= data.kgPerSqrtMeterDto_.getValue(data.thickness_);
 
             result /= 1000000;
 
