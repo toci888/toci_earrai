@@ -6,14 +6,33 @@ using System.Threading.Tasks;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Models.Calculation {
-    public class KgPerSqrtMeterDto {
+    public class KgPerSqrtMeterDto: CalculationsBaseDto {
 
         protected const int Density = 8500;
 
         protected const int DivideBy = 1000;
 
-        public int getValue() {
-            return Density / DivideBy;
+        private double thickness_;
+
+        public double Thickness_ { 
+            get { return thickness_; } 
+            set { thickness_ = value; } 
+        }
+
+        public double getValue() {
+            return thickness_ * (Density / DivideBy);
+        }
+
+        public override void AssignValues(List<Productssize> productsizes) {
+
+            foreach (var dimensionType in productsizes) {
+
+                if (dimensionType.Name == "Thickness") {
+                    thickness_ = float.Parse(dimensionType.Value);
+                }
+
+            }
+
         }
     }
 }

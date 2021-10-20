@@ -23,9 +23,14 @@ namespace Toci.Earrai.Microservice.Controllers
 
             List<Productssize> productsizes = Logic.GetProductSizes(productId);
 
-            KgPerSheetDto kgPerSheetDto = new KgPerSheetDto();
+            KgPerSqrtMeterDto kgPerSqrtMeterDto = new KgPerSqrtMeterDto();
+
+            kgPerSqrtMeterDto.AssignValues(productsizes);
+
+            KgPerSheetDto kgPerSheetDto = new KgPerSheetDto(kgPerSqrtMeterDto);
 
             kgPerSheetDto.AssignValues(productsizes);
+
 
             KgPerSheetCalculation kgPerSheetCalculation = new KgPerSheetCalculation();
 
