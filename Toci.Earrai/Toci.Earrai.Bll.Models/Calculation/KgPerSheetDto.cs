@@ -10,7 +10,7 @@ namespace Toci.Earrai.Bll.Models.Calculation
     public class KgPerSheetDto : CalculationsBaseDto
     {
         public double length_ { private set;  get; }
-        public double width_ { private set; get; }
+        public double width_ { private set;  get; }
         public KgPerSqrtMeterDto kgPerSqrtMeterDto_ { private set; get; }
         public KgPerSheetDto(CalculationsBaseDto kgPerSqrtMeterDto) {
             kgPerSqrtMeterDto_ = (KgPerSqrtMeterDto)kgPerSqrtMeterDto;
