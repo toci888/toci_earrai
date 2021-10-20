@@ -29,12 +29,11 @@ namespace Toci.Earrai.Microservice.Controllers
 
             KgPerSheetCalculation kgPerSheetCalculation = new KgPerSheetCalculation();
 
-            //double result = kgPerSheetCalculation.Calculate(kgPerSheetDto);
+            double result = kgPerSheetCalculation.Calculate(kgPerSheetDto);
 
-            // return Ok(result);
+            return Ok(result);
 
-
-            return Ok(productsizes);
+            //return Ok(productsizes);
         }
 
 

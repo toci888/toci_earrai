@@ -9,18 +9,16 @@ namespace Toci.Earrai.Bll.Calculations
 {
     public class KgPerSheetCalculation : Calculation
     {
-        /// 
-
+        
         public override double Calculate(CalculationsBaseDto factors)
         {
             KgPerSheetDto data = (KgPerSheetDto)factors;
 
             double result = 1.00;
 
-            
-            result *= data.Length_;
-            result *= data.Width_;
-            result *= data.Thickness_;
+            result *= data.length_;
+            result *= data.width_;
+            result *= data.kgPerSqrtMeterDto_.getValue();
 
             result /= 1000000;
 
