@@ -24,6 +24,9 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Categorygroup> Categorygroups { get; set; }
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
         public virtual DbSet<Commision> Commisions { get; set; }
+        public virtual DbSet<Density> Densities { get; set; }
+        public virtual DbSet<Densitymaterial> Densitymaterials { get; set; }
+        public virtual DbSet<Densityopdict> Densityopdicts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Productcategoryoption> Productcategoryoptions { get; set; }
         public virtual DbSet<Productoption> Productoptions { get; set; }
@@ -209,6 +212,47 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Commisions)
                     .HasForeignKey(d => d.Idcategories)
                     .HasConstraintName("commisions_idcategories_fkey");
+            });
+
+            modelBuilder.Entity<Density>(entity =>
+            {
+                entity.ToTable("density");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Iddensitymaterial).HasColumnName("iddensitymaterial");
+
+                entity.Property(e => e.Iddensityopdict).HasColumnName("iddensityopdict");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+
+                entity.HasOne(d => d.IddensitymaterialNavigation)
+                    .WithMany(p => p.Densities)
+                    .HasForeignKey(d => d.Iddensitymaterial)
+                    .HasConstraintName("density_iddensitymaterial_fkey");
+
+                entity.HasOne(d => d.IddensityopdictNavigation)
+                    .WithMany(p => p.Densities)
+                    .HasForeignKey(d => d.Iddensityopdict)
+                    .HasConstraintName("density_iddensityopdict_fkey");
+            });
+
+            modelBuilder.Entity<Densitymaterial>(entity =>
+            {
+                entity.ToTable("densitymaterial");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Densityopdict>(entity =>
+            {
+                entity.ToTable("densityopdict");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnName("name");
             });
 
             modelBuilder.Entity<Product>(entity =>
