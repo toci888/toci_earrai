@@ -15,10 +15,13 @@ namespace Toci.Earrai.Bll.Models.Calculation {
         private double thickness_;
 
         public double Thickness_ {
+
             get { return thickness_; }
+
             set {
                 thickness_ = value;
             }
+
         }
 
         public override void AssignValues(List<Productssize> productsizes) {
@@ -33,8 +36,8 @@ namespace Toci.Earrai.Bll.Models.Calculation {
             
         }
 
-        public int getValue() {
-            return Density / DivideBy;
+        public double getValue() {
+            return thickness_ * (Density / DivideBy );
         }
     }
 }
