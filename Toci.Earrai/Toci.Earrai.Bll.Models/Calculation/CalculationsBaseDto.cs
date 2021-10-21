@@ -9,6 +9,7 @@ namespace Toci.Earrai.Bll.Models.Calculation
 {
     public abstract class CalculationsBaseDto
     {
+        // ~12 props
         public abstract void AssignValues(List<Productssize> productsizes);
     }
 }
