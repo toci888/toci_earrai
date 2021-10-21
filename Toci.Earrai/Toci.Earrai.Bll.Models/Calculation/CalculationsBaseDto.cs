@@ -7,9 +7,12 @@ using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Models.Calculation
 {
-    public abstract class CalculationsBaseDto
+    public class CalculationsBaseDto
     {
         // ~12 props
-        public abstract void AssignValues(List<Productssize> productsizes);
+        public double KgM { get; set; }
+
+        public virtual void AssignValues(List<Productssize> productsizes)
+        { }
     }
 }
