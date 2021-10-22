@@ -18,6 +18,13 @@ namespace Toci.Earrai.Tests.Import.Excel
         {
             { "PLT & SHEET", "A1:AF167" },
             { "Alum", "A1:U16" },
+            { "Msh & Exp.Metal", "A1:Y17" },
+            { "Chan & Bms", "A1:R42" },
+            { "Angles+T", "A1:AD86" },
+            { "FLTS", "A1:V87" },
+            { "Tube_CHS", "A1:AC61" },
+            { "RHS", "A1:V61" },
+            { "Rnds_Sqrs_HolBar", "A1:AD88" },
         };
 
         protected string fileId = "";
@@ -29,6 +36,11 @@ namespace Toci.Earrai.Tests.Import.Excel
 
             IDriveItemChildrenCollectionPage workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
             List<string> Ids = new List<string>();
+
+            foreach (var workbookfile in workbooks)
+            {
+                Ids.Add(workbookfile.Id);
+            }
 
             fileId = Ids[3];
         }
