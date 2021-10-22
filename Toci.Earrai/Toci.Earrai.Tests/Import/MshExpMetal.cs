@@ -9,8 +9,8 @@ namespace Toci.Earrai.Tests.Import
     {
         protected override void ImportAreas(List<string> row, int productId)
         {
-            for(int i=)
-            AreaQuantity.Insert(new Areaquantity() { Idproducts = productId, Idarea = (int)ProductAreaEnum.Length, Value = row[6] });
+            //for(int i=)
+           // AreaQuantity.Insert(new Areaquantity() { Idproducts = productId, Idarea = (int)ProductAreaEnum.Length, Value = row[6] });
         }
 
         protected override void ImportSizes(List<string> row, int productId)
