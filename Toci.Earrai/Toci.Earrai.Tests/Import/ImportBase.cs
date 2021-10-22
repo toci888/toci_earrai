@@ -15,6 +15,7 @@ namespace Toci.Earrai.Tests.Import
         protected Logic<Productsize> ProductSizeLogic = new Logic<Productsize>();
         protected Logic<Productoptionvalue> ProductOptionValue = new Logic<Productoptionvalue>();
         protected Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
+        protected Logic<Quoteandprice> pricesLogic = new Logic<Quoteandprice>();
 
         // lodziki
 
