@@ -5,11 +5,11 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Microservice;
 using Toci.Earrai.Microservice.Controllers;
+using Toci.Earrai.Tests.Import.Excel;
 using Worksheet = Toci.Earrai.Database.Persistence.Models.Worksheet;
 
 namespace Toci.Earrai.Tests
 {
-
 
     [TestClass]
     public class SeedDb
@@ -56,6 +56,23 @@ namespace Toci.Earrai.Tests
             ProductCategoryOptions();
             ProductOptionValues();
         }
+
+        [TestMethod]
+        public void newImport() {
+
+            ExcelClient client1 = new ExcelClient();
+
+            client1.RequestWorkbooks();
+
+            //Logic<Quoteandprice> quotesAndPrice = new Logic<Quoteandprice>();
+
+            //quoteandprice.
+    
+
+        }
+
+
+
 
         [TestMethod]
         public void Users()
@@ -531,11 +548,13 @@ CON".Split("\n", StringSplitOptions.None);
         public void QuotesAndMetrics() 
         {
             string[] values = { "£/T", "£/L", "£/m", "£/Sht" };
+            string[] names = { "PoundsPerTonne", "PoundsPerLength", "PoundsPerMeter", "PoundsPerSheet" };
             for (int i = 0; i < values.Length; i++)
             {
                 Quoteandmetric.Insert(new Quoteandmetric()
                 {
-                    Valuation = values[i]
+                    Valuation = values[i],
+                    //Name = names[i],
                 });
             }
         }
