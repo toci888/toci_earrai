@@ -42,4 +42,8 @@
     <ProjectReference Include="..\Toci.Microsoft.Graph.Excel\Toci.Microsoft.Graph.Excel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Import\Excel\" />
+  </ItemGroup>
+
 </Project>

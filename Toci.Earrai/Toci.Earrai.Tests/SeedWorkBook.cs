@@ -140,7 +140,7 @@ namespace Toci.Earrai.Tests
                     }).Id;
 
                     var readSheet = graphClient.Me.Drive.Items[ele.Key].Workbook.Worksheets[ele.Value[ii][0]];
-                    var testRange = readSheet.Range(ele.Value[ii][1]).Request().GetAsync().Result;
+                    WorkbookRange testRange = readSheet.Range(ele.Value[ii][1]).Request().GetAsync().Result;
                     var bazka = testRange.Values.RootElement.ToString()
                         .Replace("[[", "")
                         .Split("],[").ToList();
