@@ -14,6 +14,7 @@ namespace Toci.Earrai.Tests.Import
         protected Logic<Product> ProductLogic = new Logic<Product>();
         protected Logic<Productsize> ProductSizeLogic = new Logic<Productsize>();
         protected Logic<Productoptionvalue> ProductOptionValue = new Logic<Productoptionvalue>();
+        protected Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
         protected Logic<Quoteandprice> pricesLogic = new Logic<Quoteandprice>();
 
         // lodziki
@@ -29,9 +30,9 @@ namespace Toci.Earrai.Tests.Import
             {
                 List<string> productItem = row.Split(",").ToList();
 
-                int categoryId = CategoriesProvider.GetCategories().ContainsKey(productItem[0]) ? CategoriesProvider.GetCategories()[productItem[0]].Id : 0; // TODO dummy category
+                int categoryId = CategoriesProvider.GetCategories().ContainsKey(productItem[1].Replace("\"", "").Replace("\"", "")) ? CategoriesProvider.GetCategories()[productItem[1].Replace("\"", "").Replace("\"", "")].Id : 0; // TODO dummy category
 
-                Product prod = ProductLogic.Insert(new Product() { Description = productItem[2], Productaccountreference = productItem[1] , Idcategories = categoryId });
+                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId });
 
                 ImportAreas(productItem, prod.Id);
                 ImportSizes(productItem, prod.Id);
