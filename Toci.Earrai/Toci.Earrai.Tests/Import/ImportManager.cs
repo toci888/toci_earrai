@@ -14,8 +14,15 @@ namespace Toci.Earrai.Tests.Import
 
         protected Dictionary<string, ImportBase> Imports = new Dictionary<string, ImportBase>()
         {
-            //{ "PLTSheet", new PltSheetImport() },
-            { "Alum", new AlumImport() }
+            { "PLT & SHEET", new PltSheetImport() },
+            { "Alum", new AlumImport() },
+            { "Msh & Exp.Metal", new MshExpMetal() },
+            { "Chan & Bms", new ChanBms() },
+            { "Angles+T", new AnglesT() },
+            { "FLTS", new FLTS() },
+            { "Tube_CHS", new TubeCHS() },
+            { "RHS", new RHS() },
+            { "Rnds_Sqrs_HolBar", new RndsSqrsHolBar() }
         };
                                                      //pltsheet, alum, etc
         public virtual void EntireImport(Dictionary<string, WorkbookRange> excelContents)
