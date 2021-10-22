@@ -13,10 +13,9 @@ namespace Toci.Earrai.Bll.ProductParams
         protected Logic<Productsoptionsstate> ProductOptionsLogic = new Logic<Productsoptionsstate>();
         protected Logic<Productssize> ProductSizeLogic = new Logic<Productssize>();
 
-        protected Dictionary<string, Func<Productsoptionsstate, CalculationsBaseDto, CalculationsBaseDto>> OptionsFillerMap = new Dictionary<string, Func<Productsoptionsstate, CalculationsBaseDto, CalculationsBaseDto>>()
-        {
-            { "KgM", (po, dto) => { dto.KgM = Convert.ToDouble(po.Value); return dto; } }
-        };
+        protected Dictionary<string, Func<Productsoptionsstate, CalculationsBaseDto, CalculationsBaseDto>> OptionsFillerMap;
+
+        protected Dictionary<string, Func<Productssize, CalculationsBaseDto, CalculationsBaseDto>> SizesFillerMap;
 
         public virtual CalculationsBaseDto GetProductParams(int productId)
         {
@@ -32,7 +31,15 @@ namespace Toci.Earrai.Bll.ProductParams
                 }
             }
 
+            List<Productssize> productSizes = GetProductSize(productId);
 
+            foreach (Productssize item in productSizes)
+            {
+                if (SizesFillerMap.ContainsKey(item.Name))
+                {
+                    dto = SizesFillerMap[item.Name].Invoke(item, dto);
+                }
+            }
 
             return dto;
         }

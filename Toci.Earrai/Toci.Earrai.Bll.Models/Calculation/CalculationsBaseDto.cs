@@ -11,6 +11,10 @@ namespace Toci.Earrai.Bll.Models.Calculation
     {
         // ~12 props
         public double KgM { get; set; }
+        public double KgSheet { get; set; }
+        public double Width { get; set; }
+        public double Length { get; set; }
+        public double Thickness { get; set; }
 
         public virtual void AssignValues(List<Productssize> productsizes)
         { }

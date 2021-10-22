@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Toci.Earrai.Bll
+namespace Toci.Earrai.Bll.Models.Calculation
 {
-    public enum ProductSizesEnum
+    public class PltSheetCalculationsDto
     {
-        Length = 1,
-        Width  = 2,
-        Thickness = 3,
+        public double Width { get; set; }
     }
 }
