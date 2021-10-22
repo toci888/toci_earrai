@@ -49,5 +49,9 @@ namespace Toci.Earrai.Tests.Import.Excel
 
             return result;
         }
+
+        public void hehe() {
+
+        }
     }
 }
