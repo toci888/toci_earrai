@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.ProductParams;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Tests.Import
@@ -17,7 +18,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            throw new NotImplementedException();
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[3] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)
