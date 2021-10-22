@@ -19,7 +19,11 @@ namespace Toci.Earrai.Tests.Import
                                                      //pltsheet, alum, etc
         public virtual void EntireImport(Dictionary<string, WorkbookRange> excelContents)
         {
-            
+            foreach (KeyValuePair<string, WorkbookRange> item in excelContents)
+            {
+                //item.Value.Text
+                Imports[item.Key].ImportProduct(item.Value);
+            }
         }
 
     }
