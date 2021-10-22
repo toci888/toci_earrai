@@ -12,6 +12,7 @@ namespace Toci.Earrai.Tests.Import.Excel
     {
         protected GraphServiceClient graphClient;
         protected DeviceCodeAuthProvider authProvider;
+        protected ImportManager impMan = new ImportManager();
 
         protected Dictionary<string, string> WorkbookMap = new Dictionary<string, string>()
         {
@@ -43,6 +44,8 @@ namespace Toci.Earrai.Tests.Import.Excel
 
                 result.Add(item.Key, range);
             }
+
+            impMan.EntireImport(result);
 
             return result;
         }

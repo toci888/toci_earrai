@@ -15,6 +15,7 @@ namespace Toci.Earrai.Tests.Import
         protected Dictionary<string, ImportBase> Imports = new Dictionary<string, ImportBase>()
         {
             //{ "PLTSheet", new PltSheetImport() },
+            { "Alum", new AlumImport() }
         };
                                                      //pltsheet, alum, etc
         public virtual void EntireImport(Dictionary<string, WorkbookRange> excelContents)
