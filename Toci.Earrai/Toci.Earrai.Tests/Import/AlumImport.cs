@@ -12,7 +12,7 @@ namespace Toci.Earrai.Tests.Import
     {
         protected override void ImportAreas(List<string> row, int productId)
         {
-            throw new NotImplementedException();
+            
         }
 
         protected override void ImportOptions(List<string> row, int productId)
