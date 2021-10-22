@@ -6,8 +6,26 @@ using System.Threading.Tasks;
 
 namespace Toci.Earrai.Tests.Import
 {
-    public class PltSheetImport //: ImportBase
+    public class PltSheetImport : ImportBase
     {
-        
+        protected override void ImportAreas(List<string> row, int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ImportOptions(List<string> row, int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ImportPricing(List<string> row, int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ImportSizes(List<string> row, int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
