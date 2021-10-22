@@ -29,9 +29,9 @@ namespace Toci.Earrai.Tests.Import
             {
                 List<string> productItem = row.Split(",").ToList();
 
-                int categoryId = CategoriesProvider.GetCategories().ContainsKey(productItem[1]) ? CategoriesProvider.GetCategories()[productItem[0]].Id : 0; // TODO dummy category
+                int categoryId = CategoriesProvider.GetCategories().ContainsKey(productItem[1].Replace("\"", "").Replace("\"", "")) ? CategoriesProvider.GetCategories()[productItem[1].Replace("\"", "").Replace("\"", "")].Id : 0; // TODO dummy category
 
-                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3], Productaccountreference = productItem[2] , Idcategories = categoryId });
+                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId });
 
                 ImportAreas(productItem, prod.Id);
                 ImportSizes(productItem, prod.Id);
