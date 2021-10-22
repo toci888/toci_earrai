@@ -23,7 +23,11 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportPricing(List<string> row, int productId)
         {
-            throw new NotImplementedException();
+            pricesLogic.Insert(new Quoteandprice() {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerSheet,
+                Price = row[15],
+            });
         }
 
         protected override void ImportSizes(List<string> row, int productId)

@@ -26,7 +26,23 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportPricing(List<string> row, int productId)
         {
-            throw new System.NotImplementedException();
+            pricesLogic.Insert(new Quoteandprice() {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
+                Price = row[21],
+            });
+
+            pricesLogic.Insert(new Quoteandprice() {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeter,
+                Price = row[22],
+            });
+
+            pricesLogic.Insert(new Quoteandprice() { // TODO (check that in excel)
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerLength,
+                Price = row[23],
+            });
         }
     }
 }

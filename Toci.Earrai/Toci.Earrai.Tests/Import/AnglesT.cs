@@ -28,7 +28,6 @@ namespace Toci.Earrai.Tests.Import
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
                 Price = row[26],
-                
             });
         }
     }

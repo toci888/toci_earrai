@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.ProductParams;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -24,7 +25,11 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportPricing(List<string> row, int productId)
         {
-            throw new System.NotImplementedException();
+            pricesLogic.Insert(new Quoteandprice() {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
+                Price = row[21],
+            });
         }
     }
 }
