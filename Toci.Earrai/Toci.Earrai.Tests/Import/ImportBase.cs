@@ -17,6 +17,8 @@ namespace Toci.Earrai.Tests.Import
         protected Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
         protected Logic<Quoteandprice> pricesLogic = new Logic<Quoteandprice>();
 
+        protected int categoryIndexColumn;
+
         // lodziki
 
         public virtual void ImportProduct(WorkbookRange range) // row? 
@@ -26,11 +28,19 @@ namespace Toci.Earrai.Tests.Import
                         .Replace("[[", "")
                         .Split("],[").ToList();
 
+
             foreach (string row in rows)
             {
                 List<string> productItem = row.Split(",").ToList();
 
-                int categoryId = CategoriesProvider.GetCategories().ContainsKey(productItem[1].Replace("\"", "").Replace("\"", "")) ? CategoriesProvider.GetCategories()[productItem[1].Replace("\"", "").Replace("\"", "")].Id : 0; // TODO dummy category
+                string productCategory = productItem[categoryIndexColumn].Replace("\"", "").Replace("\"", "");
+
+                if (productCategory == "") continue; // empty category column(propably the whole row is empty)
+
+
+                var categories = CategoriesProvider.GetCategories();
+
+                int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : 0; // TODO dummy category
 
                 Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId });
 

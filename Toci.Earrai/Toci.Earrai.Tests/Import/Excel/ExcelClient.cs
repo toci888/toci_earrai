@@ -16,15 +16,15 @@ namespace Toci.Earrai.Tests.Import.Excel
 
         protected Dictionary<string, string> WorkbookMap = new Dictionary<string, string>()
         {
-            { "PLT & SHEET", "A1:AF167" },
-            { "Alum", "A1:U16" },
-            { "Msh & Exp.Metal", "A1:Y17" },
-            { "Chan & Bms", "A1:R42" },
-            { "Angles+T", "A1:AD86" },
-            { "FLTS", "A1:V87" },
-            { "Tube_CHS", "A1:AC61" },
-            { "RHS", "A1:V61" },
-            { "Rnds_Sqrs_HolBar", "A1:AD88" },
+            //{ "PLT & SHEET", "A3:AF167" },
+            { "Alum", "A3:U16" },
+            /*{ "Msh & Exp.Metal", "A3:Y17" },
+            { "Chan & Bms", "A3:R42" },
+            { "Angles+T", "A3:AD86" },
+            { "FLTS", "A3:V87" },
+            { "Tube_CHS", "A3:AC61" },
+            { "RHS", "A3:V61" },
+            { "Rnds_Sqrs_HolBar", "A3:AD88" },*/
         };
 
         protected string fileId = "";

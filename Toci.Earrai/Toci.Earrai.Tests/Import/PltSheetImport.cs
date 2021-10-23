@@ -10,6 +10,10 @@ namespace Toci.Earrai.Tests.Import
 {
     public class PltSheetImport : ImportBase
     {
+        public PltSheetImport() {
+            categoryIndexColumn = 1;
+        }
+
         protected override void ImportAreas(List<string> row, int productId)
         {
             
@@ -17,7 +21,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            throw new NotImplementedException();
+            
         }
 
         protected override void ImportPricing(List<string> row, int productId)

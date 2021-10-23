@@ -335,23 +335,17 @@ CON".Split("\n", StringSplitOptions.None);
             [TestMethod]
         public void ProductOptions()
         {
-            ProductOption.Insert(new Productoption()
-            {
-                Code = "KgSqrtM",
-                Name = "Kg/M2"
-            });
-            ProductOption.Insert(new Productoption()
-            {
-                Code = "1234",
-                Name = "dupa12"
-            });
-            ProductOption.Insert(new Productoption()
-            {
-                Code = "12345",
-                Name = "dupa17"
-            });
-        }
+            // TODO, set proper names and codes
 
+            ProductOption.Insert(new Productoption() { Code = "SizeMetric", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "SheetSize", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "KgM", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "ChsOd", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "ChsBore", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "Type", Name = "Kg/M2" });
+            ProductOption.Insert(new Productoption() { Code = "Dia", Name = "Kg/M2" });
+
+        }
 
         [TestMethod]
         public void Size()

@@ -11,6 +11,10 @@ namespace Toci.Earrai.Tests.Import
 {
     public class AlumImport : ImportBase
     {
+        public AlumImport() {
+            categoryIndexColumn = 0;
+        }
+
         protected override void ImportAreas(List<string> row, int productId)
         {
             
