@@ -367,11 +367,16 @@ CON".Split("\n", StringSplitOptions.None);
             });
             Sizes.Insert(new Size()
             {
+                Id = 4,
                 Name = "CHS Bore"
             });
-            Sizes.Insert(new Size()
-            {
-                Name = "Size"
+            Sizes.Insert(new Size() {
+                Id = 5,
+                Name = "SizeA"
+            });
+            Sizes.Insert(new Size() {
+                Id = 6,
+                Name = "SizeB"
             });
         }
 

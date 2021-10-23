@@ -15,8 +15,9 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportSizes(List<string> row, int productId)
         {
-            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Length, Value = row[6] });
-            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Width, Value = row[7] });
+            // TODO Column G ???
+            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Thickness, Value = row[6] });
+            //ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum., Value = row[7] });
         }
 
         protected override void ImportOptions(List<string> row, int productId)

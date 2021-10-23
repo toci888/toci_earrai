@@ -11,5 +11,8 @@ namespace Toci.Earrai.Bll
         Length = 1,
         Width  = 2,
         Thickness = 3,
+        CHSBore = 4,
+        SideA = 5,
+        SideB = 6,
     }
 }

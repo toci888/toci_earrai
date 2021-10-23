@@ -9,25 +9,37 @@ namespace Toci.Earrai.Tests.Import
     {
         protected override void ImportAreas(List<string> row, int productId)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void ImportSizes(List<string> row, int productId)
         {
+
+
+            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.SideA, Value = row[3] });
+            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.SideB, Value = row[4] });
             ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Thickness, Value = row[5] });
+            
         }
 
         protected override void ImportOptions(List<string> row, int productId)
         {
+
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM, Value = row[6] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)
         {
+            // TODO 3 sizes in excel, 2 with calc
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
-                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
-                Price = row[26],
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeter,
+                Price = row[23],
+            });
+            pricesLogic.Insert(new Quoteandprice() {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerLength,
+                Price = row[24],
             });
         }
     }
