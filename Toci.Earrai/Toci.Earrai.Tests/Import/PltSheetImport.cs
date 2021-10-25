@@ -5,18 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Tests.Import.Excel;
 
 namespace Toci.Earrai.Tests.Import
 {
     public class PltSheetImport : ImportBase
     {
-        public PltSheetImport() {
+        public PltSheetImport() 
+        {
             categoryIndexColumn = 1;
         }
 
         protected override void ImportAreas(List<string> row, int productId)
         {
-            
+            string area1 = row[12];
+            string area2 = row[16];
+            string area3 = row[20];
+
+            if (!string.IsNullOrEmpty(area1))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[9], Width = row[10], Quantity = row[11], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[1]].Id });
+            }
+
+            if (!string.IsNullOrEmpty(area2))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[13], Width = row[14], Quantity = row[15], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[1]].Id });
+            }
+
+            if (!string.IsNullOrEmpty(area3))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[17], Width = row[18], Quantity = row[19], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[1]].Id });
+            }
         }
 
         protected override void ImportOptions(List<string> row, int productId)
