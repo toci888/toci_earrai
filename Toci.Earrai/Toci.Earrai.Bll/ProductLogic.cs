@@ -13,6 +13,8 @@ namespace Toci.Earrai.Bll
     {
         protected IProductOptionValuesLogic ProductOVLogic = new ProductOptionValuesLogic();
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
+        protected Logic<Quoteandprice> ProductPriceLogic = new Logic<Quoteandprice>();
+        protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
 
         public ProductDto GetProduct(int productId)
         {
@@ -21,6 +23,8 @@ namespace Toci.Earrai.Bll
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
             result.ProductOptions = ProductOVLogic.GetProductValues(productId);
             result.ProductSize = ProductSizeLogic.GetProductSizes(productId);
+            result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
+            result.ProductQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
 
             return result;
         }
