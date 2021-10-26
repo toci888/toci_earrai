@@ -8,37 +8,8 @@ import WorksheetRecord_Inputs from '../components/WorksheetRecord_Inputs'
 import WorksheetRecord_Grid from '../components/WorksheetRecord_Grid'
 import WorksheetRecord_AddBtn from '../components/WorksheetRecord_AddBtn'
 import { modalStyles } from '../styles/modalStyles'
-
-let x = [{
-    product:{
-        id:1,
-        idcategories:1,
-        idworksheet:1,
-        rowindex:null,
-        productaccountreference: "PL_1_2500_1250",
-        description: "PL_1_2500_1250 @ 7.85Kg/m2"
-    },
-    productOptions:[ {
-        id:1,
-        idproductsoptions:1,
-        idproducts:1,
-        value:"jakis_value"
-    }],
-    productsize:[{
-        id:1,
-        idsizes:1,
-        idproducts:1,
-        value:"jakias_value"
-    }],
-    productprices:[{
-        id:1,
-        idproducts:1,
-        price:620,
-        idquotesandmetric:2,
-        iduser:1
-    }],
-    productquantities:[]
-}];
+import ProductPrices from './Product/ProducPrices'
+import ProductSizes from './Product/productSizes'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -71,6 +42,8 @@ export default function WorksheetRecord({ route, navigation }) {
     const [Sizes, setSizes] = useState([])
     const [AreaQuantities, setAreaQuantities] = useState([])
 
+    const [Product, setProduct] = useState([])
+
     const setPricesFunc = (prices_) => {
         setPrices(prev => {
             return prices_
@@ -91,18 +64,21 @@ export default function WorksheetRecord({ route, navigation }) {
 
     useEffect( () => {
 
-        fetch(environment.apiUrl + 'api/Product/GetProduct/576').then(response_ => {
-            return response_.json()
-        }).then(response_ => {
+        // fetch(environment.apiUrl + 'api/Product/GetProduct/576').then(response_ => {
+        //     return response_.json()
+        // }).then(response_ => {
+            const response_ = JSON.parse('{"product":{"id":576,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_2_2500_1250","description":"PL_2_2500_1250 @ 15.7Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]},"options":[],"sizes":[{"id":1383,"idproducts":576,"value":"2500","name":"Length"},{"id":1384,"idproducts":576,"value":"1250","name":"Width"},{"id":1385,"idproducts":576,"value":"2","name":"Thickness"}],"prices":[{"idproducts":576,"price":"459","name":"PoundsPerTonne","valuation":"£/T"},{"idproducts":576,"price":"22.5196875","name":"PoundsPerSheet","valuation":"£/Sht"}],"areaQuantities":[]}')
+
             console.log(response_)
-            //console.log(JSON.stringify(r))
+            setProduct(response_)
+            //console.log(JSON.stringify(response_))
             //setgridData(r)
             setPricesFunc(response_.Prices)
             setSizesFunc(response_.Sizes)
             setAreaQuantitiesFunc(response_.AreaQuantities)
-        }).finally(data => {
+        //}).finally(data => {
             setloading(false)
-        })
+        //})
 
         //connectService.setRowIndex(navigation.getParam('rowIndex') || null)
 
@@ -244,12 +220,12 @@ export default function WorksheetRecord({ route, navigation }) {
                 setloading={setloading}
             /> */}
 
-            {/* <WorksheetRecord_Inputs
+            <WorksheetRecord_Inputs
                 tempAreaquantityRow={tempAreaquantityRow}
                 settempAreaquantityRow={settempAreaquantityRow}
                 kindOfDisplay={kindOfDisplay}
                 areas={areas}
-            /> */}
+            />
 
             <WorksheetRecord_Grid
                 AreaQuantities={AreaQuantities}
@@ -260,6 +236,10 @@ export default function WorksheetRecord({ route, navigation }) {
                 setbtnvalueHook={setbtnvalueHook}
                 setloading={setloading}
             />
+
+            <ProductPrices product={Product} />
+
+            <ProductSizes product={Product} />
 
             {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
 

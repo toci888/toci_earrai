@@ -72,15 +72,17 @@ export const worksheetRecord = StyleSheet.create({
         //borderTopColor: 'black',
         //borderTopWidth: 1,
         paddingLeft: 0,
+        margin: 10
         //paddingStart: 0
     },
     rowContainerBottom: {
         flexDirection: 'row',
         borderBottomColor: 'black',
-        borderBottomWidth: 3,
+        borderBottomWidth: 1,
         paddingLeft: 0,
         paddingStart: 0,
-        marginBottom: 3
+        marginBottom: 3,
+        paddingBottom: 6,
     },
     ComboPicker: {
         height: 50,
@@ -90,9 +92,8 @@ export const worksheetRecord = StyleSheet.create({
         paddingLeft: 10
     },
     ComboView: {
-        marginTop: 15,
-        marginLeft: 15,
-        marginRight: 15,
+        margin: 15,
+
     },
     CombiItem: {
         backgroundColor: 'red',
@@ -110,7 +111,8 @@ export const worksheetRecord = StyleSheet.create({
     },
     DimensionsInputContainerTwo: {
         width: '100%',
-        height: 50
+        height: 50,
+        margin: 10
     },
     DimensionsInputContainerOne: {
         width: '100%',
@@ -213,7 +215,15 @@ export const worksheetRecord = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 17,
         paddingLeft: 15
+    },
+
+    inlineContainer: {
+        flexDirection: 'row',
+    },
+    inlineItem: {
+
     }
+
 
 
 })

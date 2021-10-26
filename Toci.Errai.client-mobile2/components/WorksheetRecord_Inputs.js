@@ -50,7 +50,7 @@ export default function WorksheetRecord_Inputs(props) {
                 </Picker>
             </View>
 
-            <View>
+            <View style={worksheetRecord.QuantityView}>
                 {
                     props.kindOfDisplay == 1 ?
                     (<View style={worksheetRecord.DimensionsView}>
