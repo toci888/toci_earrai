@@ -12,6 +12,5 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Idcategories { get; set; }
 
         public virtual Category IdcategoriesNavigation { get; set; }
-        public virtual Size IdsizesNavigation { get; set; }
     }
 }

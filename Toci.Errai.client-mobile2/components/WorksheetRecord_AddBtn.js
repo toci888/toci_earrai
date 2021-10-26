@@ -2,6 +2,7 @@ import React from 'react'
 import { worksheetRecordAddBtn } from '../styles/worksheetRecordAddBtnStyles'
 import { Text, View } from 'react-native'
 import { environment } from '../environment'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function WorksheetRecord_AddBtn(props) {
 
@@ -52,12 +53,12 @@ export default function WorksheetRecord_AddBtn(props) {
     }
 
     return (
-            <Pressable onPress={ () => sendRequest()}>
-        <View style={ worksheetRecordAddBtn.absoluteUpdate }>
+        <TouchableOpacity onPress={ () => sendRequest()}>
+            <View style={ worksheetRecordAddBtn.absoluteUpdate }>
                 <Text style={worksheetRecordAddBtn.updateText}>
                     { props.btnvalueHook }
                 </Text>
-        </View>
-            </Pressable>
+            </View>
+        </TouchableOpacity>
     )
 }

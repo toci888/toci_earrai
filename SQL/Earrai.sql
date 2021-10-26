@@ -266,6 +266,10 @@ select users.id, users.firstName, users.lastName, users.email, users.password, u
 from users 
 join roles on roles.id = users.idRole;
 
+create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation 
+from quoteandmetric, quoteandprice 
+where quoteandprice.idquoteandmetric = quoteandmetric.id
+
 select * from ProductsSizes;
 select * from users;
 select * from roles;

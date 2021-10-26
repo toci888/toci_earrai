@@ -12,5 +12,7 @@ namespace Toci.Earrai.Bll.Interfaces
     public interface IProductLogic : ILogicBase<Product>
     {
         ProductDto GetProduct(int productId);
+
+        List<Product> GetProductsByWorksheet(int worksheetId);
     }
 }

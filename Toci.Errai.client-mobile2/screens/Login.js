@@ -14,7 +14,7 @@ export default function Login({navigation}) {
     let logged = await AppUser.checkIfAlreadyExists()
     console.log(logged)
     if(logged) {
-      navigation.navigate('Home')
+      navigation.navigate('WorksheetRecord')
     } else {
       console.log("Failed to login")
     }
@@ -22,7 +22,7 @@ export default function Login({navigation}) {
 
   useEffect(() => {
     //checkIfLogged()
-    navigation.navigate('Home')
+    navigation.navigate('WorksheetRecord')
   }, [])
 
   const login = async (values) => {

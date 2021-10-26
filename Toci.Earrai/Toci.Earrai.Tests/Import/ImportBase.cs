@@ -43,7 +43,7 @@ namespace Toci.Earrai.Tests.Import
                 int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : 0; // TODO dummy category
                 if (categoryId == 0) continue; // some shit in FLTS row 83
 
-                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId });
+                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = 1 });
 
                 ImportAreas(productItem, prod.Id);
                 ImportSizes(productItem, prod.Id);
