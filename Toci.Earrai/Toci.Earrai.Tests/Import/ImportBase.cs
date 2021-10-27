@@ -40,6 +40,11 @@ namespace Toci.Earrai.Tests.Import
 
                 string productCategory = productItem[categoryIndexColumn].Replace("\"", "").Replace("\"", "");
 
+                for (int i = 0; i < productItem.Count; i++)
+                {
+                    productItem[i] = productItem[i].Replace("\"", "").Replace("\"", "");
+                }
+
                 if (productCategory == "") continue; // empty category column(propably the whole row is empty)
 
                 int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : 0; // TODO dummy category

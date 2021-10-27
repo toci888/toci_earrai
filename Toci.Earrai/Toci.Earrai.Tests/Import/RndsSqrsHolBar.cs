@@ -11,8 +11,8 @@ namespace Toci.Earrai.Tests.Import
         protected override void ImportAreas(List<string> row, int productId)
         {
             string area1 = row[8];
-            string area2 = row[12];
-            string area3 = row[16];
+            string area2 = row[11];
+            string area3 = row[14];
 
             if (!string.IsNullOrEmpty(area1))
             {
