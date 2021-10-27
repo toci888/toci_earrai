@@ -8,7 +8,13 @@ export default class AppUser {
 
     static savedIdArea = null
 
-    static apiData = []
+    static apiData = {
+        areas: [
+            {id: 1, code: "AA", name: "Anon ALkoh"},
+            {id: 2, code: "BB", name: "Bardzo bobrze"},
+            {id: 3, code: "CC", name: "Cyc caly"},
+        ]
+    }
 
     static userData
 

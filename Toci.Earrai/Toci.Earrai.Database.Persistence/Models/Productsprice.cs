@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 namespace Toci.Earrai.Database.Persistence.Models
 {
-    public partial class Size
+    public partial class Productsprice
     {
-        public int Id { get; set; }
+        public int? Idproducts { get; set; }
+        public string Price { get; set; }
         public string Name { get; set; }
+        public string Valuation { get; set; }
     }
 }

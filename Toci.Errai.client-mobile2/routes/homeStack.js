@@ -15,6 +15,28 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
+    WorksheetRecord: {
+        screen: WorksheetRecord,
+        navigationOptions: {
+            title : "Worksheets Record",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
+    WorksheetContent: {
+        screen: WorksheetContent,
+        navigationOptions: {
+            title : "Worksheets Content",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
+    WorksheetsList: {
+        screen: WorksheetsList,
+        navigationOptions: {
+            title : "Worksheets List",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
+
     Home: {
         screen: Home,
         navigationOptions: {
@@ -45,27 +67,8 @@ const screens = {
 
         }
     },
-    WorksheetsList: {
-        screen: WorksheetsList,
-        navigationOptions: {
-            title : "Worksheets List",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
-    WorksheetContent: {
-        screen: WorksheetContent,
-        navigationOptions: {
-            title : "Worksheets Content",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
-    WorksheetRecord: {
-        screen: WorksheetRecord,
-        navigationOptions: {
-            title : "Worksheets Record",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
+
+
 
     Register: {
         screen: Register,

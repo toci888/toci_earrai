@@ -32,7 +32,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportSizes(List<string> row, int productId)
         {
-            throw new System.NotImplementedException();
+          
         }
 
         protected override void ImportOptions(List<string> row, int productId)

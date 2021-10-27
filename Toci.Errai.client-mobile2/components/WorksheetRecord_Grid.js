@@ -5,11 +5,13 @@ import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import { Button, Text, View, Pressable } from 'react-native'
 import { environment } from '../environment'
 
+
+
 export default function WorksheetRecord_Grid(props) {
 
     const deleteData = (index) => {
 
-        let x = props.gridData[index]
+        let x = props.areaQuantities[index]
 
         let id_ = x['id']
         props.setloading(true)
@@ -30,7 +32,7 @@ export default function WorksheetRecord_Grid(props) {
     }
 
     const updateData = (index) => {
-        let foundRow = props.gridData[index]
+        let foundRow = props.areaQuantities[index]
 
         let _area = props.areas.filter(item => item.code == foundRow['areacode'])[0]
 
@@ -40,7 +42,7 @@ export default function WorksheetRecord_Grid(props) {
                 length: foundRow['length'],
                 width: foundRow['width'],
                 quantity: foundRow['quantity'],
-                idarea: _area.id,
+                idarea: _area['id'],
                 createdat: foundRow['createdat'],
             }
         })
@@ -49,48 +51,48 @@ export default function WorksheetRecord_Grid(props) {
     }
 
     const nowUpdating = (i) => {
-        return props.settempAreaquantityRow['id'] == props.gridData[i]['id']
+        return false //props.setAreaQuantities['id'] == props.AreaQuantities[i]['id']
     }
 
     const displayQuantities = () => {
-        if(props.gridData.length < 1) return
+        if(!props.areaQuantities) return
 
         let respo = []
 
-        for(let i = 0; i < props.gridData.length; i++) {
+        for(let i = 0; i < props.areaQuantities.length; i++) {
             respo.push(
-            <>
+            <View key={i+"he"}>
                 <DataTable.Row key={i} style={[ worksheetRecord.rowContainerTop    ]}>
                     <DataTable.Cell key={i + "createdat"} style={[worksheetRecord.grid, {backgroundColor: nowUpdating(i) ? "red" : "" }]}>
                         <Text style={{backgroundColor: nowUpdating(i) ? "red" : "" }}>
-                            { props.gridData[i].createdat?.substr(0, 10) }
+                            { props.areaQuantities[i].createdat?.substr(0, 10) }
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "length"} style={worksheetRecord.grid}>
                         <Text>
-                            L: {props.gridData[i].length}
+                            L: {props.areaQuantities[i]?.length}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "width"} style={worksheetRecord.grid}>
                         <Text>
-                            W: {props.gridData[i].width}
+                            W: {props.areaQuantities[i]?.width}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "quantity"} style={worksheetRecord.gridShort}>
                         <Text>
-                            Q: {props.gridData[i].quantity}
+                            Q: {props.areaQuantities[i].quantity}
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>
                 <DataTable.Row key={i + "2nd"} style={ worksheetRecord.rowContainerBottom }>
                     <DataTable.Cell key={i + "initials"} style={worksheetRecord.gridShort}>
                         <Text>
-                            Initials: {props.gridData[i].initials}
+                            Initials: {props.areaQuantities[i].initials}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
                         <Text>
-                            {props.gridData[i].areacode}: {props.gridData[i].areaname}
+                            {props.areaQuantities[i].areacode}: {props.areaQuantities[i].areaname}
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "updDateF"} style={worksheetRecord.gridShort}>
@@ -108,7 +110,8 @@ export default function WorksheetRecord_Grid(props) {
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>
-            </>
+
+            </View>
 
             )
         }
@@ -119,7 +122,7 @@ export default function WorksheetRecord_Grid(props) {
 
 
     return (
-        <View>
+        <View style={{margin: 10}}>
             <DataTable style={globalStyles.tableContainer}>
                 { displayQuantities() }
             </DataTable>

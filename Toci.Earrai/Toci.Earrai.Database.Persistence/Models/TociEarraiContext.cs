@@ -24,15 +24,13 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Categorygroup> Categorygroups { get; set; }
         public virtual DbSet<Codesdimension> Codesdimensions { get; set; }
         public virtual DbSet<Commision> Commisions { get; set; }
-        public virtual DbSet<Density> Densities { get; set; }
-        public virtual DbSet<Densitymaterial> Densitymaterials { get; set; }
-        public virtual DbSet<Densityopdict> Densityopdicts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Productcategoryoption> Productcategoryoptions { get; set; }
         public virtual DbSet<Productoption> Productoptions { get; set; }
         public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual DbSet<Productsize> Productsizes { get; set; }
         public virtual DbSet<Productsoptionsstate> Productsoptionsstates { get; set; }
+        public virtual DbSet<Productsprice> Productsprices { get; set; }
         public virtual DbSet<Productssize> Productssizes { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
@@ -59,7 +57,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -214,47 +212,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasConstraintName("commisions_idcategories_fkey");
             });
 
-            modelBuilder.Entity<Density>(entity =>
-            {
-                entity.ToTable("density");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Iddensitymaterial).HasColumnName("iddensitymaterial");
-
-                entity.Property(e => e.Iddensityopdict).HasColumnName("iddensityopdict");
-
-                entity.Property(e => e.Value).HasColumnName("value");
-
-                entity.HasOne(d => d.IddensitymaterialNavigation)
-                    .WithMany(p => p.Densities)
-                    .HasForeignKey(d => d.Iddensitymaterial)
-                    .HasConstraintName("density_iddensitymaterial_fkey");
-
-                entity.HasOne(d => d.IddensityopdictNavigation)
-                    .WithMany(p => p.Densities)
-                    .HasForeignKey(d => d.Iddensityopdict)
-                    .HasConstraintName("density_iddensityopdict_fkey");
-            });
-
-            modelBuilder.Entity<Densitymaterial>(entity =>
-            {
-                entity.ToTable("densitymaterial");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name).HasColumnName("name");
-            });
-
-            modelBuilder.Entity<Densityopdict>(entity =>
-            {
-                entity.ToTable("densityopdict");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name).HasColumnName("name");
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("products");
@@ -296,11 +253,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Productcategoryoptions)
                     .HasForeignKey(d => d.Idcategories)
                     .HasConstraintName("productcategoryoptions_idcategories_fkey");
-
-                entity.HasOne(d => d.IdproductoptionsNavigation)
-                    .WithMany(p => p.Productcategoryoptions)
-                    .HasForeignKey(d => d.Idproductoptions)
-                    .HasConstraintName("productcategoryoptions_idproductoptions_fkey");
             });
 
             modelBuilder.Entity<Productoption>(entity =>
@@ -326,11 +278,6 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Value).HasColumnName("value");
 
-                entity.HasOne(d => d.IdproductoptionsNavigation)
-                    .WithMany(p => p.Productoptionvalues)
-                    .HasForeignKey(d => d.Idproductoptions)
-                    .HasConstraintName("productoptionvalues_idproductoptions_fkey");
-
                 entity.HasOne(d => d.IdproductsNavigation)
                     .WithMany(p => p.Productoptionvalues)
                     .HasForeignKey(d => d.Idproducts)
@@ -353,11 +300,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Productsizes)
                     .HasForeignKey(d => d.Idproducts)
                     .HasConstraintName("productsize_idproducts_fkey");
-
-                entity.HasOne(d => d.IdsizesNavigation)
-                    .WithMany(p => p.Productsizes)
-                    .HasForeignKey(d => d.Idsizes)
-                    .HasConstraintName("productsize_idsizes_fkey");
             });
 
             modelBuilder.Entity<Productsoptionsstate>(entity =>
@@ -371,6 +313,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Value).HasColumnName("value");
+            });
+
+            modelBuilder.Entity<Productsprice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productsprices");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
+                entity.Property(e => e.Valuation).HasColumnName("valuation");
             });
 
             modelBuilder.Entity<Productssize>(entity =>
@@ -497,11 +454,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Sizecategories)
                     .HasForeignKey(d => d.Idcategories)
                     .HasConstraintName("sizecategories_idcategories_fkey");
-
-                entity.HasOne(d => d.IdsizesNavigation)
-                    .WithMany(p => p.Sizecategories)
-                    .HasForeignKey(d => d.Idsizes)
-                    .HasConstraintName("sizecategories_idsizes_fkey");
             });
 
             modelBuilder.Entity<User>(entity =>

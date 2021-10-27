@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll
     {
         protected IProductOptionValuesLogic ProductOVLogic = new ProductOptionValuesLogic();
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
-        protected Logic<Quoteandprice> ProductPriceLogic = new Logic<Quoteandprice>();
+        protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
 
         public ProductDto GetProduct(int productId)
@@ -21,10 +21,22 @@ namespace Toci.Earrai.Bll
             ProductDto result = new ProductDto();
 
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
-            result.ProductOptions = ProductOVLogic.GetProductValues(productId);
-            result.ProductSize = ProductSizeLogic.GetProductSizes(productId);
-            result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
-            result.ProductQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
+            result.Options = ProductOVLogic.GetProductValues(productId);
+            result.Sizes = ProductSizeLogic.GetProductSizes(productId);
+            result.Prices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
+            result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
+
+            return result;
+        }
+
+        public List<Product> GetProductsByWorksheet(int worksheetId) {
+            List<Product> result = new List<Product>();
+
+            result = Select(m => m.Idworksheet == worksheetId).Take(5).ToList();
+            //result.ProductOptions = ProductOVLogic.GetProductValues(worksheetId);
+            //result.ProductSize = ProductSizeLogic.GetProductSizes(worksheetId);
+            //result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == worksheetId).ToList();
+            //result.ProductQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(worksheetId);
 
             return result;
         }

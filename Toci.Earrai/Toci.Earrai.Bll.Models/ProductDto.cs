@@ -11,12 +11,12 @@ namespace Toci.Earrai.Bll.Models
     {
         public Product Product { get; set; }
 
-        public List<Productsoptionsstate> ProductOptions { get; set; }
+        public List<Productsoptionsstate> Options { get; set; }
 
-        public List<Productssize> ProductSize { get; set; }
+        public List<Productssize> Sizes { get; set; }
 
-        public List<Quoteandprice> ProductPrices { get; set; }
+        public List<Productsprice> Prices { get; set; }
 
-        public List<Areasquantity> ProductQuantities { get; set; }
+        public List<Areasquantity> AreaQuantities { get; set; }
     }
 }

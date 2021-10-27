@@ -13,6 +13,5 @@ namespace Toci.Earrai.Database.Persistence.Models
         public string Value { get; set; }
 
         public virtual Product IdproductsNavigation { get; set; }
-        public virtual Size IdsizesNavigation { get; set; }
     }
 }

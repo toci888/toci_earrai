@@ -1,7 +1,9 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, Text } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
+import { worksheetRecordAddBtn } from '../styles/worksheetRecordAddBtnStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 
 export default function WorksheetRecord_Inputs(props) {
@@ -16,7 +18,6 @@ export default function WorksheetRecord_Inputs(props) {
         props.settempAreaquantityRow(prev => {
             return {...prev, width: text}
         })
-
     }
 
     const setAreaquantity = text => {
@@ -31,6 +32,10 @@ export default function WorksheetRecord_Inputs(props) {
         })
 
         AppUser.setIdArea(_id)
+    }
+
+    const cancel = () => {
+        props.setbtnvalueHook("ADD")
     }
 
     return (
@@ -50,7 +55,7 @@ export default function WorksheetRecord_Inputs(props) {
                 </Picker>
             </View>
 
-            <View>
+            <View style={worksheetRecord.QuantityView}>
                 {
                     props.kindOfDisplay == 1 ?
                     (<View style={worksheetRecord.DimensionsView}>
@@ -101,6 +106,15 @@ export default function WorksheetRecord_Inputs(props) {
 
                 </View>
 
+            </View>
+            <View>
+                {/* <TouchableOpacity> */}
+                    <View style={ worksheetRecordAddBtn.cancelBtn }>
+                        <Text onPress={ () => cancel()} style={worksheetRecordAddBtn.deleteText}>
+                            CANCEL
+                        </Text>
+                    </View>
+                {/* </TouchableOpacity> */}
             </View>
         </View>
     )

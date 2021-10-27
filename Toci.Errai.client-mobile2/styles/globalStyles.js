@@ -86,6 +86,8 @@ export const globalStyles = StyleSheet.create({
         //borderBottomColor: 'blue',
     },
     tableContainer: {
+        display: 'flex',
+        justifyContent: 'center',
         color: 'black'
     },
     HalfHeader: {
