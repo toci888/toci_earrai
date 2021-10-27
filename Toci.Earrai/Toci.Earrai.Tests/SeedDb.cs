@@ -43,18 +43,18 @@ namespace Toci.Earrai.Tests
             SeedWlOrSizeCategories();
             Vendors();
             QuotesAndMetrics();
-            Workbooks();
-            AreaQuantities();
+           // Workbooks();
+           // AreaQuantities();
             CategoryGroups();
             Category();
             Size();
-            SizeCategories();
-            QuotesAndPrices();
-            Products();
-            ProductSizes();
-            ProductOptions();
-            ProductCategoryOptions();
-            ProductOptionValues();
+           // SizeCategories();
+          //  QuotesAndPrices();
+//            Products();
+           // ProductSizes();
+         //   ProductOptions();
+           // ProductCategoryOptions();
+           // ProductOptionValues();
         }
 
         [TestMethod]
