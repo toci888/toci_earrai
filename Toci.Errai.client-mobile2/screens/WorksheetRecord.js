@@ -11,24 +11,23 @@ import { modalStyles } from '../styles/modalStyles'
 import ProductPrices from './Product/ProducPrices'
 import ProductSizes from './Product/productSizes'
 
+let tempQuan = [
+    {createdat: "20.11.2021", updDateF: "20.11.2021",id: 1, length: 1000, width: 1000, quantity: 3,  initials: "AB",areacode: "AA", areaname: "Anon ALkoh",
+    }, {  createdat: "21.11.2021", updDateF: "21.11.2021", id: 2, length: 2500, width: 1500, quantity: 6, initials: "AD",  areacode: "BB", areaname: "Bardzo bobrze", }]
+
 export default function WorksheetRecord({ route, navigation }) {
 
     //const [connectService] = useState( navigation.getParam('connectService') )
-    const [columnsName, setColumnsName] = useState([])
-    const [columnsData, setColumnsData] = useState([])
     const [areas, setareas] = useState([])
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
     const [loading, setloading] = useState(true)
 
-    const [kindOfDisplay, setkindOfDisplay] = useState(null)
-
-    const [gridData, setgridData] = useState("")
+    const [kindOfDisplay, setkindOfDisplay] = useState(1)
 
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
-        idarea: 0,
+        idarea: 1,
         idworksheet: null,
-        rowindex: null,
         idcodesdimensions: null,
         iduser: 3,
         quantity: "",
@@ -38,29 +37,7 @@ export default function WorksheetRecord({ route, navigation }) {
         updatedat: null,
     })
 
-    const [Prices, setPrices] = useState([])
-    const [Sizes, setSizes] = useState([])
-    const [AreaQuantities, setAreaQuantities] = useState([])
-
     const [Product, setProduct] = useState([])
-
-    const setPricesFunc = (prices_) => {
-        setPrices(prev => {
-            return prices_
-        })
-    }
-
-    const setSizesFunc = (sizes_) => {
-        setSizes(prev => {
-            return sizes_
-        })
-    }
-
-    const setAreaQuantitiesFunc = (areaQuantities_) => {
-        setAreaQuantities(prev => {
-            return areaQuantities_
-        })
-    }
 
     useEffect( () => {
 
@@ -68,17 +45,16 @@ export default function WorksheetRecord({ route, navigation }) {
         //     return response_.json()
         // }).then(response_ => {
             const response_ = JSON.parse('{"product":{"id":576,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_2_2500_1250","description":"PL_2_2500_1250 @ 15.7Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]},"options":[],"sizes":[{"id":1383,"idproducts":576,"value":"2500","name":"Length"},{"id":1384,"idproducts":576,"value":"1250","name":"Width"},{"id":1385,"idproducts":576,"value":"2","name":"Thickness"}],"prices":[{"idproducts":576,"price":"459","name":"PoundsPerTonne","valuation":"£/T"},{"idproducts":576,"price":"22.5196875","name":"PoundsPerSheet","valuation":"£/Sht"}],"areaQuantities":[]}')
-
             console.log(response_)
+            response_.areaQuantities = tempQuan
             setProduct(response_)
-            //console.log(JSON.stringify(response_))
-            //setgridData(r)
-            setPricesFunc(response_.Prices)
-            setSizesFunc(response_.Sizes)
-            setAreaQuantitiesFunc(response_.AreaQuantities)
-        //}).finally(data => {
             setloading(false)
-        //})
+
+            AppUser.getApiData()
+            .then( response => {
+                //console.log(response)
+                setareas(response['areas'])
+            })
 
         //connectService.setRowIndex(navigation.getParam('rowIndex') || null)
 
@@ -190,20 +166,8 @@ export default function WorksheetRecord({ route, navigation }) {
         setbtnvalueHook("ADD")
     }
 
-
-    const noConnectHeader = () => {
-        //if(connectService.isConnectedFunc()) return
-        return(
-            <View style={globalStyles.header}>
-                <Text style={globalStyles.headerText}>You're not connected now!</Text>
-            </View>
-        )
-    }
-
     return (
         <ScrollView style={worksheetRecord.container}>
-
-            {/* { noConnectHeader() } */}
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -211,26 +175,30 @@ export default function WorksheetRecord({ route, navigation }) {
                 </View>
             )}
 
-            {/* <WorksheetRecord_AddBtn
+            <WorksheetRecord_AddBtn
                 tempAreaquantityRow={tempAreaquantityRow}
                 btnvalueHook={btnvalueHook}
                 updateTableAfterRequest={updateTableAfterRequest}
                 clearInputs={clearInputs}
                 kindOfDisplay={kindOfDisplay}
                 setloading={setloading}
-            /> */}
-
-            <WorksheetRecord_Inputs
-                tempAreaquantityRow={tempAreaquantityRow}
-                settempAreaquantityRow={settempAreaquantityRow}
-                kindOfDisplay={kindOfDisplay}
-                areas={areas}
             />
 
+            { btnvalueHook == "UPDATE" && (
+                <WorksheetRecord_Inputs
+                    settempAreaquantityRow={settempAreaquantityRow}
+                    tempAreaquantityRow={tempAreaquantityRow}
+                    kindOfDisplay={kindOfDisplay}
+                    areas={areas}
+                    setbtnvalueHook={setbtnvalueHook}
+                />
+            ) }
+
             <WorksheetRecord_Grid
-                AreaQuantities={AreaQuantities}
-                updateTableAfterRequest={updateTableAfterRequest}
-                setAreaQuantities={setAreaQuantities}
+                settempAreaquantityRow={settempAreaquantityRow}
+                areaQuantities={Product.areaQuantities}
+                updateTableAfterRequest={setProduct}
+                setAreaQuantities={setProduct}
                 kindOfDisplay={kindOfDisplay}
                 areas={areas}
                 setbtnvalueHook={setbtnvalueHook}

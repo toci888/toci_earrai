@@ -92,7 +92,10 @@ export const worksheetRecord = StyleSheet.create({
         paddingLeft: 10
     },
     ComboView: {
-        margin: 15,
+        marginTop: 15,
+        marginBottom: 5,
+        marginLeft: 15,
+        marginRight: 15,
 
     },
     CombiItem: {
@@ -100,23 +103,18 @@ export const worksheetRecord = StyleSheet.create({
         color: 'yellow'
     },
     DimensionsView: {
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 15,
     },
     QuantityView: {
         marginLeft: 15,
         marginRight: 15,
-        marginBottom: 15,
     },
     DimensionsInputContainerTwo: {
         width: '100%',
-        height: 50,
-        margin: 10
+        height: 45
     },
     DimensionsInputContainerOne: {
         width: '100%',
-        height: 50
+        height: 45
     },
     QuantityInputContainer: {
         width: '100%',
