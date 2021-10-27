@@ -30,7 +30,7 @@ namespace Toci.Earrai.Tests.Import
             foreach (KeyValuePair<string, WorkbookRange> item in excelContents)
             {
                 //item.Value.Text
-                Imports[item.Key].ImportProduct(item.Value);
+                Imports[item.Key].ImportProduct(item.Key, item.Value);
             }
         }
 

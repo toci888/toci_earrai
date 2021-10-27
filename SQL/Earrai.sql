@@ -69,19 +69,11 @@ create table users
 	idRole int references roles(id) default 1
 );
 
-create table workbooks
-(
-	id serial primary key,
-	idOfFile text,
-	fileName text,
-	createdAt timestamp,
-	updatedAt timestamp
-);
+
 
 create table worksheets
 (
 	id serial primary key,
-	idworkbook int references workbooks (id),
 	sheetName text,
 	createdAt timestamp,
 	updatedAt timestamp
@@ -266,10 +258,6 @@ select users.id, users.firstName, users.lastName, users.email, users.password, u
 from users 
 join roles on roles.id = users.idRole;
 
-create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation 
-from quoteandmetric, quoteandprice 
-where quoteandprice.idquoteandmetric = quoteandmetric.id
-
 select * from ProductsSizes;
 select * from users;
 select * from roles;
@@ -279,6 +267,8 @@ select * from worksheets;
 select * from worksheetcontents;
 select * from worksheetcontentshistory;
 select * from areas;
+select * from products;
+select * from categories;
 select * from vendors;
 select * from areaquantity;
 select * from codesdimensions;

@@ -16,17 +16,20 @@ namespace Toci.Earrai.Tests.Import
         protected Logic<Productoptionvalue> ProductOptionValue = new Logic<Productoptionvalue>();
         protected Logic<Areaquantity> AreaQuantity = new Logic<Areaquantity>();
         protected Logic<Quoteandprice> pricesLogic = new Logic<Quoteandprice>();
+        protected Logic<Worksheet> WorksheetLogic = new Logic<Worksheet>();
 
         protected int categoryIndexColumn;
 
         // lodziki
 
-        public virtual void ImportProduct(WorkbookRange range) // row? 
+        public virtual void ImportProduct(string worksheet, WorkbookRange range) // row? 
         {
             // extract product basic data and insert row
             List<string> rows = range.Values.RootElement.ToString()
                         .Replace("[[", "")
                         .Split("],[").ToList();
+
+            Worksheet newSheet = WorksheetLogic.Insert(new Worksheet() { Sheetname = worksheet });
 
 
             Dictionary<string, Category> categories = CategoriesProvider.GetCategories();
@@ -42,7 +45,7 @@ namespace Toci.Earrai.Tests.Import
                 int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : 0; // TODO dummy category
                 if (categoryId == 0) continue; // some shit in FLTS row 83
 
-                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = 1 });
+                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = newSheet.Id });
 
                 ImportAreas(productItem, prod.Id);
                 ImportSizes(productItem, prod.Id);

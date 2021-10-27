@@ -133,7 +133,7 @@ namespace Toci.Earrai.Tests
                     Console.WriteLine("workbook" + ele.Value[ii][0]);
                     int idOfWorksheet = Worksheet.Insert(new Worksheet()
                     {
-                        Idworkbook = idOfWorkbook,
+                        //Idworkbook = idOfWorkbook,
                         Sheetname = ele.Value[ii][0],
                         Createdat = DateTime.Now,
                         Updatedat = DateTime.Now

@@ -60,21 +60,15 @@ namespace Toci.Earrai.Bll
 
         public List<Worksheet> GetAllWorksheetsFromDb(string workbookId)
         {
-            Logic<Database.Persistence.Models.Workbook> workbooks = new Logic<Database.Persistence.Models.Workbook>();
 
-            Database.Persistence.Models.Workbook workbook = workbooks.Select(m => m.Idoffile == workbookId).FirstOrDefault();
-
-            return Select(x => x.Idworkbook == workbook.Id).ToList();
+            return Select(x => true).ToList();// == workbook.Id).ToList();
         }
 
 
-        public List<Worksheet> SearchWorksheet(string workbookId, string phrase)
+        public List<Worksheet> SearchWorksheet(string phrase)
         {
-            Logic<Database.Persistence.Models.Workbook> workbooks = new Logic<Database.Persistence.Models.Workbook>();
-
-            Database.Persistence.Models.Workbook workbook = workbooks.Select(m => m.Idoffile == workbookId).FirstOrDefault();
-
-            return Select(x => x.Idworkbook == workbook.Id).ToList();
+            
+            return Select(x => x.Sheetname.Contains(phrase)).ToList();
         }
     }
 }
