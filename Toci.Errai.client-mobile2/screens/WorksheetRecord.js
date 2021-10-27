@@ -18,18 +18,16 @@ let tempQuan = [
 export default function WorksheetRecord({ route, navigation }) {
 
     //const [connectService] = useState( navigation.getParam('connectService') )
+    const [Product, setProduct] = useState([])
     const [areas, setareas] = useState([])
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
     const [loading, setloading] = useState(true)
-
-    const [kindOfDisplay, setkindOfDisplay] = useState(1)
-
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
         idarea: 1,
-        idworksheet: null,
-        idcodesdimensions: null,
-        iduser: 3,
+        idworksheet: 1,
+        idcodesdimensions: 1,
+        iduser: 1,
         quantity: "",
         length: "",
         width: "",
@@ -37,9 +35,8 @@ export default function WorksheetRecord({ route, navigation }) {
         updatedat: null,
     })
 
-    const [Product, setProduct] = useState([])
-
     useEffect( () => {
+        fetchAreas()
 
         // fetch(environment.apiUrl + 'api/Product/GetProduct/576').then(response_ => {
         //     return response_.json()
@@ -48,101 +45,56 @@ export default function WorksheetRecord({ route, navigation }) {
             console.log(response_)
             response_.areaQuantities = tempQuan
             setProduct(response_)
+            initAreaQuantities(response_)
+
             setloading(false)
-
-            AppUser.getApiData()
-            .then( response => {
-                //console.log(response)
-                setareas(response['areas'])
-            })
-
-        //connectService.setRowIndex(navigation.getParam('rowIndex') || null)
-
-        // setColumnsName(navigation.getParam('worksheetColumns'))
-        // const _worksheetRecords = navigation.getParam('workSheetRecord')
-        // console.log(_worksheetRecords)
-        // setColumnsData(_worksheetRecords)
-
-        // let code = _worksheetRecords[0].value
-        // let code2 = _worksheetRecords[1].value
-
-        // settempAreaquantityRow( prev => {
-        //     return {...prev,
-        //         rowindex: _worksheetRecords[0].rowindex,
-        //         idworksheet: 1 //connectService.getNowWorksheetId()
-        //     }
+        // }).finally(x => {
+        //     setloading(false)
         // })
-        // setloading(true)
-
-        // const response = JSON.parse('[{"id":1432,"idworksheet":4,"idcodesdimensions":1,"idarea":8,"iduser":3,"rowindex":2,"quantity":"89","length":"37","width":"89","createdat":"2021-09-07T22:39:54.325104","areacode":"PO","areaname":"Porch","initials":"PP"},{"id":1434,"idworksheet":4,"idcodesdimensions":1,"idarea":1,"iduser":3,"rowindex":2,"quantity":"44","length":"2503","width":"1253","createdat":"2021-09-08T00:17:54.502021","areacode":"RH","areaname":"Rack House","initials":"PP"}]')
-        // setgridData(response)
-        // setloading(false)
-
-
-
-
-        /*fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/' + _worksheetRecords[0].rowindex + '/' +connectService.getNowWorksheetId()).then(r => {
-            return r.json()
-        }).then(r => {
-            console.log(r)
-            console.log(JSON.stringify(r))
-            setgridData(r)
-        }).finally(x => {
-            setloading(false)
-        })*/
-
-        // AppUser.getApiData()
-        // .then( response => {
-        //     console.log(response)
-
-        //     setareas(response['Areas'])
-
-        //     let kind = response['Categories'].filter(item => (
-        //         (item.code).trim() == code2 || ((item.code).trim() == code )))
-
-        //     let tempKind = kind[0]['kind']
-        //     setkindOfDisplay(tempKind)
-
-        //     if(tempKind == 1) {
-        //         settempAreaquantityRow(prev => {
-        //             return {...prev,
-        //                 length: _worksheetRecords[4]['value'],
-        //                 width: _worksheetRecords[5]['value'],
-        //             }
-        //         })
-
-        //     } else {
-        //         settempAreaquantityRow(prev => {
-        //             return {...prev,
-        //                 length: _worksheetRecords[4]['value'],
-        //             }
-        //         })
-        //     }
-
-        //     settempAreaquantityRow(prev => {
-        //         return {...prev,
-        //             idcodesdimensions: tempKind,
-        //             idarea: response['Areas'][0]['id']
-        //         }
-        //     })
-
-        //     let savedArea = AppUser.getIdArea()
-        //     if(savedArea) {
-        //         settempAreaquantityRow(prev => {
-        //             return {...prev, idarea: savedArea}
-        //         })
-        //     }
-        // } )
 
     }, [] )
 
+    const initAreaQuantities = (response_) => {
+        if(!response_) response_ = Product
+
+        const tempLenWid = {length: "", width: ""}
+        response_.sizes.forEach(item => {
+            if(item.name == "Length") tempLenWid.length = item.value
+            if(item.name == "Width") tempLenWid.width = item.value
+        })
+
+        settempAreaquantityRow(prev => {
+            return {
+                ...prev,
+                idworksheet: response_.product.idworksheet,
+                length: tempLenWid.length.toString(),
+                width: tempLenWid.width.toString(),
+            }
+        })
+    }
+
+    const fetchAreas = () => {
+        AppUser.getApiData()
+        .then( response => {
+            setareas(response['areas'])
+        })
+
+        const savedArea = AppUser.getIdArea()
+        if(savedArea) {
+            settempAreaquantityRow(prev => {
+                return {...prev, idarea: savedArea}
+            })
+        }
+    }
+
     const updateTableAfterRequest = () => {
         fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
-            + columnsData[0].rowindex + '/'
-            + connectService.getNowWorksheetId()).then(r => {
-            return r.json()
-        }).then(r => {
-            setgridData(r)
+            + connectService.getNowWorksheetId()).then(response_ => {
+            return response_.json()
+        }).then(response_ => {
+            const newProduct = Product
+            newProduct.areaQuantities - response_
+            setProduct(newProduct)
         }).catch(error => {
             console.log(error);
         }).finally(x => {
@@ -178,28 +130,25 @@ export default function WorksheetRecord({ route, navigation }) {
             <WorksheetRecord_AddBtn
                 tempAreaquantityRow={tempAreaquantityRow}
                 btnvalueHook={btnvalueHook}
+                initAreaQuantities={initAreaQuantities}
+                setbtnvalueHook={setbtnvalueHook}
                 updateTableAfterRequest={updateTableAfterRequest}
-                clearInputs={clearInputs}
-                kindOfDisplay={kindOfDisplay}
+                initAreaQuantities={initAreaQuantities}
                 setloading={setloading}
             />
 
-            { btnvalueHook == "UPDATE" && (
                 <WorksheetRecord_Inputs
                     settempAreaquantityRow={settempAreaquantityRow}
                     tempAreaquantityRow={tempAreaquantityRow}
-                    kindOfDisplay={kindOfDisplay}
                     areas={areas}
                     setbtnvalueHook={setbtnvalueHook}
                 />
-            ) }
 
             <WorksheetRecord_Grid
                 settempAreaquantityRow={settempAreaquantityRow}
                 areaQuantities={Product.areaQuantities}
                 updateTableAfterRequest={setProduct}
                 setAreaQuantities={setProduct}
-                kindOfDisplay={kindOfDisplay}
                 areas={areas}
                 setbtnvalueHook={setbtnvalueHook}
                 setloading={setloading}
