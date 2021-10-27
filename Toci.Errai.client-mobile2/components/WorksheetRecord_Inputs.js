@@ -57,7 +57,7 @@ export default function WorksheetRecord_Inputs(props) {
 
             <View style={worksheetRecord.QuantityView}>
                 {
-                    props.kindOfDisplay == 1 ?
+                    props.kindOfDisplay != 1 ?
                     (<View style={worksheetRecord.DimensionsView}>
 
                         <View style={worksheetRecord.DimensionsInputContainerTwo}>
@@ -107,15 +107,7 @@ export default function WorksheetRecord_Inputs(props) {
                 </View>
 
             </View>
-            <View>
-                {/* <TouchableOpacity> */}
-                    <View style={ worksheetRecordAddBtn.cancelBtn }>
-                        <Text onPress={ () => cancel()} style={worksheetRecordAddBtn.deleteText}>
-                            CANCEL
-                        </Text>
-                    </View>
-                {/* </TouchableOpacity> */}
-            </View>
+
         </View>
     )
 }

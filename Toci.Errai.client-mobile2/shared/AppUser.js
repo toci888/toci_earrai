@@ -6,11 +6,11 @@ export default class AppUser {
 
     static token = null
 
-    static savedIdArea = null
+    static savedIdArea = 3 // TODO
 
     static apiData = {
         areas: [
-            {id: 1, code: "AA", name: "Anon ALkoh"},
+            {id: 1, code: "AA", name: "Anonimowy Alkohol"},
             {id: 2, code: "BB", name: "Bardzo bobrze"},
             {id: 3, code: "CC", name: "Cyc caly"},
         ]

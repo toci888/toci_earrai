@@ -92,7 +92,7 @@ export const worksheetRecord = StyleSheet.create({
         paddingLeft: 10
     },
     ComboView: {
-        marginTop: 15,
+        marginTop: 5,
         marginBottom: 5,
         marginLeft: 15,
         marginRight: 15,
