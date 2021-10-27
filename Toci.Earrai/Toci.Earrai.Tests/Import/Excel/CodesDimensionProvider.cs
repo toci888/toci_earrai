@@ -8,7 +8,7 @@ namespace Toci.Earrai.Tests.Import.Excel
     {
         private static Dictionary<string, Codesdimension> CodesDimensions = new Dictionary<string, Codesdimension>();
 
-        public static Dictionary<string, Codesdimension> GetCategories()
+        public static Dictionary<string, Codesdimension> GetCodesDimensions()
         {
             return CodesDimensions;
         }
