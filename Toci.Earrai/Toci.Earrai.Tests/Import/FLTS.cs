@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Tests.Import.Excel;
 
 namespace Toci.Earrai.Tests.Import
 {
@@ -8,7 +9,24 @@ namespace Toci.Earrai.Tests.Import
     {
         protected override void ImportAreas(List<string> row, int productId)
         {
-            
+            string area1 = row[8];
+            string area2 = row[11];
+            string area3 = row[14];
+
+            if (!string.IsNullOrEmpty(area1))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[6], Quantity = row[7], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
+            }
+
+            if (!string.IsNullOrEmpty(area2))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[9], Quantity = row[10], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
+            }
+
+            if (!string.IsNullOrEmpty(area3))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[12], Quantity = row[13], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
+            }
         }
 
         protected override void ImportSizes(List<string> row, int productId)
