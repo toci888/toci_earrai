@@ -26,7 +26,7 @@ namespace Toci.Earrai.Microservice.Controllers {
         public ActionResult<IEnumerable<List<Worksheet>>> GetAllWorkbooks() 
         {
 
-            var allWorkbooks = Logic.GetAllWorkbooks();
+            var allWorkbooks = Logic.GetAllWorksheetsFromDb();
 
             return Ok(allWorkbooks);
         }

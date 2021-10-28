@@ -17,12 +17,13 @@ export default function Login({navigation}) {
       navigation.navigate('WorksheetRecord')
     } else {
       console.log("Failed to login")
+
     }
   }
 
   useEffect(() => {
-    //checkIfLogged()
-    navigation.navigate('WorksheetRecord')
+    checkIfLogged()
+    //navigation.navigate('WorksheetRecord')
   }, [])
 
   const login = async (values) => {
@@ -34,7 +35,7 @@ export default function Login({navigation}) {
     if(response)
     {
       AppUser.setUserData(response)
-      navigation.navigate('Home');
+      navigation.navigate('WorksheetsList');
     } else {
       Alert.alert("Login error", "Check e-mail and password.");
       console.log("error logowania");

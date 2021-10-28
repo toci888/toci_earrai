@@ -9,10 +9,7 @@ namespace Toci.Earrai.Bll.Interfaces
     {
         Task<List<Worksheet>> GetAllWorksheets(string fileId);
 
-        Task<List<object>> GetAllWorkbooks();
+        List<Worksheet> GetAllWorksheetsFromDb();
 
-        //List<Workbook> GetAllWorkbooksFromDb();
-
-        public List<Worksheet> GetAllWorksheetsFromDb(string workbookId);
     }
 }

@@ -6,12 +6,10 @@ import { DataTable } from 'react-native-paper'
 import { environment } from '../environment'
 import { modalStyles } from '../styles/modalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
-
-let tempColumns = 3
+import AppUser from '../shared/AppUser'
 
 export default function WorksheetContent({ route, navigation }) {
 
-    //const [connectService] = useState( navigation.getParam('connectService') )
     const [worksheetContent, setworksheetContent] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
@@ -21,30 +19,27 @@ export default function WorksheetContent({ route, navigation }) {
     const [nomoredata, setNomoredata] = useState(false)
 
     useEffect(() => {
-        //connectService.setNowWorksheetId(1)
-
-        let x = JSON.parse('[{"id":572,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_1_2500_1250","description":"PL_1_2500_1250 @ 7.85Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]},{"id":573,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_1_2500_1250","description":"PL_1_2500_1250 @ 7.85Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]}]')
-        console.log(x)
-        setworksheetContent(prev => {
-            return x
-        })
-        setloading(false)
+        AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         //apiFetch()
     }, [])
 
     const apiFetch = () => {
         setloading(true)
-        fetch(environment.apiUrl + "api/Product/GetProducts/1")// + navigation.getParam('worksheetId'))
+        fetch(environment.apiUrl + "api/Product/GetProducts/" + AppUser.getWorksheetId())
         .then(response => response.json())
-        .then(response => { setColumns(response); console.log(response); console.log(JSON.stringify(response)); })
-        .catch(error => { setApierror(true) })
-        .finally(() => { setloading(false) })
+        .then(response => {
+            setColumns(response)
+            console.log(response)
+            console.log(JSON.stringify(response))
+         }).catch(error => {
+             setApierror(true)
+        }).finally(() => { setloading(false) })
     }
 
     const searchForData = (filteredValue_, skipCounter_) => {
         setloading(true)
-        let x = environment.apiUrl + "api/Product/GetProducts/1"
-                    /*+ navigation.getParam('worksheetId') + "/" + filteredValue_ + "/" + skipCounter_*/
+        let x = environment.apiUrl + "api/Product/GetProducts/" + filteredValue_ + "/" + skipCounter_
+
         console.log(x)
         fetch(x)
         .then(response => response.json())

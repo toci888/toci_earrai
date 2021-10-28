@@ -58,10 +58,9 @@ namespace Toci.Earrai.Bll
             return workbook.Select(m => true).ToList();
         }*/
 
-        public List<Worksheet> GetAllWorksheetsFromDb(string workbookId)
+        public List<Worksheet> GetAllWorksheetsFromDb()
         {
-
-            return Select(x => true).ToList();// == workbook.Id).ToList();
+            return Select(x => true).ToList();
         }
 
 

@@ -33,6 +33,9 @@ export const productDetails = StyleSheet.create({
         width: '50%',
         display: 'flex',
         justifyContent: 'flex-start',
+    },
+    smallSize: {
+        fontSize: 12,
     }
 
 

@@ -2,7 +2,7 @@ import { environment } from './environment';
 
 
 export default class RestClient {
-    constructor (baseUrl = environment.prodApiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
+    constructor (baseUrl = environment.apiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
       if (!baseUrl) throw new Error('missing baseUrl');
       this.headers = {
         'Accept': 'application/json',

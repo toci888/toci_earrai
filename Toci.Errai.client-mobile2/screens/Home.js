@@ -11,7 +11,7 @@ import { worksheetsList } from '../styles/worksheetsListStyles'
 
 export default function Home( { navigation }) {
 
-    const [connectService] = useState( new ConnectionService() )
+    //const [connectService] = useState( new ConnectionService() )
     const [workbooks, setworkbooks] = useState([])
     const [displayedWorkbooks, setdisplayedWorkbooks] = useState([])
     const [filteredValue, setfilteredValue] = useState("")

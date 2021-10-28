@@ -6,6 +6,8 @@ export default class AppUser {
 
     static token = null
 
+    static worksheetId = null
+
     static savedIdArea = 1 // TODO
 
     static areas = [
@@ -39,6 +41,10 @@ export default class AppUser {
         AppUser.userData = data
         //AsyncStorage.setItem('userData', JSON.stringify(data))
     }
+
+    static setWorksheetId = (worksheetId_) => { AppUser.worksheetId = worksheetId_ }
+
+    static getWorksheetId = () => AppUser.worksheetId
 
     static setAreas = (areas_) => { AppUser.areas = areas_ }
 
@@ -74,12 +80,9 @@ export default class AppUser {
 
     static checkIfAlreadyExists = async () => {
 
-        //let x = await AsyncStorage.getItem('AppUser')
-        //x = JSON.parse(x)
-        //console.log(x)
-        //return x ? x : false
-        return true
-
+        let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
+        console.log(x)
+        return x ? x : false
     }
 
 }

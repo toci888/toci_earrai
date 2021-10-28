@@ -11,6 +11,7 @@ import { modalStyles } from '../styles/modalStyles'
 import ProductPrices from './Product/ProducPrices'
 import ProductSizes from './Product/productSizes'
 import { getProductUrl } from '../components/RequestConfig'
+import ProductDetails from './Product/ProductDetails'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -140,6 +141,8 @@ export default function WorksheetRecord({ route, navigation }) {
                     <Text style={modalStyles.tempText}>Wait..</Text>
                 </View>
             )}
+
+            <ProductDetails product={Product?.product} />
 
             <WorksheetRecord_AddBtn
                 tempAreaquantityRow={tempAreaquantityRow}

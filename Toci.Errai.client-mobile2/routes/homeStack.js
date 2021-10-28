@@ -15,13 +15,6 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
-    WorksheetRecord: {
-        screen: WorksheetRecord,
-        navigationOptions: {
-            title : "Worksheets Record",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
     WorksheetContent: {
         screen: WorksheetContent,
         navigationOptions: {
@@ -29,6 +22,14 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
+    WorksheetRecord: {
+        screen: WorksheetRecord,
+        navigationOptions: {
+            title : "Worksheets Record",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
+
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {
