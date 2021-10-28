@@ -12,12 +12,12 @@ using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Tests;
 using Toci.Microsoft.Graph.Excel;
-using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
+//using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
 namespace OneDriveWithMSGraph {
     class Program
     {
-        protected static Logic<Workbook> Workbook = new Logic<Workbook>();
+        //protected static Logic<Workbook> Workbook = new Logic<Workbook>();
         protected static Logic<Worksheet> Worksheet = new Logic<Worksheet>();
         protected static Logic<Worksheetcontent> Worksheetcontent = new Logic<Worksheetcontent>();
 
@@ -102,8 +102,8 @@ namespace OneDriveWithMSGraph {
                     case 5:
 
                         Console.WriteLine("Lets start");
-                        var ele = new SeedWorkBook();
-                        ele.SeedDBByWorkbook();
+                        //v/ar ele = new SeedWorkBook();
+                        //ele.SeedDBByWorkbook();
                                                  
                         Console.WriteLine("Press any button if finished");
                         Console.ReadKey();

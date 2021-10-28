@@ -34,7 +34,7 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(x);
         }
 
-        [HttpDelete("DeleteById")]
+        [HttpDelete("{Id}")]
         public ActionResult DeleteById(int Id)
         {
             Logic.DeleteById(Id);

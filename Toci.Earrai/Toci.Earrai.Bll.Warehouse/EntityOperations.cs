@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using Toci.Earrai.Bll.Warehouse.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
-using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
+//using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
 namespace Toci.Earrai.Bll.Warehouse
 {
@@ -14,7 +14,7 @@ namespace Toci.Earrai.Bll.Warehouse
     {
         protected Logic<Area> AreaLogic = new Logic<Area>();
         protected Logic<Codesdimension> CdLogic = new Logic<Codesdimension>();
-        protected Logic<Workbook> WorkbookLogic = new Logic<Workbook>();
+        //protected Logic<Workbook> WorkbookLogic = new Logic<Workbook>();
         protected Logic<Worksheet> WorkSheetLogic = new Logic<Worksheet>();
         protected Logic<Worksheetcontent> WorkSheetContentLogic = new Logic<Worksheetcontent>();
 
@@ -75,7 +75,7 @@ namespace Toci.Earrai.Bll.Warehouse
         {
             IEnumerable<Area> areas = AreaLogic.Select(m => true);
             IEnumerable<Codesdimension> categories = CdLogic.Select(m => true);
-            IEnumerable<Workbook> workbooks = WorkbookLogic.Select(m => true);
+            //IEnumerable<Workbook> workbooks = WorkbookLogic.Select(m => true);
             //IEnumerable<Worksheet> worksheets = WorkSheetLogic.Select(m => true);
             //IEnumerable<Worksheetcontent> workSheetContent = WorkSheetContentLogic.Select(m => true);
 
@@ -83,7 +83,7 @@ namespace Toci.Earrai.Bll.Warehouse
             {
                 { "Areas", areas },
                 { "Categories", categories },
-                { "Workbooks", workbooks },
+                //{ "Workbooks", workbooks },
                // { "Worksheets", worksheets },
                // { "Worksheetcontents", workSheetContent }
             };

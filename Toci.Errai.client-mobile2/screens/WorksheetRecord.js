@@ -10,10 +10,7 @@ import WorksheetRecord_AddBtn from '../components/WorksheetRecord_AddBtn'
 import { modalStyles } from '../styles/modalStyles'
 import ProductPrices from './Product/ProducPrices'
 import ProductSizes from './Product/productSizes'
-
-let tempQuan = [
-    {createdat: "20.11.2021", updDateF: "20.11.2021",id: 1, length: 1000, width: 1000, quantity: 3,  initials: "AB",areacode: "AA", areaname: "Anon ALkoh",
-    }, {  createdat: "21.11.2021", updDateF: "21.11.2021", id: 2, length: 2500, width: 1500, quantity: 6, initials: "AD",  areacode: "BB", areaname: "Bardzo bobrze", }]
+import { getProductUrl } from '../components/RequestConfig'
 
 export default function WorksheetRecord({ route, navigation }) {
 
@@ -21,14 +18,15 @@ export default function WorksheetRecord({ route, navigation }) {
     const [Product, setProduct] = useState([])
     const [areas, setareas] = useState([])
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
+    const [UpdatingIndex, setUpdatingIndex] = useState(null)
     const [loading, setloading] = useState(true)
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
         idarea: 1,
-        idworksheet: 1,
+        idproducts: 1,
         idcodesdimensions: 1,
         iduser: 1,
-        quantity: "",
+        quantity: "1",
         length: "",
         width: "",
         createdat: null,
@@ -38,19 +36,24 @@ export default function WorksheetRecord({ route, navigation }) {
     useEffect( () => {
         fetchAreas()
 
-        // fetch(environment.apiUrl + 'api/Product/GetProduct/576').then(response_ => {
-        //     return response_.json()
-        // }).then(response_ => {
-            const response_ = JSON.parse('{"product":{"id":576,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_2_2500_1250","description":"PL_2_2500_1250 @ 15.7Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]},"options":[],"sizes":[{"id":1383,"idproducts":576,"value":"2500","name":"Length"},{"id":1384,"idproducts":576,"value":"1250","name":"Width"},{"id":1385,"idproducts":576,"value":"2","name":"Thickness"}],"prices":[{"idproducts":576,"price":"459","name":"PoundsPerTonne","valuation":"£/T"},{"idproducts":576,"price":"22.5196875","name":"PoundsPerSheet","valuation":"£/Sht"}],"areaQuantities":[]}')
+        fetch(getProductUrl(12)).then(response_ => {
+            return response_.json()
+        }).then(response_ => {
+            //console.log(JSON.stringify(response_))
+            //const response_ = JSON.parse('{"product":{"id":12,"idcategories":1,"idworksheet":1,"rowindex":null,"productaccountreference":"PL_3_3000_1500","description":"PL_3_3000_1500 @ 23.55Kg/m2","idcategoriesNavigation":null,"idworksheetNavigation":null,"areaquantities":[],"productoptionvalues":[],"productsizes":[],"quoteandprices":[]},"options":[],"sizes":[{"id":34,"idproducts":12,"value":"3000","name":"Length"},{"id":35,"idproducts":12,"value":"1500","name":"Width"},{"id":36,"idproducts":12,"value":"3","name":"Thickness"}],"prices":[{"idproducts":12,"price":"460","name":null,"valuation":"£/T"},{"idproducts":12,"price":"48.7485","name":null,"valuation":"£/Sht"}],"areaQuantities":[{"id":5,"idproducts":12,"idcodesdimensions":1,"idarea":15,"iduser":1,"rowindex":null,"quantity":"7","length":"","width":"","createdat":"2021-10-28T08:21:36.411771","areacode":"QB","areaname":"Quarry Front Shed","initials":"UU"},{"id":6,"idproducts":12,"idcodesdimensions":1,"idarea":15,"iduser":1,"rowindex":null,"quantity":"78","length":"","width":"","createdat":"2021-10-28T08:21:36.412839","areacode":"QB","areaname":"Quarry Front Shed","initials":"UU"},{"id":7,"idproducts":12,"idcodesdimensions":1,"idarea":15,"iduser":1,"rowindex":null,"quantity":"19","length":"","width":"","createdat":"2021-10-28T08:21:36.413893","areacode":"QB","areaname":"Quarry Front Shed","initials":"UU"}]}')
             console.log(response_)
-            response_.areaQuantities = tempQuan
             setProduct(response_)
+
+            settempAreaquantityRow(prev => {
+                return {  ...prev, idproducts: response_.product.id,  }
+            })
+
             initAreaQuantities(response_)
 
             setloading(false)
-        // }).finally(x => {
-        //     setloading(false)
-        // })
+        }).finally(x => {
+            setloading(false)
+        })
 
     }, [] )
 
@@ -69,15 +72,16 @@ export default function WorksheetRecord({ route, navigation }) {
                 idworksheet: response_.product.idworksheet,
                 length: tempLenWid.length.toString(),
                 width: tempLenWid.width.toString(),
+                idarea: AppUser.getIdArea(),
             }
         })
+
+        setbtnvalueHook("ADD")
     }
 
     const fetchAreas = () => {
-        AppUser.getApiData()
-        .then( response => {
-            setareas(response['areas'])
-        })
+
+        setareas(AppUser.getAreas())
 
         const savedArea = AppUser.getIdArea()
         if(savedArea) {
@@ -87,20 +91,30 @@ export default function WorksheetRecord({ route, navigation }) {
         }
     }
 
-    const updateTableAfterRequest = () => {
-        fetch(environment.prodApiUrl + 'api/AreasQuantities/GetAreasQuantitiesByRowIndexAndWorksheet/'
-            + connectService.getNowWorksheetId()).then(response_ => {
+    const deleteProduct = (index_) => {
+        const newProduct = Product
+
+        newProduct.areaQuantities.splice(index_, 1)
+        setProduct(newProduct)
+    }
+
+    const updateAreaQuantitiesfterRequest = async () => {
+       fetch(environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByProduct/'
+            + 12).then(response_ => {
             return response_.json()
         }).then(response_ => {
-            const newProduct = Product
-            newProduct.areaQuantities - response_
-            setProduct(newProduct)
+            console.log(response_)
+            let newProduct = Product
+            newProduct.areaQuantities = response_
+            setProduct(prev => {return newProduct})
+            WorksheetRecord()
         }).catch(error => {
             console.log(error);
         }).finally(x => {
             setloading(false)
         })
     }
+
 
     const clearInputs = () => {
         settempAreaquantityRow(prev => {
@@ -130,9 +144,10 @@ export default function WorksheetRecord({ route, navigation }) {
             <WorksheetRecord_AddBtn
                 tempAreaquantityRow={tempAreaquantityRow}
                 btnvalueHook={btnvalueHook}
+                Product={Product}
                 initAreaQuantities={initAreaQuantities}
                 setbtnvalueHook={setbtnvalueHook}
-                updateTableAfterRequest={updateTableAfterRequest}
+                updateAreaQuantitiesfterRequest={updateAreaQuantitiesfterRequest}
                 initAreaQuantities={initAreaQuantities}
                 setloading={setloading}
             />
@@ -146,12 +161,14 @@ export default function WorksheetRecord({ route, navigation }) {
 
             <WorksheetRecord_Grid
                 settempAreaquantityRow={settempAreaquantityRow}
+                setUpdatingIndex={setUpdatingIndex}
                 areaQuantities={Product.areaQuantities}
-                updateTableAfterRequest={setProduct}
+                updateAreaQuantitiesfterRequest={setProduct}
                 setAreaQuantities={setProduct}
                 areas={areas}
                 setbtnvalueHook={setbtnvalueHook}
                 setloading={setloading}
+                deleteProduct={deleteProduct}
             />
 
             <ProductPrices product={Product} />

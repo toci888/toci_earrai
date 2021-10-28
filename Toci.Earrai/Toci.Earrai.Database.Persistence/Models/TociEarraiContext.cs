@@ -33,6 +33,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual DbSet<Productsize> Productsizes { get; set; }
         public virtual DbSet<Productsoptionsstate> Productsoptionsstates { get; set; }
+        public virtual DbSet<Productsprice> Productsprices { get; set; }
         public virtual DbSet<Productssize> Productssizes { get; set; }
         public virtual DbSet<Quoteandmetric> Quoteandmetrics { get; set; }
         public virtual DbSet<Quoteandprice> Quoteandprices { get; set; }
@@ -58,7 +59,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -370,6 +371,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Value).HasColumnName("value");
+            });
+
+            modelBuilder.Entity<Productsprice>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productsprices");
+
+                entity.Property(e => e.Idproducts).HasColumnName("idproducts");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
+                entity.Property(e => e.Valuation).HasColumnName("valuation");
             });
 
             modelBuilder.Entity<Productssize>(entity =>

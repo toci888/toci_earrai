@@ -59,7 +59,6 @@ namespace Toci.Earrai.Bll
                     Createdat = DateTime.Now,
                     Updatedat = DateTime.Now
                 });
-                
             }
             
             var newList = areasQuantity.Select(item => true).ToList();

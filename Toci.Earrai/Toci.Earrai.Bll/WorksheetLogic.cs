@@ -51,12 +51,12 @@ namespace Toci.Earrai.Bll
             return worksheetsList;
         }
 
-        public List<Database.Persistence.Models.Workbook> GetAllWorkbooksFromDb()
+        /*public List<Database.Persistence.Models.Workbook> GetAllWorkbooksFromDb()
         {
             Logic<Database.Persistence.Models.Workbook> workbook = new Logic<Database.Persistence.Models.Workbook>();
 
             return workbook.Select(m => true).ToList();
-        }
+        }*/
 
         public List<Worksheet> GetAllWorksheetsFromDb(string workbookId)
         {

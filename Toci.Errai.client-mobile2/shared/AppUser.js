@@ -6,7 +6,14 @@ export default class AppUser {
 
     static token = null
 
-    static savedIdArea = 3 // TODO
+    static savedIdArea = 1 // TODO
+
+    static areas = [
+        {id: 1, code: "RH", name: "Rack House"},
+        {id: 2, code: "CO", name: "Compound"},
+        {id: 3, code: "RW", name: "Bottom Workshop"},
+        {id: 15, code: "QB", name: "Quarry Front Shed"},
+    ]
 
     static apiData = {
         areas: [
@@ -32,6 +39,10 @@ export default class AppUser {
         AppUser.userData = data
         //AsyncStorage.setItem('userData', JSON.stringify(data))
     }
+
+    static setAreas = (areas_) => { AppUser.areas = areas_ }
+
+    static getAreas = () => AppUser.areas
 
     static setIdArea = (idArea_) => { AppUser.savedIdArea = idArea_ }
 

@@ -3,46 +3,33 @@ import { worksheetRecordAddBtn } from '../styles/worksheetRecordAddBtnStyles'
 import { Text, View } from 'react-native'
 import { environment } from '../environment'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { insertUrl, insertRequestInfo, updateRequestInfo, updateUrl } from './RequestData'
+import { insertUrl, insertRequestParams, updateRequestParams, updateUrl } from './RequestConfig'
 
 export default function WorksheetRecord_AddBtn(props) {
 
     const sendRequest = () => {
-        let dataToSend = JSON.parse(JSON.stringify(props.tempAreaquantityRow));
 
         // TODO validate inputs
         props.setloading(true)
-        if(props.btnvalueHook == "ADD") {
+        let url, requestParams
+        if(props.btnvalueHook == "ADD") { url = insertUrl; requestParams = insertRequestParams
+        } else { url = updateUrl; requestParams = updateRequestParams }
 
-            fetch(insertUrl, insertRequestInfo(dataToSend)).then( response => {
-                props.updateTableAfterRequest()
-                props.initAreaQuantities()
-            }).catch(error => {
-                console.log(error)
-            }).finally(x => {
-                props.setloading(false)
-            })
-
-        } else if(props.btnvalueHook == "UPDATE") {
-
-            fetch(updateUrl, updateRequestInfo(dataToSend)).then( response => {
-                props.updateTableAfterRequest()
-                props.initAreaQuantities()
-            }).catch(error => {
-                console.log(error)
-            }).finally(x => {
-                props.setloading(false)
-            })
-        }
+        fetch(url, requestParams(props.tempAreaquantityRow)).then( response => {
+            console.log(response)
+            props.updateAreaQuantitiesfterRequest()
+            props.initAreaQuantities()
+        }).catch(error => {
+            console.log(error)
+        }).finally(x => {
+            //props.setloading(false)
+        })
     }
-
 
     const cancel = () => {
         props.setbtnvalueHook("ADD")
         props.initAreaQuantities()
     }
-
-
 
     return (
         <>

@@ -31,7 +31,7 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok(allWorkbooks);
         }
 
-        [HttpGet("GetAllWorkbooksFromDb")]
+        /*[HttpGet("GetAllWorkbooksFromDb")]
         public ActionResult<List<Workbook>> GetAllWorkbooksFromDb()
         {
 
@@ -47,7 +47,7 @@ namespace Toci.Earrai.Microservice.Controllers {
             var workbooks = Logic.GetAllWorksheetsFromDb(workbookId);
 
             return Ok(workbooks);
-        }
+        }*/
 
     }
 }

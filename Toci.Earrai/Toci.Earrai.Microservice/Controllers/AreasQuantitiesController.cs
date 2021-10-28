@@ -26,11 +26,11 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(areasQuantities);
         }
 
-        [HttpGet("GetAreasQuantitiesByRowIndexAndWorksheet/{rowindex}/{worksheetId}")]
-        public ActionResult<List<Areasquantity>> GetAreasQuantitiesByRowIndexAndWorksheet(int worksheetId)
+        [HttpGet("GetAreasQuantitiesByProduct/{productId}")]
+        public ActionResult<List<Areasquantity>> GetAreasQuantitiesByProduct(int productId)
         {
 
-            var result = Logic.GetAreasQuantitiesByRowIndexAndWorksheet(worksheetId);
+            var result = Logic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
 
             return Ok(result);
         }

@@ -4,37 +4,35 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import { Button, Text, View, Pressable } from 'react-native'
 import { environment } from '../environment'
+import { deleteRequestParams, deleteUrl } from './RequestConfig'
 
 
 
 export default function WorksheetRecord_Grid(props) {
 
-    const deleteData = (index) => {
+    const deleteData = (index_) => {
 
-        let x = props.areaQuantities[index]
+        let x = props.areaQuantities[index_]
+        console.log(x)
 
-        let id_ = x['id']
         props.setloading(true)
-        fetch(environment.prodApiUrl + "api/AreaQuantity/DeleteById?Id=" + id_, {
-            method: "DELETE",
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([x])
-        }).then( response => {
+        fetch(deleteUrl(x['id']), deleteRequestParams(x['id'])).then( response => {
             console.log(response)
-            props.updateTableAfterRequest()
+            props.deleteProduct(index_)
         }).catch(error => {
             console.log(error)
+        }).finally(data => {
+            props.setloading(false)
         })
-
     }
 
-    const updateData = (index) => {
-        let foundRow = props.areaQuantities[index]
+    const updateData = (index_) => {
+        props.setUpdatingIndex(index_)
+        let foundRow = props.areaQuantities[index_]
 
         let _area = props.areas.filter(item => item.code == foundRow['areacode'])[0]
+
+        props.settempAreaquantityRow(prev => foundRow)
 
         props.settempAreaquantityRow(prev => {
             return {...prev,

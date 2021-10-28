@@ -19,7 +19,6 @@ namespace Toci.Earrai.Bll
         public ProductDto GetProduct(int productId)
         {
             ProductDto result = new ProductDto();
-
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
             result.Options = ProductOVLogic.GetProductValues(productId);
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);

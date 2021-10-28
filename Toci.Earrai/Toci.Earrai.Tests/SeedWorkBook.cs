@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll;
-using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
+//using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Tests
 {
-    public class SeedWorkBook
+    /*public class SeedWorkBook
     {
         protected static Logic<Workbook> Workbooks = new Logic<Workbook>();
         protected static Logic<Worksheet> Worksheet = new Logic<Worksheet>();
@@ -177,7 +177,7 @@ namespace Toci.Earrai.Tests
         }
 
 
-    }
+    }*/
 
 
 }

@@ -234,6 +234,8 @@ create or replace view productsoptionsstate as
 select productoptions.name, productoptionvalues.idproducts, productoptionvalues.value from
 productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions;
 
+				
+create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation from quoteandmetric, quoteandprice where quoteandprice.idquoteandmetric = quoteandmetric.id
 
 create or replace view ProductsSizes as 
 select productsize.id, productsize.idproducts, productsize.value, sizes.name
