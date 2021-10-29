@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
-import { productCSS } from '../styles/worksheetContent'
+import { ProductStyle } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
+import { worksheetRecord } from '../styles/Product_Util_Styles'
 import AppUser from '../shared/AppUser'
-import { getProductsFromWorksheet } from '../components/RequestConfig'
+import { getProductsFromWorksheet } from '../shared/RequestConfig'
 
 export default function ProductsList({ route, navigation }) {
 

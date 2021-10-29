@@ -1,11 +1,10 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import Home from '../screens/Home'
-import ProductsList from '../screens/WorksheetContent'
+import ProductsList from '../screens/ProductsList'
 import WorksheetsList from '../screens/WorksheetsList'
-import WorksheetRecord from '../screens/WorksheetRecord'
-import Login from '../screens/Login'
-import Register from '../screens/Register'
+import Product from '../screens/Product/Product'
+import Login from '../screens/Auth/Login'
+import Register from '../screens/Auth/Register'
 
 const screens = {
     Login: {
@@ -22,14 +21,6 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
-    WorksheetRecord: {
-        screen: WorksheetRecord,
-        navigationOptions: {
-            title : "Product",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
-
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {
@@ -37,40 +28,13 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
-
-    Home: {
-        screen: Home,
+    Product: {
+        screen: Product,
         navigationOptions: {
-
-            title : "Home / Workbooks",
-            // headerStyle: { backgroundColor: '#ccc', color: '#ffffff' },
-            // headerTitle : () =>
-            // <View style={{flex: 1, flexDirection:'row', flexWrap:'wrap'}}>
-            //     <Text style={{textAlign: 'right'}}>Home / Workbooks</Text>
-
-            //     <View style={{marginLeft: 50, marginRight: 50, flexDirection:'row', flexWrap:'wrap', textAlign: 'flex-end'}}>
-            //         <Button title="Login" onPress={() => navigation.navigate('Login')}/>
-            //         <Button title="Register" onPress={() => navigation.navigate('Register')}/>
-            //     </View>
-
-            // </View>,
-
-            // <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
-            //     <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
-            //         <Text style={globalStyles.unityName, {fontSize: 20}}>Home / Workbooks1</Text>
-            //         {/* <Text style={globalStyles.subInfo}>Home / Workbooks2</Text> */}
-            //     </View>
-            //     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            //         <Text style={{marginRight: 20}} onPress={() => navigation.navigate('Login')}>Login</Text>
-            //         <Text onPress={() => navigation.navigate('Register')}>Register</Text>
-            //     </View>
-            // </View>
-
+            title : "Product",
+            headerStyle: { backgroundColor: '#ccc' }
         }
     },
-
-
-
     Register: {
         screen: Register,
         navigationOptions: {

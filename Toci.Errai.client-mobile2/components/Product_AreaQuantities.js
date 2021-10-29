@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { DataTable } from 'react-native-paper'
 import { globalStyles } from '../styles/globalStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
+import { worksheetRecord } from '../styles/Product_Util_Styles'
 import { Button, Text, View, Pressable } from 'react-native'
 import { environment } from '../environment'
-import { deleteRequestParams, deleteUrl } from './RequestConfig'
+import { deleteRequestParams, deleteUrl } from '../shared/RequestConfig'
 
 
 
-export default function WorksheetRecord_Grid(props) {
+export default function Product_AreaQuantities(props) {
 
     const deleteData = (index_) => {
 

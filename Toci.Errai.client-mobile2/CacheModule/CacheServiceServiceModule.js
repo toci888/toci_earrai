@@ -86,10 +86,10 @@ export class ConnectionService {
         ConnectionService.cacheData.push(object_)
     }
 
-    updateRecord(Worksheetcontent) {
+    updateRecord(ProductsList) {
         // fetch(environment.apiUrl + "api/WorksheetContent/", {
         //     method: "PUT",
-        //     body: JSON.stringify(Worksheetcontent) // Worksheetcontent
+        //     body: JSON.stringify(ProductsList) // Worksheetcontent
         // })
         // .then( response => response.json() )
         // .then( response => {

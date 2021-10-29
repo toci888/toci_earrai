@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { color } from 'react-native-reanimated';
 
-export const productCSS = StyleSheet.create({
+export const ProductStyle = StyleSheet.create({
     addNewRecordView: {
         backgroundColor: '#365d96',
 

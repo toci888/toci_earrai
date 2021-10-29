@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, ScrollView } from 'react-native'
-import { globalStyles } from '../styles/globalStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
-import { environment } from '../environment'
-import AppUser from '../shared/AppUser'
-import WorksheetRecord_Inputs from '../components/WorksheetRecord_Inputs'
-import WorksheetRecord_Grid from '../components/WorksheetRecord_Grid'
-import WorksheetRecord_AddBtn from '../components/WorksheetRecord_AddBtn'
-import { modalStyles } from '../styles/modalStyles'
-import ProductPrices from './Product/ProducPrices'
-import ProductSizes from './Product/productSizes'
-import { getAreasQuantitiesByProduct, getProductUrl } from '../components/RequestConfig'
-import ProductDetails from './Product/ProductDetails'
+import { worksheetRecord } from '../../styles/Product_Util_Styles'
+import AppUser from '../../shared/AppUser'
+import WorksheetRecord_Inputs from '../../components/Product_AreaQuantityInputs'
+import WorksheetRecord_Grid from '../../components/Product_AreaQuantities'
+import WorksheetRecord_AddBtn from '../../components/Product_AreaQuantityButtons'
+import { modalStyles } from '../../styles/modalStyles'
+import ProductPrices from './ProducPrices'
+import ProductSizes from './productSizes'
+import { getAreasQuantitiesByProduct, getProductUrl } from '../../shared/RequestConfig'
+import ProductDetails from './ProductDetails'
 
-export default function WorksheetRecord({ route, navigation }) {
+export default function Product({ route, navigation }) {
 
     const [Product, setProduct] = useState([])
     const [areas, setareas] = useState([])
@@ -170,8 +168,6 @@ export default function WorksheetRecord({ route, navigation }) {
             <ProductPrices product={Product} />
 
             <ProductSizes product={Product} />
-
-            {/* <WorksheetRecordData columnsName={columnsName} columnsData={columnsData} /> */}
 
         </ScrollView>
     )

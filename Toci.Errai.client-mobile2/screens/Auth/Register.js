@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import { Alert, Text, TextInput, View, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
-import RestClient from '../RestClient';
-import { formStyles } from '../styles/formStyles';
+
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import RestClient from '../../shared/RestClient';
 
 export default function Register({navigation}) {
-  
+
   const [indicator, setIndicator] = useState(false);
 
   const register = async (values) => {
@@ -52,7 +53,7 @@ export default function Register({navigation}) {
           confirmPassword: ''
         }});
       }}
-      
+
       validationSchema={yup.object().shape({
         firstName: yup.string()
           .required('First name is required.'),

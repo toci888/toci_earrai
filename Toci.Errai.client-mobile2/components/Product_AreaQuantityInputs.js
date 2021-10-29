@@ -3,10 +3,10 @@ import React from 'react'
 import { View, TextInput, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
-import { worksheetRecordAddBtn } from '../styles/worksheetRecordAddBtnStyles'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
+import { worksheetRecordAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
+import { worksheetRecord } from '../styles/Product_Util_Styles'
 
-export default function WorksheetRecord_Inputs(props) {
+export default function Product_AreaQuantityInputs(props) {
 
     const setLength = text => {
         props.settempAreaquantityRow(prev => {

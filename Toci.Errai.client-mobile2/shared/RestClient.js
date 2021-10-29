@@ -1,5 +1,4 @@
-import { environment } from './environment';
-
+import { environment } from '../environment';
 
 export default class RestClient {
     constructor (baseUrl = environment.apiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {

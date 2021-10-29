@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import { Alert, Text, TextInput, View, Button, TouchableOpacity, ActivityIndicator } from 'react-native'
-import AppUser from '../shared/AppUser'
-import RestClient from '../RestClient';
-import { formStyles } from '../styles/formStyles';
+import AppUser from '../../shared/AppUser'
+import { formStyles } from '../../styles/formStyles';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import RestClient from '../../shared/RestClient';
 
 export default function Login({navigation}) {
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
-import { worksheetsList } from '../styles/worksheetsListStyles'
+import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
 import { environment } from '../environment'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { getAllWorksheetsUrl, getAreasUrl } from '../components/RequestConfig'
+import { getAllWorksheetsUrl, getAreasUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 
 export default function WorksheetsList({ route, navigation }) {
