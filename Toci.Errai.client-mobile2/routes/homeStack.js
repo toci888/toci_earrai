@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import Home from '../screens/Home'
-import WorksheetContent from '../screens/WorksheetContent'
+import ProductsList from '../screens/WorksheetContent'
 import WorksheetsList from '../screens/WorksheetsList'
 import WorksheetRecord from '../screens/WorksheetRecord'
 import Login from '../screens/Login'
@@ -15,17 +15,17 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
-    WorksheetContent: {
-        screen: WorksheetContent,
+    ProductsList: {
+        screen: ProductsList,
         navigationOptions: {
-            title : "Worksheets Content",
+            title : "Products",
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
     WorksheetRecord: {
         screen: WorksheetRecord,
         navigationOptions: {
-            title : "Worksheets Record",
+            title : "Product",
             headerStyle: { backgroundColor: '#ccc' }
         }
     },

@@ -28,10 +28,19 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public List<Product> GetProductsByWorksheet(int worksheetId) {
+        public List<Product> GetProductsByWorksheet(int worksheetId, string phrase, int skip) {
             List<Product> result = new List<Product>();
 
-            result = Select(m => m.Idworksheet == worksheetId).Take(5).ToList();
+            int toSkip = skip * 5;
+
+            phrase = phrase == "empty" ? "" : phrase;
+
+            result = Select(m => m.Idworksheet == worksheetId)
+                        .Where(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId)
+                        .Skip(toSkip)
+                        .Take(5)
+                        .ToList();
+
             //result.ProductOptions = ProductOVLogic.GetProductValues(worksheetId);
             //result.ProductSize = ProductSizeLogic.GetProductSizes(worksheetId);
             //result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == worksheetId).ToList();

@@ -50,4 +50,14 @@ export function deleteRequestParams(dataToSend_) {
 export function getProductUrl(id_) { return environment.apiUrl + 'api/Product/GetProduct/' + id_ }
 
 
+export function getProductsFromWorksheet(worksheetId, phrase, skip) {
+    return environment.apiUrl + "api/Product/GetProducts/" + worksheetId + "/" + phrase + "/" + skip
+}
 
+export const getAllWorksheetsUrl = environment.apiUrl + "api/Worksheet/GetAllWorksheetsFromDb"
+
+export const getAreasUrl = environment.apiUrl + 'api/Areas'
+
+export function getAreasQuantitiesByProduct(productId) {
+    return environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByProduct/' + productId
+}

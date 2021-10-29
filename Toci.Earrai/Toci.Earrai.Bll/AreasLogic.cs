@@ -12,9 +12,15 @@ namespace Toci.Earrai.Bll
     {
         public List<Area> GetAllAreasFromDb()
         {
-            Logic<Area> areas = new Logic<Area>();
+            Logic<Area> areasLogic = new Logic<Area>();
 
-            return areas.Select(m => true).ToList();
+            List<Area> areas = areasLogic.Select(m => true).ToList();
+
+            foreach(Area area in areas) {
+                area.Name = area.Name.Trim().Replace("\r", "");
+            }
+
+            return areas;
         }
 
         public List<Codesdimension> GetAllCodesDimensionsFromDb()

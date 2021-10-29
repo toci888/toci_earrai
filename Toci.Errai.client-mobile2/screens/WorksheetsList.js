@@ -5,6 +5,8 @@ import { Text, View, TextInput } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
 import { environment } from '../environment'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { getAllWorksheetsUrl, getAreasUrl } from '../components/RequestConfig'
+import AppUser from '../shared/AppUser'
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -22,19 +24,25 @@ export default function WorksheetsList({ route, navigation }) {
     const apiFetch = () => {
         setloading(true)
 
-        let tempWorkbook = environment.apiUrl + "api/Worksheet/GetAllWorksheetsFromDb"
-        fetch(tempWorkbook)
-        .then( response => response.json() )
-        .then( response => {
-            console.log(response)
-            console.log(JSON.stringify(response));
-            setworksheets(response)
-            setdisplayedWorksheets(response)
-            setloading(false)
-        }).catch(error => {
-            setloading(false)
-            setApierror(true)
-        })
+        Promise.all([
+            fetch(getAllWorksheetsUrl).then(x => x.json()),
+            fetch(getAreasUrl).then(x => x.json()),
+        ]).then( response_ => {
+            console.log(response_)
+
+            setworksheets(response_[0])
+            setdisplayedWorksheets(response_[0])
+
+
+            response_[1].forEach(element => {
+                element.name = element.name.trim()
+            });
+
+            AppUser.setAreas(response_[1]);
+
+        }).catch((error) => { console.log(error)
+        }).finally(() => { setloading(false) })
+
     }
 
     const reloadApp = () => {
@@ -55,7 +63,7 @@ export default function WorksheetsList({ route, navigation }) {
 
     const showWorksheets = (_worksheetId) => {
         console.log(_worksheetId)
-        navigation.navigate('WorksheetContent', {
+        navigation.navigate('ProductsList', {
             worksheetId : _worksheetId.id,
         } )
     }

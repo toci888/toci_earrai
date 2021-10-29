@@ -1,53 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
-import { worksheetContentCSS } from '../styles/worksheetContent'
+import { productCSS } from '../styles/worksheetContent'
 import { DataTable } from 'react-native-paper'
-import { environment } from '../environment'
 import { modalStyles } from '../styles/modalStyles'
 import { worksheetRecord } from '../styles/worksheetRecordStyles'
 import AppUser from '../shared/AppUser'
+import { getProductsFromWorksheet } from '../components/RequestConfig'
 
-export default function WorksheetContent({ route, navigation }) {
+export default function ProductsList({ route, navigation }) {
 
-    const [worksheetContent, setworksheetContent] = useState([])
+    const [ProductsListHook, setProductsListHook] = useState([])
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
-    const [columns, setColumns] = useState([[],[]])
     const [apierror, setApierror] = useState(false)
     const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
 
     useEffect(() => {
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
-        //apiFetch()
+        searchForData()
     }, [])
 
-    const apiFetch = () => {
+    const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
-        fetch(environment.apiUrl + "api/Product/GetProducts/" + AppUser.getWorksheetId())
-        .then(response => response.json())
-        .then(response => {
-            setColumns(response)
-            console.log(response)
-            console.log(JSON.stringify(response))
-         }).catch(error => {
-             setApierror(true)
-        }).finally(() => { setloading(false) })
-    }
 
-    const searchForData = (filteredValue_, skipCounter_) => {
-        setloading(true)
-        let x = environment.apiUrl + "api/Product/GetProducts/" + filteredValue_ + "/" + skipCounter_
-
-        console.log(x)
-        fetch(x)
+        fetch(getProductsFromWorksheet(AppUser.getWorksheetId(), phrase_, skip_))
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            console.log(JSON.stringify(response))
             setSkipCounter(prev => prev + 1)
-            setworksheetContent(prev => {
+            setProductsListHook(prev => {
                 return [...prev, ...response]
             })
 
@@ -57,27 +40,28 @@ export default function WorksheetContent({ route, navigation }) {
 
         }).catch(error => {
             console.log(error)
-        }).finally(x => {
+            console.log("NIET")
+        }).finally(() => {
             setloading(false)
         })
     }
 
     const loadMore = () => {
-        if(!nomoredata) searchForData(filteredValue, skipCounter)
+        const toFilter = (filteredValue == "") ? "empty" : filteredValue
+        if(!nomoredata) searchForData(toFilter, skipCounter)
     }
 
-    const showProductDetails = (rowIndex) => {
-        console.log(rowIndex);
+    const showProductDetails = (index_) => {
+
+        AppUser.setWProductId(ProductsListHook[index_].id)
+
         navigation.navigate('WorksheetRecord', {
-            worksheetColumns: columns,
-            rowIndex: rowIndex,
-            workSheetRecord: worksheetContent[rowIndex],
-            //connectService: connectService
+            productId: ProductsListHook[index_].id,
         })
     }
 
     const filterContent = () => {
-        setworksheetContent(prev => {return []})
+        setProductsListHook(prev => {return []})
         setNomoredata(prev => {return false})
         setSkipCounter(prev => {return 0})
 
@@ -89,7 +73,7 @@ export default function WorksheetContent({ route, navigation }) {
     }
 
     const reloadApp = () => {
-        apiFetch()
+        searchForData()
     }
 
     if(apierror) return(
@@ -114,20 +98,16 @@ export default function WorksheetContent({ route, navigation }) {
                 </View>
             )}
 
-            <View>
-                <Text style={globalStyles.chooseWorkbookHeader}> Worksheet Content (Table) </Text>
-            </View>
-
-            <View style={worksheetContentCSS.filterContent}>
+            <View style={productCSS.filterContent}>
                 <TextInput
                     value={filteredValue}
-                    style={worksheetContentCSS.filterInput}
+                    style={productCSS.filterInput}
                     onChangeText={(text) => setFilterText(text)}
                     placeholder="Filter.."
                 />
-                <View style={worksheetContentCSS.filterButtonView}>
-                    <Pressable style={worksheetContentCSS.filterButton} onPress={filterContent}>
-                        <Text style={worksheetContentCSS.textUpdate}>Find</Text>
+                <View style={productCSS.filterButtonView}>
+                    <Pressable style={productCSS.filterButton} onPress={filterContent}>
+                        <Text style={productCSS.textUpdate}>Find</Text>
                     </Pressable>
                 </View>
 
@@ -137,57 +117,19 @@ export default function WorksheetContent({ route, navigation }) {
 
                 <View style={globalStyles.tableContainer}>
 
-                    {/* <DataTable.Header style={globalStyles.HalfHeader}>
-
-                        {columns && columns[0]?.map((column, index) => {
-                            if(index > tempColumns) return
-                            return (
-                                <DataTable.Title key={column.id} style={globalStyles.cell, {flex: 3}} > <Text>{column.value}</Text> </DataTable.Title>
-                            )
-                        })}
-
-                    </DataTable.Header>
-
-                    <DataTable.Header style={globalStyles.HalfHeader}>
-
-                        {columns && columns[1]?.map((column, index) => {
-                            if(index > tempColumns) return
-                            return <DataTable.Title key={column.id} style={globalStyles.cell} > <Text>{column.value}</Text> </DataTable.Title>
-                        })}
-
-                    </DataTable.Header> */}
-
-                    {/*
-                        worksheetContent?.map( (row, rowIndex) => {
-                            return(<DataTable.Row key={ rowIndex } style={worksheetContentCSS.customRow} >
-                                { row.map( (column, columnIndex) => {
-                                    if(columnIndex > tempColumns) return
-                                    //console.log(column.id)
-                                    return (
-                                    <DataTable.Cell
-                                        key={column.id}
-                                        onPress={ () => showProductDetails(rowIndex) }
-                                        style={worksheetContentCSS.cell}>
-
-                                        <Text>{column.value}</Text>
-                                    </DataTable.Cell>)
-                                } ) }
-                            </DataTable.Row>)
-                        } )
-                    */}
 
                     {
-                        worksheetContent?.map( (product, index) => {
-                            return(<DataTable.Row key={ index } style={worksheetContentCSS.customRow}>
+                        ProductsListHook?.map( (product, index) => {
+                            return(<DataTable.Row key={ index } style={productCSS.customRow}>
 
                                 <DataTable.Cell
                                     key={product.id}
                                     onPress={ () => showProductDetails(index) }
-                                    style={worksheetContentCSS.cell}>
+                                    style={productCSS.cell}>
 
-                                        <Text>{product.productaccountreference}</Text>
-                                        <Text> </Text>
-                                        <Text>{product.description}</Text>
+                                        <Text style={productCSS.small}>{product.productaccountreference}</Text>
+                                        <Text>, </Text>
+                                        <Text style={productCSS.small}>{product.description}</Text>
 
                                 </DataTable.Cell>
 
@@ -200,14 +142,14 @@ export default function WorksheetContent({ route, navigation }) {
             {/* </ScrollView> */}
 
             { nomoredata && (
-                <View style={worksheetContentCSS.nomoredataView}>
-                    <Text style={worksheetContentCSS.nomoredataText}>No more data</Text>
+                <View style={productCSS.nomoredataView}>
+                    <Text style={productCSS.nomoredataText}>No more data</Text>
                 </View>
             ) }
 
-            { !nomoredata && worksheetContent.length > 0 && (
-                <View style={worksheetContentCSS.loadMoreView}>
-                    <Text onPress={loadMore} style={worksheetContentCSS.loadMoreText}>
+            { !nomoredata && ProductsListHook.length > 0 && (
+                <View style={productCSS.loadMoreView}>
+                    <Text onPress={loadMore} style={productCSS.loadMoreText}>
                         Load more data
                     </Text>
                 </View>

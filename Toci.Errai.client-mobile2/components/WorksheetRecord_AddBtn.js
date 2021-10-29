@@ -21,8 +21,6 @@ export default function WorksheetRecord_AddBtn(props) {
             props.initAreaQuantities()
         }).catch(error => {
             console.log(error)
-        }).finally(x => {
-            //props.setloading(false)
         })
     }
 

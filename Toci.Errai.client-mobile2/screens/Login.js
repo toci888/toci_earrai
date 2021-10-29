@@ -16,14 +16,13 @@ export default function Login({navigation}) {
     if(logged) {
       navigation.navigate('WorksheetRecord')
     } else {
-      console.log("Failed to login")
+      console.log("Not logged already.")
 
     }
   }
 
   useEffect(() => {
     checkIfLogged()
-    //navigation.navigate('WorksheetRecord')
   }, [])
 
   const login = async (values) => {

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const worksheetRecordAddBtn = StyleSheet.create({
 
     absoluteUpdate: {
-        height: 40,
+        height: 45,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

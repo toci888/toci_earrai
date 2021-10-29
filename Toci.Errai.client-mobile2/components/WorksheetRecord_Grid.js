@@ -96,7 +96,7 @@ export default function WorksheetRecord_Grid(props) {
                     <DataTable.Cell key={i + "updDateF"} style={worksheetRecord.gridShort}>
                         <Text>
                             <Pressable style={worksheetRecord.buttonUpdate} onPress={() => updateData(i)}>
-                                <Text style={worksheetRecord.text}>UPDATE</Text>
+                                <Text style={worksheetRecord.text}>EDIT</Text>
                             </Pressable>
                         </Text>
                     </DataTable.Cell>

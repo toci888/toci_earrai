@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { color } from 'react-native-reanimated';
 
-export const worksheetContentCSS = StyleSheet.create({
+export const productCSS = StyleSheet.create({
     addNewRecordView: {
         backgroundColor: '#365d96',
 
@@ -10,10 +10,14 @@ export const worksheetContentCSS = StyleSheet.create({
         width: 'auto'
     },
     customRow: {
-
+        marginLeft: 10,
+        marginRight: 10,
     },
     cell: {
         color: 'black'
+    },
+    small: {
+        fontSize: 12
     },
 
     addNewRecordBtn: {
@@ -54,6 +58,7 @@ export const worksheetContentCSS = StyleSheet.create({
         fontSize: 18
     },
     filterContent: {
+        margin: 15,
         flexDirection: 'row',
 
     },
