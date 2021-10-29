@@ -52,7 +52,7 @@ namespace Toci.Earrai.Tests
           //  QuotesAndPrices();
 //            Products();
            // ProductSizes();
-         //   ProductOptions();
+            ProductOptions();
            // ProductCategoryOptions();
            // ProductOptionValues();
         }
