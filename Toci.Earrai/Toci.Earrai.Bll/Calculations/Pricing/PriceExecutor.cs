@@ -16,7 +16,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
             {2, new AlumCalculation() },
             {3, new MshExpMetalCalculation() },
             {4, new ChanBmsCalculation() },
-
+            {5, new AnglesTCalculation() },
+            {6, new FLTSCalculation() },
+            {7, new RHSCalculation() },
+            {8, new TubeCHSCalculation() },
+            {9, new RndsSqrsHolBarCalculation() },
         };
 
 
@@ -26,7 +30,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         public PricingDto getPrices() {
 
-            int id = Convert.ToInt32(dto.Product.Idworksheet);
+            int id = dto.Product.Idworksheet.Value;
 
             var calculator = PricesExecutors[id];
 
