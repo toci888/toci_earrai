@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Calculations.Pricing;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
@@ -24,6 +25,10 @@ namespace Toci.Earrai.Bll
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
             result.Prices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
             result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
+
+            PriceExecutor priceExec = new PriceExecutor(result);
+
+            result.Pricing = priceExec.getPrices();
 
             return result;
         }

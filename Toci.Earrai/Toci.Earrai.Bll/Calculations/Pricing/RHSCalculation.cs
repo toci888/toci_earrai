@@ -7,8 +7,7 @@ using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
     class RHSCalculation : PriceCalculationBase {
-        protected override PricingDto PricePerSheet(ProductDto product, PricingDto dto) {
-            throw new NotImplementedException();
-        }
+        // TODO 
+        // what to do with Columns Q and R ?
     }
 }

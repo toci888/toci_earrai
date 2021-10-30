@@ -7,8 +7,34 @@ using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
     class FLTSCalculation : PriceCalculationBase {
-        protected override PricingDto PricePerSheet(ProductDto product, PricingDto dto) {
-            throw new NotImplementedException();
+
+        protected override PricingDto KgPerMeter(ProductDto product, PricingDto dto) {
+
+            var x_ = product.Sizes.Where(size => size.Name == "Length").FirstOrDefault();
+            double x = Convert.ToDouble(x_);
+
+            var y_ = product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault();
+            double y = Convert.ToDouble(y_);
+
+            var res = (DensityFormKgPerSqrtMeter / 1000000) * x * y;
+
+            dto.KgPerMeter = res;
+
+            return dto;
         }
+        
+        protected override PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) {
+
+            var x_ = product.Prices.Where(price => price.Name == "PricePerTonne").FirstOrDefault();
+            double x = Convert.ToDouble(x_);
+
+            var y_ = product.Options.Where(opt => opt.Name == "KgM").FirstOrDefault(); // TODO option or calc?
+            double y = Convert.ToDouble(y_);
+
+            dto.PoundsPerMeter = (x / 1000) / y;
+
+            return dto; 
+        }
+        
     }
 }

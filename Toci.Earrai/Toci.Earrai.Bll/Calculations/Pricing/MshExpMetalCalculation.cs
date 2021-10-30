@@ -7,8 +7,7 @@ using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
     class MshExpMetalCalculation : PriceCalculationBase {
-        protected override PricingDto PricePerSheet(ProductDto product, PricingDto dto) {
-            throw new NotImplementedException();
-        }
+
+        // -30% -35% etc
     }
 }

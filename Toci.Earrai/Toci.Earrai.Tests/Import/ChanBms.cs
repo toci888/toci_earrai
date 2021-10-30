@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.ProductParams;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Tests.Import.Excel;
 
@@ -36,7 +37,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM, Value = row[5] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)
