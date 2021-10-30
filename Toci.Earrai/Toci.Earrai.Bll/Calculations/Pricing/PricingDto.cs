@@ -12,6 +12,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         public double Sheet { get; set; }
 
-       // Meter
+        public double Meter { get; set; }
+
+        public double SquareMeter { get; set; }
+
+        public double Length { get; set; }
+
     }
 }
