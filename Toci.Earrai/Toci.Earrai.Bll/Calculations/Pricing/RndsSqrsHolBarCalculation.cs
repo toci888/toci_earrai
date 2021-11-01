@@ -10,10 +10,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected override PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) {
 
-            var x_ = product.Prices.Where(price => price.Name == "PricePerTonne").FirstOrDefault();
+            var x_ = product.Prices.Where(price => price.Name == "PricePerTonne").FirstOrDefault().Price;
             double x = Convert.ToDouble(x_);
 
-            var y_ = product.Options.Where(opt => opt.Name == "KgM").FirstOrDefault(); // TODO option or calc?
+            var y_ = product.Options.Where(opt => opt.Name == "KgM").FirstOrDefault().Value; // TODO option or calc?
             double y = Convert.ToDouble(y_);
 
             dto.PoundsPerMeter = (x / 1000) / y;

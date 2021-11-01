@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
-    class RHSCalculation : PriceCalculationBase {
+    public class RHSCalculation : PriceCalculationBase {
         // TODO 
         // what to do with Columns Q and R ?
     }
