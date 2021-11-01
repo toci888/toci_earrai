@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const worksheetRecordAddBtn = StyleSheet.create({
+export const productCSSAddBtn = StyleSheet.create({
 
     absoluteUpdate: {
         height: 45,

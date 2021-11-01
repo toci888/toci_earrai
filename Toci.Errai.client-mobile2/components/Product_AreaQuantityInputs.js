@@ -3,8 +3,8 @@ import React from 'react'
 import { View, TextInput, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
-import { worksheetRecordAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
-import { worksheetRecord } from '../styles/Product_Util_Styles'
+import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
+import { productCSS } from '../styles/Product_Util_Styles'
 
 export default function Product_AreaQuantityInputs(props) {
 
@@ -40,29 +40,29 @@ export default function Product_AreaQuantityInputs(props) {
 
     return (
         <View>
-            <View style={worksheetRecord.ComboView}>
+            <View style={productCSS.ComboView}>
                 <Picker
                     selectedValue="Choose"
-                    style={worksheetRecord.ComboPicker}
+                    style={productCSS.ComboPicker}
                     selectedValue={props.tempAreaquantityRow.idarea}
                     onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
                     {
                         props.areas.map( (item, index) => {
-                            return <Picker.Item style={worksheetRecord.CombiItem} key={index} label={item.name} value={item.id} />
+                            return <Picker.Item style={productCSS.CombiItem} key={index} label={item.name} value={item.id} />
                         } )
                     }
 
                 </Picker>
             </View>
 
-            <View style={worksheetRecord.QuantityView}>
+            <View style={productCSS.QuantityView}>
                 {
                     props.kindOfDisplay != 1 ?
-                    (<View style={worksheetRecord.DimensionsView}>
+                    (<View style={productCSS.DimensionsView}>
 
-                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
+                        <View style={productCSS.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={worksheetRecord.inputStyle}
+                                style={productCSS.inputStyle}
                                 value={props.tempAreaquantityRow.length}
                                 onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
@@ -70,9 +70,9 @@ export default function Product_AreaQuantityInputs(props) {
 
                         </View>
 
-                        <View style={worksheetRecord.DimensionsInputContainerTwo}>
+                        <View style={productCSS.DimensionsInputContainerTwo}>
                             <TextInput
-                                style={worksheetRecord.inputStyle}
+                                style={productCSS.inputStyle}
                                 value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
@@ -82,9 +82,9 @@ export default function Product_AreaQuantityInputs(props) {
 
                     </View>)
                     :
-                    (<View style={worksheetRecord.DimensionsInputContainerOne}>
+                    (<View style={productCSS.DimensionsInputContainerOne}>
                         <TextInput
-                            style={worksheetRecord.inputStyle}
+                            style={productCSS.inputStyle}
                             value={props.tempAreaquantityRow.length}
                             onChangeText={(text) => props.setLength(text)}
                             placeholder="Type Length.."
@@ -95,10 +95,10 @@ export default function Product_AreaQuantityInputs(props) {
 
             </View>
 
-            <View style={worksheetRecord.QuantityView}>
-                <View style={worksheetRecord.QuantityInputContainer}>
+            <View style={productCSS.QuantityView}>
+                <View style={productCSS.QuantityInputContainer}>
                     <TextInput
-                        style={worksheetRecord.inputStyle}
+                        style={productCSS.inputStyle}
                         value={props.tempAreaquantityRow.quantity}
                         onChangeText={($event) => setAreaquantity($event)}
                         placeholder="Type Quantity.."

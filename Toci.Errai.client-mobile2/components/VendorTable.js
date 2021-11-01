@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Text, View, TextInput } from 'react-native'
 import { DataTable } from 'react-native-paper'
 import { Picker } from '@react-native-community/picker'
-import { worksheetRecord } from '../styles/worksheetRecordStyles'
+import { productCSS } from '../styles/productCSSStyles'
 export default function VendorTable() {
 
     const [mySelectedData, setmySelectedData] = useState({
@@ -44,16 +44,16 @@ export default function VendorTable() {
     return (
         <View>
             <View>
-                <View style={worksheetRecord.vendorContainer}>
+                <View style={productCSS.vendorContainer}>
 
-                    <View style={worksheetRecord.vendorColumn}>
+                    <View style={productCSS.vendorColumn}>
 
-                        <Picker style={worksheetRecord.ComboPicker}
+                        <Picker style={productCSS.ComboPicker}
                             onValueChange={(itemValue, itemIndex) => setVendorsFunc(itemValue, itemIndex)}>
 
                             {
                                 vendorData.map( (item, index) => {
-                                    return <Picker.Item style={worksheetRecord.CombiItem} key={index} label={item} value={item} />
+                                    return <Picker.Item style={productCSS.CombiItem} key={index} label={item} value={item} />
                                 } )
                             }
 
@@ -61,30 +61,30 @@ export default function VendorTable() {
                         </Picker>
 
                     </View>
-                    <View style={worksheetRecord.vendorColumn}>
+                    <View style={productCSS.vendorColumn}>
 
-                        <Picker style={worksheetRecord.ComboPicker}
+                        <Picker style={productCSS.ComboPicker}
                             onValueChange={(itemValue, itemIndex) => setcountTypesFunc(itemValue, itemIndex)}>
 
                             {
                                 types.map( (item, index) => {
-                                    return <Picker.Item style={worksheetRecord.CombiItem} key={index} label={item} value={item} />
+                                    return <Picker.Item style={productCSS.CombiItem} key={index} label={item} value={item} />
                                 } )
                             }
 
                         </Picker>
 
                     </View>
-                    <View style={worksheetRecord.vendorColumn}>
+                    <View style={productCSS.vendorColumn}>
                         <TextInput
-                            style={worksheetRecord.vendorColumnInput}
+                            style={productCSS.vendorColumnInput}
                             value={vendorData.price}
                             onChange={($event) =>  setValueFunc($event) }
                             placeholder="Amount"
                         />
                     </View>
-                    <View style={worksheetRecord.vendorColumn}>
-                        <Text style={worksheetRecord.vendorColumnOK}
+                    <View style={productCSS.vendorColumn}>
+                        <Text style={productCSS.vendorColumnOK}
                                 onPress={ () => ok() }>
                             OK
                         </Text>

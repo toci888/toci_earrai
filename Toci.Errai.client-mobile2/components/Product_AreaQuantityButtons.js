@@ -31,16 +31,16 @@ export default function Product_AreaQuantityButtons(props) {
 
     return (
         <>
-            <View style={ worksheetRecordAddBtn.absoluteUpdate }>
-                <Text  onPress={ () => sendRequest()} style={worksheetRecordAddBtn.updateText}>
+            <View style={ productCSSAddBtn.absoluteUpdate }>
+                <Text  onPress={ () => sendRequest()} style={productCSSAddBtn.updateText}>
                     { props.btnvalueHook }
                 </Text>
             </View>
 
             { props.btnvalueHook == "UPDATE" && (
                 <View>
-                    <View style={ worksheetRecordAddBtn.cancelBtn }>
-                        <Text onPress={ () => cancel()} style={worksheetRecordAddBtn.deleteText}>
+                    <View style={ productCSSAddBtn.cancelBtn }>
+                        <Text onPress={ () => cancel()} style={productCSSAddBtn.deleteText}>
                             CANCEL
                         </Text>
                     </View>

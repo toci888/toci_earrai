@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, ScrollView } from 'react-native'
-import { worksheetRecord } from '../../styles/Product_Util_Styles'
 import AppUser from '../../shared/AppUser'
-import WorksheetRecord_Inputs from '../../components/Product_AreaQuantityInputs'
-import WorksheetRecord_Grid from '../../components/Product_AreaQuantities'
-import WorksheetRecord_AddBtn from '../../components/Product_AreaQuantityButtons'
 import { modalStyles } from '../../styles/modalStyles'
 import ProductPrices from './ProducPrices'
 import ProductSizes from './productSizes'
 import { getAreasQuantitiesByProduct, getProductUrl } from '../../shared/RequestConfig'
 import ProductDetails from './ProductDetails'
+import Product_AreaQuantityButtons from '../../components/Product_AreaQuantityButtons'
+import Product_AreaQuantityInputs from '../../components/Product_AreaQuantityInputs'
+import Product_UtilTable from '../../components/Product_UtilTable'
 
 export default function Product({ route, navigation }) {
 
@@ -135,7 +134,7 @@ export default function Product({ route, navigation }) {
 
             <ProductDetails product={Product?.product} />
 
-            <WorksheetRecord_AddBtn
+            <Product_AreaQuantityButtons
                 tempAreaquantityRow={tempAreaquantityRow}
                 btnvalueHook={btnvalueHook}
                 Product={Product}
@@ -146,14 +145,14 @@ export default function Product({ route, navigation }) {
                 setloading={setloading}
             />
 
-                <WorksheetRecord_Inputs
+                <Product_AreaQuantityInputs
                     settempAreaquantityRow={settempAreaquantityRow}
                     tempAreaquantityRow={tempAreaquantityRow}
                     areas={areas}
                     setbtnvalueHook={setbtnvalueHook}
                 />
 
-            <WorksheetRecord_Grid
+            <Product_AreaQuantityButtons
                 settempAreaquantityRow={settempAreaquantityRow}
                 setUpdatingIndex={setUpdatingIndex}
                 areaQuantities={Product.areaQuantities}
@@ -168,6 +167,10 @@ export default function Product({ route, navigation }) {
             <ProductPrices product={Product} />
 
             <ProductSizes product={Product} />
+
+            <Product_UtilTable details={product.Calculations} name="Calculations" />
+
+            <Product_UtilTable details={product.Commisions} name="Commisions" />
 
         </ScrollView>
     )

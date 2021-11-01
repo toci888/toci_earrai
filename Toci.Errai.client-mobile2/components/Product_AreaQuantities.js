@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataTable } from 'react-native-paper'
 import { globalStyles } from '../styles/globalStyles'
-import { worksheetRecord } from '../styles/Product_Util_Styles'
+import { productCSS } from '../styles/Product_Util_Styles'
 import { Button, Text, View, Pressable } from 'react-native'
 import { environment } from '../environment'
 import { deleteRequestParams, deleteUrl } from '../shared/RequestConfig'
@@ -60,50 +60,50 @@ export default function Product_AreaQuantities(props) {
         for(let i = 0; i < props.areaQuantities.length; i++) {
             respo.push(
             <View key={i+"he"}>
-                <DataTable.Row key={i} style={[ worksheetRecord.rowContainerTop    ]}>
-                    <DataTable.Cell key={i + "createdat"} style={[worksheetRecord.grid, {backgroundColor: nowUpdating(i) ? "red" : "" }]}>
+                <DataTable.Row key={i} style={[ productCSS.rowContainerTop    ]}>
+                    <DataTable.Cell key={i + "createdat"} style={[productCSS.grid, {backgroundColor: nowUpdating(i) ? "red" : "" }]}>
                         <Text style={{backgroundColor: nowUpdating(i) ? "red" : "" }}>
                             { props.areaQuantities[i].createdat?.substr(0, 10) }
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "length"} style={worksheetRecord.grid}>
+                    <DataTable.Cell key={i + "length"} style={productCSS.grid}>
                         <Text>
                             L: {props.areaQuantities[i]?.length}
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "width"} style={worksheetRecord.grid}>
+                    <DataTable.Cell key={i + "width"} style={productCSS.grid}>
                         <Text>
                             W: {props.areaQuantities[i]?.width}
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "quantity"} style={worksheetRecord.gridShort}>
+                    <DataTable.Cell key={i + "quantity"} style={productCSS.gridShort}>
                         <Text>
                             Q: {props.areaQuantities[i].quantity}
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>
-                <DataTable.Row key={i + "2nd"} style={ worksheetRecord.rowContainerBottom }>
-                    <DataTable.Cell key={i + "initials"} style={worksheetRecord.gridShort}>
+                <DataTable.Row key={i + "2nd"} style={ productCSS.rowContainerBottom }>
+                    <DataTable.Cell key={i + "initials"} style={productCSS.gridShort}>
                         <Text>
                             Initials: {props.areaQuantities[i].initials}
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "areacode"} style={worksheetRecord.gridShort}>
+                    <DataTable.Cell key={i + "areacode"} style={productCSS.gridShort}>
                         <Text>
                             {props.areaQuantities[i].areacode}: {props.areaQuantities[i].areaname}
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "updDateF"} style={worksheetRecord.gridShort}>
+                    <DataTable.Cell key={i + "updDateF"} style={productCSS.gridShort}>
                         <Text>
-                            <Pressable style={worksheetRecord.buttonUpdate} onPress={() => updateData(i)}>
-                                <Text style={worksheetRecord.text}>EDIT</Text>
+                            <Pressable style={productCSS.buttonUpdate} onPress={() => updateData(i)}>
+                                <Text style={productCSS.text}>EDIT</Text>
                             </Pressable>
                         </Text>
                     </DataTable.Cell>
-                    <DataTable.Cell key={i + "delete"} style={worksheetRecord.gridShort}>
+                    <DataTable.Cell key={i + "delete"} style={productCSS.gridShort}>
                         <Text>
-                            <Pressable style={worksheetRecord.button} onPress={() => deleteData(i)}>
-                                <Text style={worksheetRecord.text}>DELETE</Text>
+                            <Pressable style={productCSS.button} onPress={() => deleteData(i)}>
+                                <Text style={productCSS.text}>DELETE</Text>
                             </Pressable>
                         </Text>
                     </DataTable.Cell>

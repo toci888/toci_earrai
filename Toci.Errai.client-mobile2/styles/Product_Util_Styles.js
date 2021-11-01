@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const worksheetRecord = StyleSheet.create({
+export const productCSS = StyleSheet.create({
     container: {
         flex: 1
     },
