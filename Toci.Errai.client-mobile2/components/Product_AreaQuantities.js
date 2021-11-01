@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { DataTable } from 'react-native-paper'
 import { globalStyles } from '../styles/globalStyles'
 import { productCSS } from '../styles/Product_Util_Styles'
-import { Button, Text, View, Pressable } from 'react-native'
-import { environment } from '../environment'
+import { Text, View, Pressable } from 'react-native'
 import { deleteRequestParams, deleteUrl } from '../shared/RequestConfig'
 
 

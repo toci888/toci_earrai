@@ -1,9 +1,8 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
-import { View, TextInput, Text } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
-import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 import { productCSS } from '../styles/Product_Util_Styles'
 
 export default function Product_AreaQuantityInputs(props) {

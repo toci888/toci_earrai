@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Text, View, TextInput } from 'react-native'
-import { DataTable } from 'react-native-paper'
+import React, { useState } from 'react'
+import { Text, View, TextInput } from 'react-native'
 import { Picker } from '@react-native-community/picker'
 import { productCSS } from '../styles/productCSSStyles'
 export default function VendorTable() {

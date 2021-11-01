@@ -1,7 +1,5 @@
 import React from 'react'
-import { worksheetRecordAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 import { Text, View } from 'react-native'
-import { environment } from '../environment'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { insertUrl, insertRequestParams, updateRequestParams, updateUrl } from '../shared/RequestConfig'
 

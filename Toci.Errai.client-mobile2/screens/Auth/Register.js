@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import { Alert, Text, TextInput, View, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
-
-
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
