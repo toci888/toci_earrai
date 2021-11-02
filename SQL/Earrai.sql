@@ -1,3 +1,5 @@
+
+drop view productsprices ;
 drop view productsoptionsstate ;
 drop view ProductsSizes;
 drop view userRoles;
@@ -6,7 +8,7 @@ drop view QuotesAndPrices;
 
 drop table productsize;
 drop table sizecategories;
-drop table sizes;
+drop table sizes; 
 drop table quoteandprice;
 drop table productoptionvalues;
 drop table productcategoryoptions;
@@ -21,7 +23,6 @@ drop table worksheetcontentshistory;
 drop table areas;
 drop table codesdimensions;
 drop table worksheets;
-drop table workbooks;
 drop table users;
 drop table roles;
 drop table vendors;
@@ -235,7 +236,8 @@ select productoptions.name, productoptionvalues.idproducts, productoptionvalues.
 productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions;
 
 				
-create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation from quoteandmetric, quoteandprice where quoteandprice.idquoteandmetric = quoteandmetric.id
+create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation from quoteandmetric, quoteandprice 
+where quoteandprice.idquoteandmetric = quoteandmetric.id;
 
 create or replace view ProductsSizes as 
 select productsize.id, productsize.idproducts, productsize.value, sizes.name
