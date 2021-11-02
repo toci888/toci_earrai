@@ -16,9 +16,9 @@ namespace Toci.Earrai.Tests.Import.Excel
 
         protected Dictionary<string, string> WorkbookMap = new Dictionary<string, string>()
         {
-            //{ "PLT & SHEET", "A3:AF167" },
+            { "PLT & SHEET", "A3:AF167" },
             //{ "Alum", "A3:U16" },
-            { "Angles+T", "A3:AD54" }, // TODO AD86 ??
+            //{ "Angles+T", "A3:AD54" }, // TODO AD86 ??
             //{ "FLTS", "A3:V85" },
             //{ "RHS", "A3:V57" },
             //{ "Chan & Bms", "A3:R42" },

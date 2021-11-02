@@ -4,7 +4,7 @@ import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
 import { ProductStyle } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
-import { worksheetRecord } from '../styles/Product_Util_Styles'
+import { productCSS } from '../styles/Product_Util_Styles'
 import AppUser from '../shared/AppUser'
 import { getProductsFromWorksheet } from '../shared/RequestConfig'
 
@@ -55,7 +55,7 @@ export default function ProductsList({ route, navigation }) {
 
         AppUser.setWProductId(ProductsListHook[index_].id)
 
-        navigation.navigate('WorksheetRecord', {
+        navigation.navigate('Product', {
             productId: ProductsListHook[index_].id,
         })
     }
@@ -113,7 +113,7 @@ export default function ProductsList({ route, navigation }) {
 
             </View>
 
-            {/* <ScrollView> */}
+            <ScrollView>
 
                 <View style={globalStyles.tableContainer}>
 
@@ -139,7 +139,7 @@ export default function ProductsList({ route, navigation }) {
 
                 </View>
 
-            {/* </ScrollView> */}
+            </ScrollView>
 
             { nomoredata && (
                 <View style={productCSS.nomoredataView}>

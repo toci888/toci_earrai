@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { insertUrl, insertRequestParams, updateRequestParams, updateUrl } from '../shared/RequestConfig'
+import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 
 export default function Product_AreaQuantityButtons(props) {
 

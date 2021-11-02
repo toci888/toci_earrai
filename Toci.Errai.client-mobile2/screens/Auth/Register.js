@@ -3,6 +3,7 @@ import { Alert, Text, TextInput, View, Button, TouchableOpacity, ActivityIndicat
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
+import { formStyles } from '../../styles/formStyles';
 
 export default function Register({navigation}) {
 

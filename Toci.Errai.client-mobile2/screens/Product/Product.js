@@ -9,10 +9,11 @@ import ProductDetails from './ProductDetails'
 import Product_AreaQuantityButtons from '../../components/Product_AreaQuantityButtons'
 import Product_AreaQuantityInputs from '../../components/Product_AreaQuantityInputs'
 import Product_UtilTable from '../../components/Product_UtilTable'
+import { productCSS } from '../../styles/Product_Util_Styles'
 
 export default function Product({ route, navigation }) {
 
-    const [Product, setProduct] = useState([])
+    const [ProductHook, setProduct] = useState([])
     const [areas, setareas] = useState([])
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
     const [UpdatingIndex, setUpdatingIndex] = useState(null)
@@ -52,7 +53,7 @@ export default function Product({ route, navigation }) {
     }, [] )
 
     const initAreaQuantities = (response_) => {
-        if(!response_) response_ = Product
+        if(!response_) response_ = ProductHook
 
         const tempLenWid = {length: "", width: ""}
         response_.sizes.forEach(item => {
@@ -84,7 +85,7 @@ export default function Product({ route, navigation }) {
     }
 
     const deleteProduct = (index_) => {
-        const newProduct = Product
+        const newProduct = ProductHook
 
         newProduct.areaQuantities.splice(index_, 1)
         setProduct(newProduct)
@@ -95,7 +96,7 @@ export default function Product({ route, navigation }) {
             return response_.json()
         }).then(response_ => {
             console.log(response_)
-            let newProduct = Product
+            let newProduct = ProductHook
             newProduct.areaQuantities = response_
             setProduct(prev => {return newProduct})
             WorksheetRecord()
@@ -124,7 +125,7 @@ export default function Product({ route, navigation }) {
     }
 
     return (
-        <ScrollView style={worksheetRecord.container}>
+        <ScrollView style={productCSS.container}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -132,12 +133,12 @@ export default function Product({ route, navigation }) {
                 </View>
             )}
 
-            <ProductDetails product={Product?.product} />
+            <ProductDetails product={ProductHook?.product} />
 
             <Product_AreaQuantityButtons
                 tempAreaquantityRow={tempAreaquantityRow}
                 btnvalueHook={btnvalueHook}
-                Product={Product}
+                Product={ProductHook}
                 initAreaQuantities={initAreaQuantities}
                 setbtnvalueHook={setbtnvalueHook}
                 updateAreaQuantitiesfterRequest={updateAreaQuantitiesfterRequest}
@@ -155,7 +156,7 @@ export default function Product({ route, navigation }) {
             <Product_AreaQuantityButtons
                 settempAreaquantityRow={settempAreaquantityRow}
                 setUpdatingIndex={setUpdatingIndex}
-                areaQuantities={Product.areaQuantities}
+                areaQuantities={ProductHook.areaQuantities}
                 updateAreaQuantitiesfterRequest={setProduct}
                 setAreaQuantities={setProduct}
                 areas={areas}
@@ -164,13 +165,13 @@ export default function Product({ route, navigation }) {
                 deleteProduct={deleteProduct}
             />
 
-            <ProductPrices product={Product} />
+            <ProductPrices product={ProductHook} />
 
-            <ProductSizes product={Product} />
+            <ProductSizes product={ProductHook} />
 
-            <Product_UtilTable details={product.Calculations} name="Calculations" />
+            <Product_UtilTable details={ProductHook.Calculations} name="Calculations" />
 
-            <Product_UtilTable details={product.Commisions} name="Commisions" />
+            <Product_UtilTable details={ProductHook.Commisions} name="Commisions" />
 
         </ScrollView>
     )
