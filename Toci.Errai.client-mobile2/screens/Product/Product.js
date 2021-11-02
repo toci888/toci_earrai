@@ -10,6 +10,7 @@ import Product_AreaQuantityButtons from '../../components/Product_AreaQuantityBu
 import Product_AreaQuantityInputs from '../../components/Product_AreaQuantityInputs'
 import Product_UtilTable from '../../components/Product_UtilTable'
 import { productCSS } from '../../styles/Product_Util_Styles'
+import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 
 export default function Product({ route, navigation }) {
 
@@ -153,7 +154,7 @@ export default function Product({ route, navigation }) {
                     setbtnvalueHook={setbtnvalueHook}
                 />
 
-            <Product_AreaQuantityButtons
+            <Product_AreaQuantities
                 settempAreaquantityRow={settempAreaquantityRow}
                 setUpdatingIndex={setUpdatingIndex}
                 areaQuantities={ProductHook.areaQuantities}
@@ -169,9 +170,9 @@ export default function Product({ route, navigation }) {
 
             <ProductSizes product={ProductHook} />
 
-            <Product_UtilTable details={ProductHook.Calculations} name="Calculations" />
+            <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
-            <Product_UtilTable details={ProductHook.Commisions} name="Commisions" />
+            {/* <Product_UtilTable details={ProductHook.Commisions} name="Commisions" /> */}
 
         </ScrollView>
     )

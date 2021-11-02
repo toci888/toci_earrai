@@ -553,7 +553,7 @@ CON".Split("\n", StringSplitOptions.None);
                 Quoteandmetric.Insert(new Quoteandmetric()
                 {
                     Valuation = values[i],
-                    //Name = names[i],
+                    Name = names[i],
                 });
             }
         }
