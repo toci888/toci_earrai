@@ -12,13 +12,12 @@ export default function Vendor_Inputs(props) {
 
     const [SelectedVendorsHook, setSelectedVendorsHook] = useState({
         id: 0,
-        iduser: AppUser.getId(),
-        idproducts: props.productId,
+        idproducts: 3,
+        rowindex: 0,
         price: "",
-        idvendor: null,
-        idquoteandmetric: null,
-        createdat: null,
-        updatedat: null,
+        idvendor: 2,
+        idquoteandmetric: 2,
+        iduser: AppUser.getId(),
     })
 
     useEffect(() => {
@@ -65,6 +64,8 @@ export default function Vendor_Inputs(props) {
     }
 
     const send = () => {
+        console.log(addVendorUrl)
+        console.log(SelectedVendorsHook)
         fetch(addVendorUrl, insertRequestParams(SelectedVendorsHook))
         .then( response_ => {
             console.log(response_)
