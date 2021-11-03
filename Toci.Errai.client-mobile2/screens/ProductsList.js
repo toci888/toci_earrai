@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
-import { ProductStyle } from '../styles/ProductStyle'
+import { ProductStyle as ps } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
-import { productCSS } from '../styles/Product_Util_Styles'
 import AppUser from '../shared/AppUser'
 import { getProductsFromWorksheet } from '../shared/RequestConfig'
 
@@ -98,16 +97,16 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             )}
 
-            <View style={productCSS.filterContent}>
+            <View style={ps.filterContent}>
                 <TextInput
                     value={filteredValue}
-                    style={productCSS.filterInput}
+                    style={ps.filterInput}
                     onChangeText={(text) => setFilterText(text)}
                     placeholder="Filter.."
                 />
-                <View style={productCSS.filterButtonView}>
-                    <Pressable style={productCSS.filterButton} onPress={filterContent}>
-                        <Text style={productCSS.textUpdate}>Find</Text>
+                <View style={ps.filterButtonView}>
+                    <Pressable style={ps.filterButton} onPress={filterContent}>
+                        <Text style={ps.textUpdate}>Find</Text>
                     </Pressable>
                 </View>
 
@@ -120,16 +119,16 @@ export default function ProductsList({ route, navigation }) {
 
                     {
                         ProductsListHook?.map( (product, index) => {
-                            return(<DataTable.Row key={ index } style={productCSS.customRow}>
+                            return(<DataTable.Row key={ index } style={ps.customRow}>
 
                                 <DataTable.Cell
                                     key={product.id}
                                     onPress={ () => showProductDetails(index) }
-                                    style={productCSS.cell}>
+                                    style={ps.cell}>
 
-                                        <Text style={productCSS.small}>{product.productaccountreference}</Text>
+                                        <Text style={ps.small}>{product.productaccountreference}</Text>
                                         <Text>, </Text>
-                                        <Text style={productCSS.small}>{product.description}</Text>
+                                        <Text style={ps.small}>{product.description}</Text>
 
                                 </DataTable.Cell>
 
@@ -142,14 +141,14 @@ export default function ProductsList({ route, navigation }) {
             </ScrollView>
 
             { nomoredata && (
-                <View style={productCSS.nomoredataView}>
-                    <Text style={productCSS.nomoredataText}>No more data</Text>
+                <View style={ps.nomoredataView}>
+                    <Text style={ps.nomoredataText}>No more data</Text>
                 </View>
             ) }
 
             { !nomoredata && ProductsListHook.length > 0 && (
-                <View style={productCSS.loadMoreView}>
-                    <Text onPress={loadMore} style={productCSS.loadMoreText}>
+                <View style={ps.loadMoreView}>
+                    <Text onPress={loadMore} style={ps.loadMoreText}>
                         Load more data
                     </Text>
                 </View>

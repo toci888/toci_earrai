@@ -11,6 +11,7 @@ import Product_AreaQuantityInputs from '../../components/Product_AreaQuantityInp
 import Product_UtilTable from '../../components/Product_UtilTable'
 import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
+import Product_Commisions from '../../components/Product_Commisions'
 
 export default function Product({ route, navigation }) {
 
@@ -172,7 +173,10 @@ export default function Product({ route, navigation }) {
 
             <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
-            {/* <Product_UtilTable details={ProductHook.Commisions} name="Commisions" /> */}
+            {
+                ProductHook.product &&
+                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne").price} />
+            }
 
         </ScrollView>
     )
