@@ -65,3 +65,9 @@ export function getAreasQuantitiesByProduct(productId) {
 export function getCommisions(productId, price) {
     return environment.apiUrl + 'api/Commisions/GetCommisions?productId=' + productId + '&price=' + price
 }
+
+export const addVendorUrl = environment.apiUrl + 'api/QuoteAndPrice/PostQuoteandPrice'
+
+export const getVendorsUrl = environment.apiUrl + 'api/QuoteAndPrice/GetAllVendorsFromDb'
+
+export const getQuoteAndMetricUrl = environment.apiUrl + 'api/QuoteAndMetric'
