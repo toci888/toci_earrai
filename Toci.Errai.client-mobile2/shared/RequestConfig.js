@@ -61,3 +61,7 @@ export const getAreasUrl = environment.apiUrl + 'api/Areas'
 export function getAreasQuantitiesByProduct(productId) {
     return environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByProduct/' + productId
 }
+
+export function getCommisions(productId, price) {
+    return environment.apiUrl + 'api/Commisions/GetCommisions?productId=' + productId + '&price=' + price
+}

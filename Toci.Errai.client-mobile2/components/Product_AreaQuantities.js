@@ -93,11 +93,11 @@ export default function Product_AreaQuantities(props) {
                         </Text>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "updDateF"} style={productCSS.gridShort}>
-                        <Text>
+                        <View style={productCSS.textEdit}>
                             <Pressable style={productCSS.buttonUpdate} onPress={() => updateData(i)}>
-                                <Text style={productCSS.text}>EDIT</Text>
+                                <View style={productCSS.text}><Text>EDIT</Text></View>
                             </Pressable>
-                        </Text>
+                        </View>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "delete"} style={productCSS.gridShort}>
                         <Text>

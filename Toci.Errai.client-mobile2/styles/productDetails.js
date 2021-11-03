@@ -9,25 +9,21 @@ export const productDetails = StyleSheet.create({
     rowContainer: {
         width: '100%',
     },
-
     inlineContainer: {
         flexDirection: 'row',
     },
     inlineItem: {
-
         display: 'flex',
         alignItems: 'center',
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: 15,
         paddingBottom: 15,
-
     },
     inlineItemLeft: {
         width: '50%',
         display: 'flex',
         justifyContent: 'flex-end',
-
     },
     inlineItemRight: {
         width: '50%',
@@ -36,8 +32,27 @@ export const productDetails = StyleSheet.create({
     },
     smallSize: {
         fontSize: 12,
-    }
-
-
+    },
+    bold: {
+        fontWeight: 'bold',
+    },
+    inlineItemLeftDetails: {
+        width: '40%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    inlineItemRightDetails: {
+        width: '60%',
+        display: 'flex',
+        justifyContent: 'flex-start',
+    },
+    inlineItemDetails: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: 4,
+        paddingRight: 4,
+        paddingTop: 8,
+        paddingBottom: 8,
+    },
 
 })

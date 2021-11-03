@@ -1,9 +1,9 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
-import { productCSS } from '../styles/Product_Util_Styles'
+import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle'
 
 export default function Product_AreaQuantityInputs(props) {
 
@@ -39,69 +39,74 @@ export default function Product_AreaQuantityInputs(props) {
 
     return (
         <View>
-            <View style={productCSS.ComboView}>
+
+            <View style={p.ComboView}>
                 <Picker
                     selectedValue="Choose"
-                    style={productCSS.ComboPicker}
+                    style={p.ComboPicker}
                     selectedValue={props.tempAreaquantityRow.idarea}
                     onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
                     {
                         props.areas.map( (item, index) => {
-                            return <Picker.Item style={productCSS.CombiItem} key={index} label={item.name} value={item.id} />
+                            return <Picker.Item style={p.CombiItem} key={index} label={item.name} value={item.id} />
                         } )
                     }
 
                 </Picker>
             </View>
 
-            <View style={productCSS.QuantityView}>
-                {
-                    props.kindOfDisplay != 1 ?
-                    (<View style={productCSS.DimensionsView}>
+            <View>
 
-                        <View style={productCSS.DimensionsInputContainerTwo}>
+                <View style={p.DimensionsView}>
+
+                    <View style={p.dimensionContainer}>
+                        <View style={p.labelFlex}>
+                            <Text style={p.labelLetter}>L</Text>
+                        </View>
+                        <Text style={p.inputFlex}>
                             <TextInput
-                                style={productCSS.inputStyle}
+                                style={p.inputStyle}
                                 value={props.tempAreaquantityRow.length}
                                 onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
                             />
+                        </Text>
 
+
+                    </View>
+
+                    <View style={p.dimensionContainer}>
+                        <View style={p.labelFlex}>
+                            <Text style={p.labelLetter}>W</Text>
                         </View>
-
-                        <View style={productCSS.DimensionsInputContainerTwo}>
+                        <Text style={p.inputFlex}>
                             <TextInput
-                                style={productCSS.inputStyle}
+                                style={p.inputStyle}
                                 value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
                             />
+                        </Text>
 
+
+                    </View>
+
+                    <View style={p.dimensionContainer}>
+
+                        <View style={p.labelFlex}>
+                            <Text style={p.labelLetter}>Q</Text>
                         </View>
+                        <Text style={p.inputFlex}>
+                            <TextInput
+                                style={p.inputStyle}
+                                value={props.tempAreaquantityRow.quantity}
+                                onChangeText={($event) => setAreaquantity($event)}
+                                placeholder="Type Quantity.."
+                            />
 
-                    </View>)
-                    :
-                    (<View style={productCSS.DimensionsInputContainerOne}>
-                        <TextInput
-                            style={productCSS.inputStyle}
-                            value={props.tempAreaquantityRow.length}
-                            onChangeText={(text) => props.setLength(text)}
-                            placeholder="Type Length.."
-                        />
+                        </Text>
 
-                    </View>)
-                }
-
-            </View>
-
-            <View style={productCSS.QuantityView}>
-                <View style={productCSS.QuantityInputContainer}>
-                    <TextInput
-                        style={productCSS.inputStyle}
-                        value={props.tempAreaquantityRow.quantity}
-                        onChangeText={($event) => setAreaquantity($event)}
-                        placeholder="Type Quantity.."
-                    />
+                    </View>
 
                 </View>
 
