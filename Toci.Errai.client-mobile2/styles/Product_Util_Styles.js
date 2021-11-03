@@ -16,18 +16,6 @@ export const productCSS = StyleSheet.create({
         paddingBottom: 15,
         textAlign: 'center',
     },
-    inputStyle: {
-        backgroundColor: '#ddd',
-        borderColor: '#777',
-        color: '#000',
-        textAlign: 'center',
-        letterSpacing: 0.5,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 10,
-        fontSize: 17,
-        width: '100%',
-    },
     updateButtonContainer: {
         width: '15%',
         height: '100%',
@@ -61,19 +49,18 @@ export const productCSS = StyleSheet.create({
         justifyContent: 'center',
     },
     gridShort: {
-        width: 40,
         display: 'flex',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    textEdit: {
+        width: '100%',
+    },
     rowContainerTop: {
         flexDirection: 'row',
-        //borderTopColor: 'black',
-        //borderTopWidth: 1,
         paddingLeft: 0,
         margin: 10
-        //paddingStart: 0
     },
     rowContainerBottom: {
         flexDirection: 'row',
@@ -83,52 +70,6 @@ export const productCSS = StyleSheet.create({
         paddingStart: 0,
         marginBottom: 3,
         paddingBottom: 6,
-    },
-    ComboPicker: {
-        height: 50,
-        backgroundColor: '#c1c1d2',
-        borderWidth: 1,
-        borderColor: '#c7c7c7',
-        paddingLeft: 10
-    },
-    ComboView: {
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft: 15,
-        marginRight: 15,
-
-    },
-    CombiItem: {
-        backgroundColor: 'red',
-        color: 'yellow'
-    },
-    DimensionsView: {
-    },
-    QuantityView: {
-        marginLeft: 15,
-        marginRight: 15,
-    },
-    DimensionsInputContainerTwo: {
-        width: '100%',
-        height: 45
-    },
-    DimensionsInputContainerOne: {
-        width: '100%',
-        height: 45
-    },
-    QuantityInputContainer: {
-        width: '100%',
-        //height: 50
-    },
-    dimensionsInput: {
-        backgroundColor: 'white',
-        width: '100%',
-        display: 'flex',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: 17
     },
     button: {
         alignItems: 'center',
@@ -148,16 +89,13 @@ export const productCSS = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#1ab736',
     },
-
-
-
-
     text: {
         fontSize: 13,
         lineHeight: 18,
         fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
+        width: '100%',
     },
     buttonUpdate: {
         alignItems: 'center',
@@ -175,53 +113,4 @@ export const productCSS = StyleSheet.create({
         letterSpacing: 0.25,
         color: 'black',
     },
-    vendorContainer: {
-        flexDirection: 'row',
-        display: 'flex',
-
-    },
-    vendorColumn: {
-        padding: 5,
-        width: '25%'
-    },
-    vendorColumnOK: {
-        width: '100%',
-        display: 'flex',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        backgroundColor: '#9999cc',
-        fontSize: 18
-    },
-    vendorColumnInput: {
-        backgroundColor: '#dddde6',
-        width: '100%',
-        display: 'flex',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: 17
-    },
-    inputStyle: {
-        backgroundColor: '#ddd',
-        borderColor: '#777',
-        color: '#000',
-        letterSpacing: 0.5,
-        paddingTop: 10,
-        paddingBottom: 10,
-        fontSize: 17,
-        paddingLeft: 15
-    },
-
-    inlineContainer: {
-        flexDirection: 'row',
-    },
-    inlineItem: {
-
-    }
-
-
-
 })

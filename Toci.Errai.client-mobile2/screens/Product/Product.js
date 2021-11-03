@@ -26,7 +26,7 @@ export default function Product({ route, navigation }) {
         idproducts: AppUser.getWProductId(),
         idcodesdimensions: 1,
         iduser: AppUser.getId(),
-        quantity: "1",
+        quantity: "",
         length: "",
         width: "",
         createdat: null,
