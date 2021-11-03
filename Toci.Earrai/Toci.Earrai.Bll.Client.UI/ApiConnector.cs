@@ -18,17 +18,6 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<List<Worksheetcontent>>>("api/WorksheetContent/searchWorksheet/" + worksheetId + "/" + phrase);
         }
 
-        public virtual List<Worksheetcontent> GetIncrease(DateTime date)
-        {
-            return ApiGet<List<Worksheetcontent>>("api​/EntityOperations​/GetIncrease?dateTime=" + date.ToString());
-        }
-
-        public virtual IEnumerable<List<Worksheet>> GetWorkSheetsForWorkbook(string workbookId)
-        {
-            return ApiGet<IEnumerable<List<Worksheet>>>("api/Workbook​/GetAllWorksheets​/" + workbookId);
-        }
-            
-
         protected virtual T ApiGet<T>(string url)
         {
             using (HttpClient hc = new HttpClient())
