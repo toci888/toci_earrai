@@ -13,8 +13,11 @@ namespace Toci.Earrai.Bll.Interfaces
         List<Quoteandprice> GetAllQuotesAndPrices();
         List<Vendor> GetAllVendors();
         List<Quoteandmetric> GetAllQuotesAndMetrics();
-        List<Quotesandprice> GetAllQuotesAndPricesView();
+        List<Quotesandprice> GetAllQuotesAndPricesView(int productId);
 
         int PostQuoteAndPrice(Quoteandprice quoteandprice);
+
+        Quoteandprice UpdateQuoteAndPrice(Quoteandprice priceEntity);
+        int DeleteById(int id);
     }
 }

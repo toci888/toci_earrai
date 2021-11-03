@@ -26,17 +26,8 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(quoteandprice);
         }
 
-        [HttpGet("GetAllQuotesAndPricesView")]
-        public ActionResult<List<Quotesandprice>> GetAllQuotesAndPricesView()
-        {
-
-            List<Quotesandprice> quotesandprice = Logic.GetAllQuotesAndPricesView();
-
-            return Ok(quotesandprice);
-        }
-
-        [HttpGet("GetAllQuotesAndMetricsFromDb")]
-        public ActionResult<List<Quoteandmetric>> GetAllQuotesAndMetricsFromDb()
+        [HttpGet("GetAllQuotesAndMetrics")]
+        public ActionResult<List<Quoteandmetric>> GetAllQuotesAndMetrics()
         {
 
             List<Quoteandmetric> quoteandmetric = Logic.GetAllQuotesAndMetrics();
@@ -60,5 +51,26 @@ namespace Toci.Earrai.Microservice.Controllers
 
             return Ok(id);
         }
+
+        [HttpGet("QuoteAndPriceByProductId/{productId}")]
+        public ActionResult<List<Quotesandprice>> GetQuoteAndPriceByProductId(int productId)
+        {
+            return Ok(Logic.GetAllQuotesAndPricesView(productId));
+        }
+
+        [HttpPut("UpdateQuoteAndPrice")]
+        public ActionResult<Quoteandprice> UpdateQuoteAndPrice(Quoteandprice priceEntity)
+        {
+            Logic.UpdateQuoteAndPrice(priceEntity);
+
+            return Ok(priceEntity);
+        }
+
+        [HttpDelete("DeleteQuoteAndPrice/{id}")]
+        public ActionResult<int> DeleteQuoteAndPrice(int id)
+        {
+            return Logic.DeleteById(id);
+        }
+
     }
 }

@@ -25,11 +25,9 @@ namespace Toci.Earrai.Bll
             return quoteandprice;
         }
 
-        public List<Quotesandprice> GetAllQuotesAndPricesView()
+        public List<Quotesandprice> GetAllQuotesAndPricesView(int productId)
         {
-            List<Quotesandprice> quotesandprices = new List<Quotesandprice>();
-            quotesandprices = Quotesandprices.Select(m => true).ToList();
-            return quotesandprices;
+            return Quotesandprices.Select(m => m.Idproducts == productId).ToList();
         }
 
         public List<Vendor> GetAllVendors()
@@ -45,5 +43,28 @@ namespace Toci.Earrai.Bll
 
             return id;
         }
+
+        public Quoteandprice UpdateQuoteAndPrice(Quoteandprice priceEntity)
+        {
+            if (Select(m => m.Id == priceEntity.Id).FirstOrDefault() == null)
+                return null;
+
+            priceEntity.Updatedat = DateTime.Now;
+
+            Update(priceEntity);
+
+            return priceEntity;
+        }
+
+        public int DeleteById(int id)
+        {
+            var quoteAndPrice = Select(m => m.Id == id).FirstOrDefault();
+            if (quoteAndPrice == null)
+                return 0;
+            Delete(quoteAndPrice);
+
+            return 1;
+        }
+
     }
 }
