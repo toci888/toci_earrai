@@ -5,18 +5,16 @@ using System.Collections.Generic;
 
 namespace Toci.Earrai.Database.Persistence.Models
 {
-    public partial class Role
+    public partial class Action
     {
-        public Role()
+        public Action()
         {
             Rolesactions = new HashSet<Rolesaction>();
-            Users = new HashSet<User>();
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Action1 { get; set; }
 
         public virtual ICollection<Rolesaction> Rolesactions { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

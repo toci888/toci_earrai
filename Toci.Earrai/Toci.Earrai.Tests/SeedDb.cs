@@ -6,6 +6,7 @@ using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Microservice;
 using Toci.Earrai.Microservice.Controllers;
 using Toci.Earrai.Tests.Import.Excel;
+using Action = Toci.Earrai.Database.Persistence.Models.Action;
 using Worksheet = Toci.Earrai.Database.Persistence.Models.Worksheet;
 
 namespace Toci.Earrai.Tests
@@ -31,12 +32,16 @@ namespace Toci.Earrai.Tests
         private Logic<Productoption> ProductOption = new Logic<Productoption>();
         private Logic<Productcategoryoption> ProductCategoryOption = new Logic<Productcategoryoption>();
         private Logic<Productoptionvalue> ProductOptionValue = new Logic<Productoptionvalue>();
+        private Logic<Action> Action = new Logic<Action>();
+        private Logic<Rolesaction> RoleAction = new Logic<Rolesaction>();
 
         private Random r = new Random();
 
         [TestMethod]
         public void SeedAllDb()
         {
+            Actions();
+            RolesAction();
             Roles();
             Users();
             SeedAreas();
@@ -70,9 +75,81 @@ namespace Toci.Earrai.Tests
     
 
         }
+        
+        [TestMethod]
+        public void Actions()
+        {
+            string[] actions = new[]
+            {
+                "Smart Browsing Product Records by Category",
+                "View Historic dated and Current Record Balance Levels per area",
+                "Modify Stock Level Per Sub Area",
+                "Cause a Stock Update in Sage",
+                "Process Updates to Sage",
+                "View Cost related information",
+                "Modify Cost Related Information",
+                "Create New Products",
+                "Assign New Users",
+                "Special Category Plate Stock",
+                "Suggest New Product Record / Item - Plate & Sheet",
+                "Suggest New Product Record / Item - General",
+                "Create New Product Record / Item",
+                "Approve New Product Record / Item",
+            };
 
+            foreach (string action in actions)
+            {
+                Action.Insert(new Action()
+                {
+                    Action1 = action
+                });
+            }
+        }
 
+        [TestMethod]
+        public void RolesAction()
+        {
+            int[] role1 = new[] { 1, 2, 3, 11, 12 }; // User
+            int[] role2 = new[] { 1, 2, 3, 6, 7, 11, 12 }; // Office
+            int[] role3 = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 11, 12 }; // Pc
+            int[] role4 = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14 }; // Admin
 
+            foreach (var action in role1)
+            {
+                RoleAction.Insert(new Rolesaction()
+                {
+                    Idrole = 1,
+                    Idaction = action
+                });
+            }
+
+            foreach (var action in role2)
+            {
+                RoleAction.Insert(new Rolesaction()
+                {
+                    Idrole = 2,
+                    Idaction = action
+                });
+            }
+
+            foreach (var action in role3)
+            {
+                RoleAction.Insert(new Rolesaction()
+                {
+                    Idrole = 3,
+                    Idaction = action
+                });
+            }
+
+            foreach (var action in role4)
+            {
+                RoleAction.Insert(new Rolesaction()
+                {
+                    Idrole = 4,
+                    Idaction = action
+                });
+            }
+        }
 
         [TestMethod]
         public void Users()
