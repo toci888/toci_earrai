@@ -33,10 +33,10 @@ export default function Product_Commisions(props) {
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <Text style={[pd.inlineItem, pd.inlineItemLeft, pd.bold]}>
-                                {CommisionsHook[value]} £
+                                {CommisionsHook[value].toFixed(2)} £
                             </Text>
                             <Text style={[pd.inlineItem, pd.inlineItemRight, pd.bold]}>
-                                + {value}
+                                {value}
                             </Text>
                         </View>
                     )
