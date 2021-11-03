@@ -53,13 +53,13 @@ namespace Toci.Earrai.Database.Persistence.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=localhost;Database=Toci.Earrai;Username=postgres;Password=root");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=Toci.Earrai;Username=postgres;Password=beatka");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -420,6 +420,10 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Createdat)
+                    .HasColumnName("createdat")
+                    .HasDefaultValueSql("now()");
+
                 entity.Property(e => e.Idproducts).HasColumnName("idproducts");
 
                 entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
@@ -431,6 +435,10 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Updatedat)
+                    .HasColumnName("updatedat")
+                    .HasDefaultValueSql("now()");
 
                 entity.HasOne(d => d.IdproductsNavigation)
                     .WithMany(p => p.Quoteandprices)
@@ -458,6 +466,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.HasNoKey();
 
                 entity.ToTable("quotesandprices");
+
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 

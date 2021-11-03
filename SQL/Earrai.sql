@@ -1,3 +1,5 @@
+
+drop view productsprices ;
 drop view productsoptionsstate ;
 drop view ProductsSizes;
 drop view userRoles;
@@ -6,7 +8,7 @@ drop view QuotesAndPrices;
 
 drop table productsize;
 drop table sizecategories;
-drop table sizes;
+drop table sizes; 
 drop table quoteandprice;
 drop table productoptionvalues;
 drop table productcategoryoptions;
@@ -21,7 +23,6 @@ drop table worksheetcontentshistory;
 drop table areas;
 drop table codesdimensions;
 drop table worksheets;
-drop table workbooks;
 drop table users;
 drop table roles;
 drop table vendors;
@@ -206,7 +207,9 @@ create table quoteandprice
 	price text,
 	idvendor int references vendors (id),
 	idquoteandmetric int references quoteandmetric (id),
-	iduser int references users (id)
+	iduser int references users (id),
+	createdAt timestamp default now(),
+	updatedAt timestamp default now()
 );
 
 create table sizes
@@ -235,7 +238,8 @@ select productoptions.name, productoptionvalues.idproducts, productoptionvalues.
 productoptionvalues join productoptions on productoptions.id = productoptionvalues.idproductoptions;
 
 				
-create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation from quoteandmetric, quoteandprice where quoteandprice.idquoteandmetric = quoteandmetric.id
+create or replace view ProductsPrices as select quoteandprice.idproducts, quoteandprice.price, quoteandmetric.name, quoteandmetric.valuation from quoteandmetric, quoteandprice 
+where quoteandprice.idquoteandmetric = quoteandmetric.id;
 
 create or replace view ProductsSizes as 
 select productsize.id, productsize.idproducts, productsize.value, sizes.name
@@ -250,7 +254,7 @@ join users on areaquantity.idUser = users.id;
 
 create or replace view QuotesAndPrices as
 select quoteandprice.id, quoteandprice.idproducts, quoteandprice.rowindex, quoteandprice.price, quoteandprice.idvendor, 
-quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials
+quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials, quoteandprice.createdAt
 from quoteandprice join quoteandmetric on quoteandprice.idquoteandmetric = quoteandmetric.id
 join vendors on quoteandprice.idvendor = vendors.id
 join users on quoteandprice.iduser = users.id;
