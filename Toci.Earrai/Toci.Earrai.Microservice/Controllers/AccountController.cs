@@ -34,5 +34,7 @@ namespace Toci.Earrai.Microservice.Controllers
             Userrole loggedUser = Logic.GenerateJwt(user);
             return Ok(loggedUser);
         }
+
+
     }
 }
