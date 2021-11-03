@@ -14,6 +14,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Idvendor { get; set; }
         public int? Idquoteandmetric { get; set; }
         public int? Iduser { get; set; }
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
 
         public virtual Product IdproductsNavigation { get; set; }
         public virtual Quoteandmetric IdquoteandmetricNavigation { get; set; }

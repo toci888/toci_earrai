@@ -207,7 +207,9 @@ create table quoteandprice
 	price text,
 	idvendor int references vendors (id),
 	idquoteandmetric int references quoteandmetric (id),
-	iduser int references users (id)
+	iduser int references users (id),
+	createdAt timestamp default now(),
+	updatedAt timestamp default now()
 );
 
 create table sizes
@@ -252,7 +254,7 @@ join users on areaquantity.idUser = users.id;
 
 create or replace view QuotesAndPrices as
 select quoteandprice.id, quoteandprice.idproducts, quoteandprice.rowindex, quoteandprice.price, quoteandprice.idvendor, 
-quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials
+quoteandprice.idquoteandmetric, quoteandprice.iduser, quoteandmetric.valuation as valuation, vendors.name as vendor, users.initials, quoteandprice.createdAt
 from quoteandprice join quoteandmetric on quoteandprice.idquoteandmetric = quoteandmetric.id
 join vendors on quoteandprice.idvendor = vendors.id
 join users on quoteandprice.iduser = users.id;

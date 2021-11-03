@@ -17,5 +17,6 @@ namespace Toci.Earrai.Database.Persistence.Models
         public string Valuation { get; set; }
         public string Vendor { get; set; }
         public string Initials { get; set; }
+        public DateTime? Createdat { get; set; }
     }
 }

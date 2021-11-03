@@ -59,7 +59,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Area>(entity =>
             {
@@ -420,6 +420,10 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Createdat)
+                    .HasColumnName("createdat")
+                    .HasDefaultValueSql("now()");
+
                 entity.Property(e => e.Idproducts).HasColumnName("idproducts");
 
                 entity.Property(e => e.Idquoteandmetric).HasColumnName("idquoteandmetric");
@@ -431,6 +435,10 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Updatedat)
+                    .HasColumnName("updatedat")
+                    .HasDefaultValueSql("now()");
 
                 entity.HasOne(d => d.IdproductsNavigation)
                     .WithMany(p => p.Quoteandprices)
@@ -458,6 +466,8 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.HasNoKey();
 
                 entity.ToTable("quotesandprices");
+
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
