@@ -69,6 +69,7 @@ export default function Product({ route, navigation }) {
                 length: tempLenWid.length.toString(),
                 width: tempLenWid.width.toString(),
                 idarea: AppUser.getIdArea(),
+                quantity: "",
             }
         })
 
@@ -175,7 +176,7 @@ export default function Product({ route, navigation }) {
 
             {
                 ProductHook.product &&
-                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne").price} />
+                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerSheet")?.price} />
             }
 
         </ScrollView>
