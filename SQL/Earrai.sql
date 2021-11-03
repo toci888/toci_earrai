@@ -6,6 +6,8 @@ drop view userRoles;
 drop view AreasQuantities;
 drop view QuotesAndPrices;
 
+drop table rolesaction;
+drop table actions;
 drop table productsize;
 drop table sizecategories;
 drop table sizes; 
@@ -231,6 +233,19 @@ create table productsize
 	idsizes int references sizes(id),
 	idproducts int references products(id),
 	value text
+);
+
+create table actions
+(
+    id serial primary key,
+	action text
+);
+
+create table rolesaction
+(
+    id serial primary key,
+	idaction int references actions(id),
+	idrole int references roles(id)
 );
 
 create or replace view productsoptionsstate as 

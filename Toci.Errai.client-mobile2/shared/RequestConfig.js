@@ -3,15 +3,16 @@ import { environment } from "../environment";
 
 export const insertUrl = environment.apiUrl + "api/AreaQuantity/PostAreaQuantities"
 export function insertRequestParams(dataToSend_) {
+    dataToSend_.idproducts = 2;
     const x = JSON.parse(JSON.stringify(dataToSend_))
-
+    console.log(x)
     return {
         method: "POST",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify([x]) // arequantity
+        body: JSON.stringify(x) // arequantity
     }
 
 }

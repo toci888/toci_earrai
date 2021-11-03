@@ -10,4 +10,15 @@ namespace Toci.Earrai.Bll.Interfaces {
     public interface IQuoteAndMetricLogic : ILogicBase<Quoteandmetric> {
 
     }
-}
+}/* {
+
+id: 0,
+idproducts: 1,
+idquoteandmetric: null,
+iduser: 5,
+idvendor: null,
+price: "",
+updatedat: null,
+createdat: null,
+
+}*/
