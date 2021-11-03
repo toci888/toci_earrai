@@ -4,7 +4,7 @@ import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { getAllWorksheetsUrl, getAreasUrl } from '../shared/RequestConfig'
+import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 
 export default function WorksheetsList({ route, navigation }) {
@@ -26,6 +26,8 @@ export default function WorksheetsList({ route, navigation }) {
         Promise.all([
             fetch(getAllWorksheetsUrl).then(x => x.json()),
             fetch(getAreasUrl).then(x => x.json()),
+            fetch(getVendorsUrl).then(x => x.json()),
+            fetch(getQuoteAndMetricUrl).then(x => x.json()),
         ]).then( response_ => {
             console.log(response_)
 
@@ -38,6 +40,8 @@ export default function WorksheetsList({ route, navigation }) {
             });
 
             AppUser.setAreas(response_[1]);
+            AppUser.setVendors(response_[2]);
+            AppUser.setMetrics(response_[3]);
 
         }).catch((error) => { console.log(error)
         }).finally(() => { setloading(false) })

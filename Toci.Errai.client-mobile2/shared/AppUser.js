@@ -18,6 +18,10 @@ export default class AppUser {
 
     static userData
 
+    static vendors = null
+
+    static metrics = null
+
     static getApiData = async () => AppUser.apiData
 
     static setApiData = data => { AppUser.apiData = data }
@@ -35,6 +39,14 @@ export default class AppUser {
     static setAreas = areas_ => { AppUser.areas = areas_ }
 
     static getAreas = () => AppUser.areas
+
+    static setVendors = vendors_ => { AppUser.vendors = vendors_ }
+
+    static getVendors = () => AppUser.vendors
+
+    static setMetrics = metrics_ => { AppUser.metrics = metrics_ }
+
+    static getMetrics = () => AppUser.metrics
 
     static setIdArea = idArea_ => { AppUser.savedIdArea = idArea_ }
 
