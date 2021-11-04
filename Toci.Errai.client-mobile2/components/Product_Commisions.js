@@ -6,9 +6,9 @@ import { productDetails as pd } from '../styles/productDetails'
 export default function Product_Commisions(props) {
 
     const [CommisionsHook, setCommisionsHook] = useState([])
-
+    console.log(props)
     useEffect(() => {
-
+        if(isNaN(props.price) || props.price == "") return
         fetch(getCommisions(props.productId, props.price))
         .then( response_ => response_.json())
         .then( response_ => {
@@ -33,7 +33,7 @@ export default function Product_Commisions(props) {
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <Text style={[pd.inlineItem, pd.inlineItemLeft, pd.bold]}>
-                                {CommisionsHook[value].toFixed(2)} £
+                                {CommisionsHook[value]?.toFixed(2)} £
                             </Text>
                             <Text style={[pd.inlineItem, pd.inlineItemRight, pd.bold]}>
                                 {value}
