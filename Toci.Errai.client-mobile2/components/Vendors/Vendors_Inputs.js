@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-community/picker'
 import React, { useState } from 'react'
-import { Text, TextInput, View } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import AppUser from '../../shared/AppUser'
 import { addVendorUrl, insertRequestParams } from '../../shared/RequestConfig'
 import { Vendors_Inputs_Styles as vI } from './Vendors_Inputs_Styles'
@@ -108,13 +108,12 @@ export default function Vendor_Inputs(props) {
                 </View>
             </View>
 
-            <View style={vI.okCont} onClick={send}>
-                <View style={vI.okFlex}>
-                    <View style={vI.ok}>
-                        <Text>OK</Text>
-                    </View>
+            <View style={vI.okCont}>
+                <View style={[vI.okFlex, vI.ok]}>
+                    <Text onPress={ () => send()} style={vI.ok}>
+                        OK
+                    </Text>
                 </View>
-
             </View>
 
         </View>

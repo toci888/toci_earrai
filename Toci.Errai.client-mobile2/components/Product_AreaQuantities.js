@@ -61,7 +61,7 @@ export default function Product_AreaQuantities(props) {
             <View key={i+"he"}>
                 <DataTable.Row key={i} style={[ productCSS.rowContainerTop    ]}>
                     <DataTable.Cell key={i + "createdat"} style={[productCSS.grid, {backgroundColor: nowUpdating(i) ? "red" : "" }]}>
-                        <Text style={{backgroundColor: nowUpdating(i) ? "red" : "" }}>
+                        <Text>
                             { props.areaQuantities[i].createdat?.substr(0, 10) }
                         </Text>
                     </DataTable.Cell>

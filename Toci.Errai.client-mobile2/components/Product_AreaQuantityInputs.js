@@ -63,14 +63,14 @@ export default function Product_AreaQuantityInputs(props) {
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>L</Text>
                         </View>
-                        <Text style={p.inputFlex}>
+                        <View style={p.inputFlex}>
                             <TextInput
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.length}
                                 onChangeText={(text) => setLength(text)}
                                 placeholder="Type Length.."
                             />
-                        </Text>
+                        </View>
 
 
                     </View>
@@ -79,14 +79,14 @@ export default function Product_AreaQuantityInputs(props) {
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>W</Text>
                         </View>
-                        <Text style={p.inputFlex}>
+                        <View style={p.inputFlex}>
                             <TextInput
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
                                 placeholder="Type Width.."
                             />
-                        </Text>
+                        </View>
 
 
                     </View>
@@ -96,7 +96,7 @@ export default function Product_AreaQuantityInputs(props) {
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>Q</Text>
                         </View>
-                        <Text style={p.inputFlex}>
+                        <View style={p.inputFlex}>
                             <TextInput
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.quantity}
@@ -104,7 +104,7 @@ export default function Product_AreaQuantityInputs(props) {
                                 placeholder="Type Quantity.."
                             />
 
-                        </Text>
+                        </View>
 
                     </View>
 
