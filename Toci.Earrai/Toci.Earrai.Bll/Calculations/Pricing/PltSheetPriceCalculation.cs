@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected override PricingDto KgPerSqrtMeter(ProductDto product, PricingDto dto)
         {
-            int thickness = Convert.ToInt32(product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault().Value);
+            double thickness = Convert.ToDouble(product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault().Value);
 
             dto.kgPerSqrtMeter = thickness * DensityFormKgPerSqrtMeter / 1000;
 
