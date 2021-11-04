@@ -23,6 +23,9 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         protected override PricingDto KgPerSheet(ProductDto product, PricingDto dto) {
 
             var length_ = product.Sizes.Where(m => m.Name == "Length").FirstOrDefault().Value;
+            if (String.IsNullOrEmpty(length_))
+                return dto;
+
             double length = Convert.ToDouble(length_);
 
             var width_ = product.Sizes.Where(m => m.Name == "Width").FirstOrDefault().Value;

@@ -14,11 +14,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         protected Dictionary<int, PriceCalculationBase> PricesExecutors = new Dictionary<int, PriceCalculationBase> {
             {1, new PltSheetPriceCalculation() },
             {2, new AlumCalculation() },
-            {3, new MshExpMetalCalculation() },
-            {4, new ChanBmsCalculation() },
-            {5, new AnglesTCalculation() },
-            {6, new FLTSCalculation() },
-            {7, new RHSCalculation() },
+            {7, new MshExpMetalCalculation() },
+            {6, new ChanBmsCalculation() },
+            {3, new AnglesTCalculation() },
+            {4, new FLTSCalculation() },
+            {5, new RHSCalculation() },
             {8, new TubeCHSCalculation() },
             {9, new RndsSqrsHolBarCalculation() },
         };
