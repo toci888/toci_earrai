@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
+import { getQuotesAndPricesByProductIdUrl } from './RequestConfig'
 
 export default class AppUser {
 
@@ -34,7 +35,7 @@ export default class AppUser {
 
     static setWProductId = productId_ => { AppUser.productId = productId_ }
 
-    static getWProductId = () => AppUser.productId
+    static getProductId = () => AppUser.productId
 
     static setAreas = areas_ => { AppUser.areas = areas_ }
 
@@ -70,6 +71,25 @@ export default class AppUser {
         let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
         console.log(x)
         return x ? x : false
+    }
+
+    static getAllQuotesAndPricesByProductId = async () => {
+
+        const x = await fetch(getQuotesAndPricesByProductIdUrl(AppUser.productId))
+
+        const y = await x.json()
+
+        return y
+
+
+
+
+        console.log(33)
+        fetch(getQuotesAndPricesByProductIdUrl(AppUser.productId))
+        .then(response_ => response_.json())
+        .then(response_ => {
+            console.log(response_)
+        })
     }
 
 }

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 
-export const Vendor_Inputs_Styles = StyleSheet.create({
+export const Vendors_Inputs_Styles = StyleSheet.create({
 
     container: {
         display: 'flex',
@@ -17,15 +17,10 @@ export const Vendor_Inputs_Styles = StyleSheet.create({
         width: '32%',
     },
     okCont: {
-        width: '15%',
+        width: '18%',
     },
     priceFlex: {
         margin: 3,
-        // width: '100%',
-        // height: '100%',
-        // display: 'flex',
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
     inputStyle: {
         marginTop: 3,

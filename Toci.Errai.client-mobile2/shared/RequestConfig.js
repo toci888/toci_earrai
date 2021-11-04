@@ -2,21 +2,20 @@ import { environment } from "../environment";
 
 
 export const insertUrl = environment.apiUrl + "api/AreaQuantity/PostAreaQuantities"
-export function insertRequestParams(dataToSend_) {
-    dataToSend_.idproducts = 2;
-    const x = JSON.parse(JSON.stringify(dataToSend_))
-    console.log(x)
+export function insertRequestParams(dataToSend_, isCollection = false) {
+    const json_ = JSON.parse(JSON.stringify(dataToSend_))
+
+    const toSend = isCollection ? [json_] : json_
+
     return {
         method: "POST",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(x) // arequantity
+        body: JSON.stringify(toSend) // arequantity
     }
-
 }
-
 
 export const updateUrl = environment.apiUrl + "api/AreaQuantity/UpdateAreaQuantity"
 export function updateRequestParams(dataToSend_) {
@@ -72,3 +71,7 @@ export const addVendorUrl = environment.apiUrl + 'api/QuoteAndPrice/PostQuoteand
 export const getVendorsUrl = environment.apiUrl + 'api/QuoteAndPrice/GetAllVendorsFromDb'
 
 export const getQuoteAndMetricUrl = environment.apiUrl + 'api/QuoteAndMetric'
+
+export function getQuotesAndPricesByProductIdUrl(productId_) {
+    return environment.apiUrl + 'api/QuoteAndPrice/QuoteAndPriceByProductId/' + productId_
+}

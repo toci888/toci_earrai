@@ -1,39 +1,22 @@
 import { Picker } from '@react-native-community/picker'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, TextInput, View } from 'react-native'
 import AppUser from '../../shared/AppUser'
 import { addVendorUrl, insertRequestParams } from '../../shared/RequestConfig'
-import { Product_AreaQuantityInputsStyle as aqI } from '../Product_AreaQuantityInputsStyle'
-import { Vendor_Inputs_Styles as vI } from './Vendor_Inputs_Styles'
+import { Vendors_Inputs_Styles as vI } from './Vendors_Inputs_Styles'
 
 export default function Vendor_Inputs(props) {
 
-    console.log(props)
 
     const [SelectedVendorsHook, setSelectedVendorsHook] = useState({
         id: 0,
-        idproducts: 3,
+        idproducts: AppUser.getProductId(),
         rowindex: 0,
         price: "",
         idvendor: 2,
         idquoteandmetric: 2,
         iduser: AppUser.getId(),
     })
-
-    useEffect(() => {
-
-        //setVendorsHook(AppUser.getVendors())
-
-        /*fetch(addVendor(props.productId, AppUser.getId())).then(response_ => {
-            return response_.json()
-        }).then(response_ => {
-            console.log(response_)
-
-        }).finally(x => {
-
-        })*/
-
-    }, [])
 
     const setVendor = (value_, index_) => {
         setSelectedVendorsHook( prev => {
@@ -43,7 +26,6 @@ export default function Vendor_Inputs(props) {
             }
         })
     }
-
 
     const setMetric = (value_, index_) => {
         setSelectedVendorsHook( prev => {
@@ -69,14 +51,18 @@ export default function Vendor_Inputs(props) {
         fetch(addVendorUrl, insertRequestParams(SelectedVendorsHook))
         .then( response_ => {
             console.log(response_)
+            props.getAllQuotesAndPricesByProductId()
         }).catch(error_ => {
             console.log(error_)
         })
     }
 
     return (
-
-        <View style={vI.container}>
+        <>
+        <View style={{marginTop: 10}}>
+            <Text style={{fontSize: 17, padding: 5}}>Add:</Text>
+        </View>
+        <View style={[vI.container]}>
 
             <View style={vI.vendorPickerCont}>
                 <View style={vI.ComboView}>
@@ -122,7 +108,6 @@ export default function Vendor_Inputs(props) {
                 </View>
             </View>
 
-
             <View style={vI.okCont} onClick={send}>
                 <View style={vI.okFlex}>
                     <View style={vI.ok}>
@@ -132,8 +117,7 @@ export default function Vendor_Inputs(props) {
 
             </View>
 
-
         </View>
-
+        </>
     )
 }

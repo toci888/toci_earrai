@@ -4,7 +4,7 @@ import { productDetails as pd } from '../styles/productDetails'
 
 
 export default function Product_UtilTable(props) {
-    console.log(props)
+    //console.log(props)
     return (
         <View style={{marginBottom: 15}}>
             <View>

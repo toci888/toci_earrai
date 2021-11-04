@@ -12,7 +12,8 @@ import Product_UtilTable from '../../components/Product_UtilTable'
 import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Product_Commisions from '../../components/Product_Commisions'
-import Vendor_Inputs from '../../components/Vendors/Vendor_Inputs'
+import Vendor_Inputs from '../../components/Vendors/Vendors_Inputs'
+import Vendors from '../../components/Vendors/Vendors'
 
 export default function Product({ route, navigation }) {
 
@@ -24,7 +25,7 @@ export default function Product({ route, navigation }) {
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
         id: 0,
         idarea: 1,
-        idproducts: AppUser.getWProductId(),
+        idproducts: AppUser.getProductId(),
         idcodesdimensions: 1,
         iduser: AppUser.getId(),
         quantity: "",
@@ -96,14 +97,13 @@ export default function Product({ route, navigation }) {
     }
 
     const updateAreaQuantitiesfterRequest = async () => {
-       fetch(getAreasQuantitiesByProduct(AppUser.getWProductId())).then(response_ => {
+       fetch(getAreasQuantitiesByProduct(AppUser.getProductId())).then(response_ => {
             return response_.json()
         }).then(response_ => {
             console.log(response_)
             let newProduct = ProductHook
             newProduct.areaQuantities = response_
             setProduct(prev => {return newProduct})
-            WorksheetRecord()
         }).catch(error => {
             console.log(error);
         }).finally(x => {
@@ -171,7 +171,7 @@ export default function Product({ route, navigation }) {
 
             <ProductPrices product={ProductHook} />
 
-            <Vendor_Inputs productId={ProductHook?.product?.id} />
+            <Vendors />
 
             <ProductSizes product={ProductHook} />
 
