@@ -14,7 +14,7 @@ export default function Product_AreaQuantityButtons(props) {
         if(props.btnvalueHook == "ADD") { url = insertUrl; requestParams = insertRequestParams
         } else { url = updateUrl; requestParams = updateRequestParams }
 
-        fetch(url, requestParams(props.tempAreaquantityRow)).then( response => {
+        fetch(url, requestParams(props.tempAreaquantityRow, true)).then( response => {
             console.log(response)
             props.updateAreaQuantitiesfterRequest()
             props.initAreaQuantities()
