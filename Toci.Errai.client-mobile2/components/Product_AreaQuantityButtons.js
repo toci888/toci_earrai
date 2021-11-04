@@ -47,4 +47,4 @@ export default function Product_AreaQuantityButtons(props) {
             ) }
         </>
     )
-} {/* </TouchableOpacity> */} {/* </TouchableOpacity> */}
+}

@@ -12,7 +12,6 @@ import Product_UtilTable from '../../components/Product_UtilTable'
 import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Product_Commisions from '../../components/Product_Commisions'
-import Vendor_Inputs from '../../components/Vendors/Vendors_Inputs'
 import Vendors from '../../components/Vendors/Vendors'
 
 export default function Product({ route, navigation }) {
