@@ -27,7 +27,7 @@ namespace Toci.Earrai.Bll
 
         public List<Quotesandprice> GetAllQuotesAndPricesView(int productId)
         {
-            return Quotesandprices.Select(m => m.Idproducts == productId).ToList();
+            return Quotesandprices.Select(m => m.Idproducts == productId).OrderBy(m => m.Createdat).ToList();
         }
 
         public List<Vendor> GetAllVendors()
