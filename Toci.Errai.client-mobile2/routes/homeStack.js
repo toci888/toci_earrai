@@ -14,13 +14,6 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
-    ProductsList: {
-        screen: ProductsList,
-        navigationOptions: {
-            title : "Products",
-            headerStyle: { backgroundColor: '#ccc' }
-        }
-    },
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {
@@ -28,6 +21,14 @@ const screens = {
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
+    ProductsList: {
+        screen: ProductsList,
+        navigationOptions: {
+            title : "Products",
+            headerStyle: { backgroundColor: '#ccc' }
+        }
+    },
+
     Product: {
         screen: Product,
         navigationOptions: {
