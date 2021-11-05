@@ -13,25 +13,39 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected override PricingDto KgPerSqrtMeter(ProductDto product, PricingDto dto)
         {
-            double thickness = Convert.ToDouble(product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault().Value);
+            try {
+                var thickness_ = product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault();
+                if (thickness_ == null) { return dto; }
+                if (thickness_.Value == "") { return dto; }
+                double thickness = Convert.ToDouble(thickness_.Value);
 
-            dto.kgPerSqrtMeter = thickness * DensityFormKgPerSqrtMeter / 1000;
+                dto.kgPerSqrtMeter = thickness * DensityFormKgPerSqrtMeter / 1000;
+            } catch (Exception) {
+
+                return dto;
+            }
 
             return dto;
         }
 
         protected override PricingDto KgPerSheet(ProductDto product, PricingDto dto) {
 
-            var length_ = product.Sizes.Where(m => m.Name == "Length").FirstOrDefault().Value;
-            if (String.IsNullOrEmpty(length_))
+            try {
+                var length_ = product.Sizes.Where(m => m.Name == "Length").FirstOrDefault();
+                if (length_ == null) { return dto; }
+                if (length_.Value == "") { return dto; }
+                double length = Convert.ToDouble(length_.Value);
+
+                var width_ = product.Sizes.Where(m => m.Name == "Width").FirstOrDefault();
+                if (width_ == null) { return dto; }
+                if (width_.Value == "") { return dto; }
+                double width = Convert.ToDouble(width_.Value);
+
+                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000;
+            } catch (Exception) {
+
                 return dto;
-
-            double length = Convert.ToDouble(length_);
-
-            var width_ = product.Sizes.Where(m => m.Name == "Width").FirstOrDefault().Value;
-            double width = Convert.ToDouble(width_);
-
-            dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000;
+            }
 
             return dto;
 
@@ -40,10 +54,16 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected override PricingDto PoundPerSheet(ProductDto product, PricingDto dto) {
 
-            var x_ = product.Prices.Where(price => price.Name == "PoundsPerTonne").FirstOrDefault().Price;
-            double x = Convert.ToDouble(x_);
+            try {
+                var x_ = product.Prices.Where(price => price.Name == "PoundsPerTonne").FirstOrDefault();
+                if (x_ == null) { return dto; }
+                double x = Convert.ToDouble(x_.Price);
 
-            dto.PoundsPerSheet  = x / 1000 * dto.kgPerSheet;
+                dto.PoundsPerSheet = x / 1000 * dto.kgPerSheet;
+            } catch (Exception) {
+
+                return dto;
+            }
 
             return dto;
         }

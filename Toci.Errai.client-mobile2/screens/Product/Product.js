@@ -178,7 +178,7 @@ export default function Product({ route, navigation }) {
 
             {
                 ProductHook.product &&
-                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerSheet")?.price} />
+                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne")?.price} />
             }
 
         </ScrollView>

@@ -10,15 +10,27 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected override PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) {
 
-            var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault().Price;
-            double x = Convert.ToDouble(x_);
 
-            var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault().Value; // TODO option or calc?
-            double y = Convert.ToDouble(y_);
+            try {
 
-            dto.PoundsPerMeter = (x / 1000) / y;
+                var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault();
+                //if (x_ == null) { return dto; }
+                double price = Convert.ToDouble(x_.Price);
 
-            dto.PoundsPerLength = dto.PoundsPerMeter * 7.6;
+                var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault(); // TODO option or calc?
+                //if (x_ == null) { return dto; }
+                double kgM = Convert.ToDouble(y_.Value);
+
+                dto.PoundsPerMeter = (price / 1000) / kgM;
+
+                dto.PoundsPerLength = dto.PoundsPerMeter * 7.6;
+
+
+            } catch(Exception) {
+                return dto;
+            }
+
+
 
             return dto; // TODO Two calcs at once.
         }

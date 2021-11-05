@@ -10,7 +10,7 @@ export default function ProductPrices(props) {
             <Text style={{padding: 15, fontSize: 17, width: '100%', textAlign: 'center'}} >
                 Prices
             </Text>
-            {
+            {/* {
                 props?.product?.prices?.map( (v, k) => {
                     return(
                         <View key={k} style={pd.inlineContainer}>
@@ -23,7 +23,7 @@ export default function ProductPrices(props) {
                         </View>
                     )
                 })
-            }
+            } */}
         </View>
     )
 }

@@ -30,6 +30,7 @@ export default function Product_Commisions(props) {
 
             {
                 CommisionsHook && Object.keys(CommisionsHook).map( (value, key) => {
+                    console.log(key)
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <Text style={[pd.inlineItem, pd.inlineItemLeft, pd.bold]}>

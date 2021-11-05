@@ -10,19 +10,26 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected override PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) {
 
-            var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault().Price;
-            double x = Convert.ToDouble(x_);
+            try {
+                var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault();
+                if (x_ == null) { return dto; }
+                double x = Convert.ToDouble(x_.Price);
 
-            var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault().Value; // TODO option or calc?
-            double y = Convert.ToDouble(y_);
+                var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault(); // TODO option or calc?
+                if (y_ == null) { return dto; }
+                double y = Convert.ToDouble(y_.Value);
 
-            dto.PoundsPerMeter = (x / 1000) / y;
+                dto.PoundsPerMeter = (x / 1000) / y;
 
-            dto.PoundsPerLength = dto.PoundsPerMeter * 6.2;
+                dto.PoundsPerLength = dto.PoundsPerMeter * 6.2;
+            } catch (Exception) {
+
+                return dto;
+            }
 
             return dto; // TODO Two calcs at once.
+        
         }
-
 
         // AA AB AC etc is adding to price
     }
