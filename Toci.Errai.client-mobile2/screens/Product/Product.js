@@ -13,6 +13,7 @@ import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
+import  Product_Commisions  from './../../components/Product_Commisions'
 
 export default function Product({ route, navigation }) {
 
@@ -101,7 +102,9 @@ export default function Product({ route, navigation }) {
     }
 
     const fetchAreas = () => {
-        setareas(AppUser.getAreas())
+        let x = AppUser.getAreas()
+        console.log(x)
+        setareas(x)
 
         const savedArea = AppUser.getIdArea()
         if(savedArea) {
@@ -128,7 +131,7 @@ export default function Product({ route, navigation }) {
             let newProduct = ProductHook
             newProduct.areaQuantities = response_
             setProduct(prev => {return newProduct})
-            logName = "Ok"; message = "Added new area Quantities"
+            logName = "Ok"; message = "Added new(or updated) area Quantities"
         }).catch(error => {
             console.log(error);
             logName = "Error"; message = "Something went wrong"
@@ -169,7 +172,7 @@ export default function Product({ route, navigation }) {
                     <View style={{height: 100, width: 150, margin: 10}}>
 
                         {
-                            imagesManager[ProductHook.product.idcategories].url &&
+                            imagesManager[ProductHook.product.idcategories]?.url &&
                                 <Image
                                     style={{height: 100, width: '100%', justifyContent:'center'}}
                                     source={imagesManager[ProductHook.product.idcategories].url}
@@ -233,10 +236,10 @@ export default function Product({ route, navigation }) {
 
             <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
-            {/* {
+            {
                 ProductHook.product &&
                     <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne")?.price} />
-            } */}
+            }
 
         </ScrollView>
     )
