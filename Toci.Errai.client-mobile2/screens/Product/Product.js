@@ -13,6 +13,7 @@ import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
+import { Product_Commisions } from './../../components/Product_Commisions'
 
 export default function Product({ route, navigation }) {
 
