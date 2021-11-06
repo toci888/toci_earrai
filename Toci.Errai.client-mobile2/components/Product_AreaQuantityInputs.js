@@ -63,14 +63,16 @@ export default function Product_AreaQuantityInputs(props) {
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>L</Text>
                         </View>
-                        <View style={p.inputFlex}>
-                            <TextInput
-                                style={p.inputStyle}
-                                value={props.tempAreaquantityRow.length}
-                                onChangeText={(text) => setLength(text)}
-                                placeholder="Type Length.."
-                            />
-                        </View>
+                            <View style={p.inputFlex}>
+                                {/* <TouchableOpacity style={{width: '100%'}}> */}
+                                <TextInput
+                                    style={p.inputStyle}
+                                    value={props.tempAreaquantityRow.length}
+                                    onChangeText={(text) => setLength(text)}
+                                    placeholder="Type Length.."
+                                />
+                                {/* </TouchableOpacity> */}
+                            </View>
 
 
                     </View>

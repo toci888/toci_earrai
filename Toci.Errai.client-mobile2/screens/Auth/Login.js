@@ -43,8 +43,8 @@ export default function Login({navigation}) {
 
   return (
     <Formik initialValues={{
-      email: '',
-      password: ''
+      email: 'tom123@wp.pl',
+      password: 'tom123'
     }}
     // <Formik initialValues={{
     //   email: 'admin@wp.pl',
@@ -61,7 +61,7 @@ export default function Login({navigation}) {
 
     validationSchema={yup.object().shape({
       email: yup.string()
-        .email()
+        //.email()
         .required('E-Mail is required.'),
       password: yup.string()
         .min(4)

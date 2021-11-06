@@ -14,10 +14,10 @@ export const Vendors_Inputs_Styles = StyleSheet.create({
         width: '20%',
     },
     priceCont: {
-        width: '32%',
+        width: '31%',
     },
     okCont: {
-        width: '18%',
+        width: '19%',
     },
     priceFlex: {
         margin: 3,

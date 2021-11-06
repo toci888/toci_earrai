@@ -10,11 +10,10 @@ export const productDetails = StyleSheet.create({
         width: '100%',
     },
     inlineContainer: {
+        display: 'flex',
         flexDirection: 'row',
     },
     inlineItem: {
-        display: 'flex',
-        alignItems: 'center',
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: 15,
