@@ -11,7 +11,9 @@ export const imagesManager = {
     8: {
         url: require('./../assets/mshEX_MET.png')
     },
-
+    9: {
+        url: require('./../assets/RHS_SHS.png')
+    },
 
     11: {
         url: require('./../assets/chanPFC.png')
@@ -24,6 +26,40 @@ export const imagesManager = {
     },
     14: {
         url: require('./../assets/chanIPE.png')
+    },
+    15: {
+        url: require('./../assets/anglesT_EA.png')
+    },
+    16: {
+        url: require('./../assets/anglesT_UA.png')
+    },
+
+
+
+
+    18: {
+        url: require('./../assets/TubeCHS_CHS.png')
+    },
+    19: {
+        url: require('./../assets/TubeCHS_GCHS.png')
+    },
+    20: {
+        url: require('./../assets/FLTS_FL.png')
+    },
+
+
+
+    22: {
+        url: require('./../assets/Rnds_RB_BLK.png')
+    },
+    23: {
+        url: require('./../assets/Rnds_RB_BRI.png')
+    },
+    24: {
+        url: require('./../assets/Rnds_SQ_BLK.png')
+    },
+    26: {
+        url: require('./../assets/Rnds_HB.png')
     },
 
 }

@@ -165,29 +165,21 @@ export default function Product({ route, navigation }) {
     return (
         <ScrollView style={productCSS.container}>
 
-            { ProductHook?.product?.idcategories &&
+            { imagesManager[ProductHook?.product?.idcategories]?.url &&
 
                 <View style={{height: 100, width: '100%', justifyContent: 'center', margin: 15}}>
 
-                    <View style={{height: 100, width: 150, margin: 10}}>
-
-                        {
-                            imagesManager[ProductHook.product.idcategories]?.url &&
-                                <Image
-                                    style={{height: 100, width: '100%', justifyContent:'center'}}
-                                    source={imagesManager[ProductHook.product.idcategories].url}
-                                />
-                        }
-
-                        {
-                            !imagesManager[ProductHook?.product?.idcategories]?.url &&
-                                <Text>No Image</Text>
-                        }
-
-
+                    <View style={{height: 100, width: 100, margin: 10}}>
+                        <Image
+                            style={{height: '100%', width: '100%'}}
+                            source={imagesManager[ProductHook?.product?.idcategories].url}
+                        />
                     </View>
-
                 </View>
+            }
+
+            { !imagesManager[ProductHook?.product?.idcategories]?.url &&
+                <Text style={{textAlign: 'center'}} >No Image</Text>
             }
 
             { loading && (

@@ -143,17 +143,11 @@ export default function ProductsList({ route, navigation }) {
                                                 </View>
                                             }
 
-
-
-                                            <View style={{ margin: 5, height: 40, alignItems: 'center'}}>
+                                            <View style={{ margin: 5, height: 40, justifyContent: 'center'}}>
                                                 <Text style={ps.small}>{product.productaccountreference}</Text>
                                             </View>
 
-                                            <View style={{height: 40, alignItems: 'center'}} >
-                                                <Text>, </Text>
-                                            </View>
-
-                                            <View style={{ height: 40, alignItems: 'center'}} >
+                                            <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                                 <Text style={ps.small}>{product.description}</Text>
                                             </View>
 
