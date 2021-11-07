@@ -123,7 +123,7 @@ export default function ProductsList({ route, navigation }) {
                     {
                         ProductsListHook?.map( (product, index) => {
 
-                            let img = imagesManager[product.idcategories].url
+                            let img = imagesManager[product.idcategories]?.url
 
                             return(<DataTable.Row key={ index } style={ps.customRow}>
 
@@ -133,12 +133,17 @@ export default function ProductsList({ route, navigation }) {
 
                                         <View style={{display: 'flex', flexDirection: 'row'}}>
 
-                                            <View style={{ height: 40, width: 30, margin: 5}}>
-                                                <Image
-                                                    style={{height: 40, width:'100%', justifyContent:'center', marginRight: 5}}
-                                                    source={img}
-                                                />
-                                            </View>
+                                            {   img &&
+
+                                                <View style={{ height: 40, width: 30, margin: 5}}>
+                                                    <Image
+                                                        style={{height: 40, width:'100%', justifyContent:'center', marginRight: 5}}
+                                                        source={img}
+                                                    />
+                                                </View>
+                                            }
+
+
 
                                             <View style={{ margin: 5, height: 40, alignItems: 'center'}}>
                                                 <Text style={ps.small}>{product.productaccountreference}</Text>

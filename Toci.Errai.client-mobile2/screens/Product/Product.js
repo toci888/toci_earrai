@@ -13,7 +13,7 @@ import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
-import { Product_Commisions } from './../../components/Product_Commisions'
+import  Product_Commisions  from './../../components/Product_Commisions'
 
 export default function Product({ route, navigation }) {
 
@@ -102,7 +102,9 @@ export default function Product({ route, navigation }) {
     }
 
     const fetchAreas = () => {
-        setareas(AppUser.getAreas())
+        let x = AppUser.getAreas()
+        console.log(x)
+        setareas(x)
 
         const savedArea = AppUser.getIdArea()
         if(savedArea) {
@@ -170,7 +172,7 @@ export default function Product({ route, navigation }) {
                     <View style={{height: 100, width: 150, margin: 10}}>
 
                         {
-                            imagesManager[ProductHook.product.idcategories].url &&
+                            imagesManager[ProductHook.product.idcategories]?.url &&
                                 <Image
                                     style={{height: 100, width: '100%', justifyContent:'center'}}
                                     source={imagesManager[ProductHook.product.idcategories].url}
