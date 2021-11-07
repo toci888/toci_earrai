@@ -40,10 +40,10 @@ namespace Toci.Earrai.Tests
         [TestMethod]
         public void SeedAllDb()
         {
-            //Actions();
-            //RolesAction();
             Roles();
             Users();
+            Actions();
+            RolesAction();
             SeedAreas();
             SeedWlOrSizeCategories();
             Vendors();
