@@ -10,8 +10,6 @@ namespace Toci.Earrai.Ui
 {
     public class DataManager
     {
-        protected List<List<Worksheetcontent>> WorksheetsData;
-
         protected ApiConnector ApiProxy = new ApiConnector();
 
         public DataManager()
