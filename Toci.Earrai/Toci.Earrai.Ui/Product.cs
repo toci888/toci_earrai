@@ -24,6 +24,7 @@ namespace Toci.Earrai.Ui
         protected int ySlided = 0;
         protected int xSlide = 100;
         protected int ySlide = 30;
+        protected int xLeft = 10;
 
         public Product(int productId)
         {
@@ -31,8 +32,9 @@ namespace Toci.Earrai.Ui
             prodId = productId;
             product = Dm.GetProduct(prodId);
 
-            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), 10, 20);
-            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), 10, ySlided + ySlide);
+            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft, 20);
+            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft, ySlided + ySlide);
+            AddAreasQuatntitiesForm();
 
             //IsConnected();
 
@@ -105,6 +107,24 @@ namespace Toci.Earrai.Ui
             }
 
             ySlided = newY;
+        }
+
+        protected virtual void AddAreasQuatntitiesForm()
+        {
+            ySlided += ySlide;
+
+            Label widthL = new Label();
+            widthL.Text = "Width";
+            widthL.Size = new Size(90, 20);
+            widthL.Location = new Point(xLeft, ySlided);
+
+            TextBox widthT = new TextBox();
+            widthT.Size = new Size(90, 20);
+            widthT.Location = new Point(xLeft + xSlide, ySlided);
+
+
+            Controls.Add(widthL);
+            Controls.Add(widthT);
         }
     }
 }
