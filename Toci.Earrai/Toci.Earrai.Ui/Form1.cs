@@ -7,22 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Ui
 {
     public partial class Form1 : Form
     {
         protected ConnectionCheck ConnCheck = new ConnectionCheck();
+        protected DataManager Dm = new DataManager();
+
+        protected List<Area> areas;
+        protected List<Vendor> vendors;
 
         public List<TempUser> tempUsers = new List<TempUser>()
         {
-            new TempUser() {Id = 1, Name = "Bartus", Profession = "Rolnik"},
+            new TempUser() {Id = 1, Name = "Bartus", Profession = "The Rollnik Stone"},
             new TempUser() { Id = 2, Name = "Tomek", Profession = "Sinior Pehape Developer" },
             new TempUser() { Id = 3, Name = "Kacper", Profession = "zawodnik Fame MMA" }
         };
+
         public Form1()
         {
             InitializeComponent();
+
+            areas = Dm.GetAllAreas();
+            vendors = Dm.GetAllVendors();
 
             //IsConnected();
 
@@ -78,7 +87,7 @@ namespace Toci.Earrai.Ui
 
         private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
 
-            Product p = new Product(tempUsers[e.RowIndex].Id);
+            Product p = new Product(tempUsers[e.RowIndex].Id, areas, vendors);
             p.Show();
 
             /*tempUsers.Add(new TempUser() { Id = 4, Name = "Mati", Profession = "Zul" });

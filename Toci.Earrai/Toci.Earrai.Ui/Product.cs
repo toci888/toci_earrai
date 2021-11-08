@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Ui.Convert;
 
 namespace Toci.Earrai.Ui
@@ -26,16 +27,23 @@ namespace Toci.Earrai.Ui
         protected int ySlide = 30;
         protected int xLeft = 10;
 
-        public Product(int productId)
+        protected List<Area> areas;
+        protected List<Vendor> vendors;
+
+        public Product(int productId, List<Area> _areas, List<Vendor> _vendors)
         {
             InitializeComponent();
             prodId = productId;
+
+            areas = _areas;
+            vendors = _vendors;
+
             product = Dm.GetProduct(prodId);
 
             AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft, 20);
             AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft, ySlided + ySlide);
             AddAreasQuatntitiesForm();
-
+            AddPricingForm();
             //IsConnected();
 
             Setup();
@@ -93,12 +101,12 @@ namespace Toci.Earrai.Ui
             {
                 Label l = new Label();
                 l.Text = item.LabelItemName;
-                l.Size = new Size(90, 20);
+                l.Size = new System.Drawing.Size(90, 20);
                 l.Location = new Point(xCoord, newY);
 
                 Label lR = new Label();
                 lR.Text = item.LabelItemValue;
-                lR.Size = new Size(90, 20);
+                lR.Size = new System.Drawing.Size(90, 20);
                 lR.Location = new Point(xCoord + xSlide, newY);
 
                 newY += ySlide;
@@ -115,16 +123,43 @@ namespace Toci.Earrai.Ui
 
             Label widthL = new Label();
             widthL.Text = "Width";
-            widthL.Size = new Size(90, 20);
+            widthL.Size = new System.Drawing.Size(90, 20);
             widthL.Location = new Point(xLeft, ySlided);
 
             TextBox widthT = new TextBox();
-            widthT.Size = new Size(90, 20);
+            widthT.Size = new System.Drawing.Size(90, 20);
             widthT.Location = new Point(xLeft + xSlide, ySlided);
 
 
             Controls.Add(widthL);
             Controls.Add(widthT);
+
+            ySlided += ySlide;
+
+            ComboBox vCombo = new ComboBox();
+
+            vCombo.DisplayMember = "Name";
+            vCombo.ValueMember = "Id";
+            vCombo.DataSource = areas;
+            vCombo.Size = new System.Drawing.Size(90, 20);
+            vCombo.Location = new Point(xLeft, ySlided);
+
+            Controls.Add(vCombo);
+        }
+
+        protected virtual void AddPricingForm()
+        {
+            ySlided += ySlide;
+
+            ComboBox vCombo = new ComboBox();
+
+            vCombo.DisplayMember = "Name";
+            vCombo.ValueMember = "Id";
+            vCombo.DataSource = vendors;
+            vCombo.Size = new System.Drawing.Size(90, 20);
+            vCombo.Location = new Point(xLeft, ySlided);
+
+            Controls.Add(vCombo);
         }
     }
 }

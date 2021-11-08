@@ -36,5 +36,27 @@ namespace Toci.Earrai.Ui
                 }
             };
         }
+
+        public virtual List<Vendor> GetAllVendors()
+        {
+            //ApiProxy
+
+            return new List<Vendor>()
+            {
+                new Vendor() { Id = 1, Name = "McCane" },
+                new Vendor() { Id = 2, Name = "Wwatson" }
+            };
+        }
+
+        public virtual List<Area> GetAllAreas()
+        {
+            //ApiProxy
+
+            return new List<Area>()
+            {
+                new Area() { Id = 1, Name = "Garages" },
+                new Area() { Id = 2, Name = "Back Yard" },
+            };
+        }
     }
 }
