@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Client.UI;
+using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Ui
@@ -15,6 +16,25 @@ namespace Toci.Earrai.Ui
         public DataManager()
         {
             
+        }
+
+        public virtual ProductDto GetProduct(int productId)
+        {
+            //ApiProxy.
+
+            return new ProductDto()
+            {
+                Sizes = new List<Productssize>()
+                {
+                    new Productssize() { Name = "Thickness", Value = "0.2" },
+                    new Productssize() { Name = "Length", Value = "8" }
+                },
+                Options = new List<Productsoptionsstate>()
+                {
+                    new Productsoptionsstate() { Name = "Kg/M" , Value = "2" },
+                    new Productsoptionsstate() { Name = "????" , Value = "dummy" }
+                }
+            };
         }
     }
 }

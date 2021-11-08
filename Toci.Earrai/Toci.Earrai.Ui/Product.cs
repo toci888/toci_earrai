@@ -7,17 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Ui.Convert;
 
 namespace Toci.Earrai.Ui
 {
     public partial class Product : Form
     {
+        protected DataManager Dm = new DataManager();
         protected ConnectionCheck ConnCheck = new ConnectionCheck();
+        protected int prodId;
+        protected ProductDto product;
+        protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
+        protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
 
+        protected int ySlided = 0;
+        protected int xSlide = 100;
+        protected int ySlide = 30;
 
         public Product(int productId)
         {
             InitializeComponent();
+            prodId = productId;
+            product = Dm.GetProduct(prodId);
+
+            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), 10, 20);
+            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), 10, ySlided + ySlide);
 
             //IsConnected();
 
@@ -36,8 +51,6 @@ namespace Toci.Earrai.Ui
         {
             ExcelProxy ep = new ExcelProxy();
 
-            queryTextbox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
-            queryTextbox.AutoCompleteCustomSource.AddRange(ep.GetSuggestions().ToArray());
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
@@ -69,6 +82,29 @@ namespace Toci.Earrai.Ui
         private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
             
+        }
+
+        protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord)
+        {
+            int newY = yCoord;
+            foreach (ProductLayoutDto item in elements)
+            {
+                Label l = new Label();
+                l.Text = item.LabelItemName;
+                l.Size = new Size(90, 20);
+                l.Location = new Point(xCoord, newY);
+
+                Label lR = new Label();
+                lR.Text = item.LabelItemValue;
+                lR.Size = new Size(90, 20);
+                lR.Location = new Point(xCoord + xSlide, newY);
+
+                newY += ySlide;
+                Controls.Add(l);
+                Controls.Add(lR);
+            }
+
+            ySlided = newY;
         }
     }
 }
