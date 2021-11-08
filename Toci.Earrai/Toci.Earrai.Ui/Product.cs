@@ -122,9 +122,19 @@ namespace Toci.Earrai.Ui
             widthT.Size = new Size(90, 20);
             widthT.Location = new Point(xLeft + xSlide, ySlided);
 
+            TextBox lengthL = new TextBox();
+            lengthL.Text = "Length";
+            lengthL.Size = new Size(90, 20);
+            lengthL.Location = new Point(xLeft, ySlided);
+
+            TextBox lengthR = new TextBox();
+            lengthR.Size = new Size(90, 20);
+            lengthR.Location = new Point(xLeft + xSlide, ySlided + 100);
 
             Controls.Add(widthL);
             Controls.Add(widthT);
+            Controls.Add(lengthL);
+            Controls.Add(lengthR);
         }
     }
 }
