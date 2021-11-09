@@ -2,7 +2,7 @@ import { Picker } from '@react-native-community/picker'
 import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, Modal } from 'react-native'
 import AppUser from '../../shared/AppUser'
-import { addVendorUrl, insertRequestParams } from '../../shared/RequestConfig'
+import { addVendorUrl, PostRequestParams } from '../../shared/RequestConfig'
 import { Vendors_Inputs_Styles as vI } from './Vendors_Inputs_Styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -52,7 +52,7 @@ export default function Vendor_Inputs(props) {
 
         console.log(addVendorUrl)
         console.log(SelectedVendorsHook)
-        fetch(addVendorUrl, insertRequestParams(SelectedVendorsHook))
+        fetch(addVendorUrl, PostRequestParams(SelectedVendorsHook))
         .then( response_ => {
             console.log(response_)
             props.getAllQuotesAndPricesByProductId()

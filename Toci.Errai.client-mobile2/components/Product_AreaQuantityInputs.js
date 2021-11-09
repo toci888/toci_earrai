@@ -1,7 +1,6 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
 import { View, TextInput, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
 import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle'
 
@@ -31,10 +30,6 @@ export default function Product_AreaQuantityInputs(props) {
         })
 
         AppUser.setIdArea(_id)
-    }
-
-    const cancel = () => {
-        props.setbtnvalueHook("ADD")
     }
 
     return (

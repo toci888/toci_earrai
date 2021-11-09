@@ -5,9 +5,10 @@ import { ProductStyle as ps } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
 import AppUser from '../shared/AppUser'
-import { getProductsFromWorksheet } from '../shared/RequestConfig'
+import { getProductsEx, PostRequestParams } from '../shared/RequestConfig'
 import { imagesManager } from '../shared/ImageSelector'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { FilterRequestConfig } from '../shared/FilterRequestConfig'
 
 export default function ProductsList({ route, navigation }) {
 
@@ -28,18 +29,18 @@ export default function ProductsList({ route, navigation }) {
     const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
 
-        fetch(getProductsFromWorksheet(AppUser.getWorksheetId(), phrase_, skip_))
+        fetch(getProductsEx, PostRequestParams(FilterRequestConfig(1, 2, skip_)))
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            setSkipCounter(prev => prev + 1)
+            /*setSkipCounter(prev => prev + 1)
             setProductsListHook(prev => {
                 return [...prev, ...response]
             })
 
             if(response.length == 0) {
                 setNomoredata(true)
-            }
+            }*/
 
         }).catch(error => {
             console.log(error)
@@ -129,11 +130,10 @@ export default function ProductsList({ route, navigation }) {
 
                                 <View key={product.id} style={[ps.cell, {height: 50, marginTop: 25, width: '100%'}]}>
 
-                                    <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                    <View style={{display: 'flex', flexDirection: 'row'}}>
 
-                                        <View style={{display: 'flex', flexDirection: 'row'}}>
-
-                                            {   img &&
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                            { img &&
 
                                                 <View style={{ height: 40, width: 30, margin: 5}}>
                                                     <Image
@@ -142,18 +142,17 @@ export default function ProductsList({ route, navigation }) {
                                                     />
                                                 </View>
                                             }
+                                        </TouchableOpacity>
 
-                                            <View style={{ margin: 5, height: 40, justifyContent: 'center'}}>
-                                                <Text style={ps.small}>{product.productaccountreference}</Text>
-                                            </View>
-
-                                            <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
-                                                <Text style={ps.small}>{product.description}</Text>
-                                            </View>
-
+                                        <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
+                                            <Text style={ps.small}>{product.productaccountreference}</Text>
                                         </View>
 
-                                    </TouchableOpacity>
+                                        <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
+                                            <Text style={ps.small}>{product.description}</Text>
+                                        </View>
+
+                                    </View>
 
                                 </View>
 

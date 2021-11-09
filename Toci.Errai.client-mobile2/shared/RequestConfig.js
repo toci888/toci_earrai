@@ -2,7 +2,7 @@ import { environment } from "../environment";
 
 
 export const insertUrl = environment.apiUrl + "api/AreaQuantity/PostAreaQuantities"
-export function insertRequestParams(dataToSend_, isCollection = false) {
+export function PostRequestParams(dataToSend_, isCollection = false) {
     const json_ = JSON.parse(JSON.stringify(dataToSend_))
 
     const toSend = isCollection ? [json_] : json_
@@ -46,6 +46,7 @@ export function deleteRequestParams(dataToSend_) {
 
 }
 
+export const getProductsEx =  environment.apiUrl + "api/Product/GetProductsEx"
 
 export function getProductUrl(id_) { return environment.apiUrl + 'api/Product/GetProduct/' + id_ }
 

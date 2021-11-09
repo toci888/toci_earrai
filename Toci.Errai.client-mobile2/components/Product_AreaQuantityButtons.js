@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { insertUrl, insertRequestParams, updateRequestParams, updateUrl } from '../shared/RequestConfig'
+import { insertUrl, PostRequestParams, updateRequestParams, updateUrl } from '../shared/RequestConfig'
 import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 
 export default function Product_AreaQuantityButtons(props) {
@@ -11,7 +11,7 @@ export default function Product_AreaQuantityButtons(props) {
         // TODO validate inputs
         props.setloading(true)
         let url, requestParams
-        if(props.btnvalueHook == "ADD") { url = insertUrl; requestParams = insertRequestParams
+        if(props.btnvalueHook == "ADD") { url = insertUrl; requestParams = PostRequestParams
         } else { url = updateUrl; requestParams = updateRequestParams }
 
         fetch(url, requestParams(props.tempAreaquantityRow, true)).then( response => {
