@@ -10,9 +10,9 @@ export const typesOfSearch = [
 
 const typeOfSearchForWorksheet = {
     1: 0,
-    2: 3,
-    4: 3,
+    2: 2,
     3: 0,
+    4: 3,
     5: 0,
     6: 0,
     7: 0,
