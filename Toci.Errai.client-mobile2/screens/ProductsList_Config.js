@@ -1,7 +1,7 @@
 
 export const typesOfSearch = [
-    "Dimension A",
-    "Dimension B",
+    "DimA",
+    "DimB",
     "Thickness",
     "Width",
     "OD",
@@ -11,6 +11,8 @@ export const typesOfSearch = [
 const typeOfSearchForWorksheet = {
     1: 0,
     2: 3,
+    4: 3,
+    3: 0,
     5: 0,
     6: 0,
     7: 0,

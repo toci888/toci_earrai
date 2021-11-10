@@ -39,7 +39,10 @@ export default function ProductsList({ route, navigation }) {
     const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
 
-        fetch(getProductsEx, PostRequestParams(FilterRequestConfig(1, 2, skip_)))
+        const x = FilterRequestConfig(1, phrase_, skip_)
+        console.log(x)
+
+        fetch(getProductsEx, PostRequestParams(x))
         .then(response => response.json())
         .then(response => {
             console.log(response)
