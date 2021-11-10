@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { TextInput } from 'react-native-paper'
-import { Picker } from '@react-native-community/picker'
-import { typesOfSearch } from './WorksheetListConfig'
 import { ProductStyle as ps } from '../styles/ProductStyle'
 
-export default function WorksheetList_Inputs_DimensionsAB() {
+export default function ProductsList_Inputs_DimensionsAB() {
 
 
     const [FilteredTextHook, setFilteredTextHook] = useState("")
@@ -37,20 +34,7 @@ export default function WorksheetList_Inputs_DimensionsAB() {
 
             </View>
 
-            <View style={p.ComboView}>
-                <Picker
-                    selectedValue="Choose"
-                    style={p.ComboPicker}
-                    selectedValue={props.tempAreaquantityRow.idarea}
-                    onValueChange={(itemValue, itemIndex) => setAreaFunc(itemValue, itemIndex)}>
-                    {
-                        typesOfSearch.map( (item, index) => {
-                            return <Picker.Item style={p.CombiItem} key={index} label={item} value={item} />
-                        } )
-                    }
 
-                </Picker>
-            </View>
         </>
     )
 }

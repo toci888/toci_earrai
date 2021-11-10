@@ -9,6 +9,10 @@ import { getProductsEx, PostRequestParams } from '../shared/RequestConfig'
 import { imagesManager } from '../shared/ImageSelector'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { FilterRequestConfig } from '../shared/FilterRequestConfig'
+import { Picker } from '@react-native-community/picker'
+import { getSelectedTypeForWorksheet, typesOfSearch } from './ProductsList_Config'
+import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
+import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 
 export default function ProductsList({ route, navigation }) {
 
@@ -18,11 +22,17 @@ export default function ProductsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
     const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
+    const [SelectedFilterHook, setSelectedFilterHook] = useState(0)
 
     useEffect(() => {
+        const worksheetId = navigation.getParam('worksheetId')
+
+        const getSelcted = getSelectedTypeForWorksheet(worksheetId)
+
+        setSelectedFilterHook(getSelcted)
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         //setProductsListHook(productsList)
-        searchForData()
+        //searchForData()
 
     }, [])
 
@@ -72,12 +82,16 @@ export default function ProductsList({ route, navigation }) {
         searchForData(filteredValue, 0)
     }
 
-    const setFilterText = (text) => {
-        setfilteredValue(prev => {return text})
+    const setFilterText = (text_) => {
+        setfilteredValue(prev => {return text_})
     }
 
     const reloadApp = () => {
         searchForData()
+    }
+
+    const changeSelected = (idx_) => {
+        setSelectedFilterHook(idx_)
     }
 
     if(apierror) return(
@@ -102,12 +116,36 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             )}
 
-            <View style={ps.filterContent}>
+            <View style={[plis.comboView, {flexDirection: 'row'}]}>
+
+                <View style={{width: '30%'}}>
+                    <Pressable style={plis.filterByLabel}>
+                        <Text style={plis.filterByLabelText}>Search By :</Text>
+                    </Pressable>
+                </View>
+
+                <View style={{width: '70%'}}>
+                    <Picker
+                        selectedValue="Choose"
+                        style={aqis.ComboPicker}
+                        selectedValue={typesOfSearch[SelectedFilterHook]}
+                        onValueChange={(itemValue, index) => { changeSelected(index) }}>
+
+                            { typesOfSearch.map( (item, index2) => {
+                                return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+                            })}
+
+                    </Picker>
+                </View>
+
+            </View>
+
+            <View style={plis.filterContent}>
                 <TextInput
                     value={filteredValue}
                     style={ps.filterInput}
                     onChangeText={(text) => setFilterText(text)}
-                    placeholder="Filter.."
+                    placeholder="Filter by text or leave empty.."
                 />
                 <View style={ps.filterButtonView}>
                     <Pressable style={ps.filterButton} onPress={filterContent}>
