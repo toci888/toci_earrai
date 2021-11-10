@@ -12,7 +12,10 @@ namespace Toci.Earrai.Bll.Models
         public int Skip { get; set; }
         public string Name { get; set; }
         public double? Thickness { get; set; }
+        public double? Width { get; set; }
+        public double? Od { get; set; }
         public double? DimA { get; set; }
         public double? DimB { get; set; }
+        public double? Dim { get; set; }
     }
 }

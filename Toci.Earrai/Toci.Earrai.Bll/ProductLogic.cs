@@ -40,8 +40,7 @@ namespace Toci.Earrai.Bll
 
             phrase = phrase == "empty" ? "" : phrase;
 
-            result = Select(m => m.Idworksheet == worksheetId)
-                        .Where(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId)
+            result = Select(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId)
                         .Skip(toSkip)
                         .Take(5)
                         .ToList();

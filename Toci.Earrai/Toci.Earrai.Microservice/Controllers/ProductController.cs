@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Bll.Search;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Microservice.Controllers
@@ -33,7 +34,9 @@ namespace Toci.Earrai.Microservice.Controllers
         [HttpPost("GetProductsEx")]
         public ActionResult<ProductDto> GetProductsByWorksheet(ProductSearchRequestDto dto)
         {
-            return Ok(new List<ProductSearchResponseDto>());
+            SearchManager sm = new SearchManager();
+
+            return Ok(sm.Search(dto));
         }
     }
 }

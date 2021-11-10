@@ -12,6 +12,7 @@ namespace Toci.Earrai.Bll.Search
     {
         protected Logic<Product> ProductLogic = new Logic<Product>();
         protected Logic<Productsoptionsstate> ProductOptionsLogic = new Logic<Productsoptionsstate>();
+        protected Logic<Productssize> ProductSizesLogic = new Logic<Productssize>(); 
 
         public abstract List<ProductSearchResponseDto> Search(ProductSearchRequestDto request);
 
@@ -37,6 +38,40 @@ namespace Toci.Earrai.Bll.Search
                 {
                     result.Add(element);
                 }
+            }
+
+            return result;
+        }
+
+        protected virtual List<Productssize> GetSizes(string sizeKind, string value)
+        {
+            return ProductSizesLogic.Select(m => m.Name == sizeKind && m.Value == value).ToList();
+        }
+
+        protected virtual List<Product> FilterResultsSizesWorksheet(ProductSearchRequestDto request, List<Productssize> productFilteredBySize)
+        {
+            List<Product> result = new List<Product>();
+
+            foreach (Productssize item in productFilteredBySize)
+            {
+                Product element = ProductLogic.Select(m => m.Idworksheet == request.WorksheetId && m.Id == item.Idproducts).FirstOrDefault();
+
+                if (element != null)
+                {
+                    result.Add(element);
+                }
+            }
+
+            return result;
+        }
+
+        protected virtual List<ProductSearchResponseDto> ToProductSearchResponseDto(List<Product> items)
+        {
+            List<ProductSearchResponseDto> result = new List<ProductSearchResponseDto>();
+
+            foreach (Product item in items)
+            {
+                result.Add(new ProductSearchResponseDto() { Product = item });
             }
 
             return result;
