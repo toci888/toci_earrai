@@ -1,13 +1,13 @@
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { TextInput } from 'react-native-paper'
-import WorksheetList_Inputs_DimensionsAB from './WorksheetList_Inputs_DimensionsAB'
+import ProductsList_Inputs_DimensionsAB from './ProductsList_Inputs_DimensionsAB'
 
 const ComponentsTypes = {
-    dimensionAB: WorksheetList_Inputs_DimensionsAB,
+    dimensionAB: ProductsList_Inputs_DimensionsAB,
 }
 
-export default function WorksheetList_Inputs(props) {
+export default function ProductsList_Inputs(props) {
 
 
     return (
