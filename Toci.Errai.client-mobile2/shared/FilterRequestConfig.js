@@ -13,7 +13,7 @@ function getObject(worksheetId, skip) {
 
 export function FilterRequestConfig(worksheetId, phrase, skip) {
 
-    if([1,3,5,6,7].includes(worksheetId)) {
+    if([3,5,6,7].includes(worksheetId)) {
 
         return {
             ...getObject(worksheetId, skip),
@@ -21,7 +21,7 @@ export function FilterRequestConfig(worksheetId, phrase, skip) {
             DimB: phrase[1],
         }
 
-    } else if(worksheetId == 2) {
+    } else if([1,2].includes(worksheetId)) {
 
         return {
             ...getObject(worksheetId, skip),

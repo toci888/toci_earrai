@@ -60,7 +60,7 @@ export default function Product({ route, navigation }) {
         initAreaQuantities(response_)
 
         setloading(false)*/
-
+        console.log(navigation.getParam('productId'))
 
         fetch(getProductUrl(navigation.getParam('productId'))).then(response_ => {
             return response_.json()
