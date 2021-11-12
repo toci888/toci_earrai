@@ -111,7 +111,7 @@ export default function ProductsList({ route, navigation }) {
     )
 
     return (
-        <View style={globalStyles.content}>
+        <ScrollView style={globalStyles.content}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -122,7 +122,7 @@ export default function ProductsList({ route, navigation }) {
             <View style={[plis.comboView, {flexDirection: 'row'}]}>
 
                 <View style={{width: '30%'}}>
-                    <Pressable style={plis.filterByLabel}>
+                    <Pressable style={[plis.filterByLabel, {height: 50}]}>
                         <Text style={plis.filterByLabelText}>Search By :</Text>
                     </Pressable>
                 </View>
@@ -221,6 +221,6 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             ) }
 
-        </View>
+        </ScrollView>
     )
 }
