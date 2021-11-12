@@ -11,7 +11,7 @@ namespace Toci.Earrai.Bll.Search
     {
         public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
         {
-            throw new NotImplementedException();
+            return new List<ProductSearchResponseDto>();
         }
     }
 }
