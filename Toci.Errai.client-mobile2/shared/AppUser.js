@@ -53,7 +53,7 @@ export default class AppUser {
 
     static getIdArea = () => AppUser.savedIdArea
 
-    static getId = () => AppUser.userData.id
+    static getId = () => 1//AppUser.userData.id
 
     static getToken = () => AppUser.token
 

@@ -39,21 +39,21 @@ export default function ProductsList({ route, navigation }) {
     const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
 
-        const x = FilterRequestConfig(1, phrase_, skip_)
+        const x = FilterRequestConfig(navigation.getParam('worksheetId'), phrase_, skip_)
         console.log(x)
 
         fetch(getProductsEx, PostRequestParams(x))
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            /*setSkipCounter(prev => prev + 1)
+            setSkipCounter(prev => prev + 1)
             setProductsListHook(prev => {
                 return [...prev, ...response]
             })
 
             if(response.length == 0) {
                 setNomoredata(true)
-            }*/
+            }
 
         }).catch(error => {
             console.log(error)
@@ -69,11 +69,11 @@ export default function ProductsList({ route, navigation }) {
     }
 
     const showProductDetails = (index_) => {
-
-        AppUser.setWProductId(ProductsListHook[index_].id)
+        console.log(ProductsListHook[index_].product)
+        AppUser.setWProductId(ProductsListHook[index_].product.id)
 
         navigation.navigate('Product', {
-            productId: ProductsListHook[index_].id,
+            productId: ProductsListHook[index_].product.id,
         })
     }
 
@@ -111,7 +111,7 @@ export default function ProductsList({ route, navigation }) {
     )
 
     return (
-        <ScrollView style={globalStyles.content}>
+        <View style={globalStyles.content}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -163,7 +163,9 @@ export default function ProductsList({ route, navigation }) {
                 <View style={globalStyles.tableContainer}>
 
                     {
-                        ProductsListHook?.map( (product, index) => {
+                        ProductsListHook?.map( (product_, index) => {
+
+                            let product = product_.product
 
                             let img = imagesManager[product.idcategories]?.url
 
@@ -219,6 +221,6 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             ) }
 
-        </ScrollView>
+        </View>
     )
 }

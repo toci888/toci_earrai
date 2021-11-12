@@ -9,12 +9,12 @@ export const typesOfSearch = [
 ]
 
 const typeOfSearchForWorksheet = {
-    1: 0,
-    2: 3,
-    4: 3,
+    1: 2,
+    2: 2,
     3: 0,
-    5: 0,
-    6: 0,
+    4: 3, // ??
+    5: 0, // ??
+    6: 0,  // chanBms  ??
     7: 0,
     8: 4,
     9: 0,
