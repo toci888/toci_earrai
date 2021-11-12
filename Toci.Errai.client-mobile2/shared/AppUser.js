@@ -53,7 +53,7 @@ export default class AppUser {
 
     static getIdArea = () => AppUser.savedIdArea
 
-    static getId = () => AppUser.userData.id
+    static getId = () => 1//AppUser.userData.id
 
     static getToken = () => AppUser.token
 
@@ -77,19 +77,7 @@ export default class AppUser {
 
         const x = await fetch(getQuotesAndPricesByProductIdUrl(AppUser.productId))
 
-        const y = await x.json()
-
-        return y
-
-
-
-
-        console.log(33)
-        fetch(getQuotesAndPricesByProductIdUrl(AppUser.productId))
-        .then(response_ => response_.json())
-        .then(response_ => {
-            console.log(response_)
-        })
+        return await x.json()
     }
 
 }

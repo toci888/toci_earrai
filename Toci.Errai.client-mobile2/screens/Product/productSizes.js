@@ -14,12 +14,12 @@ export default function ProductSizes(props) {
                 props?.product?.sizes?.map( (v, k) => {
                     return(
                         <View key={k} style={ps.inlineContainer}>
-                            <Text style={[ps.inlineItem, ps.inlineItemLeft]}>
-                                { v.name }
-                            </Text>
-                            <Text style={[ps.inlineItem, ps.inlineItemRight]}>
-                                {v.value }
-                            </Text>
+                            <View style={[ps.inlineItem, ps.inlineItemLeft]}>
+                                <Text style={{textAlign: 'right'}}> {v.name} </Text>
+                            </View>
+                            <View style={[ps.inlineItem, ps.inlineItemRight]}>
+                                <Text> {v.value} </Text>
+                            </View>
                         </View>
                     )
                 })

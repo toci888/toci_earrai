@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { Alert, Text, View, ScrollView, Image } from 'react-native'
 import AppUser from '../../shared/AppUser'
 import { modalStyles } from '../../styles/modalStyles'
 import ProductPrices from './ProducPrices'
@@ -11,12 +11,18 @@ import Product_AreaQuantityInputs from '../../components/Product_AreaQuantityInp
 import Product_UtilTable from '../../components/Product_UtilTable'
 import { productCSS } from '../../styles/Product_Util_Styles'
 import Product_AreaQuantities from '../../components/Product_AreaQuantities'
-import Product_Commisions from '../../components/Product_Commisions'
 import Vendors from '../../components/Vendors/Vendors'
+import { imagesManager } from '../../shared/ImageSelector'
+import  Product_Commisions  from './../../components/Product_Commisions'
 
 export default function Product({ route, navigation }) {
 
     const [ProductHook, setProduct] = useState([])
+    const [SnackHook, setSnack] = useState({
+        type: null,
+        message: "",
+    })
+
     const [areas, setareas] = useState([])
     const [btnvalueHook, setbtnvalueHook] = useState("ADD")
     const [UpdatingIndex, setUpdatingIndex] = useState(null)
@@ -35,7 +41,26 @@ export default function Product({ route, navigation }) {
     })
 
     useEffect( () => {
+
+        /*fetch('http://localhost:18158/api/QuoteAndPrice/GetAllVendorsFromDb')
+        .then(r => r.json())
+        .then(r => { console.log(r); console.log('OK') })
+        .catch(r => { console.log(r)})*/
         fetchAreas()
+
+        /*const response_ = productData
+        console.log(response_)
+
+        setProduct(response_)
+
+        settempAreaquantityRow(prev => {
+            return {  ...prev, idproducts: response_.product.id,  }
+        })
+
+        initAreaQuantities(response_)
+
+        setloading(false)*/
+        console.log(navigation.getParam('productId'))
 
         fetch(getProductUrl(navigation.getParam('productId'))).then(response_ => {
             return response_.json()
@@ -48,7 +73,6 @@ export default function Product({ route, navigation }) {
 
             initAreaQuantities(response_)
 
-            setloading(false)
         }).finally(x => {
             setloading(false)
         })
@@ -78,7 +102,9 @@ export default function Product({ route, navigation }) {
     }
 
     const fetchAreas = () => {
-        setareas(AppUser.getAreas())
+        let x = AppUser.getAreas()
+        console.log(x)
+        setareas(x)
 
         const savedArea = AppUser.getIdArea()
         if(savedArea) {
@@ -96,6 +122,8 @@ export default function Product({ route, navigation }) {
     }
 
     const updateAreaQuantitiesfterRequest = async () => {
+        let logName, message
+
        fetch(getAreasQuantitiesByProduct(AppUser.getProductId())).then(response_ => {
             return response_.json()
         }).then(response_ => {
@@ -103,10 +131,17 @@ export default function Product({ route, navigation }) {
             let newProduct = ProductHook
             newProduct.areaQuantities = response_
             setProduct(prev => {return newProduct})
+            logName = "Ok"; message = "Added new(or updated) area Quantities"
         }).catch(error => {
             console.log(error);
+            logName = "Error"; message = "Something went wrong"
         }).finally(x => {
             setloading(false)
+            Alert.alert(
+                logName,
+                message,
+                [ { onPress: () => console.log("OK") } ]
+            )
         })
     }
 
@@ -129,6 +164,23 @@ export default function Product({ route, navigation }) {
 
     return (
         <ScrollView style={productCSS.container}>
+
+            { imagesManager[ProductHook?.product?.idcategories]?.url &&
+
+                <View style={{height: 100, width: '100%', justifyContent: 'center', margin: 15}}>
+
+                    <View style={{height: 100, width: 100, margin: 10}}>
+                        <Image
+                            style={{height: '100%', width: '100%'}}
+                            source={imagesManager[ProductHook?.product?.idcategories].url}
+                        />
+                    </View>
+                </View>
+            }
+
+            { !imagesManager[ProductHook?.product?.idcategories]?.url &&
+                <Text style={{textAlign: 'center'}} >No Image</Text>
+            }
 
             { loading && (
                 <View style={modalStyles.tempContainer}>

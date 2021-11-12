@@ -1,9 +1,10 @@
 import { Picker } from '@react-native-community/picker'
 import React, { useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Text, TextInput, View, Modal } from 'react-native'
 import AppUser from '../../shared/AppUser'
-import { addVendorUrl, insertRequestParams } from '../../shared/RequestConfig'
+import { addVendorUrl, PostRequestParams } from '../../shared/RequestConfig'
 import { Vendors_Inputs_Styles as vI } from './Vendors_Inputs_Styles'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Vendor_Inputs(props) {
 
@@ -46,23 +47,43 @@ export default function Vendor_Inputs(props) {
     }
 
     const send = () => {
+
+        let logName, message
+
         console.log(addVendorUrl)
         console.log(SelectedVendorsHook)
-        fetch(addVendorUrl, insertRequestParams(SelectedVendorsHook))
+        fetch(addVendorUrl, PostRequestParams(SelectedVendorsHook))
         .then( response_ => {
             console.log(response_)
             props.getAllQuotesAndPricesByProductId()
+            logName = "Ok"; message = "Added new Record"
         }).catch(error_ => {
             console.log(error_)
+            logName = "Error"; message = "Something went wrong"
+        }).finally( () => {
+            Alert.alert(
+                logName,
+                message,
+                [ { onPress: () => console.log("OK") }]
+            )
         })
     }
 
     return (
         <>
+        {/* <Modal
+            visible={SnackHook.type != null}
+            onRequestClose={ () => setSnackHook({type: null, message: null}) }
+            transparent
+        >
+            <View>
+            <Text>HEJ</Text>
+            </View>
+        </Modal> */}
         <View style={{marginTop: 10}}>
             <Text style={{fontSize: 17, padding: 5}}>Add:</Text>
         </View>
-        <View style={[vI.container]}>
+        <View style={[vI.container, {marginRight: 5}]}>
 
             <View style={vI.vendorPickerCont}>
                 <View style={vI.ComboView}>
@@ -109,11 +130,13 @@ export default function Vendor_Inputs(props) {
             </View>
 
             <View style={vI.okCont}>
-                <View style={[vI.okFlex, vI.ok]}>
-                    <Text onPress={ () => send()} style={vI.ok}>
-                        OK
-                    </Text>
-                </View>
+                <TouchableOpacity onPress={ () => send()}>
+                    <View style={[vI.okFlex, vI.ok]}>
+                        <Text style={vI.ok}>
+                            OK
+                        </Text>
+                    </View>
+                </TouchableOpacity>
             </View>
 
         </View>

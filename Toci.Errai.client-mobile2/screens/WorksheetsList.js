@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { FlatList } from 'react-native-gesture-handler'
 import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 
@@ -16,6 +16,20 @@ export default function WorksheetsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
 
     useEffect( () => {
+
+        /*const response_ = loginData
+
+        setworksheets(response_[0])
+        setdisplayedWorksheets(response_[0])
+
+
+        response_[1].forEach(element => {
+            element.name = element.name.trim()
+        });
+
+        AppUser.setAreas(response_[1]);
+        AppUser.setVendors(response_[2]);
+        AppUser.setMetrics(response_[3]); setloading(false); AppUser.setUserData(loginUserData)*/
         apiFetch()
     }, [] )
 
@@ -123,6 +137,14 @@ export default function WorksheetsList({ route, navigation }) {
 
                 )}
             />
+
+
+            {/* <View style={{position: 'fixed', bottom: 0}}  >
+                <Text style={{color: 'black'}}>
+                    HEJ
+                </Text>
+
+            </View> */}
         </View>
     )
 }

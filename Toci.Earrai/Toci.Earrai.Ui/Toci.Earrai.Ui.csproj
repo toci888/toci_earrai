@@ -8,7 +8,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Models\Toci.Earrai.Bll.Models.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

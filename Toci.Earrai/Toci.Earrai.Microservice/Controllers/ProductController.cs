@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Bll.Search;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Microservice.Controllers
@@ -28,6 +29,14 @@ namespace Toci.Earrai.Microservice.Controllers
         [HttpGet("GetProducts/{worksheetId}/{phrase}/{skip}")]
         public ActionResult<ProductDto> GetProductsByWorksheet(int worksheetId, string phrase, int skip) {
             return Ok(Logic.GetProductsByWorksheet(worksheetId, phrase, skip));
+        }
+
+        [HttpPost("GetProductsEx")]
+        public ActionResult<List<ProductDto>> GetProductsByWorksheet(ProductSearchRequestDto dto)
+        {
+            SearchManager sm = new SearchManager();
+
+            return Ok(sm.Search(dto));
         }
     }
 }

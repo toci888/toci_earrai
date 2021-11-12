@@ -16,12 +16,12 @@ export default function Product_UtilTable(props) {
                     if(props.details[value] == null) return
                     return (
                         <View key={key} style={pd.inlineContainer}>
-                            <Text  style={[pd.inlineItem, pd.inlineItemLeft]}>
-                                {value}
-                            </Text>
-                            <Text style={[pd.inlineItem, pd.inlineItemRight]}>
-                                {props.details[value]}
-                            </Text>
+                            <View style={[pd.inlineItem, pd.inlineItemLeft]}>
+                                <Text  style={{textAlign: 'right'}}>{value}</Text>
+                            </View>
+                            <View style={[pd.inlineItem, pd.inlineItemRight]}>
+                                <Text>{props.details[value]}</Text>
+                            </View>
                         </View>
                     )
                 } )

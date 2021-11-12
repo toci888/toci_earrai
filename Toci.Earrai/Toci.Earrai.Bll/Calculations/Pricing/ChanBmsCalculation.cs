@@ -23,14 +23,14 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             } catch(Exception) {
                 return dto;
             }
-
-            /*if (x_ == null) { return dto; }
+            /*var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault();
+            if (x_ == null) { return dto; }
             if (x_.Price == "") { return dto; }
             double x = Convert.ToDouble(x_.Price);
             var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault();
             if (y_ == null) { return dto; }
             if (y_.Value == "") { return dto; }
-            double y = Convert.ToDouble(y_.Value.Replace("\"", ""));
+            double y = Convert.ToDouble(y_.Value);
             return dto;*/
         }
 

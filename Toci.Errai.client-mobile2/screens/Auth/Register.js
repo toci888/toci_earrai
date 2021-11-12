@@ -59,11 +59,11 @@ export default function Register({navigation}) {
         lastName: yup.string()
           .required('Last name is required.'),
         email: yup.string()
-          .email()
+          //.email()
           .required('E-Mail is required.'),
         password: yup.string()
           .min(4)
-          .max(10, 'Password should not excced 10 chars.')
+          .max(25, 'Password should not excced 25 chars.')
           .required(),
         confirmPassword: yup.string()
           .oneOf([yup.ref('password'), null], 'Passwords must match')

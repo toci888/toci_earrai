@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
-import { Text, View, TextInput, ScrollView, Pressable } from 'react-native'
+import { Text, View, TextInput, ScrollView, Pressable, Image } from 'react-native'
 import { ProductStyle as ps } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
 import AppUser from '../shared/AppUser'
-import { getProductsFromWorksheet } from '../shared/RequestConfig'
+import { getProductsEx, PostRequestParams } from '../shared/RequestConfig'
+import { imagesManager } from '../shared/ImageSelector'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { FilterRequestConfig } from '../shared/FilterRequestConfig'
+import { Picker } from '@react-native-community/picker'
+import { getSelectedTypeForWorksheet, typesOfSearch } from './ProductsList_Config'
+import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
+import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 
 export default function ProductsList({ route, navigation }) {
 
@@ -15,16 +22,27 @@ export default function ProductsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
     const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
+    const [SelectedFilterHook, setSelectedFilterHook] = useState(0)
 
     useEffect(() => {
+        const worksheetId = navigation.getParam('worksheetId')
+
+        const getSelcted = getSelectedTypeForWorksheet(worksheetId)
+
+        setSelectedFilterHook(getSelcted)
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
-        searchForData()
+        //setProductsListHook(productsList)
+        //searchForData()
+
     }, [])
 
     const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
 
-        fetch(getProductsFromWorksheet(AppUser.getWorksheetId(), phrase_, skip_))
+        const x = FilterRequestConfig(navigation.getParam('worksheetId'), phrase_, skip_)
+        console.log(x)
+
+        fetch(getProductsEx, PostRequestParams(x))
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -51,11 +69,11 @@ export default function ProductsList({ route, navigation }) {
     }
 
     const showProductDetails = (index_) => {
-
-        AppUser.setWProductId(ProductsListHook[index_].id)
+        console.log(ProductsListHook[index_].product)
+        AppUser.setWProductId(ProductsListHook[index_].product.id)
 
         navigation.navigate('Product', {
-            productId: ProductsListHook[index_].id,
+            productId: ProductsListHook[index_].product.id,
         })
     }
 
@@ -67,12 +85,16 @@ export default function ProductsList({ route, navigation }) {
         searchForData(filteredValue, 0)
     }
 
-    const setFilterText = (text) => {
-        setfilteredValue(prev => {return text})
+    const setFilterText = (text_) => {
+        setfilteredValue(prev => {return text_})
     }
 
     const reloadApp = () => {
         searchForData()
+    }
+
+    const changeSelected = (idx_) => {
+        setSelectedFilterHook(idx_)
     }
 
     if(apierror) return(
@@ -89,7 +111,7 @@ export default function ProductsList({ route, navigation }) {
     )
 
     return (
-        <ScrollView style={globalStyles.content}>
+        <View style={globalStyles.content}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -97,12 +119,36 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             )}
 
-            <View style={ps.filterContent}>
+            <View style={[plis.comboView, {flexDirection: 'row'}]}>
+
+                <View style={{width: '30%'}}>
+                    <Pressable style={plis.filterByLabel}>
+                        <Text style={plis.filterByLabelText}>Search By :</Text>
+                    </Pressable>
+                </View>
+
+                <View style={{width: '70%'}}>
+                    <Picker
+                        selectedValue="Choose"
+                        style={aqis.ComboPicker}
+                        selectedValue={typesOfSearch[SelectedFilterHook]}
+                        onValueChange={(itemValue, index) => { changeSelected(index) }}>
+
+                            { typesOfSearch.map( (item, index2) => {
+                                return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+                            })}
+
+                    </Picker>
+                </View>
+
+            </View>
+
+            <View style={plis.filterContent}>
                 <TextInput
                     value={filteredValue}
                     style={ps.filterInput}
                     onChangeText={(text) => setFilterText(text)}
-                    placeholder="Filter.."
+                    placeholder="Filter by text or leave empty.."
                 />
                 <View style={ps.filterButtonView}>
                     <Pressable style={ps.filterButton} onPress={filterContent}>
@@ -116,21 +162,42 @@ export default function ProductsList({ route, navigation }) {
 
                 <View style={globalStyles.tableContainer}>
 
-
                     {
-                        ProductsListHook?.map( (product, index) => {
+                        ProductsListHook?.map( (product_, index) => {
+
+                            let product = product_.product
+
+                            let img = imagesManager[product.idcategories]?.url
+
                             return(<DataTable.Row key={ index } style={ps.customRow}>
 
-                                <DataTable.Cell
-                                    key={product.id}
-                                    onPress={ () => showProductDetails(index) }
-                                    style={ps.cell}>
+                                <View key={product.id} style={[ps.cell, {height: 50, marginTop: 25, width: '100%'}]}>
 
-                                        <Text style={ps.small}>{product.productaccountreference}</Text>
-                                        <Text>, </Text>
-                                        <Text style={ps.small}>{product.description}</Text>
+                                    <View style={{display: 'flex', flexDirection: 'row'}}>
 
-                                </DataTable.Cell>
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                            { img &&
+
+                                                <View style={{ height: 40, width: 30, margin: 5}}>
+                                                    <Image
+                                                        style={{height: 40, width:'100%', justifyContent:'center', marginRight: 5}}
+                                                        source={img}
+                                                    />
+                                                </View>
+                                            }
+                                        </TouchableOpacity>
+
+                                        <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
+                                            <Text style={ps.small}>{product.productaccountreference}</Text>
+                                        </View>
+
+                                        <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
+                                            <Text style={ps.small}>{product.description}</Text>
+                                        </View>
+
+                                    </View>
+
+                                </View>
 
                             </DataTable.Row>)
                         } )
@@ -154,6 +221,6 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             ) }
 
-        </ScrollView>
+        </View>
     )
 }

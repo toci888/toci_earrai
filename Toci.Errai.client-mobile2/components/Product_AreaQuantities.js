@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { DataTable } from 'react-native-paper'
 import { globalStyles } from '../styles/globalStyles'
 import { productCSS } from '../styles/Product_Util_Styles'
-import { Text, View, Pressable } from 'react-native'
+import { Alert, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { deleteRequestParams, deleteUrl } from '../shared/RequestConfig'
 
 
@@ -18,8 +19,18 @@ export default function Product_AreaQuantities(props) {
         fetch(deleteUrl(x['id']), deleteRequestParams(x['id'])).then( response => {
             console.log(response)
             props.deleteProduct(index_)
+            Alert.alert(
+                "OK",
+                "Area Quantity deleted",
+                [ { onPress: () => console.log("OK") } ]
+            )
         }).catch(error => {
             console.log(error)
+            Alert.alert(
+                "Error",
+                "Something went wrong",
+                [ { onPress: () => console.log("OK") } ]
+            )
         }).finally(data => {
             props.setloading(false)
         })
@@ -94,16 +105,16 @@ export default function Product_AreaQuantities(props) {
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "updDateF"} style={productCSS.gridShort}>
                         <View style={productCSS.textEdit}>
-                            <Pressable style={productCSS.buttonUpdate} onPress={() => updateData(i)}>
-                                <View style={productCSS.text}><Text>EDIT</Text></View>
-                            </Pressable>
+                            <TouchableOpacity style={productCSS.buttonUpdate} onPress={() => updateData(i)}>
+                                <Text style={productCSS.text}>EDIT</Text>
+                            </TouchableOpacity>
                         </View>
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "delete"} style={productCSS.gridShort}>
                         <Text>
-                            <Pressable style={productCSS.button} onPress={() => deleteData(i)}>
+                            <TouchableOpacity style={productCSS.button} onPress={() => deleteData(i)}>
                                 <Text style={productCSS.text}>DELETE</Text>
-                            </Pressable>
+                            </TouchableOpacity>
                         </Text>
                     </DataTable.Cell>
                 </DataTable.Row>

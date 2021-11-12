@@ -5,7 +5,7 @@ import { productDetails as pd } from '../../styles/productDetails'
 
 export default function ProductDetails(props) {
     return (
-        <View style={{marginTop: 10, marginBottom: 5}}>
+        <View style={{marginTop: 10, marginBottom: 5, marginLeft: 15}}>
             <View style={pd.inlineContainer}>
                 <Text style={[pd.inlineItemDetails, pd.inlineItemLeftDetails, pd.smallSize]}>
                     Description:

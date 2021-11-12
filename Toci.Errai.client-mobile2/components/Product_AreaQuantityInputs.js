@@ -1,7 +1,6 @@
 import { Picker } from '@react-native-community/picker'
 import React from 'react'
 import { View, TextInput, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import AppUser from '../shared/AppUser'
 import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle'
 
@@ -33,10 +32,6 @@ export default function Product_AreaQuantityInputs(props) {
         AppUser.setIdArea(_id)
     }
 
-    const cancel = () => {
-        props.setbtnvalueHook("ADD")
-    }
-
     return (
         <View>
 
@@ -63,14 +58,16 @@ export default function Product_AreaQuantityInputs(props) {
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>L</Text>
                         </View>
-                        <View style={p.inputFlex}>
-                            <TextInput
-                                style={p.inputStyle}
-                                value={props.tempAreaquantityRow.length}
-                                onChangeText={(text) => setLength(text)}
-                                placeholder="Type Length.."
-                            />
-                        </View>
+                            <View style={p.inputFlex}>
+                                {/* <TouchableOpacity style={{width: '100%'}}> */}
+                                <TextInput
+                                    style={p.inputStyle}
+                                    value={props.tempAreaquantityRow.length}
+                                    onChangeText={(text) => setLength(text)}
+                                    placeholder="Type Length.."
+                                />
+                                {/* </TouchableOpacity> */}
+                            </View>
 
 
                     </View>
