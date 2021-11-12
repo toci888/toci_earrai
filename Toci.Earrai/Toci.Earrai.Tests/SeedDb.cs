@@ -38,6 +38,32 @@ namespace Toci.Earrai.Tests
         private Random r = new Random();
 
         [TestMethod]
+        public void Feilim()
+        {
+            Account.RegisterUser(new User()
+            {
+                Firstname = "Feilim",
+                Lastname = "Gormley",
+                Initials = "FG",
+                Email = "feilim@gormleyseng.com",
+                Password = "beatka",
+                Token = "empty token",
+                Idrole = 1
+            });
+
+            Account.RegisterUser(new User()
+            {
+                Firstname = "Eoin",
+                Lastname = "Gormley",
+                Initials = "EG",
+                Email = "eoin@gormleyseng.com",
+                Password = "beatka",
+                Token = "empty token",
+                Idrole = 1
+            });
+        }
+
+            [TestMethod]
         public void SeedAllDb()
         {
             //Actions();
