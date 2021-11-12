@@ -32,7 +32,7 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost("GetProductsEx")]
-        public ActionResult<ProductDto> GetProductsByWorksheet(ProductSearchRequestDto dto)
+        public ActionResult<List<ProductDto>> GetProductsByWorksheet(ProductSearchRequestDto dto)
         {
             SearchManager sm = new SearchManager();
 

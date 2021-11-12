@@ -20,19 +20,7 @@ namespace Toci.Earrai.Bll.Search
                 result = FilterResultsSizesWorksheet(request, elements);
             }
 
-            if (!string.IsNullOrEmpty(request.Name))
-            {
-                if (result == null)
-                {
-                    //result = ProductLogic.Select(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId).ToList();
-                }
-                else
-                {
-                    result = result.Where(m => m.Description.Contains(request.Name)).ToList();
-                }
-            }
-
-            return ToProductSearchResponseDto(result);
+            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
         }
     }
 }

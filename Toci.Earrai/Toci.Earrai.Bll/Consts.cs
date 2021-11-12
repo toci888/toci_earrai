@@ -9,5 +9,8 @@ namespace Toci.Earrai.Bll
     public static class Consts
     {
         public const string Thickness = "Thickness";
+        public const string DimA = "SizeA";
+        public const string DimB = "SizeB";
+        public const string Width = "Width";
     }
 }

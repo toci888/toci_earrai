@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Search
 {
@@ -11,7 +12,15 @@ namespace Toci.Earrai.Bll.Search
     {
         public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
         {
-            throw new NotImplementedException();
+            List<Product> result = new List<Product>();
+            //width ....
+            if (request.Width.HasValue)
+            {
+                List<Productssize> elements = GetSizes(Consts.Width, request.Width.Value.ToString());
+                result = FilterResultsSizesWorksheet(request, elements);
+            }
+
+            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
         }
     }
 }

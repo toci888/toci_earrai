@@ -76,5 +76,22 @@ namespace Toci.Earrai.Bll.Search
 
             return result;
         }
+
+        protected virtual List<Product> FilterBySearchQuery(ProductSearchRequestDto request, List<Product> result)
+        {
+            if (!string.IsNullOrEmpty(request.Name))
+            {
+                if (result == null)
+                {
+                    //result = ProductLogic.Select(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId).ToList();
+                }
+                else
+                {
+                    result = result.Where(m => m.Description.Contains(request.Name)).ToList();
+                }
+            }
+
+            return result;
+        }
     }
 }
