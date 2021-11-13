@@ -5,14 +5,23 @@ import { ProductStyle as ps } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
 import AppUser from '../shared/AppUser'
-import { getProductsEx, PostRequestParams } from '../shared/RequestConfig'
+import {
+    getAvailableValuesForSelectedOptionUrl,
+    getProductsEx,
+    PostRequestParams
+} from '../shared/RequestConfig'
 import { imagesManager } from '../shared/ImageSelector'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { FilterRequestConfig } from '../shared/FilterRequestConfig'
 import { Picker } from '@react-native-community/picker'
-import { getSelectedTypeForWorksheet, typesOfSearch } from './ProductsList_Config'
+import {
+    createFilterDto,
+    getAvailableTypeForWorksheet,
+    typesOfSearch
+} from './ProductsList_Config'
 import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
 import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
+
+const availableValues = []
 
 export default function ProductsList({ route, navigation }) {
 
@@ -22,24 +31,59 @@ export default function ProductsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
     const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
-    const [SelectedFilterHook, setSelectedFilterHook] = useState(0)
+    const [SelectedFilterIndexHook, setSelectedFilterIndexHook] = useState(0)
+    const [SelectedFilteredValueHook, setSelectedFilteredValueHook] = useState(null)
 
     useEffect(() => {
         const worksheetId = navigation.getParam('worksheetId')
 
-        const getSelcted = getSelectedTypeForWorksheet(worksheetId)
+        const selectedTypeIndex = getAvailableTypeForWorksheet(worksheetId)
+        console.log(selectedTypeIndex)
+        setSelectedFilterIndexHook(selectedTypeIndex)
 
-        setSelectedFilterHook(getSelcted)
+        const x = typesOfSearch[selectedTypeIndex]
+
+        getAvailableValuesForSelectedType(worksheetId, x)
+
+
+
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         //setProductsListHook(productsList)
         //searchForData()
 
     }, [])
 
+    const getAvailableValuesForSelectedType = (idx_, type_) => {
+
+        const x = createFilterDto(navigation.getParam('worksheetId'), type_)
+        console.log(x)
+
+        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(x))
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            return
+            setSkipCounter(prev => prev + 1)
+            setProductsListHook(prev => {
+                return [...prev, ...response]
+            })
+
+            if(response.length == 0) {
+                setNomoredata(true)
+            }
+
+        }).catch(error => {
+            console.log(error)
+            console.log("NIET")
+        }).finally(() => {
+            setloading(false)
+        })
+    }
+
     const searchForData = (phrase_= "empty", skip_ = 0) => {
         setloading(true)
 
-        const x = FilterRequestConfig(navigation.getParam('worksheetId'), phrase_, skip_)
+        const x = createFilterDto(navigation.getParam('worksheetId'), phrase_, skip_)
         console.log(x)
 
         fetch(getProductsEx, PostRequestParams(x))
@@ -94,7 +138,7 @@ export default function ProductsList({ route, navigation }) {
     }
 
     const changeSelected = (idx_) => {
-        setSelectedFilterHook(idx_)
+        setSelectedFilterIndexHook(idx_)
     }
 
     if(apierror) return(
@@ -131,7 +175,7 @@ export default function ProductsList({ route, navigation }) {
                     <Picker
                         selectedValue="Choose"
                         style={aqis.ComboPicker}
-                        selectedValue={typesOfSearch[SelectedFilterHook]}
+                        selectedValue={typesOfSearch[SelectedFilterIndexHook]}
                         onValueChange={(itemValue, index) => { changeSelected(index) }}>
 
                             { typesOfSearch.map( (item, index2) => {
@@ -140,6 +184,20 @@ export default function ProductsList({ route, navigation }) {
 
                     </Picker>
                 </View>
+
+            </View>
+                <Picker
+                    selectedValue="Choose"
+                    style={aqis.ComboPicker}
+                    selectedValue={typesOfSearch[SelectedFilterIndexHook]}
+                    onValueChange={(itemValue, index) => { changeSelected(index) }}>
+
+                        { typesOfSearch.map( (item, index2) => {
+                            return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+                        })}
+
+                </Picker>
+            <View>
 
             </View>
 
