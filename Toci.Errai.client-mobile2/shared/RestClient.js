@@ -57,7 +57,8 @@ export default class RestClient {
     }
 
     GET (route, query) { return this._fetch(route, 'GET', query, true); }
-    POST (route, body) { return this._fetch(route, 'POST', body).catch(e => { console.log(e); console.log("BŁĄD POSTA/API"); }); }
+    POST (route, body) { return this._fetch(route, 'POST', body); }
+    // POST (route, body) { return this._fetch(route, 'POST', body).catch(e => { return { IsError: true, ErrorMessage: "Server unavailable.", ErrorCode: 500, e: e};}); }
     PUT (route, body) { return this._fetch(route, 'PUT', body); }
     DELETE (route, query) { return this._fetch(route, 'DELETE', query, true); }
 }

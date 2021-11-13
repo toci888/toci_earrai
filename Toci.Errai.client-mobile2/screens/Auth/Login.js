@@ -5,6 +5,7 @@ import { formStyles } from '../../styles/formStyles';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
+import { ErrorEntity } from '../../ErrorHandling/ErrorEntity';
 
 export default function Login({navigation}) {
 
@@ -28,17 +29,30 @@ export default function Login({navigation}) {
   const login = async (values) => {
     setIndicator(true);
     let restClient = new RestClient();
-    let response = await restClient.POST('api/Account/login', values)
-    console.log(response);
-    setIndicator(false);
-    if(response)
-    {
-      AppUser.setUserData(response)
-      navigation.navigate('WorksheetsList');
-    } else {
-      Alert.alert("Login error", "Check e-mail and password.");
-      console.log("error logowania");
+
+    try {
+      let response = await restClient.POST('api/Account/login', values);
+      console.log("RESPONSE: " + response);
+
+      if(response == undefined) {
+        Alert.alert("Login error", "Check e-mail and password.");
+        console.log("Your username or password may be incorrect");
+      } else if(response) {
+        console.log(response);
+        AppUser.setUserData(response)
+        navigation.navigate('WorksheetsList');
+      }
+      else {
+        Alert.alert("Login error", "Check e-mail and password.");
+        console.log("Log in ERROR NIe wiadomo jaki")
+      }
+    } catch(e) {
+      Alert.alert("Server error", "The server is probably down.");
+      console.log("The server is probably down ");
+    } finally {
+      setIndicator(false);
     }
+    
   };
 
   return (
@@ -46,10 +60,6 @@ export default function Login({navigation}) {
       email: 'tom123@wp.pl',
       password: 'tom123'
     }}
-    // <Formik initialValues={{
-    //   email: 'admin@wp.pl',
-    //   password: '12345678'
-    // }}
 
     onSubmit={(values, {resetForm}) => {
       login(values);
