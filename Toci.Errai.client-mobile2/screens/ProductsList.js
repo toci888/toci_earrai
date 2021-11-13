@@ -151,9 +151,11 @@ export default function ProductsList({ route, navigation }) {
                     placeholder="Filter by text or leave empty.."
                 />
                 <View style={ps.filterButtonView}>
-                    <Pressable style={ps.filterButton} onPress={filterContent}>
+                    {/* <Pressable style={ps.filterButton} onPress={filterContent}> */}
+                    <TouchableOpacity style={ps.filterButton} onPress={filterContent}>
                         <Text style={ps.textUpdate}>Find</Text>
-                    </Pressable>
+                    </TouchableOpacity>
+                    {/* </Pressable> */}
                 </View>
 
             </View>
@@ -187,9 +189,11 @@ export default function ProductsList({ route, navigation }) {
                                             }
                                         </TouchableOpacity>
 
-                                        <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
-                                            <Text style={ps.small}>{product.productaccountreference}</Text>
-                                        </View>
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                            <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
+                                                <Text style={ps.small}>{product.productaccountreference}</Text>
+                                            </View>
+                                        </TouchableOpacity>
 
                                         <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                             <Text style={ps.small}>{product.description}</Text>
