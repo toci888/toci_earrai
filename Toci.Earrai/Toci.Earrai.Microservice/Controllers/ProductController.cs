@@ -38,5 +38,12 @@ namespace Toci.Earrai.Microservice.Controllers
 
             return Ok(sm.Search(dto));
         }
+
+        [HttpPost("GetProductsFiltersEx")]
+        public ActionResult<List<ProductFilterComboDto>> GetProductFiltersByWorksheet(ProductSearchRequestDto dto)
+        {
+            return Ok(new  List < ProductFilterComboDto > () { new ProductFilterComboDto() { Value = "8", Name = "Thickness"} });
+            
+        }
     }
 }
