@@ -111,7 +111,7 @@ export default function ProductsList({ route, navigation }) {
     )
 
     return (
-        <View style={globalStyles.content}>
+        <ScrollView style={globalStyles.content}>
 
             { loading && (
                 <View style={modalStyles.tempContainer}>
@@ -122,7 +122,7 @@ export default function ProductsList({ route, navigation }) {
             <View style={[plis.comboView, {flexDirection: 'row'}]}>
 
                 <View style={{width: '30%'}}>
-                    <Pressable style={plis.filterByLabel}>
+                    <Pressable style={[plis.filterByLabel, {height: 50}]}>
                         <Text style={plis.filterByLabelText}>Search By :</Text>
                     </Pressable>
                 </View>
@@ -151,9 +151,11 @@ export default function ProductsList({ route, navigation }) {
                     placeholder="Filter by text or leave empty.."
                 />
                 <View style={ps.filterButtonView}>
-                    <Pressable style={ps.filterButton} onPress={filterContent}>
+                    {/* <Pressable style={ps.filterButton} onPress={filterContent}> */}
+                    <TouchableOpacity style={ps.filterButton} onPress={filterContent}>
                         <Text style={ps.textUpdate}>Find</Text>
-                    </Pressable>
+                    </TouchableOpacity>
+                    {/* </Pressable> */}
                 </View>
 
             </View>
@@ -187,9 +189,11 @@ export default function ProductsList({ route, navigation }) {
                                             }
                                         </TouchableOpacity>
 
-                                        <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
-                                            <Text style={ps.small}>{product.productaccountreference}</Text>
-                                        </View>
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                            <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
+                                                <Text style={ps.small}>{product.productaccountreference}</Text>
+                                            </View>
+                                        </TouchableOpacity>
 
                                         <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                             <Text style={ps.small}>{product.description}</Text>
@@ -221,6 +225,6 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             ) }
 
-        </View>
+        </ScrollView>
     )
 }

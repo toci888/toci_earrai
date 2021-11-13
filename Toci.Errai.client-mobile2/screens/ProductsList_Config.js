@@ -12,7 +12,7 @@ const typeOfSearchForWorksheet = {
     1: 2,
     2: 2,
     3: 0,
-    4: 3, // ??
+    4: 3, // flts ??
     5: 0, // ??
     6: 0,  // chanBms  ??
     7: 0,
