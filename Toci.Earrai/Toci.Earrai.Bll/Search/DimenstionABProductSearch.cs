@@ -17,7 +17,10 @@ namespace Toci.Earrai.Bll.Search
 
             if (request.DimA.HasValue && request.DimB.HasValue)
             {
-                //elements = ;
+                List<Productssize> elementsA = GetSizes(Consts.DimA, request.DimA.Value.ToString());
+                List<Productssize> elementsB = GetSizes(Consts.DimB, request.DimB.Value.ToString());
+
+                elements = elementsA.Join(elementsB, m => m.Idproducts, n => n.Idproducts, (o, p) => p).ToList();
             }
             else if (request.DimA.HasValue)
             {
