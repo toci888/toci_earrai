@@ -29,7 +29,7 @@ export default function ProductsList({ route, navigation }) {
     const [filteredValue, setfilteredValue] = useState("")
     const [loading, setloading] = useState(false)
     const [apierror, setApierror] = useState(false)
-    const [skipCounter, setSkipCounter] = useState(0)
+    //const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
     const [SelectedFilterTypeIndexHook, setSelectedFilterTypeIndexHook] = useState(0)
     const [SelectedFilteredIndexHook, setSelectedFilteredIndexHook] = useState(0)
@@ -85,7 +85,7 @@ export default function ProductsList({ route, navigation }) {
             navigation.getParam('worksheetId'),
             selectedTypeOfSearch,
             availableValues[SelectedFilteredIndexHook],
-            skipCounter
+            //skipCounter
         )
 
         console.log(x)
@@ -94,14 +94,17 @@ export default function ProductsList({ route, navigation }) {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            setSkipCounter(prev => prev + 1)
+
+            if(response.length == 0) {
+                setNomoredata(true)
+                return
+            }
+
+            //setSkipCounter(prev => prev + 1)
             setProductsListHook(prev => {
                 return [...prev, ...response]
             })
 
-            if(response.length == 0) {
-                setNomoredata(true)
-            }
 
         }).catch(error => {
             console.log(error)
@@ -111,10 +114,10 @@ export default function ProductsList({ route, navigation }) {
         })
     }
 
-    const loadMore = () => {
-        const toFilter = (filteredValue == "") ? "empty" : filteredValue
-        if(!nomoredata) searchForData(toFilter, skipCounter)
-    }
+    // const loadMore = () => {
+    //     const toFilter = (filteredValue == "") ? "empty" : filteredValue
+    //     if(!nomoredata) searchForData(toFilter, skipCounter)
+    // }
 
     const showProductDetails = (index_) => {
         console.log(ProductsListHook[index_].product)
@@ -128,7 +131,7 @@ export default function ProductsList({ route, navigation }) {
     const filterContent = () => {
         setProductsListHook(prev => {return []})
         setNomoredata(prev => {return false})
-        setSkipCounter(prev => {return 0})
+        //setSkipCounter(prev => {return 0})
 
         searchForData(filteredValue, 0)
     }
@@ -293,15 +296,15 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             ) }
 
-            { !nomoredata && ProductsListHook.length > 0 && (
+            {/* { !nomoredata && ProductsListHook.length > 0 && (
                 // <TouchableOpacity onPress={ loadMore }>
-                    <View onPress={loadMore} style={ps.loadMoreView}>
+                    <View onClick={loadMore} style={ps.loadMoreView}>
                         <Text  style={ps.loadMoreText}>
                             Load more data
                         </Text>
                     </View>
                 // </TouchableOpacity>
-            ) }
+            ) } */}
 
         </ScrollView>
     )

@@ -24,18 +24,17 @@ export function getAvailableTypeForWorksheet(worksheetId) {
     return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
-function getDtoObject(worksheetId_, type_, value_, skip_) {
+function getDtoObject(worksheetId_, type_, value_) {
     return {
         WorksheetId: worksheetId_,
         name: type_,
         Value: value_,
-        skip: skip_,
     }
 }
 
-export function createFilterDto(worksheetId_, type_, value_, skip_) {
+export function createFilterDto(worksheetId_, type_, value_) {
 
-    return getDtoObject(worksheetId_, type_, value_, skip_)
+    return getDtoObject(worksheetId_, type_, value_)
 
     /*if([3,5,6,7].includes(worksheetId)) {
 
