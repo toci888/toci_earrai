@@ -14,9 +14,9 @@ namespace Toci.Earrai.Bll.Search
         protected Logic<Productsizesearch> SizeSearchLogic = new Logic<Productsizesearch>();
         protected Logic<Productoptionsearch> OptionsSearchLogic = new Logic<Productoptionsearch>();
 
-        public virtual List<ProductFilterComboDto> GetFilters(int worksheetId, string option)
+        public virtual List<string> GetFilters(int worksheetId, string option)
         {
-            List<ProductFilterComboDto> result = new List<ProductFilterComboDto>();
+            List<string> result = new List<string>();
 
             if (option == Consts.Od)
             {
@@ -25,7 +25,7 @@ namespace Toci.Earrai.Bll.Search
 
                 foreach (Productoptionsearch item in sizeResult)
                 {
-                    result.Add(new ProductFilterComboDto() { Value = item.Value, Name = item.Name });
+                    result.Add(item.Value);
                 }
             }
             else
@@ -34,11 +34,11 @@ namespace Toci.Earrai.Bll.Search
 
                 foreach (Productsizesearch item in sizeResult)
                 {
-                    result.Add(new ProductFilterComboDto() { Value = item.Value, Name = item.Name });
+                    result.Add(item.Value);
                 }
             }
 
-            return result;
+            return result.OrderBy(m => m).ToList();
         }
     }
 }
