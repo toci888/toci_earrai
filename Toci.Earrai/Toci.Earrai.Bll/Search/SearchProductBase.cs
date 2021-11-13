@@ -79,7 +79,7 @@ namespace Toci.Earrai.Bll.Search
 
         protected virtual List<Product> FilterBySearchQuery(ProductSearchRequestDto request, List<Product> result)
         {
-            if (!string.IsNullOrEmpty(request.Name))
+            /*if (!string.IsNullOrEmpty(request.Name))
             {
                 if (result == null)
                 {
@@ -89,7 +89,7 @@ namespace Toci.Earrai.Bll.Search
                 {
                     result = result.Where(m => m.Description.Contains(request.Name)).ToList();
                 }
-            }
+            }*/
 
             return result;
         }

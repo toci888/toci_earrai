@@ -14,9 +14,9 @@ namespace Toci.Earrai.Bll.Search
         {
             List<Product> result = new List<Product>();
             //thickness ....
-            if (request.Thickness.HasValue)
+            if (request.Name == Consts.Thickness)
             {
-                List<Productssize> elements =  GetSizes(Consts.Thickness, request.Thickness.Value.ToString());
+                List<Productssize> elements =  GetSizes(Consts.Thickness, request.Value);
                 result = FilterResultsSizesWorksheet(request, elements);
             }
 
