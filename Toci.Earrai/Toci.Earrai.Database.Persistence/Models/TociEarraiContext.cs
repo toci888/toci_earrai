@@ -31,8 +31,10 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Productcategoryoption> Productcategoryoptions { get; set; }
         public virtual DbSet<Productoption> Productoptions { get; set; }
+        public virtual DbSet<Productoptionsearch> Productoptionsearches { get; set; }
         public virtual DbSet<Productoptionvalue> Productoptionvalues { get; set; }
         public virtual DbSet<Productsize> Productsizes { get; set; }
+        public virtual DbSet<Productsizesearch> Productsizesearches { get; set; }
         public virtual DbSet<Productsoptionsstate> Productsoptionsstates { get; set; }
         public virtual DbSet<Productsprice> Productsprices { get; set; }
         public virtual DbSet<Productssize> Productssizes { get; set; }
@@ -46,7 +48,6 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
-        public virtual DbSet<Workbook> Workbooks { get; set; }
         public virtual DbSet<Worksheet> Worksheets { get; set; }
         public virtual DbSet<Worksheetcontent> Worksheetcontents { get; set; }
         public virtual DbSet<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
@@ -62,7 +63,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Action>(entity =>
             {
@@ -326,6 +327,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Name).HasColumnName("name");
             });
 
+            modelBuilder.Entity<Productoptionsearch>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productoptionsearch");
+
+                entity.Property(e => e.Idproduct).HasColumnName("idproduct");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+            });
+
             modelBuilder.Entity<Productoptionvalue>(entity =>
             {
                 entity.ToTable("productoptionvalues");
@@ -370,6 +386,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Productsizes)
                     .HasForeignKey(d => d.Idsizes)
                     .HasConstraintName("productsize_idsizes_fkey");
+            });
+
+            modelBuilder.Entity<Productsizesearch>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("productsizesearch");
+
+                entity.Property(e => e.Idproduct).HasColumnName("idproduct");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Value).HasColumnName("value");
             });
 
             modelBuilder.Entity<Productsoptionsstate>(entity =>
@@ -624,21 +655,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
-            });
-
-            modelBuilder.Entity<Workbook>(entity =>
-            {
-                entity.ToTable("workbooks");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Createdat).HasColumnName("createdat");
-
-                entity.Property(e => e.Filename).HasColumnName("filename");
-
-                entity.Property(e => e.Idoffile).HasColumnName("idoffile");
-
-                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
             });
 
             modelBuilder.Entity<Worksheet>(entity =>
