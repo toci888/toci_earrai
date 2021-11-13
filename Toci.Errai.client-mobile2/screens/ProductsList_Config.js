@@ -8,7 +8,7 @@ export const typesOfSearch = [
 
 ]
 
-const selectedTypeOfSearchForWorksheet = {
+const selectedIndexOfTypeOfSearchForWorksheet = {
     1: 2,
     2: 2,
     3: 0,
@@ -21,19 +21,21 @@ const selectedTypeOfSearchForWorksheet = {
 }
 
 export function getAvailableTypeForWorksheet(worksheetId) {
-    return selectedTypeOfSearchForWorksheet[worksheetId]
+    return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
-function getDtoObject(worksheetId_, type_) {
+function getDtoObject(worksheetId_, type_, value_, skip_) {
     return {
         WorksheetId: worksheetId_,
-        Name: type_,
+        name: type_,
+        Value: value_,
+        skip: skip_,
     }
 }
 
-export function createFilterDto(worksheetId, type) {
+export function createFilterDto(worksheetId_, type_, value_, skip_) {
 
-    return getDtoObject(worksheetId, type)
+    return getDtoObject(worksheetId_, type_, value_, skip_)
 
     /*if([3,5,6,7].includes(worksheetId)) {
 

@@ -82,6 +82,7 @@ export default function WorksheetsList({ route, navigation }) {
         console.log(_worksheetId)
         navigation.navigate('ProductsList', {
             worksheetId : _worksheetId.id,
+            worksheetName: _worksheetId.sheetname
         } )
     }
 

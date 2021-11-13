@@ -21,7 +21,7 @@ import {
 import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
 import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 
-const availableValues = []
+let availableValues = []
 
 export default function ProductsList({ route, navigation }) {
 
@@ -31,30 +31,34 @@ export default function ProductsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
     const [skipCounter, setSkipCounter] = useState(0)
     const [nomoredata, setNomoredata] = useState(false)
-    const [SelectedFilterIndexHook, setSelectedFilterIndexHook] = useState(0)
-    const [SelectedFilteredValueHook, setSelectedFilteredValueHook] = useState(null)
+    const [SelectedFilterTypeIndexHook, setSelectedFilterTypeIndexHook] = useState(0)
+    const [SelectedFilteredIndexHook, setSelectedFilteredIndexHook] = useState(0)
 
     useEffect(() => {
+        AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         const worksheetId = navigation.getParam('worksheetId')
 
         const selectedTypeIndex = getAvailableTypeForWorksheet(worksheetId)
         console.log(selectedTypeIndex)
-        setSelectedFilterIndexHook(selectedTypeIndex)
+        setSelectedFilterTypeIndexHook(selectedTypeIndex)
 
         const x = typesOfSearch[selectedTypeIndex]
 
-        getAvailableValuesForSelectedType(worksheetId, x)
+        getAvailableValuesForSelectedType(x)
 
 
 
-        AppUser.setWorksheetId(navigation.getParam('worksheetId'))
+
         //setProductsListHook(productsList)
         //searchForData()
 
     }, [])
 
-    const getAvailableValuesForSelectedType = (idx_, type_) => {
 
+
+    const getAvailableValuesForSelectedType = (type_) => {
+        setloading(true)
+        console.log(type_)
         const x = createFilterDto(navigation.getParam('worksheetId'), type_)
         console.log(x)
 
@@ -62,28 +66,28 @@ export default function ProductsList({ route, navigation }) {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            return
-            setSkipCounter(prev => prev + 1)
-            setProductsListHook(prev => {
-                return [...prev, ...response]
-            })
-
-            if(response.length == 0) {
-                setNomoredata(true)
-            }
+            availableValues = response
 
         }).catch(error => {
             console.log(error)
-            console.log("NIET")
         }).finally(() => {
             setloading(false)
         })
+
     }
 
-    const searchForData = (phrase_= "empty", skip_ = 0) => {
+    const searchForData = () => {
         setloading(true)
 
-        const x = createFilterDto(navigation.getParam('worksheetId'), phrase_, skip_)
+        const selectedTypeOfSearch = typesOfSearch[SelectedFilterTypeIndexHook]
+
+        const x = createFilterDto(
+            navigation.getParam('worksheetId'),
+            selectedTypeOfSearch,
+            availableValues[SelectedFilteredIndexHook],
+            skipCounter
+        )
+
         console.log(x)
 
         fetch(getProductsEx, PostRequestParams(x))
@@ -137,8 +141,17 @@ export default function ProductsList({ route, navigation }) {
         searchForData()
     }
 
-    const changeSelected = (idx_) => {
-        setSelectedFilterIndexHook(idx_)
+    const selectType = (value_, index_) => {
+        console.log(value_)
+        console.log(index_)
+        setSelectedFilterTypeIndexHook(index_)
+        getAvailableValuesForSelectedType(value_)
+        setSelectedFilteredIndexHook(0)
+
+    }
+
+    const selectValue = (idx_) => {
+        setSelectedFilteredIndexHook(idx_)
     }
 
     if(apierror) return(
@@ -163,6 +176,10 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             )}
 
+            <View style={{height: 40, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{fontSize: 17, fontWeight: 'bold'}}>{ navigation.getParam('worksheetName')}</Text>
+            </View>
+
             <View style={[plis.comboView, {flexDirection: 'row'}]}>
 
                 <View style={{width: '30%'}}>
@@ -175,8 +192,8 @@ export default function ProductsList({ route, navigation }) {
                     <Picker
                         selectedValue="Choose"
                         style={aqis.ComboPicker}
-                        selectedValue={typesOfSearch[SelectedFilterIndexHook]}
-                        onValueChange={(itemValue, index) => { changeSelected(index) }}>
+                        selectedValue={typesOfSearch[SelectedFilterTypeIndexHook]}
+                        onValueChange={(itemValue, index) => { selectType(itemValue, index) }}>
 
                             { typesOfSearch.map( (item, index2) => {
                                 return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
@@ -186,18 +203,19 @@ export default function ProductsList({ route, navigation }) {
                 </View>
 
             </View>
-                <Picker
-                    selectedValue="Choose"
-                    style={aqis.ComboPicker}
-                    selectedValue={typesOfSearch[SelectedFilterIndexHook]}
-                    onValueChange={(itemValue, index) => { changeSelected(index) }}>
 
-                        { typesOfSearch.map( (item, index2) => {
+            <View style={{marginTop: 5, marginLeft: 15, marginRight: 15}}>
+
+                <Picker
+                    style={aqis.ComboPicker}
+                    selectedValue={availableValues[SelectedFilteredIndexHook]}
+                    onValueChange={(itemValue, index) => { selectValue(index) }}>
+
+                        { availableValues.map( (item, index2) => {
                             return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
                         })}
 
                 </Picker>
-            <View>
 
             </View>
 
@@ -209,11 +227,11 @@ export default function ProductsList({ route, navigation }) {
                     placeholder="Filter by text or leave empty.."
                 />
                 <View style={ps.filterButtonView}>
-                    {/* <Pressable style={ps.filterButton} onPress={filterContent}> */}
-                    <TouchableOpacity style={ps.filterButton} onPress={filterContent}>
+                    <Pressable style={ps.filterButton} onPress={filterContent}>
+                    {/* <TouchableOpacity style={ps.filterButton} onPress={filterContent}> */}
                         <Text style={ps.textUpdate}>Find</Text>
-                    </TouchableOpacity>
-                    {/* </Pressable> */}
+                    {/* </TouchableOpacity> */}
+                    </Pressable>
                 </View>
 
             </View>
@@ -276,11 +294,13 @@ export default function ProductsList({ route, navigation }) {
             ) }
 
             { !nomoredata && ProductsListHook.length > 0 && (
-                <View style={ps.loadMoreView}>
-                    <Text onPress={loadMore} style={ps.loadMoreText}>
-                        Load more data
-                    </Text>
-                </View>
+                // <TouchableOpacity onPress={ loadMore }>
+                    <View onPress={loadMore} style={ps.loadMoreView}>
+                        <Text  style={ps.loadMoreText}>
+                            Load more data
+                        </Text>
+                    </View>
+                // </TouchableOpacity>
             ) }
 
         </ScrollView>

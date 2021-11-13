@@ -24,7 +24,7 @@ const screens = {
     ProductsList: {
         screen: ProductsList,
         navigationOptions: {
-            title : "Products",
+            title : "Back to Worksheets",
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
