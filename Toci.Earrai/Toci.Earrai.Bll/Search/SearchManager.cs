@@ -20,11 +20,30 @@ namespace Toci.Earrai.Bll.Search
             { 8, new OdProductSearch() },
         };
 
+        protected Dictionary<string, SearchProductBase> SearchHelpersEx = new Dictionary<string, SearchProductBase>()
+        {
+            { Consts.DimA, new DimenstionABProductSearch() },
+            { Consts.DimB, new DimenstionABProductSearch() },
+            { Consts.Od, new OdProductSearch() },
+            { Consts.Thickness, new ThicknessProductSearch() },
+            { Consts.Width, new WidthProductSearch() }
+        };
+
         public virtual List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
         {
             if (SearchHelpers.ContainsKey(request.WorksheetId))
             {
                 return SearchHelpers[request.WorksheetId].Search(request);
+            }
+
+            return null;
+        }
+
+        public virtual List<ProductSearchResponseDto> SearchEx(ProductSearchRequestDto request)
+        {
+            if (SearchHelpersEx.ContainsKey(request.Name))
+            {
+                return SearchHelpersEx[request.Name].Search(request);
             }
 
             return null;
