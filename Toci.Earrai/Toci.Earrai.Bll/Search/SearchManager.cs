@@ -13,9 +13,9 @@ namespace Toci.Earrai.Bll.Search
         {
             { 1, new ThicknessProductSearch() },
             { 2, new ThicknessProductSearch() },
-            { 4, new DimenstionABProductSearch() },
+            { 3, new DimenstionABProductSearch() },
             { 5, new DimenstionABProductSearch() },
-            { 6, new WidthProductSearch() },
+            { 4, new WidthProductSearch() },
             { 7, new DimenstionABProductSearch() },
             { 8, new OdProductSearch() },
         };
