@@ -8,7 +8,7 @@ export const typesOfSearch = [
 
 ]
 
-const typeOfSearchForWorksheet = {
+const selectedIndexOfTypeOfSearchForWorksheet = {
     1: 2,
     2: 2,
     3: 0,
@@ -20,13 +20,54 @@ const typeOfSearchForWorksheet = {
     9: 0,
 }
 
-export function getSelectedTypeForWorksheet(worksheetId) {
-    return typeOfSearchForWorksheet[worksheetId]
+export function getAvailableTypeForWorksheet(worksheetId) {
+    return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
+function getDtoObject(worksheetId_, type_, value_) {
+    return {
+        WorksheetId: worksheetId_,
+        name: type_,
+        Value: value_,
+    }
+}
 
+export function createFilterDto(worksheetId_, type_, value_) {
 
+    return getDtoObject(worksheetId_, type_, value_)
 
+    /*if([3,5,6,7].includes(worksheetId)) {
+
+        return {
+            ...getObject(worksheetId, skip),
+            DimA: phrase[0],
+            DimB: phrase[1],
+        }
+
+    } else if([1,2].includes(worksheetId)) {
+
+        return {
+            ...getObject(worksheetId, skip),
+            Thickness: phrase
+        }
+
+    } else if(worksheetId == 4) {
+
+        return {
+            ...getObject(worksheetId, skip),
+            Width: phrase
+        }
+
+    } else if(worksheetId == 8) {
+
+        return {
+            ...getObject(worksheetId, skip),
+            OD: phrase
+        }
+
+    }*/
+
+}
 
 
 

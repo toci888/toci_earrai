@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/ProductsListStyles'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, Image } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
 import { FlatList } from 'react-native-gesture-handler'
 import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
+import { imagesManager } from '../shared/ImageSelector'
+
+const imagesForWorksheet = {
+    1: [1,2,3,4],
+    2: [5,6],
+    3: [15,16,17],
+    4: [20, 21],
+    5: [9,10],
+    6: [11,12,13,14],
+    7: [7,8],
+    8: [18,19],
+    9: [22,23,24,26],
+}
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -82,6 +95,7 @@ export default function WorksheetsList({ route, navigation }) {
         console.log(_worksheetId)
         navigation.navigate('ProductsList', {
             worksheetId : _worksheetId.id,
+            worksheetName: _worksheetId.sheetname
         } )
     }
 
@@ -125,14 +139,47 @@ export default function WorksheetsList({ route, navigation }) {
                 keyExtractor={ (item) => item.id.toString() }
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
-                    // <TouchableOpacity>
-                        <View key={ item.id } style={ worksheetsList.listItem }>
+                    // <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                    <View key={ item.id }
+                    style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
 
-                            <Text onPress={ () => showWorksheets(item) } style={ worksheetsList.listText }>
-                                { item.sheetname }
-                            </Text>
+                        <View style={{width: '50%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+
+                            {
+                                imagesForWorksheet[item.id].map((v,k) => {
+
+                                    const x = imagesManager[v]?.url
+
+                                    if(!x) return
+
+                                    return(
+                                        <View style={{flexDirection: 'row'}}>
+                                            <View style={{width: 40}}>
+
+                                                <Image
+                                                    style={{height: 30, width: 30}}
+                                                    source={x}
+                                                />
+
+                                            </View>
+                                        </View>
+                                    )
+                                })
+                            }
 
                         </View>
+
+                        <View style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+
+                           <View>
+                                <Text onPress={ () => showWorksheets(item) } style={ [worksheetsList.listText], {fontSize: 16} }>
+                                        { item.sheetname }
+                                    </Text>
+                            </View>
+
+                            </View>
+
+                    </View>
                     // </TouchableOpacity>
 
                 )}

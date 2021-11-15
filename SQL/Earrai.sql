@@ -279,6 +279,16 @@ select users.id, users.firstName, users.lastName, users.email, users.password, u
 from users 
 join roles on roles.id = users.idRole;
 
+create or replace view ProductSizeSearch as
+select products.id as idproduct, products.idworksheet, productsize.value, sizes.name 
+from products join productsize on products.id = productsize.idproducts
+join sizes on productsize.idsizes = sizes.id;
+
+create or replace view ProductOptionSearch as
+select products.id as idproduct, products.idworksheet, productoptionvalues.value, productoptions.name 
+from products join productoptionvalues on products.id = productoptionvalues.idproducts
+join productoptions on productoptionvalues.idproductoptions = productoptions.id;
+
 select * from ProductsSizes;
 select * from users;
 select * from roles;

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Toci.Earrai.Bll.Models
 {
-    public class ProductSearchRequestDto
+    public class ProductFilterComboDto
     {
-        public int WorksheetId { get; set; }
-        public int Skip { get; set; }
-        public string Name { get; set; }
         public string Value { get; set; }
+
+        public string Name { get; set; }
     }
 }

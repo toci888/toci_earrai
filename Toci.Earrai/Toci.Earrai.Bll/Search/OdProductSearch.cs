@@ -14,9 +14,9 @@ namespace Toci.Earrai.Bll.Search
         {
             List<Product> result = new List<Product>();
             //od ....
-            if (request.Od.HasValue)
+            if (request.Name == Consts.Od)
             {
-                List<Productsoptionsstate> elements = GetOptions(Consts.Width, request.Od.Value.ToString());
+                List<Productsoptionsstate> elements = GetOptions(Consts.Od, request.Value);
                 result = FilterResultsOptionsWorksheet(request, elements);
             }
 

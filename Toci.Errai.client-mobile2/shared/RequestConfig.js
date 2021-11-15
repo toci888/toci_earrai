@@ -76,3 +76,5 @@ export const getQuoteAndMetricUrl = environment.apiUrl + 'api/QuoteAndMetric'
 export function getQuotesAndPricesByProductIdUrl(productId_) {
     return environment.apiUrl + 'api/QuoteAndPrice/QuoteAndPriceByProductId/' + productId_
 }
+
+export const getAvailableValuesForSelectedOptionUrl = environment.apiUrl + 'api/Product/GetProductsFiltersEx'

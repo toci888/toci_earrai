@@ -15,20 +15,13 @@ namespace Toci.Earrai.Bll.Search
             List<Productssize> elements = new List<Productssize>();
             List<Product> result = new List<Product>();
 
-            if (request.DimA.HasValue && request.DimB.HasValue)
+            if (request.Name == Consts.DimA)
             {
-                List<Productssize> elementsA = GetSizes(Consts.DimA, request.DimA.Value.ToString());
-                List<Productssize> elementsB = GetSizes(Consts.DimB, request.DimB.Value.ToString());
-
-                elements = elementsA.Join(elementsB, m => m.Idproducts, n => n.Idproducts, (o, p) => p).ToList();
+                elements = GetSizes(Consts.DimA, request.Value);
             }
-            else if (request.DimA.HasValue)
+            else 
             {
-                elements = GetSizes(Consts.DimA, request.DimA.Value.ToString());
-            }
-            else if (request.DimB.HasValue)
-            {
-                elements = GetSizes(Consts.DimB, request.DimB.Value.ToString());
+                elements = GetSizes(Consts.DimB, request.Value);
             }
 
             result = FilterResultsSizesWorksheet(request, elements);

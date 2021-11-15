@@ -36,7 +36,16 @@ namespace Toci.Earrai.Microservice.Controllers
         {
             SearchManager sm = new SearchManager();
 
-            return Ok(sm.Search(dto));
+            return Ok(sm.SearchEx(dto));
+        }
+
+        [HttpPost("GetProductsFiltersEx")]
+        public ActionResult<List<string>> GetProductFiltersByWorksheet(ProductSearchRequestDto dto)
+        {
+            SearchConditionsProvider scp = new SearchConditionsProvider();
+
+            return Ok(scp.GetFilters(dto.WorksheetId, dto.Name));
+            
         }
     }
 }
