@@ -23,6 +23,14 @@ import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 
 let availableValues = []
 
+function dbNameReplacer(value_) {
+    if(value_.name == "DimA") value_.name = "SizeA";
+    if(value_.name == "DimB") value_.name = "SizeB";
+    if(value_.name == "OD") value_.name = "ChsOd";
+    return value_
+
+}
+
 export default function ProductsList({ route, navigation }) {
 
     const [ProductsListHook, setProductsListHook] = useState([])
@@ -62,7 +70,7 @@ export default function ProductsList({ route, navigation }) {
         const x = createFilterDto(navigation.getParam('worksheetId'), type_)
         console.log(x)
 
-        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(x))
+        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(dbNameReplacer(x)))
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -90,7 +98,7 @@ export default function ProductsList({ route, navigation }) {
 
         console.log(x)
 
-        fetch(getProductsEx, PostRequestParams(x))
+        fetch(getProductsEx, PostRequestParams(dbNameReplacer(x)))
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -207,18 +215,26 @@ export default function ProductsList({ route, navigation }) {
 
             </View>
 
-            <View style={{marginTop: 5, marginLeft: 15, marginRight: 15}}>
+            <View style={{marginTop: 5, marginLeft: 15, marginRight: 15, flexDirection: 'row'}}>
 
-                <Picker
-                    style={aqis.ComboPicker}
-                    selectedValue={availableValues[SelectedFilteredIndexHook]}
-                    onValueChange={(itemValue, index) => { selectValue(index) }}>
+                <View style={{width: '30%'}}>
+                    <Pressable style={[plis.filterByLabel, {height: 50}]}>
+                        <Text style={plis.filterByLabelText}>Values :</Text>
+                    </Pressable>
+                </View>
 
-                        { availableValues.map( (item, index2) => {
-                            return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
-                        })}
+                <View style={{width: '70%'}}>
+                    <Picker
+                        style={aqis.ComboPicker}
+                        selectedValue={availableValues[SelectedFilteredIndexHook]}
+                        onValueChange={(itemValue, index) => { selectValue(index) }}>
 
-                </Picker>
+                            { availableValues.map( (item, index2) => {
+                                return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+                            })}
+
+                    </Picker>
+                </View>
 
             </View>
 
