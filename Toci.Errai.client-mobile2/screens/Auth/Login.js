@@ -5,7 +5,7 @@ import { formStyles } from '../../styles/formStyles';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
-import { ErrorEntity } from '../../ErrorHandling/ErrorEntity';
+import ErrorEntity  from '../../ErrorHandling/ErrorEntity';
 
 export default function Login({navigation}) {
 

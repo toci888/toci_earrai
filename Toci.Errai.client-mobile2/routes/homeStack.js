@@ -7,13 +7,13 @@ import Login from '../screens/Auth/Login'
 import Register from '../screens/Auth/Register'
 
 const screens = {
-    /*Login: {
+    Login: {
         screen: Login,
         navigationOptions: {
             title : "Logging in",
             headerStyle: { backgroundColor: '#ccc' }
         }
-    },*/
+    },
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {

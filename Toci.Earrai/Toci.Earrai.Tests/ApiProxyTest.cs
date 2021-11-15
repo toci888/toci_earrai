@@ -16,7 +16,7 @@ namespace Toci.Earrai.Tests
         {
             ApiConnector apc = new ApiConnector();
 
-            var result = apc.SearchWorksheet(2, "PL");
+            var result = apc.GetProduct(1);
         }
     }
 }
