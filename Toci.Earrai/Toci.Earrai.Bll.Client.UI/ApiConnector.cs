@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Toci.Common.Microservices;
@@ -38,6 +39,29 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 return json.ToObject<T>();
             }
+        }
+
+        protected virtual T ApiPost<T>(string url, HttpContent content)
+        {
+            using (HttpClient hc = new HttpClient())
+            {
+                hc.BaseAddress = new Uri(BaseUrl);
+
+                HttpResponseMessage response = hc.PostAsync(url, content).Result;
+
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                JObject json = JObject.Parse(responseContent);
+
+                return json.ToObject<T>();
+            }
+        }
+
+        public virtual List<string> GetProductsFiltersEx(ProductSearchRequestDto dto) ///api/Product/GetProductsFiltersEx
+        {
+            HttpContent content = JsonContent.Create<ProductSearchRequestDto>(dto);
+
+            return ApiPost<List<string>>("api/Product/GetProductsFiltersEx", content);
         }
     }
 }
