@@ -130,7 +130,7 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
-                JObject json = JObject.Parse(responseContent);
+                JArray json = JArray.Parse(responseContent);
 
                 return json.ToObject<T>();
             }
@@ -141,6 +141,13 @@ namespace Toci.Earrai.Bll.Client.UI
             HttpContent content = JsonContent.Create<ProductSearchRequestDto>(dto);
 
             return ApiPost<List<string>>("api/Product/GetProductsFiltersEx", content);
+        }
+
+        public virtual List<ProductDto> GetProductsEx(ProductSearchRequestDto dto) ////api/Product/GetProductsEx
+        {
+            HttpContent content = JsonContent.Create<ProductSearchRequestDto>(dto);
+
+            return ApiPost<List<ProductDto>>("api/Product/GetProductsEx", content);
         }
     }
 }
