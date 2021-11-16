@@ -16,9 +16,11 @@ namespace Toci.Earrai.Tests
         {
             ApiConnector apc = new ApiConnector();
 
-          //  var result = apc.GetProduct(1);
+         //  var result = apc.GetProduct(1);
 
-            var filters = apc.GetProductsFiltersEx(new Bll.Models.ProductSearchRequestDto() { Name = "Thickness", WorksheetId = 1 });
+         //   var filters = apc.GetProductsFiltersEx(new Bll.Models.ProductSearchRequestDto() { Name = "Thickness", WorksheetId = 1 });
+
+            var search = apc.GetProductsEx(new Bll.Models.ProductSearchRequestDto() { Name = "Thickness", WorksheetId = 1, Value = "8" });
         }
     }
 }
