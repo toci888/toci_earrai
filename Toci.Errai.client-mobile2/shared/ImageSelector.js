@@ -3,7 +3,9 @@ export const imagesManager = {
     1: {
         url: require('./../assets/pltSheetPL.png')
     },
-
+    2: {
+        url: require('./../assets/pltSheetPLCHQ.png')
+    },
 
     7: {
         url: require('./../assets/mshMSH.png')
@@ -13,6 +15,9 @@ export const imagesManager = {
     },
     9: {
         url: require('./../assets/RHS_SHS.png')
+    },
+    10: {
+        url: require('./../assets/RHS_RHS.png')
     },
 
     11: {

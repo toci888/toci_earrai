@@ -139,7 +139,7 @@ export default function WorksheetsList({ route, navigation }) {
                 keyExtractor={ (item) => item.id.toString() }
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
-                    // <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                    // <TouchableOpacity onPress={ () => showWorksheets(item) }> // TODO
                     <View key={ item.id }
                     style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
 
@@ -153,7 +153,7 @@ export default function WorksheetsList({ route, navigation }) {
                                     if(!x) return
 
                                     return(
-                                        <View style={{flexDirection: 'row'}}>
+                                        <View style={{flexDirection: 'row'}} key={k}>
                                             <View style={{width: 40}}>
 
                                                 <Image

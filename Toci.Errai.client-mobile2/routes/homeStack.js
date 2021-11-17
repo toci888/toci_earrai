@@ -4,6 +4,10 @@ import ProductsList from '../screens/ProductsList'
 import WorksheetsList from '../screens/WorksheetsList'
 import Product from '../screens/Product/Product'
 import Register from '../screens/Auth/Register'
+import Header from '../shared/Header'
+import React from 'react'
+import ProductHeader from '../screens/Product/ProductHeader'
+import Login from './../screens/Auth/Login'
 
 const screens = {
     Login: {
@@ -16,14 +20,14 @@ const screens = {
     WorksheetsList: {
         screen: WorksheetsList,
         navigationOptions: {
-            title : "Worksheets List",
+            headerTitle: () => <Header title={'Worksheets List'}  />,
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
     ProductsList: {
         screen: ProductsList,
         navigationOptions: {
-            title : "", // TODO
+            headerTitle: () => <Header title={''}  />,
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
@@ -31,14 +35,14 @@ const screens = {
     Product: {
         screen: Product,
         navigationOptions: {
-            title : "Product",
+            headerTitle: () => <ProductHeader title={''}  />,
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
     Register: {
         screen: Register,
         navigationOptions: {
-            title : "Register",
+            headerTitle: () => <Header title={'Register'}  />,
             headerStyle: { backgroundColor: '#ccc' }
         }
     }
