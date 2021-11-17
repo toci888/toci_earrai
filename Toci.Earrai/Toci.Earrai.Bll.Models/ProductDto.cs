@@ -11,6 +11,8 @@ namespace Toci.Earrai.Bll.Models
     {
         public Product Product { get; set; }
 
+        public double Balance { get; set; }
+
         public List<Productsoptionsstate> Options { get; set; }
 
         public List<Productssize> Sizes { get; set; }
