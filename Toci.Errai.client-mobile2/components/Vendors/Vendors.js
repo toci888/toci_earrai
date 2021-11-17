@@ -4,7 +4,7 @@ import AppUser from '../../shared/AppUser'
 import Vendor_Inputs from './Vendors_Inputs'
 import { Vendors_Styles as vs } from './Vendors_Styles'
 
-export default function Vendors() {
+export default function Vendors(props) {
 
     const [QuotesAndPricesHook, setQuotesAndPricesHook] = useState([])
 
@@ -16,6 +16,7 @@ export default function Vendors() {
         const x = await AppUser.getAllQuotesAndPricesByProductId()
         console.log(x)
         setQuotesAndPricesHook(x)
+        props.updateCommisions()
     }
 
     return (
@@ -33,6 +34,9 @@ export default function Vendors() {
                     </View>
                     <View style={[vs.initialsV, vs.columnsColors]}>
                         <Text> {Object.keys(QuotesAndPricesHook[0])[9] } </Text>
+                    </View>
+                    <View style={[vs.dateV, vs.columnsColors]}>
+                        <Text> {/*Object.keys(QuotesAndPricesHook[0])[0] */} Date </Text>
                     </View>
                 </View>
             }
@@ -52,6 +56,9 @@ export default function Vendors() {
                         </View>
                         <View style={[vs.initialsV, vs.contentColors]}>
                             <Text> {v.initials} </Text>
+                        </View>
+                        <View style={[vs.dateV, vs.contentColors]}>
+                            <Text> {v.createdat.slice(0, 10)} </Text>
                         </View>
 
                     </View>

@@ -145,6 +145,13 @@ export default function Product({ route, navigation }) {
         })
     }
 
+    const updateCommisions = () => {
+        console.log("hehe")
+        setProduct(prev => {
+            return { ...prev }
+        })
+    }
+
 
     const clearInputs = () => {
         settempAreaquantityRow(prev => {
@@ -222,16 +229,25 @@ export default function Product({ route, navigation }) {
 
             <ProductPrices product={ProductHook} />
 
-            <Vendors />
+            <Vendors updateCommisions={updateCommisions} />
 
             <ProductSizes product={ProductHook} />
 
             <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
-            {
+            {/* {
                 ProductHook.product &&
                     <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne")?.price} />
-            }
+            } */}
+
+            {/* {
+                ProductHook?.prices &&
+                    <Product_Commisions
+                        productId={ProductHook.product?.id}
+                        price={ProductHook.prices[ProductHook.prices.length - 1].price}
+                        updateCommisions={updateCommisions}
+                    />
+            } */}
 
         </ScrollView>
     )

@@ -289,12 +289,16 @@ export default function ProductsList({ route, navigation }) {
 
                                         <TouchableOpacity onPress={ () => showProductDetails(index) }>
                                             <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
-                                                <Text style={ps.small}>{product.productaccountreference}</Text>
+                                                <Text style={ps.small}>{product.description}</Text>
                                             </View>
                                         </TouchableOpacity>
 
-                                        <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
+                                        {/* <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                             <Text style={ps.small}>{product.description}</Text>
+                                        </View> */}
+
+                                        <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}}>
+                                        <Text style={ps.small}>{product_.balance}</Text>
                                         </View>
 
                                     </View>
