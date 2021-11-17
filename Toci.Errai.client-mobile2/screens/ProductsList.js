@@ -16,6 +16,7 @@ import { Picker } from '@react-native-community/picker'
 import {
     createFilterDto,
     getAvailableTypeForWorksheet,
+    getTypesOfSearchForWorksheet,
     typesOfSearch
 } from './ProductsList_Config'
 import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
@@ -24,11 +25,10 @@ import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 let availableValues = []
 
 function dbNameReplacer(value_) {
-    if(value_.name == "DimA") value_.name = "SizeA";
-    if(value_.name == "DimB") value_.name = "SizeB";
-    if(value_.name == "OD") value_.name = "ChsOd";
+    if(value_.name == "DimA") value_.name = "SizeA"
+    if(value_.name == "DimB") value_.name = "SizeB"
+    if(value_.name == "OD") value_.name = "ChsOd"
     return value_
-
 }
 
 export default function ProductsList({ route, navigation }) {
@@ -46,7 +46,7 @@ export default function ProductsList({ route, navigation }) {
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         const worksheetId = navigation.getParam('worksheetId')
 
-        const selectedTypeIndex = getAvailableTypeForWorksheet(worksheetId)
+        const selectedTypeIndex = getAvailableTypeForWorksheet(worksheetId)[0]
         console.log(selectedTypeIndex)
         setSelectedFilterTypeIndexHook(selectedTypeIndex)
 
@@ -68,9 +68,9 @@ export default function ProductsList({ route, navigation }) {
         setloading(true)
         console.log(type_)
         const x = createFilterDto(navigation.getParam('worksheetId'), type_)
-        console.log(x)
+        const y = dbNameReplacer(x)
 
-        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(dbNameReplacer(x)))
+        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(y))
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -206,8 +206,11 @@ export default function ProductsList({ route, navigation }) {
                         selectedValue={typesOfSearch[SelectedFilterTypeIndexHook]}
                         onValueChange={(itemValue, index) => { selectType(itemValue, index) }}>
 
-                            { typesOfSearch.map( (item, index2) => {
-                                return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+                            { getTypesOfSearchForWorksheet(navigation.getParam('worksheetId'))
+                                .map( (item, index2) => {
+
+                                    return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
+
                             })}
 
                     </Picker>

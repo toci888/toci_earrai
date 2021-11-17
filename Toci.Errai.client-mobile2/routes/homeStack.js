@@ -3,7 +3,6 @@ import { createAppContainer } from 'react-navigation'
 import ProductsList from '../screens/ProductsList'
 import WorksheetsList from '../screens/WorksheetsList'
 import Product from '../screens/Product/Product'
-import Login from '../screens/Auth/Login'
 import Register from '../screens/Auth/Register'
 
 const screens = {
@@ -24,7 +23,7 @@ const screens = {
     ProductsList: {
         screen: ProductsList,
         navigationOptions: {
-            title : "Back to Worksheets",
+            title : "", // TODO
             headerStyle: { backgroundColor: '#ccc' }
         }
     },
