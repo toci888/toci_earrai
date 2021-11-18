@@ -130,13 +130,14 @@ export default function Vendor_Inputs(props) {
             </View>
 
             <View style={vI.okCont}>
-                {/* <TouchableOpacity onPress={sendRequest}> */}
-                    <View onClick={sendRequest} style={[vI.okFlex, vI.ok]}>
+                <TouchableOpacity onPress={sendRequest}>
+                {/* onClick={sendRequest} */}
+                    <View style={[vI.okFlex, vI.ok]}>
                         <Text style={vI.ok}>
                             OK
                         </Text>
                     </View>
-                {/* </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
 
         </View>
