@@ -31,24 +31,20 @@ export const Vendors_Styles = StyleSheet.create({
         backgroundColor: '#72b5b5',
     },
     VendorV: {
-        width: '30%',
+        width: '23%',
     },
     valuationV: {
-        width: '22%',
-    },
-    priceV: {
         width: '18%',
     },
+    priceV: {
+        width: '14%',
+    },
     initialsV: {
-        width: '25%',
+        width: '16%',
     },
-    createdatV: {
-        width: '45%',
+    dateV: {
+        width: '24%',
     },
-
-
-
-
 
 
 

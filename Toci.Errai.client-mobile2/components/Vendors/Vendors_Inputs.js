@@ -46,7 +46,7 @@ export default function Vendor_Inputs(props) {
         })
     }
 
-    const send = () => {
+    const sendRequest = () => {
 
         let logName, message
 
@@ -130,13 +130,13 @@ export default function Vendor_Inputs(props) {
             </View>
 
             <View style={vI.okCont}>
-                <TouchableOpacity onPress={ () => send()}>
-                    <View style={[vI.okFlex, vI.ok]}>
+                {/* <TouchableOpacity onPress={sendRequest}> */}
+                    <View onClick={sendRequest} style={[vI.okFlex, vI.ok]}>
                         <Text style={vI.ok}>
                             OK
                         </Text>
                     </View>
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
             </View>
 
         </View>

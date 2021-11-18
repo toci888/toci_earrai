@@ -5,6 +5,7 @@ export const typesOfSearch = [
     "Thickness",
     "Width",
     "OD",
+    "DIA",
 
 ]
 
@@ -17,7 +18,7 @@ const selectedIndexOfTypeOfSearchForWorksheet = {
     6: [0, 1, 2, 3, 4],  // chanBms  ??
     7: [0, 1, 2, 3, 4],
     8: [4],
-    9: [0, 1], // TODO whatsupp
+    9: [0, 1, 2, 3, 4, 5], // TODO whatsupp
 }
 
 export function getAvailableTypeForWorksheet(worksheetId) {

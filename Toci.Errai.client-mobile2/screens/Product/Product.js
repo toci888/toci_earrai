@@ -18,6 +18,7 @@ import  Product_Commisions  from './../../components/Product_Commisions'
 export default function Product({ route, navigation }) {
 
     const [ProductHook, setProduct] = useState([])
+    const [QuotesAndPricesHook, setQuotesAndPricesHook] = useState([])
     const [SnackHook, setSnack] = useState({
         type: null,
         message: "",
@@ -145,7 +146,6 @@ export default function Product({ route, navigation }) {
         })
     }
 
-
     const clearInputs = () => {
         settempAreaquantityRow(prev => {
             return {...prev,
@@ -222,15 +222,25 @@ export default function Product({ route, navigation }) {
 
             <ProductPrices product={ProductHook} />
 
-            <Vendors />
+            {
+                ProductHook?.prices &&
+                    <Vendors
+                        setQuotesAndPricesHook={setQuotesAndPricesHook}
+                        QuotesAndPricesHook={QuotesAndPricesHook}
+                        productHook={ProductHook}
+                        setProduct={setProduct}
+                    />
+            }
 
             <ProductSizes product={ProductHook} />
 
             <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
             {
-                ProductHook.product &&
-                    <Product_Commisions productId={ProductHook.product?.id}  price={ProductHook.prices?.find(v => v.name == "PoundsPerTonne")?.price} />
+                QuotesAndPricesHook.length > 0 &&
+                    <Product_Commisions
+                        QuotesAndPricesHook={QuotesAndPricesHook}
+                    />
             }
 
         </ScrollView>
