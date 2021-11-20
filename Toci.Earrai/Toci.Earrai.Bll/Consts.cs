@@ -13,5 +13,7 @@ namespace Toci.Earrai.Bll
         public const string DimB = "SizeB";
         public const string Width = "Width";
         public const string Od = "ChsOd";
+        public const string Type = "Type";
+        public const string Metric = "Metric";
     }
 }

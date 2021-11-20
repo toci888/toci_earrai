@@ -12,8 +12,9 @@ namespace Toci.Earrai.Bll.Search
     {
         protected Logic<Product> ProductLogic = new Logic<Product>();
         protected Logic<Productsoptionsstate> ProductOptionsLogic = new Logic<Productsoptionsstate>();
-        protected Logic<Productssize> ProductSizesLogic = new Logic<Productssize>(); 
-
+        protected Logic<Productssize> ProductSizesLogic = new Logic<Productssize>();
+        protected Logic<Areasquantity> AreasquantityLogic = new Logic<Areasquantity>();
+        
         public abstract List<ProductSearchResponseDto> Search(ProductSearchRequestDto request);
 
         protected virtual List<Product> GetProductsBasic(ProductSearchRequestDto request)
@@ -71,10 +72,27 @@ namespace Toci.Earrai.Bll.Search
 
             foreach (Product item in items)
             {
-                result.Add(new ProductSearchResponseDto() { Product = item });
+                result.Add(new ProductSearchResponseDto() { Product = item, Balance = GetBalance(item.Id) });
             }
 
             return result;
+        }
+
+        protected virtual double GetBalance(int productId)
+        {
+            List<Areasquantity> areasquantities = AreasquantityLogic.Select(m => m.Idproducts == productId).ToList();
+            double balance = 0;
+
+            foreach (Areasquantity item in areasquantities)
+            {
+                double x = 0;
+
+                double.TryParse(item.Quantity, out x);
+
+                balance += x;
+            }
+
+            return balance;
         }
 
         protected virtual List<Product> FilterBySearchQuery(ProductSearchRequestDto request, List<Product> result)
