@@ -169,17 +169,17 @@ export default function WorksheetsList({ route, navigation }) {
 
                         </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => showWorksheets(item) }>
-                        <View  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-
+                        
+                        <View onClick={ () => showWorksheets(item) } style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                        {/* <TouchableOpacity onPress={ () => showWorksheets(item) }> */}
                            <View>
                                 <Text style={ [worksheetsList.listText], {fontSize: 16} }>
                                         { item.sheetname }
                                     </Text>
                             </View>
 
+                        {/* </TouchableOpacity> */}
                         </View>
-                        </TouchableOpacity>
                     </View>
 
 
