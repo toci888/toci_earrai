@@ -24,6 +24,8 @@ import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 
 let availableValues = []
 
+let filteredValues = []
+
 function dbNameReplacer(value_) {
     if(value_.name == "DimA") value_.name = "SizeA"
     if(value_.name == "DimB") value_.name = "SizeB"
@@ -75,6 +77,7 @@ export default function ProductsList({ route, navigation }) {
         .then(response => {
             console.log(response)
             availableValues = response
+            filteredValues = response
 
         }).catch(error => {
             console.log(error)
@@ -92,7 +95,7 @@ export default function ProductsList({ route, navigation }) {
         const x = createFilterDto(
             navigation.getParam('worksheetId'),
             selectedTypeOfSearch,
-            availableValues[SelectedFilteredIndexHook],
+            filteredValues[SelectedFilteredIndexHook],
             //skipCounter
         )
 
@@ -145,7 +148,17 @@ export default function ProductsList({ route, navigation }) {
     }
 
     const setFilterText = (text_) => {
+
+        filteredValues = availableValues.filter( (v, k) => {
+
+            let x = v.includes(text_)
+            console.log(x)
+            return x
+
+        })
+        console.log(filteredValues)
         setfilteredValue(prev => {return text_})
+
     }
 
     const reloadApp = () => {
@@ -222,17 +235,17 @@ export default function ProductsList({ route, navigation }) {
 
                 <View style={{width: '30%'}}>
                     <Pressable style={[plis.filterByLabel, {height: 50}]}>
-                        <Text style={plis.filterByLabelText}>Values :</Text>
+                        <Text style={plis.filterByLabelText}>Values({filteredValues.length}) : </Text>
                     </Pressable>
                 </View>
 
                 <View style={{width: '70%'}}>
                     <Picker
                         style={aqis.ComboPicker}
-                        selectedValue={availableValues[SelectedFilteredIndexHook]}
+                        selectedValue={filteredValues[SelectedFilteredIndexHook]}
                         onValueChange={(itemValue, index) => { selectValue(index) }}>
 
-                            { availableValues.map( (item, index2) => {
+                            { filteredValues.map( (item, index2) => {
                                 return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
                             })}
 
@@ -246,7 +259,7 @@ export default function ProductsList({ route, navigation }) {
                     value={filteredValue}
                     style={ps.filterInput}
                     onChangeText={(text) => setFilterText(text)}
-                    placeholder="Filter by text or leave empty.."
+                    placeholder="Filter available values.."
                 />
                 <View style={ps.filterButtonView}>
                     <Pressable style={ps.filterButton} onPress={filterContent}>

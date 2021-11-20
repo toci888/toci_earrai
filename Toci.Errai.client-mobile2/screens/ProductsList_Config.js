@@ -6,7 +6,8 @@ export const typesOfSearch = [
     "Width",
     "OD",
     "DIA",
-
+    "Type",
+    "Metric",
 ]
 
 const selectedIndexOfTypeOfSearchForWorksheet = {
@@ -15,7 +16,7 @@ const selectedIndexOfTypeOfSearchForWorksheet = {
     3: [0, 1],
     4: [3], // flts ??
     5: [0, 1], // ??
-    6: [0, 1, 2, 3, 4],  // chanBms  ??
+    6: [6, 7],
     7: [0, 1, 2, 3, 4],
     8: [4],
     9: [0, 1, 2, 3, 4, 5], // TODO whatsupp

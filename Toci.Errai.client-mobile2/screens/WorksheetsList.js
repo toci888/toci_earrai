@@ -140,9 +140,9 @@ export default function WorksheetsList({ route, navigation }) {
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
 
+
                     <View key={ item.id }
-                    style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
-                        <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                            style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
                         <View  style={{width: '50%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
 
                             {
@@ -153,7 +153,7 @@ export default function WorksheetsList({ route, navigation }) {
                                     if(!x) return
 
                                     return(
-                                        <View style={{flexDirection: 'row'}} key={k}>
+                                        <View style={{flexDirection: 'row'}} key={k}><TouchableOpacity onPress={ () => showWorksheets(item) }>
                                             <View style={{width: 40}}>
 
                                                 <Image
@@ -162,15 +162,15 @@ export default function WorksheetsList({ route, navigation }) {
                                                 />
 
                                             </View>
-                                        </View>
+                                            </TouchableOpacity></View>
                                     )
                                 })
                             }
 
+
                         </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => showWorksheets(item) }>
-                        <View  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                        <View onClick={ () => showWorksheets(item) }  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+
 
                            <View>
                                 <Text style={ [worksheetsList.listText], {fontSize: 16} }>
@@ -179,8 +179,8 @@ export default function WorksheetsList({ route, navigation }) {
                             </View>
 
                         </View>
-                        </TouchableOpacity>
                     </View>
+
 
 
                 )}
