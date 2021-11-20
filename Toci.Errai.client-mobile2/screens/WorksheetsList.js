@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput, Image } from 'react-native'
 import { modalStyles } from '../styles/modalStyles'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 import { imagesManager } from '../shared/ImageSelector'
@@ -139,11 +139,11 @@ export default function WorksheetsList({ route, navigation }) {
                 keyExtractor={ (item) => item.id.toString() }
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
-                    // <TouchableOpacity onPress={ () => showWorksheets(item) }> // TODO
+
                     <View key={ item.id }
                     style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
-
-                        <View style={{width: '50%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                        <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                        <View  style={{width: '50%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
 
                             {
                                 imagesForWorksheet[item.id].map((v,k) => {
@@ -168,19 +168,20 @@ export default function WorksheetsList({ route, navigation }) {
                             }
 
                         </View>
-
-                        <View style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                        <View  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
 
                            <View>
-                                <Text onPress={ () => showWorksheets(item) } style={ [worksheetsList.listText], {fontSize: 16} }>
+                                <Text style={ [worksheetsList.listText], {fontSize: 16} }>
                                         { item.sheetname }
                                     </Text>
                             </View>
 
-                            </View>
-
+                        </View>
+                        </TouchableOpacity>
                     </View>
-                    // </TouchableOpacity>
+
 
                 )}
             />
