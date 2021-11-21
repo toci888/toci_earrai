@@ -8,6 +8,8 @@
         ChsOd = 4,
         ChsBore = 5,
         Type = 6,
-        Dia = 7
+        Dia = 7,
+        Id = 8,
+        ProductCodeShort = 9
     }
 }

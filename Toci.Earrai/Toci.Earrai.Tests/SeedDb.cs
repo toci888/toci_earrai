@@ -440,13 +440,16 @@ CON".Split("\n", StringSplitOptions.None);
         {
             // TODO, set proper names and codes
 
-            ProductOption.Insert(new Productoption() { Code = "SizeMetric", Name = "SizeMetric" });
+            ProductOption.Insert(new Productoption() { Code = "SizeMetric", Name = "Metric" });
             ProductOption.Insert(new Productoption() { Code = "SheetSize", Name = "SheetSize" });
             ProductOption.Insert(new Productoption() { Code = "KgM", Name = "KgM" });
             ProductOption.Insert(new Productoption() { Code = "ChsOd", Name = "ChsOd" });
             ProductOption.Insert(new Productoption() { Code = "ChsBore", Name = "ChsBore" });
             ProductOption.Insert(new Productoption() { Code = "Type", Name = "Type" });
             ProductOption.Insert(new Productoption() { Code = "Dia", Name = "Dia" });
+            ProductOption.Insert(new Productoption() { Code = "Id", Name = "Id" });
+            ProductOption.Insert(new Productoption() { Code = "ProductCodeShort", Name = "Product Code Short" });
+
 
         }
 

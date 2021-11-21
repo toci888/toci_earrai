@@ -37,6 +37,8 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportOptions(List<string> row, int productId)
         {
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[3] });
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SizeMetric, Value = row[4] });
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM, Value = row[5] });
         }
 

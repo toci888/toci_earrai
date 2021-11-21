@@ -40,6 +40,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected override void ImportOptions(List<string> row, int productId)
         {
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.ProductCodeShort, Value = row[3] });
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[4] });
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SheetSize, Value = row[5] });
         }

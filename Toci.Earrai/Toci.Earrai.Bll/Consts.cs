@@ -15,5 +15,7 @@ namespace Toci.Earrai.Bll
         public const string Od = "ChsOd";
         public const string Type = "Type";
         public const string Metric = "Metric";
+        public const string Id = "Id";
+        public const string Pcs = "Product Code Short";
     }
 }
