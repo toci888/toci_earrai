@@ -5,9 +5,12 @@ export const typesOfSearch = [
     "Thickness",
     "Width",
     "OD",
-    "DIA",
+    "DIA", // idx 5
     "Type",
-    "Metric"
+    "Metric",
+    "Id",
+    "Product Code Short",
+    "Description", // idx 10
 ]
 
 const selectedIndexOfTypeOfSearchForWorksheet = {
@@ -17,14 +20,14 @@ const selectedIndexOfTypeOfSearchForWorksheet = {
     4: [3], // flts ??
     5: [0, 1], // ??
     6: [6, 7],
-    7: [0, 1, 2, 3, 4],
+    7: [6, 9, 10],
     8: [4],
-    9: [0, 1, 2, 3, 4, 5], // TODO whatsupp
+    9: [4, 9], // TODO whatsupp
 }
 
 export function getAvailableTypeForWorksheet(worksheetId) {
     const x = selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
-    console.log(x);
+    //console.log(x);
     return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
@@ -45,10 +48,10 @@ export function createFilterDto(worksheetId_, type_, value_) {
 export function getTypesOfSearchForWorksheet(worksheetId_) {
     let response = typesOfSearch.filter( (item, index) => {
         let x = getAvailableTypeForWorksheet(worksheetId_)
-        console.log(x);
+        //console.log(x);
         return x.includes(index)
     })
-console.log(response);
+//console.log(response);
     return response
 }
 
