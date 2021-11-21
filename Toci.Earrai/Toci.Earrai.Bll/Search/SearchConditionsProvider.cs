@@ -14,11 +14,13 @@ namespace Toci.Earrai.Bll.Search
         protected Dictionary<List<string>, Func<SearchConditionsProvider, int, string, List<string>>> SearchMap = new Dictionary<List<string>, Func<SearchConditionsProvider, int, string, List<string>>>()
         {
             { new List<string> () { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs }, (self, worksheetId, option) => self.GetFiltersOptions(worksheetId, option) },
-            { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) }
+            { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) },
+            { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) }
         };
 
         protected Logic<Productsizesearch> SizeSearchLogic = new Logic<Productsizesearch>();
         protected Logic<Productoptionsearch> OptionsSearchLogic = new Logic<Productoptionsearch>();
+        protected Logic<Product> ProductSearchLogic = new Logic<Product>();
 
         public virtual List<string> GetFilters(int worksheetId, string option)
         {
@@ -61,6 +63,12 @@ namespace Toci.Earrai.Bll.Search
             
 
             return result.OrderBy(m => m).ToList();
+        }
+
+        protected virtual List<string> GetFiltersProducts(int worksheetId, string option)
+        {
+            // TODO option potential recognition for now always description
+            return ProductSearchLogic.Select(p => p.Idworksheet == worksheetId).Distinct(new ProductEqualityComparer()).Select(m => m.Description).OrderBy(m => m).ToList();
         }
     }
 }

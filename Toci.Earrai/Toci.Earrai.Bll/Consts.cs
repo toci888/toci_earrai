@@ -17,5 +17,6 @@ namespace Toci.Earrai.Bll
         public const string Metric = "Metric";
         public const string Id = "Id";
         public const string Pcs = "Product Code Short";
+        public const string Description = "Description";
     }
 }

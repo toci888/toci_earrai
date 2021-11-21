@@ -26,7 +26,8 @@ namespace Toci.Earrai.Bll.Search
             { Consts.DimB, new DimenstionABProductSearch() },
             { Consts.Od, new OdProductSearch() },
             { Consts.Thickness, new ThicknessProductSearch() },
-            { Consts.Width, new WidthProductSearch() }
+            { Consts.Width, new WidthProductSearch() },
+            { Consts.Description, new DescriptionProductSearch() }
         };
 
         public virtual List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
