@@ -43,24 +43,21 @@ export default function ProductsList({ route, navigation }) {
     const [nomoredata, setNomoredata] = useState(false)
     const [SelectedFilterTypeIndexHook, setSelectedFilterTypeIndexHook] = useState(0)
     const [SelectedFilteredIndexHook, setSelectedFilteredIndexHook] = useState(0)
+    const [availableTypesOfSearch, setAvailableTypesOfSearch] = useState([])
 
     useEffect(() => {
+
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         const worksheetId = navigation.getParam('worksheetId')
 
-        const selectedTypeIndex = getAvailableTypeForWorksheet(worksheetId)[0]
-        console.log(selectedTypeIndex)
+        const a = getTypesOfSearchForWorksheet(navigation.getParam('worksheetId'))
+        setAvailableTypesOfSearch(a)
+
+        const x2 = getAvailableTypeForWorksheet(worksheetId)
+
+        const selectedTypeIndex = x2[0]
+
         setSelectedFilterTypeIndexHook(selectedTypeIndex)
-
-        const x = typesOfSearch[selectedTypeIndex]
-
-        getAvailableValuesForSelectedType(x)
-
-
-
-
-        //setProductsListHook(productsList)
-        //searchForData()
 
     }, [])
 
@@ -90,28 +87,23 @@ export default function ProductsList({ route, navigation }) {
     const searchForData = () => {
         setloading(true)
 
-        const selectedTypeOfSearch = typesOfSearch[SelectedFilterTypeIndexHook]
+        const selectedTypeOfSearch = availableTypesOfSearch[SelectedFilterTypeIndexHook]
 
         const x = createFilterDto(
             navigation.getParam('worksheetId'),
             selectedTypeOfSearch,
             filteredValues[SelectedFilteredIndexHook],
-            //skipCounter
         )
-
-        console.log(x)
 
         fetch(getProductsEx, PostRequestParams(dbNameReplacer(x)))
         .then(response => response.json())
         .then(response => {
-            console.log(response)
 
             if(response.length == 0) {
                 setNomoredata(true)
                 return
             }
 
-            //setSkipCounter(prev => prev + 1)
             setProductsListHook(prev => {
                 return [...prev, ...response]
             })
@@ -119,16 +111,10 @@ export default function ProductsList({ route, navigation }) {
 
         }).catch(error => {
             console.log(error)
-            console.log("NIET")
         }).finally(() => {
             setloading(false)
         })
     }
-
-    // const loadMore = () => {
-    //     const toFilter = (filteredValue == "") ? "empty" : filteredValue
-    //     if(!nomoredata) searchForData(toFilter, skipCounter)
-    // }
 
     const showProductDetails = (index_) => {
         console.log(ProductsListHook[index_].product)
@@ -142,7 +128,6 @@ export default function ProductsList({ route, navigation }) {
     const filterContent = () => {
         setProductsListHook(prev => {return []})
         setNomoredata(prev => {return false})
-        //setSkipCounter(prev => {return 0})
 
         searchForData(filteredValue, 0)
     }
@@ -152,7 +137,6 @@ export default function ProductsList({ route, navigation }) {
         filteredValues = availableValues.filter( (v, k) => {
 
             let x = v.includes(text_)
-            console.log(x)
             return x
 
         })
@@ -216,11 +200,10 @@ export default function ProductsList({ route, navigation }) {
                     <Picker
                         selectedValue="Choose"
                         style={aqis.ComboPicker}
-                        selectedValue={typesOfSearch[SelectedFilterTypeIndexHook]}
+                        selectedValue={availableTypesOfSearch[SelectedFilterTypeIndexHook]}
                         onValueChange={(itemValue, index) => { selectType(itemValue, index) }}>
 
-                            { getTypesOfSearchForWorksheet(navigation.getParam('worksheetId'))
-                                .map( (item, index2) => {
+                            { availableTypesOfSearch.map( (item, index2) => {
 
                                     return <Picker.Item style={aqis.CombiItem} key={index2} label={item} value={item} />
 
