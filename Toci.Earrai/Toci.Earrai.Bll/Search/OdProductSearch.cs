@@ -10,13 +10,14 @@ namespace Toci.Earrai.Bll.Search
 {
     public class OdProductSearch : SearchProductBase
     {
-        public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        protected List<string> Options = new List<string>() { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs   };
+    public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
         {
             List<Product> result = new List<Product>();
             //od ....
-            if (request.Name == Consts.Od)
+            if (Options.IndexOf(request.Name) > -1)
             {
-                List<Productsoptionsstate> elements = GetOptions(Consts.Od, request.Value);
+                List<Productsoptionsstate> elements = GetOptions(request.Name, request.Value);
                 result = FilterResultsOptionsWorksheet(request, elements);
             }
 
