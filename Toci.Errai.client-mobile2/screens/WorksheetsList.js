@@ -173,9 +173,11 @@ export default function WorksheetsList({ route, navigation }) {
 
 
                            <View>
+                           <TouchableOpacity onPress={ () => showWorksheets(item) }>
                                 <Text style={ [worksheetsList.listText], {fontSize: 16} }>
                                         { item.sheetname }
                                     </Text>
+                            </TouchableOpacity>
                             </View>
 
                         {/* </TouchableOpacity> */}
