@@ -25,6 +25,10 @@ namespace Toci.Earrai.Bll.Search
             { Consts.DimA, new DimenstionABProductSearch() },
             { Consts.DimB, new DimenstionABProductSearch() },
             { Consts.Od, new OdProductSearch() },
+            { Consts.Type, new OdProductSearch() },
+            { Consts.Metric, new OdProductSearch() },
+            { Consts.Pcs, new OdProductSearch() },
+            { Consts.Id, new OdProductSearch() },
             { Consts.Thickness, new ThicknessProductSearch() },
             { Consts.Width, new WidthProductSearch() },
             { Consts.Description, new DescriptionProductSearch() }
