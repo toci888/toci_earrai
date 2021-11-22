@@ -153,7 +153,7 @@ export default function WorksheetsList({ route, navigation }) {
                                     if(!x) return
 
                                     return(
-                                        <View style={{flexDirection: 'row'}} key={k}><TouchableOpacity onPress={ () => showWorksheets(item) }>
+                                        <View onClick={ () => showWorksheets(item) } style={{flexDirection: 'row'}} key={k}>
                                             <View style={{width: 40}}>
 
                                                 <Image
@@ -162,7 +162,7 @@ export default function WorksheetsList({ route, navigation }) {
                                                 />
 
                                             </View>
-                                            </TouchableOpacity></View>
+                                            </View>
                                     )
                                 })
                             }

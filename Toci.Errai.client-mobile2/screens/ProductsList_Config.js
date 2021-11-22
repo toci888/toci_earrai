@@ -27,7 +27,7 @@ const selectedIndexOfTypeOfSearchForWorksheet = {
 
 export function getAvailableTypeForWorksheet(worksheetId) {
     const x = selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
-    //console.log(x);
+    console.log(x);
     return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
@@ -51,7 +51,7 @@ export function getTypesOfSearchForWorksheet(worksheetId_) {
         //console.log(x);
         return x.includes(index)
     })
-//console.log(response);
+    console.log(response)
     return response
 }
 
