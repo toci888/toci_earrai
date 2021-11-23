@@ -98,7 +98,7 @@ namespace Toci.Earrai.Ui
             this.excelDataGrid.Location = new System.Drawing.Point(32, 88);
             this.excelDataGrid.Name = "excelDataGrid";
             this.excelDataGrid.RowTemplate.Height = 25;
-            this.excelDataGrid.Size = new System.Drawing.Size(478, 207);
+            this.excelDataGrid.Size = new System.Drawing.Size(800, 207);
             this.excelDataGrid.TabIndex = 5;
             this.excelDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellClick);
             this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);

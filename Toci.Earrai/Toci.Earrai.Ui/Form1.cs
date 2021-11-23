@@ -71,17 +71,36 @@ namespace Toci.Earrai.Ui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<ProductDto> tempUsers = Dm.GetProducts(1, "", "");
+            List<ProductDto> tempUsers = Dm.GetProducts(6, "", "");
             FlattenManager fm = new FlattenManager();
 
             List<FlattenedEntity> result =  fm.FlattenProduct(tempUsers[0]);
-
+            List<List<FlattenedEntity>> tyest = new List<List<FlattenedEntity>>()
+            {
+                result
+            };
             //excelDataGrid.BindingContext = new 
-            //excelDataGrid.DataSource = tempUsers;
+            //excelDataGrid.DataSource = tyest;
+            bind(tyest);
             excelDataGrid.DataSourceChanged += ExcelDataGrid_DataSourceChanged; // Refresh();
 
-            FillExcelGrid(tempUsers);
+            //FillExcelGrid(tempUsers);
 
+
+        }
+
+        private void bind(List<List<FlattenedEntity>> items)
+        {
+            foreach (var item in items)
+            {
+
+                foreach (FlattenedEntity element in item)
+                {
+                    excelDataGrid.Columns.Add(element.Name, element.Name);
+                }
+
+                excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
+            }
 
         }
 
