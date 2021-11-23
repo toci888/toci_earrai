@@ -17,7 +17,7 @@ namespace Toci.Earrai.Bll
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
 
-        public ProductDto GetProduct(int productId)
+        public virtual ProductDto GetProduct(int productId)
         {
             ProductDto result = new ProductDto();
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
@@ -29,6 +29,20 @@ namespace Toci.Earrai.Bll
             PriceExecutor priceExec = new PriceExecutor(result);
 
             result.Pricing = priceExec.getPrices();
+
+            return result;
+        }
+
+        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
+        {
+            List<ProductDto> result = new List<ProductDto>();
+
+            List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
+
+            foreach (Product item in products)
+            {
+                result.Add(GetProduct(item.Id));
+            }
 
             return result;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
@@ -16,6 +17,13 @@ namespace Toci.Earrai.Ui
         public DataManager()
         {
             
+        }
+
+        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
+        {
+            //ApiProxy
+
+            return new ProductLogic().GetProducts(worksheetId, fieldName, fieldValue); 
         }
 
         public virtual ProductDto GetProduct(int productId)
