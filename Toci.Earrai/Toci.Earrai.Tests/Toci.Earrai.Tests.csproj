@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.4.1" />
-    <PackageReference Include="CData.ExcelServices" Version="21.0.7867" />
+    <PackageReference Include="ExcelDataReader" Version="2.1.2.3" />
     <PackageReference Include="IdentityModel" Version="5.1.0" />
+    <PackageReference Include="IronXL.Excel" Version="2021.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
