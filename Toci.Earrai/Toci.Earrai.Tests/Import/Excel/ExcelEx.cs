@@ -1,4 +1,5 @@
 ﻿//using ExcelDataReader;
+using ExcelDataReader;
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,19 @@ namespace Toci.Earrai.Tests.Import.Excel
         {
             Dictionary<string, Dictionary<string, List<List<string>>>> result = new Dictionary<string, Dictionary<string, List<List<string>>>>();
 
-            //var rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream("3184 GEng_Stock_Version Dated 2021-11-26.xlsx", FileMode.Open));
-            //Excel.ExcelClient ex = new ExcelClient();
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            //rdr.d
+                var rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream("D:\\GEng_Stock_Version LIVE.xlsx", FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") } );
+                //Excel.ExcelClient ex = new ExcelClient();
+
+                DataSet ds = rdr.AsDataSet();
+            }
+            catch (Exception ex)
+            {
+                
+            }
 
             
            // IronXL.WorkBook workBook = new IronXL.WorkBook(new FileStream(@"d:\3184 GEng_Stock_Version Dated 2021-11-26.xlsx", FileMode.Open));

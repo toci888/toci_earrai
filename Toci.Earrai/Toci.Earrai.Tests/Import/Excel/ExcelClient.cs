@@ -31,7 +31,7 @@ namespace Toci.Earrai.Tests.Import.Excel
 
         public ExcelClient()
         {
-            authProvider = new DeviceCodeAuthProvider();
+            /*authProvider = new DeviceCodeAuthProvider();
             graphClient = new GraphServiceClient(authProvider);
 
             IDriveItemChildrenCollectionPage workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
@@ -42,7 +42,7 @@ namespace Toci.Earrai.Tests.Import.Excel
                 Ids.Add(workbookfile.Id);
             }
 
-            fileId = Ids[3];
+            fileId = Ids[3];*/
         }
 
         public virtual Dictionary<string, WorkbookRange> RequestWorkbooks()
