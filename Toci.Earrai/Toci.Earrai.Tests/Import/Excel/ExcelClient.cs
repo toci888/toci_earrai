@@ -47,23 +47,20 @@ namespace Toci.Earrai.Tests.Import.Excel
 
         public virtual Dictionary<string, WorkbookRange> RequestWorkbooks()
         {
-            Dictionary<string, WorkbookRange> result = new Dictionary<string, WorkbookRange>();
+            Dictionary<string, List<List<string>>> result = new Dictionary<string, List<List<string>>>();
 
             foreach (KeyValuePair<string, string> item in WorkbookMap)
             {
                 var readSheet = graphClient.Me.Drive.Items[fileId].Workbook.Worksheets[item.Key];
                 WorkbookRange range = readSheet.Range(item.Value).Request().GetAsync().Result;
 
-                result.Add(item.Key, range);
+                //result.Add(item.Key, range);
             }
 
             impMan.EntireImport(result);
 
-            return result;
+            return null;
         }
 
-        public void hehe() {
-
-        }
     }
 }

@@ -8,15 +8,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common.Bll.Extensibility;
 
 namespace Toci.Earrai.Tests.Import.Excel
 {
     public class ExcelEx : ExcelClient
     {
-        public virtual Dictionary<string, Dictionary<string, List<List<string>>>> RequestWorkbooksEx()
+        public virtual Dictionary<string, List<List<string>>> RequestWorkbooksEx()
         {
-            Dictionary<string, Dictionary<string, List<List<string>>>> result = new Dictionary<string, Dictionary<string, List<List<string>>>>();
-
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -25,17 +24,21 @@ namespace Toci.Earrai.Tests.Import.Excel
                 //Excel.ExcelClient ex = new ExcelClient();
 
                 DataSet ds = rdr.AsDataSet();
+
+                //ds.Tables[0].Rows[0].
+
+                Dictionary<string, List<List<string>>>  result = ds.AsDictionary();
+
+                impMan.EntireImport(result);
+
+                return result;
             }
             catch (Exception ex)
             {
-                
+                return null;
             }
 
-            
-           // IronXL.WorkBook workBook = new IronXL.WorkBook(new FileStream(@"d:\3184 GEng_Stock_Version Dated 2021-11-26.xlsx", FileMode.Open));
-           //DataSet ds = workBook.ToDataSet();
 
-            return result;
         }
     }
 }
