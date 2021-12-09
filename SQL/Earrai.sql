@@ -8,11 +8,11 @@ drop view QuotesAndPrices;
 
 drop table rolesaction;
 drop table actions;
-drop table productsize;
+drop table productsize cascade;
 drop table sizecategories;
 drop table sizes; 
 drop table quoteandprice;
-drop table productoptionvalues;
+drop table productoptionvalues cascade;
 drop table productcategoryoptions;
 drop table productoptions;
 drop table areaquantity;

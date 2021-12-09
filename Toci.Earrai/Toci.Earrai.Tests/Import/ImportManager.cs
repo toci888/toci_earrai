@@ -14,7 +14,7 @@ namespace Toci.Earrai.Tests.Import
 
         protected Dictionary<string, ImportBase> Imports = new Dictionary<string, ImportBase>()
         {
-            { "PLT & SHEET", new PltSheetImport() },
+            { "PLT & SHEET Patsy", new PltSheetImport() },
             { "Alum", new AlumImport() },
             { "Msh & Exp.Metal", new MshExpMetal() },
             { "Chan & Bms", new ChanBms() },
