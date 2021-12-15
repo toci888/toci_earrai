@@ -66,5 +66,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.GetWorksheets();
         }
+
+        public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
+        {
+            return ApiProxy.GetProductsByWorksheetId(worksheetId);
+        }
     }
 }
