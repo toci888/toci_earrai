@@ -91,9 +91,9 @@ namespace Toci.Earrai.Tests
         [TestMethod]
         public void newImport() {
 
-            ExcelClient client1 = new ExcelClient();
+            ExcelEx client1 = new ExcelEx();
 
-            client1.RequestWorkbooks();
+            client1.RequestWorkbooksEx();
 
             //Logic<Quoteandprice> quotesAndPrice = new Logic<Quoteandprice>();
 

@@ -22,22 +22,15 @@ namespace Toci.Earrai.Tests.Import
 
         // lodziki
 
-        public virtual void ImportProduct(string worksheet, WorkbookRange range) // row? 
+        public virtual void ImportProduct(string worksheet, List<List<string>> rows) // row? 
         {
-            // extract product basic data and insert row
-            List<string> rows = range.Values.RootElement.ToString()
-                        .Replace("[[", "")
-                        .Split("],[").ToList();
-
             Worksheet newSheet = WorksheetLogic.Insert(new Worksheet() { Sheetname = worksheet });
 
 
             Dictionary<string, Category> categories = CategoriesProvider.GetCategories();
 
-            foreach (string row in rows)
+            foreach (List<string> productItem in rows)
             {
-                List<string> productItem = row.Split(",").ToList();
-
                 string productCategory = productItem[categoryIndexColumn].Replace("\"", "").Replace("\"", "");
 
                 for (int i = 0; i < productItem.Count; i++)

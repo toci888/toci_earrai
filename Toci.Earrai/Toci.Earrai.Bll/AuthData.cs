@@ -11,24 +11,24 @@ namespace Toci.Earrai.Bll
     {
         public static string GetAppId()
         {
-            return "98a98443-1860-405d-9277-b8bccba724f7";
+            return "431aa131-7ff7-4aee-8c9c-e2f1a36cb55c";
         }
 
         public static string GetTenantId()
         {
-            return "e9d3c2b0-cc05-41fa-9f46-7b9377d1a294";
-        }
+            return "f9b56296-c8eb-46ed-81e1-5483cb395754";
+        } //ea844b49-bd9a-442f-a46e-8eabe9eaa08a
 
         public static string GetUserName()
         {
-            return "bzapart@tocizapart.onmicrosoft.com";
+            return "Earrai@gormleysengineering.com"; //
         }
 
         public static SecureString GetPassword()
         {
             SecureString password = new SecureString();
 
-            string pass = "Beatka911";
+            string pass = "Duvo5755";
 
             for (int i = 0; i < pass.Length; i++)
             {
@@ -40,9 +40,9 @@ namespace Toci.Earrai.Bll
 
         public static string[] GetScopes()
         {
-            return new[] { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
-            "https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
-            "https://graph.microsoft.com/Sites.ReadWrite.All" };
+            return new string[] { }; // { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
+            //"https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
+            //"https://graph.microsoft.com/Sites.ReadWrite.All" };
         }
     }
 }

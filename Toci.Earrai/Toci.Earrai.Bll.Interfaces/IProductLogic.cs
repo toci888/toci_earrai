@@ -13,6 +13,6 @@ namespace Toci.Earrai.Bll.Interfaces
     {
         ProductDto GetProduct(int productId);
 
-        List<Product> GetProductsByWorksheet(int worksheetId, string phrase, int skip);
+        List<ProductDto> GetProductsByWorksheet(int worksheetId);
     }
 }

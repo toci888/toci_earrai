@@ -5,6 +5,7 @@ import { formStyles } from '../../styles/formStyles';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
+import { environment } from '../../environment';
 import ErrorEntity  from '../../ErrorHandling/ErrorEntity';
 
 export default function Login({navigation}) {
@@ -29,7 +30,7 @@ export default function Login({navigation}) {
   const login = async (values) => {
     setIndicator(true);
     let restClient = new RestClient();
-
+    navigation.navigate('WorksheetsList');
     try {
       let response = await restClient.POST('api/Account/login', values);
       console.log("RESPONSE: " + response);
@@ -47,8 +48,8 @@ export default function Login({navigation}) {
         console.log("Log in ERROR NIe wiadomo jaki")
       }
     } catch(e) {
-      Alert.alert("Server error", "The server is probably down.");
-      console.log("The server is probably down ");
+      Alert.alert("Server error",  environment.apiUrl + "The server is probably down.");
+      console.log("The server is probably down " + environment.apiUrl);
     } finally {
       setIndicator(false);
     }
@@ -57,8 +58,8 @@ export default function Login({navigation}) {
 
   return (
     <Formik initialValues={{
-      email: 'tom123@wp.pl',
-      password: 'tom123'
+      email: 'user@wp.pl',
+      password: '123456789'
     }}
 
     onSubmit={(values, {resetForm}) => {
@@ -82,7 +83,7 @@ export default function Login({navigation}) {
       <View style={formStyles.container}>
         <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
         { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
-        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
+        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password 123" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
         { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
         <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={() => {handleSubmit()}} />
         <ActivityIndicator size="large" color="blue" animating={indicator}/>

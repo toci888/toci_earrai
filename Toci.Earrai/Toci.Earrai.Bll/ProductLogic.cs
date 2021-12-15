@@ -17,7 +17,7 @@ namespace Toci.Earrai.Bll
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
 
-        public ProductDto GetProduct(int productId)
+        public virtual ProductDto GetProduct(int productId)
         {
             ProductDto result = new ProductDto();
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
@@ -33,24 +33,25 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public List<Product> GetProductsByWorksheet(int worksheetId, string phrase, int skip) {
-            List<Product> result = new List<Product>();
+        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
+        {
+            List<ProductDto> result = new List<ProductDto>();
 
-            int toSkip = skip * 5;
+            List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
 
-            phrase = phrase == "empty" ? "" : phrase;
-
-            result = Select(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId)
-                        .Skip(toSkip)
-                        .Take(5)
-                        .ToList();
-
-            //result.ProductOptions = ProductOVLogic.GetProductValues(worksheetId);
-            //result.ProductSize = ProductSizeLogic.GetProductSizes(worksheetId);
-            //result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == worksheetId).ToList();
-            //result.ProductQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(worksheetId);
+            foreach (Product item in products)
+            {
+                result.Add(GetProduct(item.Id));
+            }
 
             return result;
+        }
+
+        public List<ProductDto> GetProductsByWorksheet(int worksheetId) 
+        {
+            List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
+
+            return products.Select(item => GetProduct(item.Id)).ToList();
         }
     }
 }

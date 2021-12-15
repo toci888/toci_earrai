@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
@@ -18,23 +19,25 @@ namespace Toci.Earrai.Ui
             
         }
 
+        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
+        {
+            return ApiProxy.GetProductsEx(new ProductSearchRequestDto()
+            {
+                WorksheetId = worksheetId,
+                Name = fieldName,
+                Value = fieldValue
+            });
+
+            //return new ProductLogic().GetProducts(worksheetId, fieldName, fieldValue); 
+        }
+
         public virtual ProductDto GetProduct(int productId)
         {
             //ApiProxy.
 
-            return new ProductDto()
-            {
-                Sizes = new List<Productssize>()
-                {
-                    new Productssize() { Name = "Thickness", Value = "0.2" },
-                    new Productssize() { Name = "Length", Value = "8" }
-                },
-                Options = new List<Productsoptionsstate>()
-                {
-                    new Productsoptionsstate() { Name = "Kg/M" , Value = "2" },
-                    new Productsoptionsstate() { Name = "????" , Value = "dummy" }
-                }
-            };
+            return new ProductLogic().GetProduct(productId);
+
+            
         }
 
         public virtual List<Vendor> GetAllVendors()
@@ -57,6 +60,16 @@ namespace Toci.Earrai.Ui
                 new Area() { Id = 1, Name = "Garages" },
                 new Area() { Id = 2, Name = "Back Yard" },
             };
+        }
+
+        public virtual List<Worksheet> GetWorksheets()
+        {
+            return ApiProxy.GetWorksheets();
+        }
+
+        public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
+        {
+            return ApiProxy.GetProductsByWorksheetId(worksheetId);
         }
     }
 }
