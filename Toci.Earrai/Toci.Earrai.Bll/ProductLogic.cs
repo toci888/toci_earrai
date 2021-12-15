@@ -47,9 +47,11 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public List<Product> GetProductsByWorksheet(int worksheetId) 
+        public List<ProductDto> GetProductsByWorksheet(int worksheetId) 
         {
-            return Select(prod => prod.Idworksheet == worksheetId).ToList();
+            List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
+
+            return products.Select(item => GetProduct(item.Id)).ToList();
         }
     }
 }
