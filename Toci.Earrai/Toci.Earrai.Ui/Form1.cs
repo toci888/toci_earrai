@@ -22,8 +22,8 @@ namespace Toci.Earrai.Ui
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+        protected List<ProductDto> productsFiltered;
 
-       
 
         public Form1()
         {
@@ -71,22 +71,38 @@ namespace Toci.Earrai.Ui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<ProductDto> tempUsers = Dm.GetProducts(6, "", "");
+            productsFiltered = Dm.GetProducts(6, "", "");
             FlattenManager fm = new FlattenManager();
 
-            List<FlattenedEntity> result =  fm.FlattenProduct(tempUsers[0]);
+            //List<FlattenedEntity> result =  fm.FlattenProduct(productsFiltered);
+
+
+
             List<List<FlattenedEntity>> tyest = new List<List<FlattenedEntity>>()
             {
-                result
+            //    result
             };
+
+            foreach (ProductDto item in productsFiltered)
+            {
+                tyest.Add(fm.FlattenProduct(item));
+            }
+
             //excelDataGrid.BindingContext = new 
             //excelDataGrid.DataSource = tyest;
             bind(tyest);
             excelDataGrid.DataSourceChanged += ExcelDataGrid_DataSourceChanged; // Refresh();
+            excelDataGrid.CellClick += ExcelDataGrid_CellClick;
 
             //FillExcelGrid(tempUsers);
 
 
+        }
+
+        private void ExcelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Product p = new Product(productsFiltered[e.RowIndex].Product.Id, areas, vendors);
+            p.Show();
         }
 
         private void bind(List<List<FlattenedEntity>> items)

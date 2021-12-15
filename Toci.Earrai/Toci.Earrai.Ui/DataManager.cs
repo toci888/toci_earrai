@@ -30,19 +30,9 @@ namespace Toci.Earrai.Ui
         {
             //ApiProxy.
 
-            return new ProductDto()
-            {
-                Sizes = new List<Productssize>()
-                {
-                    new Productssize() { Name = "Thickness", Value = "0.2" },
-                    new Productssize() { Name = "Length", Value = "8" }
-                },
-                Options = new List<Productsoptionsstate>()
-                {
-                    new Productsoptionsstate() { Name = "Kg/M" , Value = "2" },
-                    new Productsoptionsstate() { Name = "????" , Value = "dummy" }
-                }
-            };
+            return new ProductLogic().GetProduct(productId);
+
+            
         }
 
         public virtual List<Vendor> GetAllVendors()

@@ -31,7 +31,7 @@ namespace Toci.Earrai.Tests.Import.Excel
 
         public ExcelClient()
         {
-            authProvider = new DeviceCodeAuthProvider();
+            /*authProvider = new DeviceCodeAuthProvider();
             graphClient = new GraphServiceClient(authProvider);
 
             IDriveItemChildrenCollectionPage workbooks = graphClient.Me.Drive.Root.Children.Request().GetAsync().Result;
@@ -42,28 +42,25 @@ namespace Toci.Earrai.Tests.Import.Excel
                 Ids.Add(workbookfile.Id);
             }
 
-            fileId = Ids[3];
+            fileId = Ids[3];*/
         }
 
         public virtual Dictionary<string, WorkbookRange> RequestWorkbooks()
         {
-            Dictionary<string, WorkbookRange> result = new Dictionary<string, WorkbookRange>();
+            Dictionary<string, List<List<string>>> result = new Dictionary<string, List<List<string>>>();
 
             foreach (KeyValuePair<string, string> item in WorkbookMap)
             {
                 var readSheet = graphClient.Me.Drive.Items[fileId].Workbook.Worksheets[item.Key];
                 WorkbookRange range = readSheet.Range(item.Value).Request().GetAsync().Result;
 
-                result.Add(item.Key, range);
+                //result.Add(item.Key, range);
             }
 
             impMan.EntireImport(result);
 
-            return result;
+            return null;
         }
 
-        public void hehe() {
-
-        }
     }
 }
