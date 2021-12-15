@@ -219,14 +219,9 @@ namespace Toci.Earrai.Ui
 
         private void BindToGrid(List<ProductDto> products)
         {
-            List<List<FlattenedEntity>> result = new List<List<FlattenedEntity>>();
-
             FlattenManager fm = new FlattenManager();
 
-            foreach (ProductDto product in products)
-            {
-                result.Add(fm.FlattenProduct(product));
-            }
+            List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
 
             bind2(result);
 
