@@ -26,9 +26,9 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(Logic.GetProduct(productId));
         }
 
-        [HttpGet("GetProducts/{worksheetId}/{phrase}/{skip}")]
-        public ActionResult<ProductDto> GetProductsByWorksheet(int worksheetId, string phrase, int skip) {
-            return Ok(Logic.GetProductsByWorksheet(worksheetId, phrase, skip));
+        [HttpGet("GetProducts/{worksheetId}")]
+        public ActionResult<List<ProductDto>> GetProductsByWorksheet(int worksheetId) {
+            return Ok(Logic.GetProductsByWorksheet(worksheetId));
         }
 
         [HttpPost("GetProductsEx")]

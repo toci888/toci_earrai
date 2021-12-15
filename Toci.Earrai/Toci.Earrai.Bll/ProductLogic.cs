@@ -47,24 +47,9 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public List<Product> GetProductsByWorksheet(int worksheetId, string phrase, int skip) {
-            List<Product> result = new List<Product>();
-
-            int toSkip = skip * 5;
-
-            phrase = phrase == "empty" ? "" : phrase;
-
-            result = Select(prod => prod.Description.Contains(phrase) && prod.Idworksheet == worksheetId)
-                        .Skip(toSkip)
-                        .Take(5)
-                        .ToList();
-
-            //result.ProductOptions = ProductOVLogic.GetProductValues(worksheetId);
-            //result.ProductSize = ProductSizeLogic.GetProductSizes(worksheetId);
-            //result.ProductPrices = ProductPriceLogic.Select(m => m.Idproducts == worksheetId).ToList();
-            //result.ProductQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(worksheetId);
-
-            return result;
+        public List<Product> GetProductsByWorksheet(int worksheetId) 
+        {
+            return Select(prod => prod.Idworksheet == worksheetId).ToList();
         }
     }
 }
