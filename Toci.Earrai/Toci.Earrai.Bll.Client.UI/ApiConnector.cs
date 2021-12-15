@@ -15,7 +15,7 @@ namespace Toci.Earrai.Bll.Client.UI
     {
         protected string BaseUrl = "http://51.137.109.9/";
 
-        public virtual List<ProductDto> GetProductsByWorksheetId(int worksheetId)
+        public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
             return ApiGet<List<ProductDto>>("api/Product/GetProducts/" + worksheetId, true);
         }
