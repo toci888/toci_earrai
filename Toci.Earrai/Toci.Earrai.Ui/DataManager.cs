@@ -21,9 +21,14 @@ namespace Toci.Earrai.Ui
 
         public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
         {
-            //ApiProxy
+            return ApiProxy.GetProductsEx(new ProductSearchRequestDto()
+            {
+                WorksheetId = worksheetId,
+                Name = fieldName,
+                Value = fieldValue
+            });
 
-            return new ProductLogic().GetProducts(worksheetId, fieldName, fieldValue); 
+            //return new ProductLogic().GetProducts(worksheetId, fieldName, fieldValue); 
         }
 
         public virtual ProductDto GetProduct(int productId)
@@ -55,6 +60,11 @@ namespace Toci.Earrai.Ui
                 new Area() { Id = 1, Name = "Garages" },
                 new Area() { Id = 2, Name = "Back Yard" },
             };
+        }
+
+        public virtual List<Worksheet> GetWorksheets()
+        {
+            return ApiProxy.GetWorksheets();
         }
     }
 }

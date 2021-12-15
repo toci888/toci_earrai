@@ -23,7 +23,7 @@ namespace Toci.Earrai.Ui
         protected List<Area> areas;
         protected List<Vendor> vendors;
         protected List<ProductDto> productsFiltered;
-
+        protected List<Worksheet> worksheets;
 
         public Form1()
         {
@@ -31,7 +31,7 @@ namespace Toci.Earrai.Ui
 
             areas = Dm.GetAllAreas();
             vendors = Dm.GetAllVendors();
-
+            worksheets = Dm.GetWorksheets();
             //IsConnected();
 
             Setup();
@@ -47,10 +47,9 @@ namespace Toci.Earrai.Ui
 
         protected virtual void Setup()
         {
-            ExcelProxy ep = new ExcelProxy();
-
-            queryTextbox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
-            queryTextbox.AutoCompleteCustomSource.AddRange(ep.GetSuggestions().ToArray());
+            workbookDdl.DataSource = worksheets;
+            workbookDdl.ValueMember = "Id";
+            workbookDdl.DisplayMember = "Sheetname";
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
@@ -71,30 +70,32 @@ namespace Toci.Earrai.Ui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            productsFiltered = Dm.GetProducts(6, "", "");
-            FlattenManager fm = new FlattenManager();
-
-            //List<FlattenedEntity> result =  fm.FlattenProduct(productsFiltered);
 
 
+            //productsFiltered = Dm.GetProducts(6, "", "");
+            //FlattenManager fm = new FlattenManager();
 
-            List<List<FlattenedEntity>> tyest = new List<List<FlattenedEntity>>()
-            {
-            //    result
-            };
+            ////List<FlattenedEntity> result =  fm.FlattenProduct(productsFiltered);
 
-            foreach (ProductDto item in productsFiltered)
-            {
-                tyest.Add(fm.FlattenProduct(item));
-            }
 
-            //excelDataGrid.BindingContext = new 
-            //excelDataGrid.DataSource = tyest;
-            bind(tyest);
-            excelDataGrid.DataSourceChanged += ExcelDataGrid_DataSourceChanged; // Refresh();
-            excelDataGrid.CellClick += ExcelDataGrid_CellClick;
 
-            //FillExcelGrid(tempUsers);
+            //List<List<FlattenedEntity>> tyest = new List<List<FlattenedEntity>>()
+            //{
+            ////    result
+            //};
+
+            //foreach (ProductDto item in productsFiltered)
+            //{
+            //    tyest.Add(fm.FlattenProduct(item));
+            //}
+
+            ////excelDataGrid.BindingContext = new 
+            ////excelDataGrid.DataSource = tyest;
+            //bind(tyest);
+            //excelDataGrid.DataSourceChanged += ExcelDataGrid_DataSourceChanged; // Refresh();
+            //excelDataGrid.CellClick += ExcelDataGrid_CellClick;
+
+            ////FillExcelGrid(tempUsers);
 
 
         }
@@ -153,6 +154,38 @@ namespace Toci.Earrai.Ui
         private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void internetConnection_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void workbookDdl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string worksheetId = ((ComboBox)sender).SelectedValue.ToString();
+
+            //Dm. z api
         }
     }
 }
