@@ -167,7 +167,8 @@ namespace Toci.Earrai.Ui
             string worksheetId = workbookDdl.SelectedValue.ToString();
 
             List<ProductDto> products = Dm.GetProductsByWorksheetId(worksheetId);
-            ShowOnGrid(products, (p) => p.Product.Description);
+            //ShowOnGrid(products, (p) => p.Product.Description);
+            BindToGrid(products);
 
         }
 
@@ -206,7 +207,6 @@ namespace Toci.Earrai.Ui
         {
             foreach (var item in items)
             {
-
                 foreach (FlattenedEntity element in item)
                 {
                     excelDataGrid.Columns.Add(element.Name, element.Name);
@@ -214,6 +214,16 @@ namespace Toci.Earrai.Ui
 
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
             }
+
+        }
+
+        private void BindToGrid(List<ProductDto> products)
+        {
+            FlattenManager fm = new FlattenManager();
+
+            List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
+
+            bind2(result);
 
         }
     }
