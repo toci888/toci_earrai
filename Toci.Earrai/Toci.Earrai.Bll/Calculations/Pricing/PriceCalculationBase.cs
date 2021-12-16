@@ -23,7 +23,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
             PoundPerSheet(product, dto);
             PoundsPerMeter(product, dto);
             KgPerMeter(product, dto);
-
+            PoundsPerTonne(product, dto);
 
             return dto;
         }
@@ -36,6 +36,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         protected virtual PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) { return dto; }
 
         protected virtual PricingDto KgPerMeter(ProductDto product, PricingDto dto) { return dto; }
+
+        protected virtual PricingDto PoundsPerTonne(ProductDto product, PricingDto dto) { return dto; }
 
     }
 }
