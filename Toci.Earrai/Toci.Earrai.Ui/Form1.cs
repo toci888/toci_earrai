@@ -191,6 +191,11 @@ namespace Toci.Earrai.Ui
 
         private void bind2(List<List<FlattenedEntity>> items)
         {
+            //excelDataGrid = new DataGridView();
+
+            excelDataGrid.Columns.Clear();
+            excelDataGrid.Rows.Clear();
+
             bool columns = false;
             foreach (var item in items)
             {
