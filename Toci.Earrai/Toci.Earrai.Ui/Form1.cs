@@ -20,6 +20,7 @@ namespace Toci.Earrai.Ui
     {
         protected ConnectionCheck ConnCheck = new ConnectionCheck();
         protected DataManager Dm = new DataManager();
+        protected SearchDdlsProvider Sdp = new SearchDdlsProvider();
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
@@ -51,6 +52,13 @@ namespace Toci.Earrai.Ui
             workbookDdl.DataSource = worksheets;
             workbookDdl.ValueMember = "Id";
             workbookDdl.DisplayMember = "Sheetname";
+
+            SearchCombosHandler(worksheets.First().Id);
+        }
+
+        protected virtual void SearchCombosHandler(int worksheetId)
+        {
+            KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
@@ -105,21 +113,6 @@ namespace Toci.Earrai.Ui
         {
             Product p = new Product(productsFiltered[e.RowIndex].Product.Id, areas, vendors);
             p.Show();
-        }
-
-        private void bind(List<List<FlattenedEntity>> items)
-        {
-            foreach (var item in items)
-            {
-
-                foreach (FlattenedEntity element in item)
-                {
-                    excelDataGrid.Columns.Add(element.Name, element.Name);
-                }
-
-                excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
-            }
-
         }
 
         private void FillExcelGrid(List<ProductDto> products)
@@ -189,28 +182,27 @@ namespace Toci.Earrai.Ui
 
         private void workbookDdl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string worksheetId = ((ComboBox)sender).SelectedValue.ToString();
+            string worksheetID = ((ComboBox)sender).SelectedValue.ToString();
 
-            //Dm.
-        }
+            int worksheetId = int.Parse(worksheetID);
 
-        protected virtual void ShowOnGrid<TRecord>(List<TRecord> elements, Func<TRecord, string> colNameIndicator)
-        {
-            
-            foreach (TRecord element in elements)
-            {
-                excelDataGrid.Columns.Add(colNameIndicator(element), colNameIndicator(element));
-            }
+            SearchCombosHandler(worksheetId);
         }
 
         private void bind2(List<List<FlattenedEntity>> items)
         {
+            bool columns = false;
             foreach (var item in items)
             {
-                foreach (FlattenedEntity element in item)
+                if (!columns)
                 {
-                    excelDataGrid.Columns.Add(element.Name, element.Name);
+                    foreach (FlattenedEntity element in item)
+                    {
+                        excelDataGrid.Columns.Add(element.Name, element.Name);
+                    }
                 }
+
+                columns = true;
 
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
             }

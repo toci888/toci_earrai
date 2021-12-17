@@ -8,7 +8,7 @@ namespace Toci.Earrai.Bll.Models
 {
     public class PricingDto
     {
-        public double? Tonne { get; set; }
+        public double? PoundsPerTonne { get; set; }
 
         public double? Sheet { get; set; }
 

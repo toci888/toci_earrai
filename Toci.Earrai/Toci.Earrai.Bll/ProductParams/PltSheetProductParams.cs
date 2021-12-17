@@ -16,7 +16,7 @@ namespace Toci.Earrai.Bll.ProductParams
             {
                 { "Width", (po, dto) => { dto.Width = Convert.ToDouble(po.Value); return dto; } },
                 { "Length", (po, dto) => { dto.Length = Convert.ToDouble(po.Value); return dto; } },
-                { "Thickness", (po, dto) => { dto.Thickness = Convert.ToDouble(po.Value); return dto; } }
+                { Consts.Thickness, (po, dto) => { dto.Thickness = Convert.ToDouble(po.Value); return dto; } }
             };
 
             OptionsFillerMap = new Dictionary<string, Func<Productsoptionsstate, CalculationsBaseDto, CalculationsBaseDto>>()
