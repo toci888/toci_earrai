@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing
 {
@@ -37,7 +38,24 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected virtual PricingDto KgPerMeter(ProductDto product, PricingDto dto) { return dto; }
 
-        protected virtual PricingDto PoundsPerTonne(ProductDto product, PricingDto dto) { return dto; }
+        protected virtual PricingDto PoundsPerTonne(ProductDto product, PricingDto dto) 
+        {
+            Productsoptionsstate kgpermeter = product.Options.Where(m => m.Name == CalculationsConsts.KgM).FirstOrDefault();
+            Quotesandprice pricePerMeter = product.Quotesandprices.Where(m => m.Valuation == CalculationsConsts.PoundsPerMeter).FirstOrDefault();
+
+            if (kgpermeter != null && pricePerMeter != null)
+            {
+                double KgPerMeter = double.Parse(kgpermeter.Value);
+                double price = double.Parse(pricePerMeter.Price);
+
+                if (KgPerMeter != 0)
+                {
+                    dto.PoundsPerTonne = price / KgPerMeter * 1000;
+                }
+            }
+
+            return dto; 
+        }
 
     }
 }
