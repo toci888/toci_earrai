@@ -14,7 +14,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         protected override PricingDto KgPerSqrtMeter(ProductDto product, PricingDto dto)
         {
             try {
-                var thickness_ = product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault();
+                var thickness_ = product.Sizes.Where(size => size.Name == Consts.Thickness).FirstOrDefault();
                 if (thickness_ == null) { return dto; }
                 if (thickness_.Value == "") { return dto; }
                 double thickness = Convert.ToDouble(thickness_.Value);
@@ -59,6 +59,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (x_ == null) { return dto; }
                 double x = Convert.ToDouble(x_.Price);
 
+                dto.PoundsPerTonne = x;
                 dto.PoundsPerSheet = x / 1000 * dto.kgPerSheet;
             } catch (Exception) {
 
@@ -68,8 +69,15 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
             return dto;
         }
 
+        protected override PricingDto PoundsPerTonne(ProductDto product, PricingDto dto)
+        {
+            if (dto.kgPerSheet != 0)
+            {
+                dto.PoundsPerTonne = dto.PoundsPerSheet / dto.kgPerSheet * 1000;
+            }
 
-
+            return dto;
+        }
         // kg/M2 = thickness * density / 1000
         // kg/Sheet = (length * width * kg/M2 ) / 1000000
         // PundPerSheet = PoundPerTonne / 1000 * kg/Sheet

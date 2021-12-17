@@ -189,15 +189,6 @@ namespace Toci.Earrai.Ui
             SearchCombosHandler(worksheetId);
         }
 
-        protected virtual void ShowOnGrid<TRecord>(List<TRecord> elements, Func<TRecord, string> colNameIndicator)
-        {
-            
-            foreach (TRecord element in elements)
-            {
-                excelDataGrid.Columns.Add(colNameIndicator(element), colNameIndicator(element));
-            }
-        }
-
         private void bind2(List<List<FlattenedEntity>> items)
         {
             bool columns = false;
