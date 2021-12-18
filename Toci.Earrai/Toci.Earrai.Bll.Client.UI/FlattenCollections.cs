@@ -15,6 +15,9 @@ namespace Toci.Earrai.Bll.Client.UI
             FlattenMap.Add("Price", (ob, input) => { input.AddRange(Flatten(((ProductDto)ob).Prices, (obj) => new FlattenedEntity() { Name = (obj).Name, Value = (obj).Price })); return input; });
             FlattenMap.Add("Options", (ob, input) => { input.AddRange(Flatten(((ProductDto)ob).Options, (obj) => new FlattenedEntity() { Name = (obj).Name, Value = (obj).Value })); return input; });
             FlattenMap.Add("Sizes", (ob, input) => { input.AddRange(Flatten(((ProductDto)ob).Sizes, (obj) => new FlattenedEntity() { Name = (obj).Name, Value = (obj).Value })); return input; });
+            FlattenMap.Add("AreasQuantities", (ob, input) => { input.AddRange(Flatten(((ProductDto)ob).AreaQuantities, (obj) => new FlattenedEntity() { Name = "Area: Quantity", Value = (obj).Areaname + ": " + (obj).Quantity })); return input; });
+            FlattenMap.Add("QuotesAndPrices", (ob, input) => { input.AddRange(Flatten(((ProductDto)ob).Quotesandprices, (obj) => new FlattenedEntity() { Name = "Valuation - Price - Vendor", Value = (obj).Valuation + " - " + (obj).Price + " - " + (obj).Vendor })); return input; });
+
             //FlattenMap.Add("Description", (ob, input) => { input.Add(new FlattenedEntity() { Name = "Description", Value = ((ProductDto)ob).Product.Description }); return input; });
         }
     }

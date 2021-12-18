@@ -24,11 +24,12 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         };
 
 
-        public PriceExecutor(ProductDto productDto) {
+        public PriceExecutor(ProductDto productDto) 
+        {
             dto = productDto;
         }
 
-        public PricingDto getPrices() {
+        public PricingDto GetPrices() {
 
             int id = dto.Product.Idworksheet.Value;
 

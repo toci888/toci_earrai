@@ -16,6 +16,7 @@ namespace Toci.Earrai.Bll
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
+        protected IQuoteandpriceLogic QuoteandpriceLogic = new QuoteandpriceLogic();
 
         public virtual ProductDto GetProduct(int productId)
         {
@@ -25,10 +26,11 @@ namespace Toci.Earrai.Bll
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
             result.Prices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
             result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
+            result.Quotesandprices = QuoteandpriceLogic.GetAllQuotesAndPricesView(productId);
 
             PriceExecutor priceExec = new PriceExecutor(result);
 
-            result.Pricing = priceExec.getPrices();
+            result.Pricing = priceExec.GetPrices();
 
             return result;
         }

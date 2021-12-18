@@ -85,13 +85,13 @@ namespace Toci.Earrai.Ui
             // 
             // excelDataGrid
             // 
-            this.excelDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.excelDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.excelDataGrid.Location = new System.Drawing.Point(77, 241);
             this.excelDataGrid.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.excelDataGrid.Name = "excelDataGrid";
             this.excelDataGrid.RowHeadersWidth = 123;
             this.excelDataGrid.RowTemplate.Height = 25;
-            this.excelDataGrid.Size = new System.Drawing.Size(1943, 565);
+            this.excelDataGrid.Size = new System.Drawing.Size(1700, 565);
             this.excelDataGrid.TabIndex = 5;
             this.excelDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellClick);
             this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);
@@ -136,9 +136,9 @@ namespace Toci.Earrai.Ui
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
+            //this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1844, 1539);
+            this.ClientSize = new System.Drawing.Size(1800, 850);
             this.Controls.Add(this.valueDdl);
             this.Controls.Add(this.KindDdl);
             this.Controls.Add(this.SearchWorksheetBtn);
