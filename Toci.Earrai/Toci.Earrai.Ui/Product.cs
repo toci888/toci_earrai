@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Ui.ControlsStuff;
 using Toci.Earrai.Ui.Convert;
 
 namespace Toci.Earrai.Ui
@@ -21,6 +22,7 @@ namespace Toci.Earrai.Ui
         protected ProductDto product;
         protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
+        protected ControlsManager Cm = new ControlsManager();
 
         protected int ySlided = 0;
         protected int xSlide = 100;
@@ -54,15 +56,9 @@ namespace Toci.Earrai.Ui
             int newY = yCoord;
             foreach (ProductLayoutDto item in elements)
             {
-                Label l = new Label();
-                l.Text = item.LabelItemName;
-                l.Size = new System.Drawing.Size(90, 20);
-                l.Location = new Point(xCoord, newY);
+                Label l = Cm.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
 
-                Label lR = new Label();
-                lR.Text = item.LabelItemValue;
-                lR.Size = new System.Drawing.Size(90, 20);
-                lR.Location = new Point(xCoord + xSlide, newY);
+                Label lR = Cm.CreateLabel(item.LabelItemValue, 90, 20, xCoord + xSlide, newY);
 
                 newY += ySlide;
                 Controls.Add(l);
@@ -103,21 +99,12 @@ namespace Toci.Earrai.Ui
 
             ySlided += ySlide;
 
-            Label areasLabel = new Label();
-            areasLabel.Text = "Area: ";
-            areasLabel.Size = new System.Drawing.Size(90, 20);
-            areasLabel.Location = new Point(xLeft, ySlided);
+            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xLeft, ySlided);
 
-            ComboBox vCombo = new ComboBox();
-
-            vCombo.DisplayMember = "Name";
-            vCombo.ValueMember = "Id";
-            vCombo.DataSource = areas;
-            vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft + xSlide, ySlided);
+            ComboBox areasCombo = Cm.CreateComboBox(areas, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
 
             Controls.Add(areasLabel);
-            Controls.Add(vCombo);
+            Controls.Add(areasCombo);
         }
 
         protected virtual void AddPricingForm()
