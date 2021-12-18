@@ -192,6 +192,7 @@ namespace Toci.Earrai.Ui
         private void bind2(List<List<FlattenedEntity>> items)
         {
             //excelDataGrid = new DataGridView();
+            Dictionary<string, int> keeper = new Dictionary<string, int>();
 
             excelDataGrid.Columns.Clear();
             excelDataGrid.Rows.Clear();
@@ -201,14 +202,32 @@ namespace Toci.Earrai.Ui
             {
                 if (!columns)
                 {
+                    int i = 0;
                     foreach (FlattenedEntity element in item)
                     {
                         excelDataGrid.Columns.Add(element.Name, element.Name);
+
+                        if (!keeper.ContainsKey(element.Name))
+                        {
+                            keeper.Add(element.Name, i++);
+                        }
                     }
                 }
 
                 columns = true;
-
+                int j = 0;
+                foreach (FlattenedEntity element in item)
+                {
+                    //if (keeper[element.Name] == j)
+                    //{
+                //        excelDataGrid.Rows.Add(element.Value);
+                    //}
+                    //else
+                    //{
+                    //    excelDataGrid.Rows.Add("");
+                    //}
+                    j++;
+                }
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
             }
 
