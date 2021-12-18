@@ -49,51 +49,6 @@ namespace Toci.Earrai.Ui
             Setup();
         }
 
-        protected virtual void IsConnected()
-        {
-            while (true)
-            {
-                ConnCheck.IsOnline();
-            }
-        }
-
-        protected virtual void Setup()
-        {
-            ExcelProxy ep = new ExcelProxy();
-
-        }
-
-        private void queryTextbox_TextChanged(object sender, EventArgs e)
-        {
-           /* TextBox tb = (TextBox)sender;
-
-            AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
-            acsc.Add("dupa");
-            acsc.Add("sraka");
-
-            tb.AutoCompleteCustomSource = acsc;*/
-        }
-
-        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
-           
-        }
-
-        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord)
         {
             int newY = yCoord;
@@ -122,7 +77,7 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
 
             Label widthL = new Label();
-            widthL.Text = "Width";
+            widthL.Text = "Width: ";
             widthL.Size = new System.Drawing.Size(90, 20);
             widthL.Location = new Point(xLeft, ySlided);
 
@@ -133,7 +88,7 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
 
             Label lengthL = new Label();
-            lengthL.Text = "Length";
+            lengthL.Text = "Length: ";
             lengthL.Size = new System.Drawing.Size(90, 20);
             lengthL.Location = new Point(xLeft, ySlided);
 
@@ -148,14 +103,20 @@ namespace Toci.Earrai.Ui
 
             ySlided += ySlide;
 
+            Label areasLabel = new Label();
+            areasLabel.Text = "Area: ";
+            areasLabel.Size = new System.Drawing.Size(90, 20);
+            areasLabel.Location = new Point(xLeft, ySlided);
+
             ComboBox vCombo = new ComboBox();
 
             vCombo.DisplayMember = "Name";
             vCombo.ValueMember = "Id";
             vCombo.DataSource = areas;
             vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft, ySlided);
+            vCombo.Location = new Point(xLeft + xSlide, ySlided);
 
+            Controls.Add(areasLabel);
             Controls.Add(vCombo);
         }
 
@@ -163,15 +124,67 @@ namespace Toci.Earrai.Ui
         {
             ySlided += ySlide;
 
+            Label vendorsLabel = new Label();
+            vendorsLabel.Text = "Vendor: ";
+            vendorsLabel.Size = new System.Drawing.Size(90, 20);
+            vendorsLabel.Location = new Point(xLeft, ySlided);
+
             ComboBox vCombo = new ComboBox();
 
             vCombo.DisplayMember = "Name";
             vCombo.ValueMember = "Id";
             vCombo.DataSource = vendors;
             vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft, ySlided);
+            vCombo.Location = new Point(xLeft + xSlide, ySlided);
 
+            Controls.Add(vendorsLabel);
             Controls.Add(vCombo);
+        }
+
+        protected virtual void IsConnected()
+        {
+            while (true)
+            {
+                ConnCheck.IsOnline();
+            }
+        }
+
+        protected virtual void Setup()
+        {
+
+        }
+
+        private void queryTextbox_TextChanged(object sender, EventArgs e)
+        {
+            /* TextBox tb = (TextBox)sender;
+
+             AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
+             acsc.Add("dupa");
+             acsc.Add("sraka");
+
+             tb.AutoCompleteCustomSource = acsc;*/
+        }
+
+        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

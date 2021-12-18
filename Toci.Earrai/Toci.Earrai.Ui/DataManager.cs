@@ -27,39 +27,21 @@ namespace Toci.Earrai.Ui
                 Name = fieldName,
                 Value = fieldValue
             });
-
-            //return new ProductLogic().GetProducts(worksheetId, fieldName, fieldValue); 
         }
 
         public virtual ProductDto GetProduct(int productId)
         {
-            //ApiProxy.
-
-            return new ProductLogic().GetProduct(productId);
-
-            
+            return ApiProxy.GetProduct(productId);           
         }
 
         public virtual List<Vendor> GetAllVendors()
         {
-            //ApiProxy
-
-            return new List<Vendor>()
-            {
-                new Vendor() { Id = 1, Name = "McCane" },
-                new Vendor() { Id = 2, Name = "Wwatson" }
-            };
+            return ApiProxy.GetAllVendors();
         }
 
         public virtual List<Area> GetAllAreas()
         {
-            //ApiProxy
-
-            return new List<Area>()
-            {
-                new Area() { Id = 1, Name = "Garages" },
-                new Area() { Id = 2, Name = "Back Yard" },
-            };
+            return ApiProxy.GetAreas();
         }
 
         public virtual List<Worksheet> GetWorksheets()
