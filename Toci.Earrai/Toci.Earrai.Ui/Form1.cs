@@ -215,9 +215,12 @@ namespace Toci.Earrai.Ui
                 if (!columns)
                 {
                     int i = 0;
+                    int k = 0;
                     foreach (FlattenedEntity element in item)
                     {
                         excelDataGrid.Columns.Add(element.Name, element.Name);
+                        excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        k++;
 
                         if (!keeper.ContainsKey(element.Name))
                         {
