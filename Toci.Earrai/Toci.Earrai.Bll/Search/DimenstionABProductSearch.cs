@@ -10,7 +10,7 @@ namespace Toci.Earrai.Bll.Search
 {
     public class DimenstionABProductSearch : SearchProductBase
     {
-        public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
             List<Productssize> elements = new List<Productssize>();
             List<Product> result = new List<Product>();
@@ -26,7 +26,7 @@ namespace Toci.Earrai.Bll.Search
 
             result = FilterResultsSizesWorksheet(request, elements);
 
-            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
+            return ToProductDto(FilterBySearchQuery(request, result));
         }
     }
 }

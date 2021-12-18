@@ -10,11 +10,11 @@ namespace Toci.Earrai.Bll.Search
 {
     public class DescriptionProductSearch : SearchProductBase
     {
-        public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
             List<Product> result = ProductLogic.Select(p => p.Description == request.Value).ToList();
 
-            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
+            return ToProductDto(FilterBySearchQuery(request, result));
         }
     }
 }
