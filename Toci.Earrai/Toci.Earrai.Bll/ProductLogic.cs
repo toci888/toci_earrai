@@ -32,6 +32,8 @@ namespace Toci.Earrai.Bll
 
             result.Pricing = priceExec.GetPrices();
 
+            result.Balance = GetBalance(result);
+
             return result;
         }
 
@@ -54,6 +56,23 @@ namespace Toci.Earrai.Bll
             List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
 
             return products.Select(item => GetProduct(item.Id)).ToList();
+        }
+
+        protected virtual double GetBalance(ProductDto product)
+        {
+            //List<Areasquantity> areasquantities = AreasquantityLogic.Select(m => m.Idproducts == productId).ToList();
+            double balance = 0;
+
+            foreach (Areasquantity item in product.AreaQuantities)
+            {
+                double x = 0;
+
+                double.TryParse(item.Quantity, out x);
+
+                balance += x;
+            }
+
+            return balance;
         }
     }
 }

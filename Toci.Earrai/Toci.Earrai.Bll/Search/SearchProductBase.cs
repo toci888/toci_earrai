@@ -75,30 +75,13 @@ namespace Toci.Earrai.Bll.Search
             {
                 ProductDto pDto = ProductLogic.GetProduct(item.Id);
 
-                pDto.Balance = GetBalance(pDto);
-
                 result.Add(pDto);
             }
 
             return result;
         }
 
-        protected virtual double GetBalance(ProductDto product)
-        {
-            //List<Areasquantity> areasquantities = AreasquantityLogic.Select(m => m.Idproducts == productId).ToList();
-            double balance = 0;
-
-            foreach (Areasquantity item in product.AreaQuantities)
-            {
-                double x = 0;
-
-                double.TryParse(item.Quantity, out x);
-
-                balance += x;
-            }
-
-            return balance;
-        }
+        
 
         protected virtual List<Product> FilterBySearchQuery(ProductSearchRequestDto request, List<Product> result)
         {
