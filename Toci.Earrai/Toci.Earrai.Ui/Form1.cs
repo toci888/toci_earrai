@@ -26,6 +26,7 @@ namespace Toci.Earrai.Ui
         protected List<Vendor> vendors;
         protected List<ProductDto> productsFiltered;
         protected List<Worksheet> worksheets;
+        protected int selectedWorkSheetId = 0;
 
         public Form1()
         {
@@ -58,6 +59,7 @@ namespace Toci.Earrai.Ui
 
         protected virtual void SearchCombosHandler(int worksheetId)
         {
+            selectedWorkSheetId = worksheetId;
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
         }
 
@@ -160,6 +162,9 @@ namespace Toci.Earrai.Ui
             string worksheetId = workbookDdl.SelectedValue.ToString();
 
             List<ProductDto> products = Dm.GetProductsByWorksheetId(worksheetId);
+
+            selectedWorkSheetId = int.Parse(worksheetId);
+
             //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
 
@@ -167,7 +172,11 @@ namespace Toci.Earrai.Ui
 
         private void showBtn_Click(object sender, EventArgs e)
         {
+            selectedWorkSheetId = int.Parse(workbookDdl.SelectedValue.ToString());
 
+            List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
+
+            BindToGrid(products);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -177,7 +186,9 @@ namespace Toci.Earrai.Ui
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            List<string> elements = Dm.GetFilters(selectedWorkSheetId, ((ComboBox)sender).SelectedItem.ToString());
 
+            valueDdl.DataSource = elements;
         }
 
         private void workbookDdl_SelectedIndexChanged(object sender, EventArgs e)

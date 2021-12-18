@@ -72,6 +72,7 @@ namespace Toci.Earrai.Bll.Search
 
             foreach (Product item in items)
             {
+                //ProductLogic.
                 result.Add(new ProductSearchResponseDto() { Product = item, Balance = GetBalance(item.Id) });
             }
 
