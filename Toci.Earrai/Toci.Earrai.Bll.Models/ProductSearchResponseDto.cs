@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace Toci.Earrai.Bll.Models
 {
-    public class ProductSearchResponseDto : ProductDto
-    {
-    }
+    
 }

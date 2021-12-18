@@ -57,7 +57,9 @@ export default function ProductsList({ route, navigation }) {
 
         const selectedTypeIndex = x2[0]
 
-        setSelectedFilterTypeIndexHook(selectedTypeIndex)
+        setSelectedFilterTypeIndexHook(0)
+
+        getAvailableValuesForSelectedType(a[0])
 
     }, [])
 
@@ -69,7 +71,10 @@ export default function ProductsList({ route, navigation }) {
         const x = createFilterDto(navigation.getParam('worksheetId'), type_)
         const y = dbNameReplacer(x)
 
-        fetch(getAvailableValuesForSelectedOptionUrl, PostRequestParams(y))
+        const k = PostRequestParams(y)
+        console.log(k)
+
+        fetch(getAvailableValuesForSelectedOptionUrl, k)
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -94,6 +99,7 @@ export default function ProductsList({ route, navigation }) {
             selectedTypeOfSearch,
             filteredValues[SelectedFilteredIndexHook],
         )
+        console.log(x)
 
         fetch(getProductsEx, PostRequestParams(dbNameReplacer(x)))
         .then(response => response.json())
