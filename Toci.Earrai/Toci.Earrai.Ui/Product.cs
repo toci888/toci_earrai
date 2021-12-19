@@ -32,16 +32,21 @@ namespace Toci.Earrai.Ui
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+        protected List<Quoteandmetric> quotesandmetrics;
+        protected User LoggedUser;
 
         protected AreaQuantityInputForm Aqif = new AreaQuantityInputForm();
+        protected QuoteAndPriceInputForm Qapif = new QuoteAndPriceInputForm();
 
-        public Product(int productId, List<Area> _areas, List<Vendor> _vendors)
+        public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
             InitializeComponent();
             prodId = productId;
 
             areas = _areas;
             vendors = _vendors;
+            LoggedUser = loggedUser;
+            quotesandmetrics = _quotesandmetrics;
 
             product = Dm.GetProduct(prodId);
 
@@ -123,8 +128,8 @@ namespace Toci.Earrai.Ui
         protected virtual void QuantityAdd(object sender, EventArgs e)
         {
             int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               
-            Areaquantity areaquantity = new Areaquantity() {          //todo
-                Idarea = areaId, Idproducts = product.Product.Id, Iduser = 1, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+            Areaquantity areaquantity = new Areaquantity() {          
+                Idarea = areaId, Idproducts = product.Product.Id, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
 
             List<Areaquantity> result = Dm.PostAreaQuantity(areaquantity);
 
@@ -139,13 +144,19 @@ namespace Toci.Earrai.Ui
         protected virtual void AddPricingForm()
         {
             ySlided += ySlide;
+            xSlide = 0;
 
             Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
 
-            ComboBox vCombo = Cm.CreateComboBox(vendors, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
+            xSlided += xLeft + 90;
+
+            ComboBox vCombo = Cm.CreateComboBox(vendors, "Name", 90, 20, xLeft + xSlided, ySlided, "Id");
+
+            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xLeft + xSlided, ySlided, "Id");
 
             Controls.Add(vendorsLabel);
             Controls.Add(vCombo);
+            Controls.Add(Qapif.PriceKind);
         }
 
         protected virtual void IsConnected()

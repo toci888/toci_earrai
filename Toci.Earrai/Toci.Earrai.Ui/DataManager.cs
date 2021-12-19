@@ -68,6 +68,14 @@ namespace Toci.Earrai.Ui
             return ApiProxy.PostAreaQuantities(areaquantity);
         }
 
+        public virtual User Login(string user, string pass)
+        {
+            return ApiProxy.Login(user, pass);
+        }
 
+        public virtual List<Quoteandmetric> GetQuotesAndMetrics()
+        {
+            return ApiProxy.GetQuoteAndMetric();
+        }
     }
 }

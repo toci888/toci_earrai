@@ -84,9 +84,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Vendor>>("api/QuoteAndPrice/GetAllVendorsFromDb", true);
         }
 
-        public virtual List<Quoteandprice> GetQuoteAndMetric()
+        public virtual List<Quoteandmetric> GetQuoteAndMetric()
         {
-            return ApiGet<List<Quoteandprice>>("api/QuoteAndMetric", true);
+            return ApiGet<List<Quoteandmetric>>("api/QuoteAndMetric", true);
         }
 
         public virtual List<Quoteandprice> GetQuotesAndPricesByProductId(int productId)
@@ -132,6 +132,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual List<ProductDto> GetProductsEx(ProductSearchRequestDto dto) ////api/Product/GetProductsEx
         {
             return ApiPost<List<ProductDto>, ProductSearchRequestDto>("api/Product/GetProductsEx", dto, true);
+        }
+
+        public virtual User Login(string username, string password)
+        {
+            return ApiPost<User, User>("api/Account/Login", new User() { Email = username, Password = password }, false);
         }
     }
 }

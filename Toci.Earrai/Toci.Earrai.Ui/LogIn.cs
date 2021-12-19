@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Ui
 {
     public partial class LogIn : Form
     {
+        DataManager Dm = new DataManager();
+
         public LogIn()
         {
             InitializeComponent();
@@ -31,10 +34,15 @@ namespace Toci.Earrai.Ui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //passwordTextbox.Text
-            Form1 f = new Form1();
-            f.Show();
-            Close();
+            User user = Dm.Login("user@wp.pl", "123456789");
+
+            if (user != null)
+            {
+                //passwordTextbox.Text
+                Form1 f = new Form1(user);
+                f.Show();
+                Hide();
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

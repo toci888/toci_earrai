@@ -29,7 +29,7 @@ namespace Toci.Earrai.Tests
             var c = apc.GetProductsFromWorksheet(1, "2", "2");
             var d = apc.GetQuoteAndMetric();
             var e = apc.GetQuotesAndPricesByProductId(1);
-            var g = apc.GetVendors(1, 2);
+            var g = apc.GetAllVendors();
             var h = apc.GetWorksheets();
             var i = apc.PostAreaQuantities(new Database.Persistence.Models.Areaquantity()
             {
