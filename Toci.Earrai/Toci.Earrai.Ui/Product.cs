@@ -122,10 +122,18 @@ namespace Toci.Earrai.Ui
 
         protected virtual void QuantityAdd(object sender, EventArgs e)
         {
-            int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               //todo
-            Areaquantity areaquantity = new Areaquantity() { Idarea = areaId, Idproducts = product.Product.Id, Iduser = 1, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+            int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               
+            Areaquantity areaquantity = new Areaquantity() {          //todo
+                Idarea = areaId, Idproducts = product.Product.Id, Iduser = 1, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
 
-            Dm.PostAreaQuantity(areaquantity);
+            List<Areaquantity> result = Dm.PostAreaQuantity(areaquantity);
+
+            if (result[0].Id > 0)
+            {
+                Aqif.Quantity.Text = "";
+                Aqif.Length.Text = "";
+                Aqif.Width.Text = "";
+            }
         }
 
         protected virtual void AddPricingForm()
