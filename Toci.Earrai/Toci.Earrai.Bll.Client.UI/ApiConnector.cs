@@ -120,6 +120,11 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
             }
         }
@@ -134,9 +139,14 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<List<ProductDto>, ProductSearchRequestDto>("api/Product/GetProductsEx", dto, true);
         }
 
-        public virtual User Login(string username, string password)
+        public virtual User Login(string email, string password)
         {
-            return ApiPost<User, User>("api/Account/Login", new User() { Email = username, Password = password }, false);
+            return ApiPost<User, User>("api/Account/Login", new User() { Email = email, Password = password }, false);
+        }
+
+        public virtual User Register(string firstName, string lastName, string email, string password)
+        {
+            return ApiPost<User, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
     }
 }

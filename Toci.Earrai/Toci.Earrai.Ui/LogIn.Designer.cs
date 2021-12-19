@@ -29,21 +29,21 @@ namespace Toci.Earrai.Ui
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.loginTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextbox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.loginButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.registerButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // loginTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 57);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(169, 23);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.loginTextBox.Location = new System.Drawing.Point(128, 78);
+            this.loginTextBox.Name = "loginTextBox";
+            this.loginTextBox.Size = new System.Drawing.Size(169, 23);
+            this.loginTextBox.TabIndex = 0;
             // 
             // passwordTextbox
             // 
@@ -51,27 +51,25 @@ namespace Toci.Earrai.Ui
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.Size = new System.Drawing.Size(169, 23);
             this.passwordTextbox.TabIndex = 1;
-            this.passwordTextbox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // button1
+            // loginButton
             // 
-            this.button1.Location = new System.Drawing.Point(141, 187);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 56);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.loginButton.Location = new System.Drawing.Point(141, 202);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(144, 41);
+            this.loginButton.TabIndex = 2;
+            this.loginButton.Text = "Login";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(128, 39);
+            this.label1.Location = new System.Drawing.Point(128, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 15);
+            this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Login";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "Email - Login";
             // 
             // label2
             // 
@@ -82,26 +80,37 @@ namespace Toci.Earrai.Ui
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
-            // button2
+            // registerButton
             // 
-            this.button2.Location = new System.Drawing.Point(141, 272);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 56);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Register";
-            this.button2.UseVisualStyleBackColor = true;
+            this.registerButton.Location = new System.Drawing.Point(141, 277);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(144, 41);
+            this.registerButton.TabIndex = 5;
+            this.registerButton.Text = "Register";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(304, 85);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "loginValidation";
             // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 407);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.registerButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.loginButton);
             this.Controls.Add(this.passwordTextbox);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.loginTextBox);
             this.Name = "LogIn";
             this.Text = "LogIn";
             this.ResumeLayout(false);
@@ -111,11 +120,12 @@ namespace Toci.Earrai.Ui
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox loginTextBox;
         private System.Windows.Forms.TextBox passwordTextbox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button registerButton;
+        private System.Windows.Forms.Label label3;
     }
 }
