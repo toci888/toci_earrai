@@ -93,5 +93,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.PostQuoteandPrice(item);
         }
+
+        public virtual List<Areasquantity> GetQuantites(int productId)
+        {
+            return ApiProxy.GetAreasQuantitiesByProduct(productId);
+        }
     }
 }

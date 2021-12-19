@@ -78,5 +78,16 @@ namespace Toci.Earrai.Ui.ControlsStuff
 
             return submit;
         }
+
+        public virtual DataGridView CreateGrid(object dataSource, int sizeX, int sizeY, int locX, int locY)
+        {
+            DataGridView dgv = new DataGridView();
+
+            dgv.DataSource = dataSource;
+            dgv.Size = new Size(sizeX, sizeY);
+            dgv.Location = new Point(locX, locY);
+
+            return dgv;
+        }
     }
 }

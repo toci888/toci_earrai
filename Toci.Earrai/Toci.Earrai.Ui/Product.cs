@@ -114,6 +114,12 @@ namespace Toci.Earrai.Ui
 
             Aqif.QuantitySubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
 
+            ySlided += ySlide;
+
+            Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 600, 200, xLeft, ySlided);
+
+            ySlided += 200;
+
             Controls.Add(widthL);
             Controls.Add(Aqif.Width);
             Controls.Add(lengthL);
@@ -123,10 +129,21 @@ namespace Toci.Earrai.Ui
             Controls.Add(quantityL);
             Controls.Add(Aqif.Quantity);
             Controls.Add(Aqif.QuantitySubmit);
+            Controls.Add(Aqif.DisplayGrid);
+        }
+
+        protected virtual List<Areasquantity> GetQuantities(int productId)
+        {
+            return Dm.GetQuantites(productId);
         }
 
         protected virtual void QuantityAdd(object sender, EventArgs e)
         {
+            if (Aqif.Width.Text == string.Empty || Aqif.Length.Text == string.Empty || Aqif.Quantity.Text == string.Empty)
+            {
+                return;
+            }
+
             int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               
             Areaquantity areaquantity = new Areaquantity() {          
                 Idarea = areaId, Idproducts = product.Product.Id, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
@@ -183,6 +200,11 @@ namespace Toci.Earrai.Ui
 
         protected virtual void PriceAdd(object sender, EventArgs e)
         {
+            if (Qapif.Price.Text == string.Empty)
+            {
+                return;
+            }
+
             int vendorId = int.Parse(Qapif.Vendors.SelectedValue.ToString());
             int quoteandmetricId = int.Parse(Qapif.PriceKind.SelectedValue.ToString());
 
