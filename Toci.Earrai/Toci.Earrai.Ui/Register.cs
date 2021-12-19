@@ -19,19 +19,20 @@ namespace Toci.Earrai.Ui
         {
             InitializeComponent();
 
-            passwordTextbox.PasswordChar = '*';
+            passwordtextBox2.PasswordChar = '*';
+            confirmPasswordtextBox.PasswordChar = '*';
         }
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            //User user = Dm.Register(,registerTextbox.Text, passwordTextbox.Text);
+            User user = Dm.Register(firstnameTextbox.Text, lastnameTextbox.Text, emailTextBox.Text, passwordtextBox2.Text, confirmPasswordtextBox.Text);
 
-            //if (user != null)
-            //{
-            //    LogIn f = new LogIn();
-            //    f.Show();
-            //    Hide();
-            //}
+            if (user != null)
+            {
+                LogIn f = new LogIn();
+                f.Show();
+                Hide();
+            }
         }
 
         private void loginButton_Click(object sender, EventArgs e)

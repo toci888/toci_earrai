@@ -29,11 +29,11 @@ namespace Toci.Earrai.Ui
         /// </summary>
         private void InitializeComponent()
         {
-            this.LoginLabel = new System.Windows.Forms.Label();
-            this.loginTextbox = new System.Windows.Forms.TextBox();
+            this.FirstnameLabel = new System.Windows.Forms.Label();
+            this.firstnameTextbox = new System.Windows.Forms.TextBox();
             this.registerButton = new System.Windows.Forms.Button();
-            this.passwordTextbox = new System.Windows.Forms.TextBox();
-            this.Password = new System.Windows.Forms.Label();
+            this.lastnameTextbox = new System.Windows.Forms.TextBox();
+            this.Lastname = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.EmailLabel = new System.Windows.Forms.Label();
@@ -43,21 +43,21 @@ namespace Toci.Earrai.Ui
             this.confirmPasswordLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // LoginLabel
+            // FirstnameLabel
             // 
-            this.LoginLabel.AutoSize = true;
-            this.LoginLabel.Location = new System.Drawing.Point(145, 27);
-            this.LoginLabel.Name = "LoginLabel";
-            this.LoginLabel.Size = new System.Drawing.Size(37, 15);
-            this.LoginLabel.TabIndex = 0;
-            this.LoginLabel.Text = "Login";
+            this.FirstnameLabel.AutoSize = true;
+            this.FirstnameLabel.Location = new System.Drawing.Point(145, 27);
+            this.FirstnameLabel.Name = "FirstnameLabel";
+            this.FirstnameLabel.Size = new System.Drawing.Size(59, 15);
+            this.FirstnameLabel.TabIndex = 0;
+            this.FirstnameLabel.Text = "Firstname";
             // 
-            // loginTextbox
+            // firstnameTextbox
             // 
-            this.loginTextbox.Location = new System.Drawing.Point(145, 45);
-            this.loginTextbox.Name = "loginTextbox";
-            this.loginTextbox.Size = new System.Drawing.Size(180, 23);
-            this.loginTextbox.TabIndex = 1;
+            this.firstnameTextbox.Location = new System.Drawing.Point(145, 45);
+            this.firstnameTextbox.Name = "firstnameTextbox";
+            this.firstnameTextbox.Size = new System.Drawing.Size(180, 23);
+            this.firstnameTextbox.TabIndex = 1;
             // 
             // registerButton
             // 
@@ -69,21 +69,21 @@ namespace Toci.Earrai.Ui
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
-            // passwordTextbox
+            // lastnameTextbox
             // 
-            this.passwordTextbox.Location = new System.Drawing.Point(145, 97);
-            this.passwordTextbox.Name = "passwordTextbox";
-            this.passwordTextbox.Size = new System.Drawing.Size(180, 23);
-            this.passwordTextbox.TabIndex = 4;
+            this.lastnameTextbox.Location = new System.Drawing.Point(145, 97);
+            this.lastnameTextbox.Name = "lastnameTextbox";
+            this.lastnameTextbox.Size = new System.Drawing.Size(180, 23);
+            this.lastnameTextbox.TabIndex = 4;
             // 
-            // Password
+            // Lastname
             // 
-            this.Password.AutoSize = true;
-            this.Password.Location = new System.Drawing.Point(145, 79);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(57, 15);
-            this.Password.TabIndex = 3;
-            this.Password.Text = "Password";
+            this.Lastname.AutoSize = true;
+            this.Lastname.Location = new System.Drawing.Point(145, 79);
+            this.Lastname.Name = "Lastname";
+            this.Lastname.Size = new System.Drawing.Size(58, 15);
+            this.Lastname.TabIndex = 3;
+            this.Lastname.Text = "Lastname";
             // 
             // loginButton
             // 
@@ -155,11 +155,11 @@ namespace Toci.Earrai.Ui
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.passwordTextbox);
-            this.Controls.Add(this.Password);
+            this.Controls.Add(this.lastnameTextbox);
+            this.Controls.Add(this.Lastname);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.loginTextbox);
-            this.Controls.Add(this.LoginLabel);
+            this.Controls.Add(this.firstnameTextbox);
+            this.Controls.Add(this.FirstnameLabel);
             this.Name = "Register";
             this.Text = "Register";
             this.ResumeLayout(false);
@@ -169,11 +169,11 @@ namespace Toci.Earrai.Ui
 
         #endregion
 
-        private System.Windows.Forms.Label LoginLabel;
-        private System.Windows.Forms.TextBox loginTextbox;
+        private System.Windows.Forms.Label FirstnameLabel;
+        private System.Windows.Forms.TextBox firstnameTextbox;
         private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.TextBox passwordTextbox;
-        private System.Windows.Forms.Label Password;
+        private System.Windows.Forms.TextBox lastnameTextbox;
+        private System.Windows.Forms.Label Lastname;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label EmailLabel;
