@@ -21,33 +21,23 @@ namespace Toci.Earrai.Ui
 
             passwordTextbox.PasswordChar = '*';
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void loginButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            User user = Dm.Login("user@wp.pl", "123456789");
+            User user = Dm.Login(loginTextBox.Text, passwordTextbox.Text);
 
             if (user != null)
             {
-                //passwordTextbox.Text
                 Form1 f = new Form1(user);
                 f.Show();
                 Hide();
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void registerButton_Click(object sender, EventArgs e)
         {
-            
+            Register f = new Register();
+            f.Show();
+            Hide();
         }
     }
 }
