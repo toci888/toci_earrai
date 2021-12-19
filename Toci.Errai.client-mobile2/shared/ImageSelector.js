@@ -70,6 +70,17 @@ export const imagesManager = {
 }
 
 
+export const imagesForWorksheet = {
+    1: [1,2,3,4],
+    2: [5,6],
+    3: [15,16,17],
+    4: [20, 21],
+    5: [9,10],
+    6: [11,12,13,14],
+    7: [7,8],
+    8: [18,19],
+    9: [22,23,24,26],
+}
 
 
 /*export class ImageSelector {
