@@ -149,9 +149,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<User, User>("api/Account/Login", new User() { Email = email, Password = password }, false);
         }
 
-        public virtual User Register(string firstName, string lastName, string email, string password)
+        public virtual int Register(string firstName, string lastName, string email, string password)
         {
-            return ApiPost<User, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
+            return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
     }
 }
