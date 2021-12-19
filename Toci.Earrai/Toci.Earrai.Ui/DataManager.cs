@@ -77,5 +77,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.GetQuoteAndMetric();
         }
+
+        public virtual int AddQuoteandPrice(Quoteandprice item)
+        {
+            return ApiProxy.PostQuoteandPrice(item);
+        }
     }
 }

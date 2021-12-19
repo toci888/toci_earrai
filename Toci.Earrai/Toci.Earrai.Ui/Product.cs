@@ -144,21 +144,64 @@ namespace Toci.Earrai.Ui
         protected virtual void AddPricingForm()
         {
             ySlided += ySlide;
-            xSlide = 0;
+            xSlided = 0;
 
             Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
 
-            xSlided += xLeft + 90;
+            xSlided += xLeft + Cm.GetSize("Vendor: ");
 
-            ComboBox vCombo = Cm.CreateComboBox(vendors, "Name", 90, 20, xLeft + xSlided, ySlided, "Id");
+            Qapif.Vendors = Cm.CreateComboBox(vendors, "Name", 90, 20, xSlided, ySlided, "Id");
 
-            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xLeft + xSlided, ySlided, "Id");
+            xSlided += xSlide;
+
+            Label valuationLabel = Cm.CreateLabel("Price kind: ", 90, 20, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Price kind: ");
+
+            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xSlided, ySlided, "Id");
+
+            xSlided += xSlide;
+
+            Label priceLabel = Cm.CreateLabel("Price: ", 90, 20, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Price: "); ;
+
+            Qapif.Price = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xSlide;
+
+            Qapif.PriceSubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
 
             Controls.Add(vendorsLabel);
-            Controls.Add(vCombo);
+            Controls.Add(priceLabel);
+            Controls.Add(Qapif.Vendors);
+            Controls.Add(valuationLabel);
             Controls.Add(Qapif.PriceKind);
+            Controls.Add(Qapif.Price);
+            Controls.Add(Qapif.PriceSubmit);
         }
 
+        protected virtual void PriceAdd(object sender, EventArgs e)
+        {
+            int vendorId = int.Parse(Qapif.Vendors.SelectedValue.ToString());
+            int quoteandmetricId = int.Parse(Qapif.PriceKind.SelectedValue.ToString());
+
+            Quoteandprice areaquantity = new Quoteandprice()
+            {
+                Idvendor = vendorId,
+                Idquoteandmetric = quoteandmetricId,
+                Idproducts = product.Product.Id,
+                Iduser = LoggedUser.Id,
+                Price = Qapif.Price.Text
+            };
+
+            int result = Dm.AddQuoteandPrice(areaquantity);
+
+            if (result > 0)
+            {
+                Qapif.Price.Text = "";
+            }
+        }
         protected virtual void IsConnected()
         {
             while (true)
