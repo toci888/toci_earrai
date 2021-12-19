@@ -164,7 +164,6 @@ namespace Toci.Earrai.Ui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string worksheetId = workbookDdl.SelectedValue.ToString();
 
             List<ProductDto> products = Dm.GetProductsByWorksheetId(worksheetId);
             //ShowOnGrid(products, (p) => p.Product.Description);
@@ -191,40 +190,7 @@ namespace Toci.Earrai.Ui
         {
             string worksheetId = ((ComboBox)sender).SelectedValue.ToString();
 
-            //Dm.
-        }
-
-        protected virtual void ShowOnGrid<TRecord>(List<TRecord> elements, Func<TRecord, string> colNameIndicator)
-        {
-            
-            foreach (TRecord element in elements)
-            {
-                excelDataGrid.Columns.Add(colNameIndicator(element), colNameIndicator(element));
-            }
-        }
-
-        private void bind2(List<List<FlattenedEntity>> items)
-        {
-            foreach (var item in items)
-            {
-                foreach (FlattenedEntity element in item)
-                {
-                    excelDataGrid.Columns.Add(element.Name, element.Name);
-                }
-
-                excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
-            }
-
-        }
-
-        private void BindToGrid(List<ProductDto> products)
-        {
-            FlattenManager fm = new FlattenManager();
-
-            List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
-
-            bind2(result);
-
+            //Dm. z api
         }
     }
 }
