@@ -29,11 +29,11 @@ namespace Toci.Earrai.Ui
         /// </summary>
         private void InitializeComponent()
         {
-            this.LoginLabel = new System.Windows.Forms.Label();
-            this.loginTextbox = new System.Windows.Forms.TextBox();
+            this.FirstnameLabel = new System.Windows.Forms.Label();
+            this.firstnameTextbox = new System.Windows.Forms.TextBox();
             this.registerButton = new System.Windows.Forms.Button();
-            this.passwordTextbox = new System.Windows.Forms.TextBox();
-            this.Password = new System.Windows.Forms.Label();
+            this.lastnameTextbox = new System.Windows.Forms.TextBox();
+            this.Lastname = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.EmailLabel = new System.Windows.Forms.Label();
@@ -41,55 +41,60 @@ namespace Toci.Earrai.Ui
             this.passwordLabel = new System.Windows.Forms.Label();
             this.confirmPasswordtextBox = new System.Windows.Forms.TextBox();
             this.confirmPasswordLabel = new System.Windows.Forms.Label();
+            this.registerValidation1 = new System.Windows.Forms.Label();
+            this.registerValidation2 = new System.Windows.Forms.Label();
+            this.registerValidation3 = new System.Windows.Forms.Label();
+            this.registerValidation4 = new System.Windows.Forms.Label();
+            this.registerValidation5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // LoginLabel
+            // FirstnameLabel
             // 
-            this.LoginLabel.AutoSize = true;
-            this.LoginLabel.Location = new System.Drawing.Point(145, 27);
-            this.LoginLabel.Name = "LoginLabel";
-            this.LoginLabel.Size = new System.Drawing.Size(37, 15);
-            this.LoginLabel.TabIndex = 0;
-            this.LoginLabel.Text = "Login";
+            this.FirstnameLabel.AutoSize = true;
+            this.FirstnameLabel.Location = new System.Drawing.Point(143, 9);
+            this.FirstnameLabel.Name = "FirstnameLabel";
+            this.FirstnameLabel.Size = new System.Drawing.Size(59, 15);
+            this.FirstnameLabel.TabIndex = 0;
+            this.FirstnameLabel.Text = "Firstname";
             // 
-            // loginTextbox
+            // firstnameTextbox
             // 
-            this.loginTextbox.Location = new System.Drawing.Point(145, 45);
-            this.loginTextbox.Name = "loginTextbox";
-            this.loginTextbox.Size = new System.Drawing.Size(180, 23);
-            this.loginTextbox.TabIndex = 1;
+            this.firstnameTextbox.Location = new System.Drawing.Point(143, 27);
+            this.firstnameTextbox.Name = "firstnameTextbox";
+            this.firstnameTextbox.Size = new System.Drawing.Size(180, 23);
+            this.firstnameTextbox.TabIndex = 1;
             // 
             // registerButton
             // 
-            this.registerButton.Location = new System.Drawing.Point(145, 317);
+            this.registerButton.Location = new System.Drawing.Point(145, 382);
             this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(180, 43);
+            this.registerButton.Size = new System.Drawing.Size(180, 27);
             this.registerButton.TabIndex = 2;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
-            // passwordTextbox
+            // lastnameTextbox
             // 
-            this.passwordTextbox.Location = new System.Drawing.Point(145, 97);
-            this.passwordTextbox.Name = "passwordTextbox";
-            this.passwordTextbox.Size = new System.Drawing.Size(180, 23);
-            this.passwordTextbox.TabIndex = 4;
+            this.lastnameTextbox.Location = new System.Drawing.Point(145, 94);
+            this.lastnameTextbox.Name = "lastnameTextbox";
+            this.lastnameTextbox.Size = new System.Drawing.Size(180, 23);
+            this.lastnameTextbox.TabIndex = 4;
             // 
-            // Password
+            // Lastname
             // 
-            this.Password.AutoSize = true;
-            this.Password.Location = new System.Drawing.Point(145, 79);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(57, 15);
-            this.Password.TabIndex = 3;
-            this.Password.Text = "Password";
+            this.Lastname.AutoSize = true;
+            this.Lastname.Location = new System.Drawing.Point(145, 76);
+            this.Lastname.Name = "Lastname";
+            this.Lastname.Size = new System.Drawing.Size(58, 15);
+            this.Lastname.TabIndex = 3;
+            this.Lastname.Text = "Lastname";
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(145, 383);
+            this.loginButton.Location = new System.Drawing.Point(145, 415);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(180, 43);
+            this.loginButton.Size = new System.Drawing.Size(180, 29);
             this.loginButton.TabIndex = 5;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -97,7 +102,7 @@ namespace Toci.Earrai.Ui
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(145, 151);
+            this.emailTextBox.Location = new System.Drawing.Point(145, 160);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(180, 23);
             this.emailTextBox.TabIndex = 7;
@@ -105,7 +110,7 @@ namespace Toci.Earrai.Ui
             // EmailLabel
             // 
             this.EmailLabel.AutoSize = true;
-            this.EmailLabel.Location = new System.Drawing.Point(145, 133);
+            this.EmailLabel.Location = new System.Drawing.Point(145, 142);
             this.EmailLabel.Name = "EmailLabel";
             this.EmailLabel.Size = new System.Drawing.Size(36, 15);
             this.EmailLabel.TabIndex = 6;
@@ -113,7 +118,7 @@ namespace Toci.Earrai.Ui
             // 
             // passwordtextBox2
             // 
-            this.passwordtextBox2.Location = new System.Drawing.Point(145, 208);
+            this.passwordtextBox2.Location = new System.Drawing.Point(145, 227);
             this.passwordtextBox2.Name = "passwordtextBox2";
             this.passwordtextBox2.Size = new System.Drawing.Size(180, 23);
             this.passwordtextBox2.TabIndex = 9;
@@ -121,7 +126,7 @@ namespace Toci.Earrai.Ui
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(145, 190);
+            this.passwordLabel.Location = new System.Drawing.Point(145, 209);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(57, 15);
             this.passwordLabel.TabIndex = 8;
@@ -129,7 +134,7 @@ namespace Toci.Earrai.Ui
             // 
             // confirmPasswordtextBox
             // 
-            this.confirmPasswordtextBox.Location = new System.Drawing.Point(145, 262);
+            this.confirmPasswordtextBox.Location = new System.Drawing.Point(145, 295);
             this.confirmPasswordtextBox.Name = "confirmPasswordtextBox";
             this.confirmPasswordtextBox.Size = new System.Drawing.Size(180, 23);
             this.confirmPasswordtextBox.TabIndex = 11;
@@ -137,17 +142,77 @@ namespace Toci.Earrai.Ui
             // confirmPasswordLabel
             // 
             this.confirmPasswordLabel.AutoSize = true;
-            this.confirmPasswordLabel.Location = new System.Drawing.Point(145, 244);
+            this.confirmPasswordLabel.Location = new System.Drawing.Point(145, 277);
             this.confirmPasswordLabel.Name = "confirmPasswordLabel";
             this.confirmPasswordLabel.Size = new System.Drawing.Size(104, 15);
             this.confirmPasswordLabel.TabIndex = 10;
             this.confirmPasswordLabel.Text = "Confirm Password";
+            // 
+            // registerValidation1
+            // 
+            this.registerValidation1.AutoSize = true;
+            this.registerValidation1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerValidation1.ForeColor = System.Drawing.Color.Red;
+            this.registerValidation1.Location = new System.Drawing.Point(145, 53);
+            this.registerValidation1.Name = "registerValidation1";
+            this.registerValidation1.Size = new System.Drawing.Size(161, 17);
+            this.registerValidation1.TabIndex = 12;
+            this.registerValidation1.Text = "This field can\'t be empty";
+            // 
+            // registerValidation2
+            // 
+            this.registerValidation2.AutoSize = true;
+            this.registerValidation2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerValidation2.ForeColor = System.Drawing.Color.Red;
+            this.registerValidation2.Location = new System.Drawing.Point(143, 120);
+            this.registerValidation2.Name = "registerValidation2";
+            this.registerValidation2.Size = new System.Drawing.Size(161, 17);
+            this.registerValidation2.TabIndex = 13;
+            this.registerValidation2.Text = "This field can\'t be empty";
+            // 
+            // registerValidation3
+            // 
+            this.registerValidation3.AutoSize = true;
+            this.registerValidation3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerValidation3.ForeColor = System.Drawing.Color.Red;
+            this.registerValidation3.Location = new System.Drawing.Point(145, 192);
+            this.registerValidation3.Name = "registerValidation3";
+            this.registerValidation3.Size = new System.Drawing.Size(161, 17);
+            this.registerValidation3.TabIndex = 14;
+            this.registerValidation3.Text = "This field can\'t be empty";
+            // 
+            // registerValidation4
+            // 
+            this.registerValidation4.AutoSize = true;
+            this.registerValidation4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerValidation4.ForeColor = System.Drawing.Color.Red;
+            this.registerValidation4.Location = new System.Drawing.Point(145, 253);
+            this.registerValidation4.Name = "registerValidation4";
+            this.registerValidation4.Size = new System.Drawing.Size(161, 17);
+            this.registerValidation4.TabIndex = 15;
+            this.registerValidation4.Text = "This field can\'t be empty";
+            // 
+            // registerValidation5
+            // 
+            this.registerValidation5.AutoSize = true;
+            this.registerValidation5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.registerValidation5.ForeColor = System.Drawing.Color.Red;
+            this.registerValidation5.Location = new System.Drawing.Point(145, 321);
+            this.registerValidation5.Name = "registerValidation5";
+            this.registerValidation5.Size = new System.Drawing.Size(161, 17);
+            this.registerValidation5.TabIndex = 16;
+            this.registerValidation5.Text = "This field can\'t be empty";
             // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 456);
+            this.Controls.Add(this.registerValidation5);
+            this.Controls.Add(this.registerValidation4);
+            this.Controls.Add(this.registerValidation3);
+            this.Controls.Add(this.registerValidation2);
+            this.Controls.Add(this.registerValidation1);
             this.Controls.Add(this.confirmPasswordtextBox);
             this.Controls.Add(this.confirmPasswordLabel);
             this.Controls.Add(this.passwordtextBox2);
@@ -155,11 +220,11 @@ namespace Toci.Earrai.Ui
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.passwordTextbox);
-            this.Controls.Add(this.Password);
+            this.Controls.Add(this.lastnameTextbox);
+            this.Controls.Add(this.Lastname);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.loginTextbox);
-            this.Controls.Add(this.LoginLabel);
+            this.Controls.Add(this.firstnameTextbox);
+            this.Controls.Add(this.FirstnameLabel);
             this.Name = "Register";
             this.Text = "Register";
             this.ResumeLayout(false);
@@ -169,11 +234,11 @@ namespace Toci.Earrai.Ui
 
         #endregion
 
-        private System.Windows.Forms.Label LoginLabel;
-        private System.Windows.Forms.TextBox loginTextbox;
+        private System.Windows.Forms.Label FirstnameLabel;
+        private System.Windows.Forms.TextBox firstnameTextbox;
         private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.TextBox passwordTextbox;
-        private System.Windows.Forms.Label Password;
+        private System.Windows.Forms.TextBox lastnameTextbox;
+        private System.Windows.Forms.Label Lastname;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label EmailLabel;
@@ -181,5 +246,10 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.TextBox confirmPasswordtextBox;
         private System.Windows.Forms.Label confirmPasswordLabel;
+        private System.Windows.Forms.Label registerValidation1;
+        private System.Windows.Forms.Label registerValidation2;
+        private System.Windows.Forms.Label registerValidation3;
+        private System.Windows.Forms.Label registerValidation4;
+        private System.Windows.Forms.Label registerValidation5;
     }
 }

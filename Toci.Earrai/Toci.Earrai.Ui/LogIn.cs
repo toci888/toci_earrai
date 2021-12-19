@@ -19,6 +19,10 @@ namespace Toci.Earrai.Ui
         {
             InitializeComponent();
 
+            loginValidation1.Visible = loginValidation2.Visible = false;
+
+            loginValidation1.Text = loginValidation2.Text = "This field can't be empty!";
+
             passwordTextbox.PasswordChar = '*';
 
             loginTextBox.Text = "user@wp.pl";
@@ -26,6 +30,20 @@ namespace Toci.Earrai.Ui
         }
         private void loginButton_Click(object sender, EventArgs e)
         {
+            if (loginTextBox.Text == string.Empty)
+            {
+                loginValidation1.Visible = true;
+            }
+
+            if (passwordTextbox.Text == string.Empty)
+            {
+                loginValidation2.Visible = true;
+                return;
+            }
+
+            loginValidation1.Visible = false;
+            loginValidation2.Visible = false;
+
             User user = Dm.Login(loginTextBox.Text, passwordTextbox.Text);
 
             if (user != null)
