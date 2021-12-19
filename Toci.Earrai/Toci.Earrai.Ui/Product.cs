@@ -35,8 +35,14 @@ namespace Toci.Earrai.Ui
         protected List<Quoteandmetric> quotesandmetrics;
         protected User LoggedUser;
 
+        protected List<Quotesandprice> CurrentPrices;
+        protected List<Areasquantity> CurrentQuantities;
+
         protected AreaQuantityInputForm Aqif = new AreaQuantityInputForm();
         protected QuoteAndPriceInputForm Qapif = new QuoteAndPriceInputForm();
+
+        protected Areasquantity areaQ;
+        protected Quotesandprice quote;
 
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
@@ -116,7 +122,8 @@ namespace Toci.Earrai.Ui
 
             ySlided += ySlide;
 
-            Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 600, 200, xLeft, ySlided);
+            Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 1000, 200, xLeft, ySlided);
+            Aqif.DisplayGrid.CellClick += QuantitiesCellClick;
 
             ySlided += 200;
 
@@ -134,7 +141,9 @@ namespace Toci.Earrai.Ui
 
         protected virtual List<Areasquantity> GetQuantities(int productId)
         {
-            return Dm.GetQuantites(productId);
+            CurrentQuantities = Dm.GetQuantites(productId);
+
+            return CurrentQuantities;
         }
 
         protected virtual void QuantityAdd(object sender, EventArgs e)
@@ -148,13 +157,26 @@ namespace Toci.Earrai.Ui
             Areaquantity areaquantity = new Areaquantity() {          
                 Idarea = areaId, Idproducts = product.Product.Id, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
 
-            List<Areaquantity> result = Dm.PostAreaQuantity(areaquantity);
+            List<Areaquantity> result = new List<Areaquantity>();
+
+            if (Aqif.QuantitySubmit.Text == "Update")
+            {
+                areaquantity.Id = areaQ.Id.Value;
+
+                result.Add(Dm.UpdateAreaQuantity(areaquantity));
+            }
+            else
+            {
+                result = Dm.PostAreaQuantity(areaquantity);
+            }
 
             if (result[0].Id > 0)
             {
                 Aqif.Quantity.Text = "";
                 Aqif.Length.Text = "";
                 Aqif.Width.Text = "";
+                Aqif.DisplayGrid.DataSource = GetQuantities(prodId);
+                Aqif.QuantitySubmit.Text = "Add";
             }
         }
 
@@ -189,6 +211,11 @@ namespace Toci.Earrai.Ui
 
             Qapif.PriceSubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
 
+            ySlided += ySlide;
+
+            Qapif.DisplayGrid = Cm.CreateGrid(GetPrices(prodId), 1000, 200, xLeft, ySlided);
+            Qapif.DisplayGrid.CellClick += PricesCellClick;
+
             Controls.Add(vendorsLabel);
             Controls.Add(priceLabel);
             Controls.Add(Qapif.Vendors);
@@ -196,6 +223,13 @@ namespace Toci.Earrai.Ui
             Controls.Add(Qapif.PriceKind);
             Controls.Add(Qapif.Price);
             Controls.Add(Qapif.PriceSubmit);
+            Controls.Add(Qapif.DisplayGrid);
+        }
+        protected virtual List<Quotesandprice> GetPrices(int productId)
+        {
+            CurrentPrices = Dm.GetPrices(productId);
+
+            return CurrentPrices;
         }
 
         protected virtual void PriceAdd(object sender, EventArgs e)
@@ -208,7 +242,7 @@ namespace Toci.Earrai.Ui
             int vendorId = int.Parse(Qapif.Vendors.SelectedValue.ToString());
             int quoteandmetricId = int.Parse(Qapif.PriceKind.SelectedValue.ToString());
 
-            Quoteandprice areaquantity = new Quoteandprice()
+            Quoteandprice price = new Quoteandprice()
             {
                 Idvendor = vendorId,
                 Idquoteandmetric = quoteandmetricId,
@@ -217,13 +251,56 @@ namespace Toci.Earrai.Ui
                 Price = Qapif.Price.Text
             };
 
-            int result = Dm.AddQuoteandPrice(areaquantity);
+            Quoteandprice res = null; 
+            int result = 0;
 
-            if (result > 0)
+            if (Qapif.PriceSubmit.Text == "Update")
+            {
+                price.Id = quote.Id.Value;
+
+                res = Dm.UpdateQuoteandprice(price);
+            }
+            else
+            {
+                result = Dm.AddQuoteandPrice(price);
+            }
+
+
+            if (result > 0 || res != null)
             {
                 Qapif.Price.Text = "";
+                Qapif.DisplayGrid.DataSource = GetPrices(prodId);
+                Qapif.PriceSubmit.Text = "Add";
             }
         }
+
+        protected virtual void QuantitiesCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            areaQ = CurrentQuantities.ElementAtOrDefault(e.RowIndex);
+
+            if (areaQ != null)
+            {
+                Aqif.Area.SelectedValue = areaQ.Idarea;
+                Aqif.Length.Text = areaQ.Length;
+                Aqif.Quantity.Text = areaQ.Quantity;
+                Aqif.Width.Text = areaQ.Width;
+                Aqif.QuantitySubmit.Text = "Update";
+            }
+        }
+
+        protected virtual void PricesCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            quote = CurrentPrices.ElementAtOrDefault(e.RowIndex);
+
+            if (quote != null)
+            {
+                Qapif.Vendors.SelectedValue = quote.Idvendor;
+                Qapif.Price.Text = quote.Price;
+                Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
+                Qapif.PriceSubmit.Text = "Update";
+            }
+        }
+
         protected virtual void IsConnected()
         {
             while (true)
@@ -237,35 +314,7 @@ namespace Toci.Earrai.Ui
 
         }
 
-        private void queryTextbox_TextChanged(object sender, EventArgs e)
-        {
-            /* TextBox tb = (TextBox)sender;
-
-             AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
-             acsc.Add("dupa");
-             acsc.Add("sraka");
-
-             tb.AutoCompleteCustomSource = acsc;*/
-        }
-
-        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
 
         }

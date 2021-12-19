@@ -35,9 +35,14 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<List<Areaquantity>, List<Areaquantity>>("api/AreaQuantity/PostAreaQuantities", parameter, true);
         }
 
-        public virtual Areaquantity UpdateAreaQuantity(Areaquantity item) //POST
+        public virtual Areaquantity UpdateAreaQuantity(Areaquantity item) //PUT
         {
-            return ApiPost<Areaquantity, Areaquantity>("api/AreaQuantity/UpdateAreaQuantity", item, false);
+            return ApiPut<Areaquantity, Areaquantity>("api/AreaQuantity/UpdateAreaQuantity", item, false);
+        }
+
+        public virtual Quoteandprice UpdateQuoteAndPrice(Quoteandprice item) //PUT
+        {
+            return ApiPut<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/UpdateQuoteAndPrice", item, false);
         }
         //public virtual Areaquantity DeleteAreaQuantity() //DELETE
         //{
@@ -89,9 +94,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Quoteandmetric>>("api/QuoteAndMetric", true);
         }
 
-        public virtual List<Quoteandprice> GetQuotesAndPricesByProductId(int productId)
+        public virtual List<Quotesandprice> GetQuotesAndPricesByProductId(int productId)
         {
-            return ApiGet<List<Quoteandprice>>("api/QuoteAndPrice/QuoteAndPriceByProductId/" + productId, true);
+            return ApiGet<List<Quotesandprice>>("api/QuoteAndPrice/QuoteAndPriceByProductId/" + productId, true);
         }
 
         protected virtual T ApiGet<T>(string url, bool isResponseArray)
@@ -117,6 +122,33 @@ namespace Toci.Earrai.Bll.Client.UI
                 HttpContent content = JsonContent.Create<TDto>(dto);
 
                 HttpResponseMessage response = hc.PostAsync(url, content).Result;
+
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
+                return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
+            }
+        }
+
+        protected virtual T ApiPut<T, TDto>(string url, TDto dto, bool isResponseArray)
+        {
+            using (HttpClient hc = new HttpClient())
+            {
+                hc.BaseAddress = new Uri(BaseUrl);
+
+                HttpContent content = JsonContent.Create<TDto>(dto);
+
+                HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage() 
+                { Method = HttpMethod.Put, RequestUri = new Uri(url, UriKind.Relative), Content = content }).Result;
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
