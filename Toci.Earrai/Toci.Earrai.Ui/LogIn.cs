@@ -19,11 +19,9 @@ namespace Toci.Earrai.Ui
         {
             InitializeComponent();
 
-            loginValidation1.Visible = false;
-            loginValidation2.Visible = false;
+            loginValidation1.Visible = loginValidation2.Visible = false;
 
-            loginValidation1.Text = "This field can't be empty";
-            loginValidation2.Text = "This field can't be empty";
+            loginValidation1.Text = loginValidation2.Text = "This field can't be empty!";
 
             passwordTextbox.PasswordChar = '*';
 

@@ -73,15 +73,9 @@ namespace Toci.Earrai.Ui
             return ApiProxy.Login(user, pass);
         }
 
-        public virtual User Register(string firstName, string lastName, string email, string password, string confirmPassword)
+        public virtual User Register(string firstName, string lastName, string email, string password)
         {
-
-            if (password != confirmPassword)
-            {
-
-            }
-
-            return ApiProxy.Register(firstName, lastName, password, confirmPassword);
+            return ApiProxy.Register(firstName, lastName, email, password);
         }
 
         public virtual List<Quoteandmetric> GetQuotesAndMetrics()
