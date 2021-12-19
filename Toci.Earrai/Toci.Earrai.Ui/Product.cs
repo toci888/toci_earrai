@@ -22,15 +22,18 @@ namespace Toci.Earrai.Ui
         protected ProductDto product;
         protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
-        protected ControlsManager Cm = new ControlsManager();
+        protected ControlsManager Cm = new ControlsManager(true);
 
         protected int ySlided = 0;
+        protected int xSlided = 0;
         protected int xSlide = 100;
         protected int ySlide = 30;
         protected int xLeft = 10;
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+
+        protected AreaQuantityInputForm Aqif = new AreaQuantityInputForm();
 
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors)
         {
@@ -44,7 +47,7 @@ namespace Toci.Earrai.Ui
 
             AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft, 20);
             AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft, ySlided + ySlide);
-            AddAreasQuatntitiesForm();
+            AddAreasQuantitiesForm();
             AddPricingForm();
             //IsConnected();
 
@@ -68,61 +71,70 @@ namespace Toci.Earrai.Ui
             ySlided = newY;
         }
 
-        protected virtual void AddAreasQuatntitiesForm()
+        protected virtual void AddAreasQuantitiesForm()
         {
             ySlided += ySlide;
 
-            Label widthL = new Label();
-            widthL.Text = "Width: ";
-            widthL.Size = new System.Drawing.Size(90, 20);
-            widthL.Location = new Point(xLeft, ySlided);
+            Label widthL = Cm.CreateLabel("Width: ", 90, 20, xLeft, ySlided);
 
-            TextBox widthT = new TextBox();
-            widthT.Size = new System.Drawing.Size(90, 20);
-            widthT.Location = new Point(xLeft + xSlide, ySlided);
+            xSlided = xLeft + Cm.GetSize("Width: "); 
 
-            ySlided += ySlide;
+            Aqif.Width = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
 
-            Label lengthL = new Label();
-            lengthL.Text = "Length: ";
-            lengthL.Size = new System.Drawing.Size(90, 20);
-            lengthL.Location = new Point(xLeft, ySlided);
+            xSlided += xLeft + xSlide;
 
-            TextBox lengthR = new TextBox();
-            lengthR.Size = new System.Drawing.Size(90, 20);
-            lengthR.Location = new Point(xLeft + xSlide, ySlided);
+            Label lengthL = Cm.CreateLabel("Length: ", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + Cm.GetSize("Length: ");
+
+            Aqif.Length = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + xSlide;
+
+            Label quantityL = Cm.CreateLabel("Quantity: ", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + Cm.GetSize("Quantity: ");
+
+            Aqif.Quantity = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + xSlide;
+
+            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + Cm.GetSize("Area: ");
+
+            Aqif.Area = Cm.CreateComboBox(areas, "Name", 180, 20, xSlided, ySlided, "Id");
+
+            xSlided += xLeft + xSlide + xSlide;
+
+            Aqif.QuantitySubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
 
             Controls.Add(widthL);
-            Controls.Add(widthT);
+            Controls.Add(Aqif.Width);
             Controls.Add(lengthL);
-            Controls.Add(lengthR);
-
-            ySlided += ySlide;
-
-            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xLeft, ySlided);
-
-            ComboBox areasCombo = Cm.CreateComboBox(areas, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
-
+            Controls.Add(Aqif.Length);
             Controls.Add(areasLabel);
-            Controls.Add(areasCombo);
+            Controls.Add(Aqif.Area);
+            Controls.Add(quantityL);
+            Controls.Add(Aqif.Quantity);
+            Controls.Add(Aqif.QuantitySubmit);
+        }
+
+        protected virtual void QuantityAdd(object sender, EventArgs e)
+        {
+            int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               //todo
+            Areaquantity areaquantity = new Areaquantity() { Idarea = areaId, Idproducts = product.Product.Id, Iduser = 1, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+
+            Dm.PostAreaQuantity(areaquantity);
         }
 
         protected virtual void AddPricingForm()
         {
             ySlided += ySlide;
 
-            Label vendorsLabel = new Label();
-            vendorsLabel.Text = "Vendor: ";
-            vendorsLabel.Size = new System.Drawing.Size(90, 20);
-            vendorsLabel.Location = new Point(xLeft, ySlided);
+            Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
 
-            ComboBox vCombo = new ComboBox();
-
-            vCombo.DisplayMember = "Name";
-            vCombo.ValueMember = "Id";
-            vCombo.DataSource = vendors;
-            vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft + xSlide, ySlided);
+            ComboBox vCombo = Cm.CreateComboBox(vendors, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
 
             Controls.Add(vendorsLabel);
             Controls.Add(vCombo);

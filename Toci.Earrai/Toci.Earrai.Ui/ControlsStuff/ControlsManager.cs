@@ -10,8 +10,30 @@ namespace Toci.Earrai.Ui.ControlsStuff
 {
     public class ControlsManager
     {
+        protected bool AutoSize = false;
+
+        public ControlsManager()
+        {
+            
+        }
+
+        public ControlsManager(bool autosize)
+        {
+            AutoSize = autosize;
+        }
+
+        public int GetSize(string text)
+        {
+            return text.Length * 8;
+        }
+
         public virtual Label CreateLabel(string text, int sizeX, int sizeY, int locX, int locY)
         {
+            if (AutoSize)
+            {
+                sizeX = GetSize(text);
+            }
+            
             Label label = new Label();
 
             label.Text = text;
@@ -43,6 +65,18 @@ namespace Toci.Earrai.Ui.ControlsStuff
             combo.Location = new Point(locX, locY);
 
             return combo;
+        }
+
+        public virtual Button CreateButton(string text, int sizeX, int sizeY, int locX, int locY, EventHandler submitAction)
+        {
+            Button submit = new Button();
+
+            submit.Text = text;
+            submit.Size = new Size(sizeX, sizeY);
+            submit.Location = new Point(locX, locY);
+            submit.Click += submitAction;
+
+            return submit;
         }
     }
 }

@@ -63,5 +63,9 @@ namespace Toci.Earrai.Ui
             });
         }
 
+        public virtual List<Areaquantity> PostAreaQuantity(Areaquantity areaquantity)
+        {
+            return ApiProxy.PostAreaQuantities(areaquantity);
+        }
     }
 }
