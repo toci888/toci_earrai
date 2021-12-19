@@ -67,5 +67,7 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.PostAreaQuantities(areaquantity);
         }
+
+
     }
 }

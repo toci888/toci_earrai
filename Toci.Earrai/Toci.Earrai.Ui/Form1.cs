@@ -165,7 +165,6 @@ namespace Toci.Earrai.Ui
 
             //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
-
         }
 
         private void showBtn_Click(object sender, EventArgs e)
@@ -197,7 +196,7 @@ namespace Toci.Earrai.Ui
             string worksheetID = ((ComboBox)sender).SelectedValue.ToString();
 
             int worksheetId = int.Parse(worksheetID);
-
+            
             SearchCombosHandler(worksheetId);
         }
 
