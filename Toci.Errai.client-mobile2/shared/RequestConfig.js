@@ -57,6 +57,10 @@ export function getProductsFromWorksheet(worksheetId, phrase, skip) {
 
 export const getAllWorksheetsUrl = environment.apiUrl + "api/Worksheet/GetAllWorksheetsFromDb"
 
+export function getAllProductsByWorksheet(worksheetId) {
+    return environment.apiUrl + "api/Product/GetProducts/" + worksheetId
+}
+
 export const getAreasUrl = environment.apiUrl + 'api/Areas'
 
 export function getAreasQuantitiesByProduct(productId) {

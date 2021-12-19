@@ -15,7 +15,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             if(x_.Value == "") { return dto; }
             double x = Convert.ToDouble(x_.Value);
 
-            var y_ = product.Sizes.Where(size => size.Name == "Thickness").FirstOrDefault();
+            var y_ = product.Sizes.Where(size => size.Name == Consts.Thickness).FirstOrDefault();
             if (y_ == null) { return dto; }
             if (y_.Value == "") { return dto; }
             double y = Convert.ToDouble(y_.Value);

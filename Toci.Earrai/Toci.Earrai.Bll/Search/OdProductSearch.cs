@@ -11,7 +11,7 @@ namespace Toci.Earrai.Bll.Search
     public class OdProductSearch : SearchProductBase
     {
         protected List<string> Options = new List<string>() { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs   };
-    public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+    public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
             List<Product> result = new List<Product>();
             //od ....
@@ -21,7 +21,7 @@ namespace Toci.Earrai.Bll.Search
                 result = FilterResultsOptionsWorksheet(request, elements);
             }
 
-            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
+            return ToProductDto(FilterBySearchQuery(request, result));
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Toci.Earrai.Bll.Models
 
         public List<Areasquantity> AreaQuantities { get; set; }
 
+        public List<Quotesandprice> Quotesandprices { get; set; }
+
         public PricingDto Pricing { get; set; }
     }
 }

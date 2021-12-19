@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -10,12 +11,12 @@ namespace Toci.Earrai.Bll.Search
 {
     public abstract class SearchProductBase
     {
-        protected Logic<Product> ProductLogic = new Logic<Product>();
+        protected IProductLogic ProductLogic = new ProductLogic();
         protected Logic<Productsoptionsstate> ProductOptionsLogic = new Logic<Productsoptionsstate>();
         protected Logic<Productssize> ProductSizesLogic = new Logic<Productssize>();
         protected Logic<Areasquantity> AreasquantityLogic = new Logic<Areasquantity>();
         
-        public abstract List<ProductSearchResponseDto> Search(ProductSearchRequestDto request);
+        public abstract List<ProductDto> Search(ProductSearchRequestDto request);
 
         protected virtual List<Product> GetProductsBasic(ProductSearchRequestDto request)
         {
@@ -66,34 +67,21 @@ namespace Toci.Earrai.Bll.Search
             return result;
         }
 
-        protected virtual List<ProductSearchResponseDto> ToProductSearchResponseDto(List<Product> items)
+        protected virtual List<ProductDto> ToProductDto(List<Product> items)
         {
-            List<ProductSearchResponseDto> result = new List<ProductSearchResponseDto>();
+            List<ProductDto> result = new List<ProductDto>();
 
             foreach (Product item in items)
             {
-                result.Add(new ProductSearchResponseDto() { Product = item, Balance = GetBalance(item.Id) });
+                ProductDto pDto = ProductLogic.GetProduct(item.Id);
+
+                result.Add(pDto);
             }
 
             return result;
         }
 
-        protected virtual double GetBalance(int productId)
-        {
-            List<Areasquantity> areasquantities = AreasquantityLogic.Select(m => m.Idproducts == productId).ToList();
-            double balance = 0;
-
-            foreach (Areasquantity item in areasquantities)
-            {
-                double x = 0;
-
-                double.TryParse(item.Quantity, out x);
-
-                balance += x;
-            }
-
-            return balance;
-        }
+        
 
         protected virtual List<Product> FilterBySearchQuery(ProductSearchRequestDto request, List<Product> result)
         {

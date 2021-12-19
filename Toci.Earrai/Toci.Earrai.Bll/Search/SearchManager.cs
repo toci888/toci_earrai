@@ -34,7 +34,7 @@ namespace Toci.Earrai.Bll.Search
             { Consts.Description, new DescriptionProductSearch() }
         };
 
-        public virtual List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        public virtual List<ProductDto> Search(ProductSearchRequestDto request)
         {
             if (SearchHelpers.ContainsKey(request.WorksheetId))
             {
@@ -44,7 +44,7 @@ namespace Toci.Earrai.Bll.Search
             return null;
         }
 
-        public virtual List<ProductSearchResponseDto> SearchEx(ProductSearchRequestDto request)
+        public virtual List<ProductDto> SearchEx(ProductSearchRequestDto request)
         {
             if (SearchHelpersEx.ContainsKey(request.Name))
             {

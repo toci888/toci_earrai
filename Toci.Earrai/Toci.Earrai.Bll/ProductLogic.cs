@@ -16,6 +16,7 @@ namespace Toci.Earrai.Bll
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
+        protected IQuoteandpriceLogic QuoteandpriceLogic = new QuoteandpriceLogic();
 
         public virtual ProductDto GetProduct(int productId)
         {
@@ -25,10 +26,13 @@ namespace Toci.Earrai.Bll
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
             result.Prices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
             result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
+            result.Quotesandprices = QuoteandpriceLogic.GetAllQuotesAndPricesView(productId);
 
             PriceExecutor priceExec = new PriceExecutor(result);
 
-            result.Pricing = priceExec.getPrices();
+            result.Pricing = priceExec.GetPrices();
+
+            result.Balance = GetBalance(result);
 
             return result;
         }
@@ -52,6 +56,23 @@ namespace Toci.Earrai.Bll
             List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
 
             return products.Select(item => GetProduct(item.Id)).ToList();
+        }
+
+        protected virtual double GetBalance(ProductDto product)
+        {
+            //List<Areasquantity> areasquantities = AreasquantityLogic.Select(m => m.Idproducts == productId).ToList();
+            double balance = 0;
+
+            foreach (Areasquantity item in product.AreaQuantities)
+            {
+                double x = 0;
+
+                double.TryParse(item.Quantity, out x);
+
+                balance += x;
+            }
+
+            return balance;
         }
     }
 }

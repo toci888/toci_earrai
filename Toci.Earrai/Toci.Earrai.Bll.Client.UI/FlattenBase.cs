@@ -26,9 +26,12 @@ namespace Toci.Earrai.Bll.Client.UI
         {
             List<FlattenedEntity> result = new List<FlattenedEntity>();
 
-            foreach (T obj in collection)
+            if (collection != null)
             {
-                result.Add(mapper(obj));
+                foreach (T obj in collection)
+                {
+                    result.Add(mapper(obj));
+                }
             }
 
             return result;

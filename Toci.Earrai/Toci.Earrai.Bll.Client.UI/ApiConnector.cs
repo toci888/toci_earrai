@@ -25,9 +25,14 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
         }
 
-        public virtual Areaquantity PostAreaQuantities(Areaquantity item) //POST
+        public virtual List<Areaquantity> PostAreaQuantities(Areaquantity item) //POST
         {
-            return ApiPost<Areaquantity, Areaquantity>("api/AreaQuantity/PostAreaQuantities", item, false);
+            List<Areaquantity> parameter = new List<Areaquantity>()
+            {
+                item
+            };
+
+            return ApiPost<List<Areaquantity>, List<Areaquantity>>("api/AreaQuantity/PostAreaQuantities", parameter, true);
         }
 
         public virtual Areaquantity UpdateAreaQuantity(Areaquantity item) //POST
@@ -74,7 +79,7 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
         }
 
-        public virtual List<Vendor> GetVendors(int productId, double price) //price?
+        public virtual List<Vendor> GetAllVendors() //price?
         {
             return ApiGet<List<Vendor>>("api/QuoteAndPrice/GetAllVendorsFromDb", true);
         }
