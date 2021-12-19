@@ -29,29 +29,60 @@ namespace Toci.Earrai.Ui
         protected int xSlide = 100;
         protected int ySlide = 30;
         protected int xLeft = 10;
+        protected int xOptionsSizes = 350;
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+        protected List<Quoteandmetric> quotesandmetrics;
+        protected User LoggedUser;
+
+        protected List<Quotesandprice> CurrentPrices;
+        protected List<Areasquantity> CurrentQuantities;
 
         protected AreaQuantityInputForm Aqif = new AreaQuantityInputForm();
+        protected QuoteAndPriceInputForm Qapif = new QuoteAndPriceInputForm();
 
-        public Product(int productId, List<Area> _areas, List<Vendor> _vendors)
+        protected Areasquantity areaQ;
+        protected Quotesandprice quote;
+
+        public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
             InitializeComponent();
             prodId = productId;
 
             areas = _areas;
             vendors = _vendors;
+            LoggedUser = loggedUser;
+            quotesandmetrics = _quotesandmetrics;
 
             product = Dm.GetProduct(prodId);
 
-            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft, 20);
-            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft, ySlided + ySlide);
+            AddBasicProductInfo();
+            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, 20);
+            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide);
             AddAreasQuantitiesForm();
             AddPricingForm();
             //IsConnected();
 
             Setup();
+        }
+
+        protected virtual void AddBasicProductInfo()
+        {
+            int y = 10;
+            
+            Label productaccountreference = Cm.CreateLabel("Product Account Reference: ", 90, 20, xLeft, y);
+            Label productaccountreferenceValue = Cm.CreateLabel(product.Product.Productaccountreference, 90, 20, xLeft + Cm.GetSize("Product Account Reference: "), y);
+
+            y += ySlide;
+
+            Label description = Cm.CreateLabel("Description: ", 90, 20, xLeft, y);
+            Label descriptionValue = Cm.CreateLabel(product.Product.Description, 90, 20, xLeft + xSlide, y);
+
+            Controls.Add(productaccountreference);
+            Controls.Add(productaccountreferenceValue);
+            Controls.Add(description);
+            Controls.Add(descriptionValue);
         }
 
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord)
@@ -109,6 +140,31 @@ namespace Toci.Earrai.Ui
 
             Aqif.QuantitySubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
 
+            ySlided += ySlide;
+
+            Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 1000, 200, xLeft, ySlided);
+            Aqif.DisplayGrid.CellClick += QuantitiesCellClick;
+
+            DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
+            deleteButton.Name = "dataGridViewDeleteButton";
+            deleteButton.HeaderText = "Delete";
+            deleteButton.Text = "Delete";
+            deleteButton.UseColumnTextForButtonValue = true;
+
+            Aqif.DisplayGrid.Columns.Add(deleteButton);
+
+            Aqif.DisplayGrid.DataBindingComplete += (sn, evA) =>
+            {
+                List<string> colsHide = new List<string>() { "Id", "Idproducts", "Idcodesdimensions", "Idarea", "Iduser", "Rowindex" };
+
+                foreach (string column in colsHide)
+                {
+                    Aqif.DisplayGrid.Columns[column].Visible = false;
+                }
+            };
+
+            ySlided += 200;
+
             Controls.Add(widthL);
             Controls.Add(Aqif.Width);
             Controls.Add(lengthL);
@@ -118,26 +174,223 @@ namespace Toci.Earrai.Ui
             Controls.Add(quantityL);
             Controls.Add(Aqif.Quantity);
             Controls.Add(Aqif.QuantitySubmit);
+            Controls.Add(Aqif.DisplayGrid);
+        }
+
+        protected virtual List<Areasquantity> GetQuantities(int productId)
+        {
+            CurrentQuantities = Dm.GetQuantites(productId);
+
+            return CurrentQuantities;
         }
 
         protected virtual void QuantityAdd(object sender, EventArgs e)
         {
-            int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               //todo
-            Areaquantity areaquantity = new Areaquantity() { Idarea = areaId, Idproducts = product.Product.Id, Iduser = 1, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+            if (Aqif.Width.Text == string.Empty || Aqif.Length.Text == string.Empty || Aqif.Quantity.Text == string.Empty)
+            {
+                return;
+            }
 
-            Dm.PostAreaQuantity(areaquantity);
+            int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               
+            Areaquantity areaquantity = new Areaquantity() {          
+                Idarea = areaId, Idproducts = product.Product.Id, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+
+            List<Areaquantity> result = new List<Areaquantity>();
+
+            if (Aqif.QuantitySubmit.Text == "Update")
+            {
+                areaquantity.Id = areaQ.Id.Value;
+                areaquantity.Createdat = areaQ.Createdat;
+                areaquantity.Updatedat = DateTime.Now;
+
+                result.Add(Dm.UpdateAreaQuantity(areaquantity));
+            }
+            else
+            {
+                result = Dm.PostAreaQuantity(areaquantity);
+            }
+
+            if (result[0].Id > 0)
+            {
+                Aqif.Quantity.Text = "";
+                Aqif.Length.Text = "";
+                Aqif.Width.Text = "";
+                Aqif.DisplayGrid.DataSource = GetQuantities(prodId);
+                Aqif.QuantitySubmit.Text = "Add";
+            }
         }
 
         protected virtual void AddPricingForm()
         {
             ySlided += ySlide;
+            xSlided = 0;
 
             Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
 
-            ComboBox vCombo = Cm.CreateComboBox(vendors, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
+            xSlided += xLeft + Cm.GetSize("Vendor: ");
+
+            Qapif.Vendors = Cm.CreateComboBox(vendors, "Name", 90, 20, xSlided, ySlided, "Id");
+
+            xSlided += xSlide;
+
+            Label valuationLabel = Cm.CreateLabel("Price kind: ", 90, 20, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Price kind: ");
+
+            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xSlided, ySlided, "Id");
+
+            xSlided += xSlide;
+
+            Label priceLabel = Cm.CreateLabel("Price: ", 90, 20, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Price: "); ;
+
+            Qapif.Price = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xSlide;
+
+            Qapif.PriceSubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
+
+            ySlided += ySlide;
+
+            Qapif.DisplayGrid = Cm.CreateGrid(GetPrices(prodId), 1000, 200, xLeft, ySlided);
+            Qapif.DisplayGrid.CellClick += PricesCellClick;
+
+            DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
+            deleteButton.Name = "dataGridViewDeleteButton";
+            deleteButton.HeaderText = "Delete";
+            deleteButton.Text = "Delete";
+            deleteButton.UseColumnTextForButtonValue = true;
+
+            Qapif.DisplayGrid.Columns.Add(deleteButton);
+
+            Qapif.DisplayGrid.DataBindingComplete += (sn, evA) =>
+            {
+                List<string> colsHide = new List<string>() { "Id", "Idproducts", "Idquoteandmetric", "Idvendor", "Iduser", "Rowindex" };
+
+                foreach (string column in colsHide)
+                {
+                    Qapif.DisplayGrid.Columns[column].Visible = false;
+                }
+            };
 
             Controls.Add(vendorsLabel);
-            Controls.Add(vCombo);
+            Controls.Add(priceLabel);
+            Controls.Add(Qapif.Vendors);
+            Controls.Add(valuationLabel);
+            Controls.Add(Qapif.PriceKind);
+            Controls.Add(Qapif.Price);
+            Controls.Add(Qapif.PriceSubmit);
+            Controls.Add(Qapif.DisplayGrid);
+        }
+        protected virtual List<Quotesandprice> GetPrices(int productId)
+        {
+            CurrentPrices = Dm.GetPrices(productId);
+
+            return CurrentPrices;
+        }
+
+        protected virtual void PriceAdd(object sender, EventArgs e)
+        {
+            if (Qapif.Price.Text == string.Empty)
+            {
+                return;
+            }
+
+            int vendorId = int.Parse(Qapif.Vendors.SelectedValue.ToString());
+            int quoteandmetricId = int.Parse(Qapif.PriceKind.SelectedValue.ToString());
+
+            Quoteandprice price = new Quoteandprice()
+            {
+                Idvendor = vendorId,
+                Idquoteandmetric = quoteandmetricId,
+                Idproducts = product.Product.Id,
+                Iduser = LoggedUser.Id,
+                Price = Qapif.Price.Text
+            };
+
+            Quoteandprice res = null; 
+            int result = 0;
+
+            if (Qapif.PriceSubmit.Text == "Update")
+            {
+                price.Id = quote.Id.Value;
+                price.Createdat = quote.Createdat;
+                price.Updatedat = DateTime.Now;
+
+                res = Dm.UpdateQuoteandprice(price);
+            }
+            else
+            {
+                result = Dm.AddQuoteandPrice(price);
+            }
+
+
+            if (result > 0 || res != null)
+            {
+                Qapif.Price.Text = "";
+                Qapif.DisplayGrid.DataSource = GetPrices(prodId);
+                Qapif.PriceSubmit.Text = "Add";
+            }
+        }
+
+        protected virtual void QuantitiesCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            areaQ = CurrentQuantities.ElementAtOrDefault(e.RowIndex);
+
+            if (e.ColumnIndex == 0)
+            {
+                string message = string.Format("You are attempting to erase quantity {0} created at {1} by user {2}. ", areaQ.Quantity, areaQ.Createdat, areaQ.Initials);
+
+                DialogResult dialogResult = MessageBox.Show(message + "Are you sure ?", "Quantities delete warning.", MessageBoxButtons.YesNo);
+
+                if (dialogResult.ToString() == "Yes")
+                {
+                    Dm.DeleteQuantity(areaQ.Id.Value);
+
+                    Aqif.DisplayGrid.DataSource = GetQuantities(prodId);
+
+                    return;
+                }
+            }
+
+            if (areaQ != null)
+            {
+                Aqif.Area.SelectedValue = areaQ.Idarea;
+                Aqif.Length.Text = areaQ.Length;
+                Aqif.Quantity.Text = areaQ.Quantity;
+                Aqif.Width.Text = areaQ.Width;
+                Aqif.QuantitySubmit.Text = "Update";
+            }
+        }
+
+        protected virtual void PricesCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            quote = CurrentPrices.ElementAtOrDefault(e.RowIndex);
+
+            if (e.ColumnIndex == 0)
+            {
+                string message = string.Format("You are attempting to erase quote price {0} created at {1} by user {2}. ", quote.Price, quote.Createdat, quote.Initials);
+
+                DialogResult dialogResult = MessageBox.Show(message + "Are you sure ?", "Price quote delete warning.", MessageBoxButtons.YesNo);
+
+                if (dialogResult.ToString() == "Yes")
+                {
+                    Dm.DeleteQuoteAndPrice(quote.Id.Value);
+
+                    Qapif.DisplayGrid.DataSource = GetPrices(prodId);
+
+                    return;
+                }
+            }
+
+            if (quote != null)
+            {
+                Qapif.Vendors.SelectedValue = quote.Idvendor;
+                Qapif.Price.Text = quote.Price;
+                Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
+                Qapif.PriceSubmit.Text = "Update";
+            }
         }
 
         protected virtual void IsConnected()
@@ -153,35 +406,7 @@ namespace Toci.Earrai.Ui
 
         }
 
-        private void queryTextbox_TextChanged(object sender, EventArgs e)
-        {
-            /* TextBox tb = (TextBox)sender;
-
-             AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
-             acsc.Add("dupa");
-             acsc.Add("sraka");
-
-             tb.AutoCompleteCustomSource = acsc;*/
-        }
-
-        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
 
         }

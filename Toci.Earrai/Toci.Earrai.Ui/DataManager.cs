@@ -67,5 +67,55 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.PostAreaQuantities(areaquantity);
         }
+
+        public virtual Areaquantity UpdateAreaQuantity(Areaquantity areaquantity)
+        {
+            return ApiProxy.UpdateAreaQuantity(areaquantity);
+        }
+
+        public virtual Quoteandprice UpdateQuoteandprice(Quoteandprice item)
+        {
+            return ApiProxy.UpdateQuoteAndPrice(item);
+        }
+
+        public virtual int DeleteQuoteAndPrice(int id)
+        {
+            return ApiProxy.DeletePrice(id);
+        }
+
+        public virtual int DeleteQuantity(int id)
+        {
+            return ApiProxy.DeleteQuantity(id);
+        }
+
+        public virtual User Login(string user, string pass)
+        {
+            return ApiProxy.Login(user, pass);
+        }
+
+        public virtual int Register(string firstName, string lastName, string email, string password)
+        {
+            return ApiProxy.Register(firstName, lastName, email, password);
+        }
+
+        public virtual List<Quoteandmetric> GetQuotesAndMetrics()
+        {
+            return ApiProxy.GetQuoteAndMetric();
+        }
+
+        public virtual int AddQuoteandPrice(Quoteandprice item)
+        {
+            return ApiProxy.PostQuoteandPrice(item);
+        }
+
+        public virtual List<Areasquantity> GetQuantites(int productId)
+        {
+            return ApiProxy.GetAreasQuantitiesByProduct(productId);
+        }
+
+        public virtual List<Quotesandprice> GetPrices(int productId)
+        {
+            return ApiProxy.GetQuotesAndPricesByProductId(productId);
+        }
     }
 }

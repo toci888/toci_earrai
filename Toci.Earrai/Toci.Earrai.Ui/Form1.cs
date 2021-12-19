@@ -11,7 +11,6 @@ using System.ComponentModel;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using System.Reflection;
-using Microsoft.Graph;
 using Toci.Earrai.Bll.Client.UI;
 
 namespace Toci.Earrai.Ui
@@ -24,16 +23,20 @@ namespace Toci.Earrai.Ui
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+        protected List<Quoteandmetric> quotesandprices;
         protected List<ProductDto> ProductsFiltered;
         protected List<Worksheet> worksheets;
         protected int selectedWorkSheetId = 0;
+        protected User LoggedUser;
 
-        public Form1()
+        public Form1(User loggedUser)
         {
+            LoggedUser = loggedUser;
             InitializeComponent();
 
             areas = Dm.GetAllAreas();
             vendors = Dm.GetAllVendors();
+            quotesandprices = Dm.GetQuotesAndMetrics();
             worksheets = Dm.GetWorksheets();
             //IsConnected();
 
@@ -50,10 +53,10 @@ namespace Toci.Earrai.Ui
 
         protected virtual void Setup()
         {
-            workbookDdl.DataSource = worksheets;
             workbookDdl.ValueMember = "Id";
             workbookDdl.DisplayMember = "Sheetname";
-
+            workbookDdl.DataSource = worksheets;
+            
             SearchCombosHandler(worksheets.First().Id);
         }
 
@@ -108,7 +111,7 @@ namespace Toci.Earrai.Ui
                                                             //DataGridViewCellEventHandler
         private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors);
+            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors, LoggedUser, quotesandprices);
             p.Show();
         }
 
@@ -165,7 +168,6 @@ namespace Toci.Earrai.Ui
 
             //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
-
         }
 
         private void showBtn_Click(object sender, EventArgs e)
@@ -197,7 +199,7 @@ namespace Toci.Earrai.Ui
             string worksheetID = ((ComboBox)sender).SelectedValue.ToString();
 
             int worksheetId = int.Parse(worksheetID);
-
+            
             SearchCombosHandler(worksheetId);
         }
 
