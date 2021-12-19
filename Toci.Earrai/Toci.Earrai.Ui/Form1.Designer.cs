@@ -93,7 +93,7 @@ namespace Toci.Earrai.Ui
             this.excelDataGrid.Size = new System.Drawing.Size(1700, 565);
             this.excelDataGrid.TabIndex = 5;
             this.excelDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellClick);
-            this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);
+           // this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);
             // 
             // internetConnection
             // 

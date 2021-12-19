@@ -74,7 +74,7 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
         }
 
-        public virtual List<Vendor> GetVendors(int productId, double price) //price?
+        public virtual List<Vendor> GetAllVendors() //price?
         {
             return ApiGet<List<Vendor>>("api/QuoteAndPrice/GetAllVendorsFromDb", true);
         }

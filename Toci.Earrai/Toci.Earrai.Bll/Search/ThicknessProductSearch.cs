@@ -10,7 +10,7 @@ namespace Toci.Earrai.Bll.Search
 {
     public class ThicknessProductSearch : SearchProductBase
     {
-        public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
             List<Product> result = new List<Product>();
             //thickness ....
@@ -20,7 +20,7 @@ namespace Toci.Earrai.Bll.Search
                 result = FilterResultsSizesWorksheet(request, elements);
             }
 
-            return ToProductSearchResponseDto(FilterBySearchQuery(request, result));
+            return ToProductDto(FilterBySearchQuery(request, result));
         }
     }
 }

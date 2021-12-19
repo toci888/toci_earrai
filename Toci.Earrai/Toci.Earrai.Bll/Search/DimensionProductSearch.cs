@@ -9,9 +9,9 @@ namespace Toci.Earrai.Bll.Search
 {
     public class DimensionProductSearch : SearchProductBase
     {
-        public override List<ProductSearchResponseDto> Search(ProductSearchRequestDto request)
+        public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
-            return new List<ProductSearchResponseDto>();
+            return new List<ProductDto>();
         }
     }
 }

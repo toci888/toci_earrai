@@ -24,8 +24,9 @@ namespace Toci.Earrai.Ui
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
-        protected List<ProductDto> productsFiltered;
+        protected List<ProductDto> ProductsFiltered;
         protected List<Worksheet> worksheets;
+        protected int selectedWorkSheetId = 0;
 
         public Form1()
         {
@@ -58,6 +59,7 @@ namespace Toci.Earrai.Ui
 
         protected virtual void SearchCombosHandler(int worksheetId)
         {
+            selectedWorkSheetId = worksheetId;
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
         }
 
@@ -70,11 +72,6 @@ namespace Toci.Earrai.Ui
             acsc.Add("sraka");
 
             tb.AutoCompleteCustomSource = acsc;*/
-        }
-
-        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -108,10 +105,10 @@ namespace Toci.Earrai.Ui
 
 
         }
-
-        private void ExcelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+                                                            //DataGridViewCellEventHandler
+        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Product p = new Product(productsFiltered[e.RowIndex].Product.Id, areas, vendors);
+            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors);
             p.Show();
         }
 
@@ -131,7 +128,7 @@ namespace Toci.Earrai.Ui
             }
         }
 
-        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
+       // private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
 
             //Product p = new Product(tempUsers[e.RowIndex].Id, areas, vendors);
             //p.Show();
@@ -143,7 +140,7 @@ namespace Toci.Earrai.Ui
             excelDataGrid.ResumeLayout();*/
 
             //excelDataGrid.Rows.Add(4, "Mati", "Zul");
-        }
+      //  }
 
         private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
@@ -155,11 +152,17 @@ namespace Toci.Earrai.Ui
 
         }
 
+        //search button
         private void button1_Click(object sender, EventArgs e)
         {
             string worksheetId = workbookDdl.SelectedValue.ToString();
 
             List<ProductDto> products = Dm.GetProductsByWorksheetId(worksheetId);
+
+            ProductsFiltered = products;
+
+            selectedWorkSheetId = int.Parse(worksheetId);
+
             //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
 
@@ -167,7 +170,13 @@ namespace Toci.Earrai.Ui
 
         private void showBtn_Click(object sender, EventArgs e)
         {
+            selectedWorkSheetId = int.Parse(workbookDdl.SelectedValue.ToString());
 
+            List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
+
+            ProductsFiltered = products;
+
+            BindToGrid(products);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -175,9 +184,12 @@ namespace Toci.Earrai.Ui
 
         }
 
+        //kindDdl combo
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            List<string> elements = Dm.GetFilters(selectedWorkSheetId, ((ComboBox)sender).SelectedItem.ToString());
 
+            valueDdl.DataSource = elements;
         }
 
         private void workbookDdl_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,9 +215,12 @@ namespace Toci.Earrai.Ui
                 if (!columns)
                 {
                     int i = 0;
+                    int k = 0;
                     foreach (FlattenedEntity element in item)
                     {
                         excelDataGrid.Columns.Add(element.Name, element.Name);
+                        excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        k++;
 
                         if (!keeper.ContainsKey(element.Name))
                         {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Ui.ControlsStuff;
 using Toci.Earrai.Ui.Convert;
 
 namespace Toci.Earrai.Ui
@@ -21,6 +22,7 @@ namespace Toci.Earrai.Ui
         protected ProductDto product;
         protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
+        protected ControlsManager Cm = new ControlsManager();
 
         protected int ySlided = 0;
         protected int xSlide = 100;
@@ -49,65 +51,14 @@ namespace Toci.Earrai.Ui
             Setup();
         }
 
-        protected virtual void IsConnected()
-        {
-            while (true)
-            {
-                ConnCheck.IsOnline();
-            }
-        }
-
-        protected virtual void Setup()
-        {
-            ExcelProxy ep = new ExcelProxy();
-
-        }
-
-        private void queryTextbox_TextChanged(object sender, EventArgs e)
-        {
-           /* TextBox tb = (TextBox)sender;
-
-            AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
-            acsc.Add("dupa");
-            acsc.Add("sraka");
-
-            tb.AutoCompleteCustomSource = acsc;*/
-        }
-
-        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
-           
-        }
-
-        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord)
         {
             int newY = yCoord;
             foreach (ProductLayoutDto item in elements)
             {
-                Label l = new Label();
-                l.Text = item.LabelItemName;
-                l.Size = new System.Drawing.Size(90, 20);
-                l.Location = new Point(xCoord, newY);
+                Label l = Cm.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
 
-                Label lR = new Label();
-                lR.Text = item.LabelItemValue;
-                lR.Size = new System.Drawing.Size(90, 20);
-                lR.Location = new Point(xCoord + xSlide, newY);
+                Label lR = Cm.CreateLabel(item.LabelItemValue, 90, 20, xCoord + xSlide, newY);
 
                 newY += ySlide;
                 Controls.Add(l);
@@ -122,7 +73,7 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
 
             Label widthL = new Label();
-            widthL.Text = "Width";
+            widthL.Text = "Width: ";
             widthL.Size = new System.Drawing.Size(90, 20);
             widthL.Location = new Point(xLeft, ySlided);
 
@@ -133,7 +84,7 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
 
             Label lengthL = new Label();
-            lengthL.Text = "Length";
+            lengthL.Text = "Length: ";
             lengthL.Size = new System.Drawing.Size(90, 20);
             lengthL.Location = new Point(xLeft, ySlided);
 
@@ -148,20 +99,22 @@ namespace Toci.Earrai.Ui
 
             ySlided += ySlide;
 
-            ComboBox vCombo = new ComboBox();
+            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xLeft, ySlided);
 
-            vCombo.DisplayMember = "Name";
-            vCombo.ValueMember = "Id";
-            vCombo.DataSource = areas;
-            vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft, ySlided);
+            ComboBox areasCombo = Cm.CreateComboBox(areas, "Name", 180, 20, xLeft + xSlide, ySlided, "Id");
 
-            Controls.Add(vCombo);
+            Controls.Add(areasLabel);
+            Controls.Add(areasCombo);
         }
 
         protected virtual void AddPricingForm()
         {
             ySlided += ySlide;
+
+            Label vendorsLabel = new Label();
+            vendorsLabel.Text = "Vendor: ";
+            vendorsLabel.Size = new System.Drawing.Size(90, 20);
+            vendorsLabel.Location = new Point(xLeft, ySlided);
 
             ComboBox vCombo = new ComboBox();
 
@@ -169,9 +122,56 @@ namespace Toci.Earrai.Ui
             vCombo.ValueMember = "Id";
             vCombo.DataSource = vendors;
             vCombo.Size = new System.Drawing.Size(90, 20);
-            vCombo.Location = new Point(xLeft, ySlided);
+            vCombo.Location = new Point(xLeft + xSlide, ySlided);
 
+            Controls.Add(vendorsLabel);
             Controls.Add(vCombo);
+        }
+
+        protected virtual void IsConnected()
+        {
+            while (true)
+            {
+                ConnCheck.IsOnline();
+            }
+        }
+
+        protected virtual void Setup()
+        {
+
+        }
+
+        private void queryTextbox_TextChanged(object sender, EventArgs e)
+        {
+            /* TextBox tb = (TextBox)sender;
+
+             AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
+             acsc.Add("dupa");
+             acsc.Add("sraka");
+
+             tb.AutoCompleteCustomSource = acsc;*/
+        }
+
+        private void excelDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
