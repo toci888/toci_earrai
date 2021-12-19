@@ -74,9 +74,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<Commision>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);
         }
 
-        public virtual Quoteandprice PostQuoteandPrice(Quoteandprice item) //POST
+        public virtual int PostQuoteandPrice(Quoteandprice item) //POST
         {
-            return ApiPost<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
+            return ApiPost<int, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
         }
 
         public virtual List<Vendor> GetAllVendors() //price?
@@ -123,6 +123,11 @@ namespace Toci.Earrai.Bll.Client.UI
                 if (responseContent == string.Empty)
                 {
                     return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
                 }
 
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();

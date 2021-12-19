@@ -26,6 +26,9 @@ namespace Toci.Earrai.Ui
             loginValidation2.Text = "This field can't be empty";
 
             passwordTextbox.PasswordChar = '*';
+
+            loginTextBox.Text = "user@wp.pl";
+            passwordTextbox.Text = "123456789";
         }
         private void loginButton_Click(object sender, EventArgs e)
         {
