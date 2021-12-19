@@ -15,6 +15,8 @@ namespace Toci.Earrai.Ui
         public LogIn()
         {
             InitializeComponent();
+
+            passwordTextbox.PasswordChar = '*';
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -29,7 +31,15 @@ namespace Toci.Earrai.Ui
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //passwordTextbox.Text
+            Form1 f = new Form1();
+            f.Show();
+            Close();
+        }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
