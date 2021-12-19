@@ -125,6 +125,11 @@ namespace Toci.Earrai.Bll.Client.UI
                     return default(T);
                 }
 
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
             }
         }

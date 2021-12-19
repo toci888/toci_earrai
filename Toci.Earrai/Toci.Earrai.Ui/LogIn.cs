@@ -20,6 +20,9 @@ namespace Toci.Earrai.Ui
             InitializeComponent();
 
             passwordTextbox.PasswordChar = '*';
+
+            loginTextBox.Text = "user@wp.pl";
+            passwordTextbox.Text = "123456789";
         }
         private void loginButton_Click(object sender, EventArgs e)
         {
