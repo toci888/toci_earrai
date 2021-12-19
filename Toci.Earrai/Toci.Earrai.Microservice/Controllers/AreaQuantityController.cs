@@ -37,9 +37,7 @@ namespace Toci.Earrai.Microservice.Controllers
         [HttpDelete("{Id}")]
         public ActionResult DeleteById(int Id)
         {
-            Logic.DeleteById(Id);
-
-            return Ok("OK");
+            return Ok(Logic.DeleteById(Id));
         }
 
         [HttpPut("UpdateAreaQuantity")]
