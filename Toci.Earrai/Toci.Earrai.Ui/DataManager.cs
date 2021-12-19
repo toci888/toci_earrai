@@ -78,6 +78,16 @@ namespace Toci.Earrai.Ui
             return ApiProxy.UpdateQuoteAndPrice(item);
         }
 
+        public virtual int DeleteQuoteAndPrice(int id)
+        {
+            return ApiProxy.DeletePrice(id);
+        }
+
+        public virtual int DeleteQuantity(int id)
+        {
+            return ApiProxy.DeleteQuantity(id);
+        }
+
         public virtual User Login(string user, string pass)
         {
             return ApiProxy.Login(user, pass);

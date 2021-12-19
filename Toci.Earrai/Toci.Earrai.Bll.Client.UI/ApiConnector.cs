@@ -74,6 +74,16 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Areasquantity>>("api/AreasQuantities/GetAreasQuantitiesByProduct/" + productId, true);
         }
 
+        public virtual int DeleteQuantity(int id)
+        {
+            return ApiDelete<int, int>("api/AreaQuantity/" + id, id, false);
+        }
+
+        public virtual int DeletePrice(int id)
+        {
+            return ApiDelete<int, int>("api/QuoteAndPrice/DeleteQuoteAndPrice/" + id, id, false);    
+        }
+
         public virtual Commision GetCommisions(int productId, double price) //price?
         {
             return ApiGet<Commision>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);
@@ -108,7 +118,17 @@ namespace Toci.Earrai.Bll.Client.UI
                 HttpResponseMessage response = hc.GetAsync(url).Result;
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
-                
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
             }
         }
@@ -149,6 +169,33 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage() 
                 { Method = HttpMethod.Put, RequestUri = new Uri(url, UriKind.Relative), Content = content }).Result;
+
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
+                return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
+            }
+        }
+
+        protected virtual T ApiDelete<T, TDto>(string url, TDto dto, bool isResponseArray)
+        {
+            using (HttpClient hc = new HttpClient())
+            {
+                hc.BaseAddress = new Uri(BaseUrl);
+
+              //  HttpContent content = JsonContent.Create<TDto>(dto);
+
+                HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage()
+                { Method = HttpMethod.Delete, RequestUri = new Uri(url, UriKind.Relative) }).Result;
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
