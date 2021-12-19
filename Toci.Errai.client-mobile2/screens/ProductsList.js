@@ -6,11 +6,12 @@ import { DataTable } from 'react-native-paper'
 import { modalStyles } from '../styles/modalStyles'
 import AppUser from '../shared/AppUser'
 import {
+    getAllProductsByWorksheet,
     getAvailableValuesForSelectedOptionUrl,
     getProductsEx,
     PostRequestParams
 } from '../shared/RequestConfig'
-import { imagesManager } from '../shared/ImageSelector'
+import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Picker } from '@react-native-community/picker'
 import {
@@ -164,6 +165,16 @@ export default function ProductsList({ route, navigation }) {
 
     }
 
+    const loadAllData = () => {
+
+        fetch(getAllProductsByWorksheet(navigation.getParam('worksheetId')))
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            setProductsListHook(response)
+        })
+    }
+
     const selectValue = (idx_) => {
         setSelectedFilteredIndexHook(idx_)
     }
@@ -190,8 +201,31 @@ export default function ProductsList({ route, navigation }) {
                 </View>
             )}
 
-            <View style={{height: 40, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{fontSize: 17, fontWeight: 'bold'}}>{ navigation.getParam('worksheetName')}</Text>
+
+                {
+                    imagesForWorksheet[navigation.getParam('worksheetId')].map((v,k) => {
+
+                        const x = imagesManager[v]?.url
+
+                        if(!x) return
+
+                        return(
+                            <View style={{flexDirection: 'row', margin: 15}} key={k}>
+                                <View style={{width: 50}}>
+
+                                    <Image
+                                        style={{height: 50, width: 50}}
+                                        source={x}
+                                    />
+
+                                </View>
+                            </View>
+                        )
+                    })
+                }
+
             </View>
 
             <View style={[plis.comboView, {flexDirection: 'row'}]}>
@@ -260,6 +294,16 @@ export default function ProductsList({ route, navigation }) {
 
             </View>
 
+            <View style={plis.filterContent}>
+
+                <Pressable style={[ps.filterButton, {width: '100%'}]} onPress={loadAllData}>
+                    {/* <TouchableOpacity style={ps.filterButton} onPress={filterContent}> */}
+                        <Text style={[ps.textUpdate, {width: '100%', textAlign: 'center'}]}>Load All Products</Text>
+                    {/* </TouchableOpacity> */}
+                </Pressable>
+
+            </View>
+
             <ScrollView>
 
                 <View style={globalStyles.tableContainer}>
@@ -292,6 +336,7 @@ export default function ProductsList({ route, navigation }) {
                                         <TouchableOpacity onPress={ () => showProductDetails(index) }>
                                             <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
                                                 <Text style={ps.small}>{product.description}</Text>
+                                                <Text style={ps.small}>{product.productaccountreference}</Text>
                                             </View>
                                         </TouchableOpacity>
 
@@ -300,7 +345,7 @@ export default function ProductsList({ route, navigation }) {
                                         </View> */}
 
                                         <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}}>
-                                        <Text style={ps.small}>{product_.balance}</Text>
+                                        <Text style={ps.small}>B: {product_.balance}</Text>
                                         </View>
 
                                     </View>
@@ -315,11 +360,11 @@ export default function ProductsList({ route, navigation }) {
 
             </ScrollView>
 
-            { nomoredata && (
+            {/* { nomoredata && (
                 <View style={ps.nomoredataView}>
                     <Text style={ps.nomoredataText}>No more data</Text>
                 </View>
-            ) }
+            ) } */}
 
             {/* { !nomoredata && ProductsListHook.length > 0 && (
                 // <TouchableOpacity onPress={ loadMore }>
