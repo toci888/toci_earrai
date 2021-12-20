@@ -52,6 +52,11 @@ namespace Toci.Earrai.Ui
                 f.Show();
                 Hide();
             }
+            else
+            {
+                loginValidation2.Visible = true;
+                loginValidation2.Text = "Wrong credentials.";
+            }
         }
 
         private void registerButton_Click(object sender, EventArgs e)
