@@ -24,12 +24,15 @@ namespace Toci.Earrai.Ui
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
         protected ControlsManager Cm = new ControlsManager(true);
 
+        protected Label CommissionsHeader = null;
+
         protected int ySlided = 0;
         protected int xSlided = 0;
         protected int xSlide = 100;
         protected int ySlide = 30;
         protected int xLeft = 10;
         protected int xOptionsSizes = 350;
+        protected int xCommisions = 550;
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
@@ -45,6 +48,8 @@ namespace Toci.Earrai.Ui
         protected Areasquantity areaQ;
         protected Quotesandprice quote;
 
+       protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
+
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
             InitializeComponent();
@@ -58,13 +63,57 @@ namespace Toci.Earrai.Ui
             product = Dm.GetProduct(prodId);
 
             AddBasicProductInfo();
-            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, 20);
-            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide);
+            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, 20, "Product sizing information.");
+            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
+           // AddCommissions();
             AddAreasQuantitiesForm();
             AddPricingForm();
             //IsConnected();
 
             Setup();
+        }
+
+        protected virtual void AddCommissions(double price)
+        {
+            bool addToDict = !CommissionsView.Any();
+            int y = 10;
+
+            if (addToDict)
+            {
+                CommissionsHeader = Cm.CreateLabel("Commissions for price: " + price.ToString("0.00"), 90, 20, xLeft + xCommisions, y);
+
+                Controls.Add(CommissionsHeader);
+
+                y += ySlide;
+            }
+            else
+            {
+                CommissionsHeader.Text = "Commissions for price: " + price.ToString("0.00");
+            }
+
+            Dictionary<string, double> commissions = Dm.GetCommissions(product.Product.Id, price); 
+
+            
+
+            foreach (KeyValuePair<string, double> commission in commissions)
+            {
+                if (addToDict)
+                {
+                    Label commKey = Cm.CreateLabel(commission.Key + ": ", 90, 20, xLeft + xCommisions, y);
+                    Label commValue = Cm.CreateLabel(commission.Value.ToString("0.00"), 90, 20, xLeft + xCommisions + Cm.GetSize(commission.Key + ": ") + 10, y);
+
+                    Controls.Add(commKey);
+                    Controls.Add(commValue);
+
+                    CommissionsView.Add(commission.Key, new Tuple<Label, Label>(commKey, commValue));
+                }
+                else
+                {
+                    CommissionsView[commission.Key].Item2.Text = commission.Value.ToString("0.00");
+                }
+
+                y += ySlide;
+            }
         }
 
         protected virtual void AddBasicProductInfo()
@@ -85,16 +134,23 @@ namespace Toci.Earrai.Ui
             Controls.Add(descriptionValue);
         }
 
-        protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord)
+        protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord, string header)
         {
             int newY = yCoord;
+
+            Label head = Cm.CreateLabel(header, 90, 20, xCoord, newY);
+
+            Controls.Add(head);
+
+            newY += ySlide;
+
             foreach (ProductLayoutDto item in elements)
             {
                 Label l = Cm.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
-
                 Label lR = Cm.CreateLabel(item.LabelItemValue, 90, 20, xCoord + xSlide, newY);
 
                 newY += ySlide;
+
                 Controls.Add(l);
                 Controls.Add(lR);
             }
@@ -331,6 +387,12 @@ namespace Toci.Earrai.Ui
                 Qapif.Price.Text = "";
                 Qapif.DisplayGrid.DataSource = GetPrices(prodId);
                 Qapif.PriceSubmit.Text = "Add";
+
+                double priceD = 0;
+
+                double.TryParse(price.Price, out priceD);
+
+                AddCommissions(priceD);
             }
         }
 
@@ -386,6 +448,12 @@ namespace Toci.Earrai.Ui
 
             if (quote != null)
             {
+                double price = 0;
+
+                double.TryParse(quote.Price, out price);
+
+                AddCommissions(price);
+
                 Qapif.Vendors.SelectedValue = quote.Idvendor;
                 Qapif.Price.Text = quote.Price;
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
