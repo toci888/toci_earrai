@@ -25,6 +25,11 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
         }
 
+        public virtual Dictionary<string, double> GetCommissions(int productId, double price)
+        {
+            return ApiGet<Dictionary<string, double>>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);
+        }
+
         public virtual List<Areaquantity> PostAreaQuantities(Areaquantity item) //POST
         {
             List<Areaquantity> parameter = new List<Areaquantity>()

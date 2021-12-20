@@ -88,6 +88,11 @@ namespace Toci.Earrai.Ui
             return ApiProxy.DeleteQuantity(id);
         }
 
+        public virtual Dictionary<string, double> GetCommissions(int productId, double price)
+        {
+            return ApiProxy.GetCommissions(productId, price);
+        }
+
         public virtual User Login(string user, string pass)
         {
             return ApiProxy.Login(user, pass);
