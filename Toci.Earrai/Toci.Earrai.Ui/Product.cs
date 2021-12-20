@@ -24,6 +24,8 @@ namespace Toci.Earrai.Ui
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
         protected ControlsManager Cm = new ControlsManager(true);
 
+        protected Label CommissionsHeader = null;
+
         protected int ySlided = 0;
         protected int xSlided = 0;
         protected int xSlide = 100;
@@ -46,7 +48,7 @@ namespace Toci.Earrai.Ui
         protected Areasquantity areaQ;
         protected Quotesandprice quote;
 
-        Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
+       protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
 
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
@@ -75,19 +77,18 @@ namespace Toci.Earrai.Ui
         {
             bool addToDict = !CommissionsView.Any();
             int y = 10;
-            Label head = null;
 
             if (addToDict)
             {
-                head = Cm.CreateLabel("Commissions for price: " + price.ToString("0.00"), 90, 20, xLeft + xCommisions, y);
+                CommissionsHeader = Cm.CreateLabel("Commissions for price: " + price.ToString("0.00"), 90, 20, xLeft + xCommisions, y);
 
-                Controls.Add(head);
+                Controls.Add(CommissionsHeader);
 
                 y += ySlide;
             }
             else
             {
-                head.Text = "Commissions for price: " + price.ToString("0.00");
+                CommissionsHeader.Text = "Commissions for price: " + price.ToString("0.00");
             }
 
             Dictionary<string, double> commissions = Dm.GetCommissions(product.Product.Id, price); 
