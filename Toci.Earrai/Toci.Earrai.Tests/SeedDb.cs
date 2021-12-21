@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Toci.Earrai.Bll;
@@ -392,49 +392,6 @@ CON".Split("\n", StringSplitOptions.None);
             }
         }
 
-        [TestMethod]
-        public void ProductOptionValues()
-        {
-            ProductOptionValue.Insert(new Productoptionvalue()
-            {
-                Idproductoptions = 1,
-                Idproducts = 1,
-                Value = "300"
-            });
-            ProductOptionValue.Insert(new Productoptionvalue()
-            {
-                Idproductoptions = 2,
-                Idproducts = 2,
-                Value = "400"
-            });
-            ProductOptionValue.Insert(new Productoptionvalue()
-            {
-                Idproductoptions = 3,
-                Idproducts = 3,
-                Value = "500"
-            });
-        }
-
-            [TestMethod]
-        public void ProductCategoryOptions()
-        {
-            ProductCategoryOption.Insert(new Productcategoryoption()
-            {
-                Idcategories = 1,
-                Idproductoptions = 1
-            });
-            ProductCategoryOption.Insert(new Productcategoryoption()
-            {
-                Idcategories = 2,
-                Idproductoptions = 2
-            });
-            ProductCategoryOption.Insert(new Productcategoryoption()
-            {
-                Idcategories = 3,
-                Idproductoptions = 3
-            });
-        }
-
             [TestMethod]
         public void ProductOptions()
         {
@@ -449,7 +406,8 @@ CON".Split("\n", StringSplitOptions.None);
             ProductOption.Insert(new Productoption() { Code = "Dia", Name = "Dia" });
             ProductOption.Insert(new Productoption() { Code = "Id", Name = "Id" });
             ProductOption.Insert(new Productoption() { Code = "ProductCodeShort", Name = "Product Code Short" });
-
+            ProductOption.Insert(new Productoption() { Code = "KgM2", Name = "KgM2" });
+            ProductOption.Insert(new Productoption() { Code = "KgSheet", Name = "KgSheet" });
 
         }
 
@@ -487,90 +445,21 @@ CON".Split("\n", StringSplitOptions.None);
         }
 
         [TestMethod]
-        public void ProductSizes()
+        public void QuotesAndMetrics() 
         {
-            ProductSize.Insert(new Productsize()
+            string[] values = { "Â£/Tonne", "Â£/Length", "Â£/meter", "Â£/Sheet", "Â£/meter2" };
+            string[] names = { "PoundsPerTonne", "PoundsPerLength", "PoundsPerMeter", "PoundsPerSheet", "PoundsPerMeterSquared" };
+            for (int i = 0; i < values.Length; i++)
             {
-                Idsizes = 1,
-                Idproducts = 1,
-                Value = "2500"
-            });
-            ProductSize.Insert(new Productsize()
-            {
-                Idsizes = 1,
-                Idproducts = 2,
-                Value = "2500"
-            });
-            ProductSize.Insert(new Productsize()
-            {
-                Idsizes = 1,
-                Idproducts = 3,
-                Value = "3000"
-            });
+                Quoteandmetric.Insert(new Quoteandmetric()
+                {
+                    Valuation = values[i],
+                    Name = names[i],
+                });
+            }
         }
 
-            [TestMethod]
-        public void Products()
-        {
-            Product_.Insert(new Product()
-            {
-                Idcategories = 1,
-                Idworksheet = 4,
-                Rowindex = 443,
-                Productaccountreference = "ALSH_0.9_2500_1250",
-                Description = "0.8mm PLAIN"
-            });
-            Product_.Insert(new Product()
-            {
-                Idcategories = 1,
-                Idworksheet = 4,
-                Rowindex = 445,
-                Productaccountreference = "ALSH_2_2500_1250",
-                Description = "2mm PLAIN"
-            });
-            Product_.Insert(new Product()
-            {
-                Idcategories = 1,
-                Idworksheet = 4,
-                Rowindex = 444,
-                Productaccountreference = "ALSH_2_3000_1500",
-                Description = "2mm PLAIN"
-            });
-        }
-
-            [TestMethod]
-        public void QuotesAndPrices()
-        {
-            QuotesAndPrice.Insert(new Quoteandprice()
-            {
-                //Idworksheet = 2,
-                Rowindex = 34,
-                Price = "485.00",
-                Idvendor = 2,
-                Idquoteandmetric = 1,
-                Iduser = 2
-            });
-            QuotesAndPrice.Insert(new Quoteandprice()
-            {
-                //Idworksheet = 3,
-                Rowindex = 343,
-                Price = "48.10",
-                Idvendor = 3,
-                Idquoteandmetric = 3,
-                Iduser = 3
-            });
-            QuotesAndPrice.Insert(new Quoteandprice()
-            {
-                //Idworksheet = 6,
-                Rowindex = 3234,
-                Price = "85.00",
-                Idvendor = 1,
-                Idquoteandmetric = 2,
-                Iduser = 1
-            });
-        }
-
-            [TestMethod]
+        [TestMethod]
         public void Category()
         {
             string[][] prefixes = new string[4][];
@@ -591,7 +480,7 @@ CON".Split("\n", StringSplitOptions.None);
                 "RB_BRI_Bright Round Bar", "SQ_BLK_Square Bar Black", "SQ_BRI_Square Bar Bright", "HB_Hollow Bore Bar" };
             names[2] = new string[] { "F_BH_Finished_Bale Handlers", "F_PB_Finished_Power Boxes", "F_TB_Finished_Transport Boxes", "F_PS_Finished_Power Scoop",
                 "F_LL_Finished_Land Leveller", "F_TS_Finished_Tip Skip", "F_LR_Finished_Land Rollers", "F_CF_Finished_Circular Feeders", "F_BT_Finished_Bale Trailer",
-                "F_FT_Finished_Feeding Troughs", "F_PL_Finished_Pallet Lifter", "F_FLB_Finished_Fork Lift Bucket", "F_YS_Finished_Yardscraper", 
+                "F_FT_Finished_Feeding Troughs", "F_PL_Finished_Pallet Lifter", "F_FLB_Finished_Fork Lift Bucket", "F_YS_Finished_Yardscraper",
                 "F_SP_Finished_Snow Plough", "PF_BH_Part Finished_Bale Handlers", "PF_PB_Part Finished_Power Boxes", "PF_TB_Part Finished_Transport Boxes",
                 "PF_PS_Part Finished_Power Scoop", "PF_LL_Part Finished_Land Leveller", "PF_TS_Part Finished_Tip Skip", "PF_LR_Part Finished_Land Rollers",
                 "PF_CF_Part Finished_Circular Feeders", "PF_CA_Part Finished_Crush Assemblies", "PF_BT_Part Finished_Bale Trailer", "PF_FT_Part Finished_Feeding Troughs",
@@ -610,10 +499,10 @@ CON".Split("\n", StringSplitOptions.None);
                 "Feeding Troughs", "Pallet Lifter", "Fork Lift Bucket", "Yardscraper", "Snow Plough" };
             descriptions[3] = new string[] { "Rams", "Paint", "Consumables" };
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 int jLength = prefixes[i].Length;
-                for(int j = 0; j < jLength; j++)
+                for (int j = 0; j < jLength; j++)
                 {
                     string pref = prefixes[i][j];
                     string name = names[i][j];
@@ -626,41 +515,6 @@ CON".Split("\n", StringSplitOptions.None);
                         Description = descr
                     });
                 }
-            }
-        }
-
-        [TestMethod]
-        public void SizeCategories()
-        {
-            SizeCategory.Insert(new Sizecategory()
-            {
-                Idsizes = 1,
-                Idcategories = 1
-            });
-            SizeCategory.Insert(new Sizecategory()
-            {
-                Idsizes = 2,
-                Idcategories = 2
-            });
-            SizeCategory.Insert(new Sizecategory()
-            {
-                Idsizes = 3,
-                Idcategories = 3
-            });
-        }
-
-        [TestMethod]
-        public void QuotesAndMetrics() 
-        {
-            string[] values = { "£/T", "£/L", "£/m", "£/Sht" };
-            string[] names = { "PoundsPerTonne", "PoundsPerLength", "PoundsPerMeter", "PoundsPerSheet" };
-            for (int i = 0; i < values.Length; i++)
-            {
-                Quoteandmetric.Insert(new Quoteandmetric()
-                {
-                    Valuation = values[i],
-                    Name = names[i],
-                });
             }
         }
 

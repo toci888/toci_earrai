@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.ProductParams;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Tests.Import.Excel;
 
@@ -21,6 +22,7 @@ namespace Toci.Earrai.Tests.Import
             string area1 = row[12];
             string area2 = row[16];
             string area3 = row[20];
+            string area4 = row[24];
 
             if (!string.IsNullOrEmpty(area1))
             {
@@ -36,11 +38,17 @@ namespace Toci.Earrai.Tests.Import
             {
                 AreaQuantity.Insert(new Areaquantity() { Length = row[17], Width = row[18], Quantity = row[19], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[1]].Id });
             }
+
+            if (!string.IsNullOrEmpty(area4))
+            {
+                AreaQuantity.Insert(new Areaquantity() { Length = row[21], Width = row[22], Quantity = row[23], Idarea = AreasProvider.GetAreas()[area4].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[1]].Id });
+            }
         }
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM2, Value = row[7] });
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgSheet, Value = row[8] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)
@@ -48,13 +56,20 @@ namespace Toci.Earrai.Tests.Import
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
-                Price = row[26],
+                Price = row[28],
+            });
+
+            pricesLogic.Insert(new Quoteandprice()
+            {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeterSquared,
+                Price = row[29],
             });
 
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerSheet,
-                Price = row[27],
+                Price = row[30],
             });
         }
 
