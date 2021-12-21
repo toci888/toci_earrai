@@ -8,38 +8,23 @@ namespace Toci.Earrai.Tests.Import
 {
     public class ChanBms : ImportBase
     {
-        protected override void ImportAreas(List<string> row, int productId)
+        public ChanBms()
         {
-            string area1 = row[8];
-            string area2 = row[11];
-            string area3 = row[14];
-
-            if (!string.IsNullOrEmpty(area1))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[7], Quantity = row[8], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area2))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[10], Quantity = row[11], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area3))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[13], Quantity = row[14], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
+            areasStart = 5;
+            numberOfAreas = 3;
+            skipAreaWidth = true;
         }
 
         protected override void ImportSizes(List<string> row, int productId)
         {
-           
+            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Size, Value = row[2] });
         }
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[3] });
-            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SizeMetric, Value = row[4] });
-            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM, Value = row[5] });
+            //ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Size, Value = row[3] });
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SizeMetric, Value = row[3] });
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.KgM, Value = row[4] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)

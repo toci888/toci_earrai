@@ -8,26 +8,11 @@ namespace Toci.Earrai.Tests.Import
 {
     public class MshExpMetal : ImportBase
     {
-        protected override void ImportAreas(List<string> row, int productId)
+        public MshExpMetal()
         {
-            string area1 = row[10];
-            string area2 = row[13];
-            string area3 = row[16];
-
-            if (!string.IsNullOrEmpty(area1))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[8], Quantity = row[9], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area2))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[11], Quantity = row[12], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area3))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[14], Quantity = row[15], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
+            areasStart = 7;
+            numberOfAreas = 2;
+            skipAreaWidth = false;
         }
 
         protected override void ImportSizes(List<string> row, int productId)
@@ -51,6 +36,13 @@ namespace Toci.Earrai.Tests.Import
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerSheet,
                 Price = row[19],
+            });
+
+            pricesLogic.Insert(new Quoteandprice()
+            {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeterSquared,
+                Price = row[20],
             });
         }
     }

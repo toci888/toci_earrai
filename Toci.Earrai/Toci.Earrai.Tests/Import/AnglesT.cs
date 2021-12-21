@@ -8,26 +8,11 @@ namespace Toci.Earrai.Tests.Import
 {
     public class AnglesT : ImportBase
     {
-        protected override void ImportAreas(List<string> row, int productId)
+        public AnglesT()
         {
-            string area1 = row[9];
-            string area2 = row[12];
-            string area3 = row[15];
-
-            if (!string.IsNullOrEmpty(area1))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[7], Quantity = row[8], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area2))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[10], Quantity = row[11], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area3))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[13], Quantity = row[14], Idarea = AreasProvider.GetAreas()[area3].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[0]].Id });
-            }
+            areasStart = 7;
+            numberOfAreas = 3;
+            skipAreaWidth = true;
         }
 
         protected override void ImportSizes(List<string> row, int productId)

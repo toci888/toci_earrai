@@ -442,6 +442,11 @@ CON".Split("\n", StringSplitOptions.None);
                 Id = 6,
                 Name = "SizeB"
             });
+            Sizes.Insert(new Size()
+            {
+                Id = 7,
+                Name = "Size"
+            });
         }
 
         [TestMethod]

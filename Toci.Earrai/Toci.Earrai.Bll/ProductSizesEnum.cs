@@ -14,5 +14,6 @@ namespace Toci.Earrai.Bll
         CHSBore = 4,
         SideA = 5,
         SideB = 6,
+        Size = 7
     }
 }

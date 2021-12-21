@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Tests.Import.Excel;
 
 namespace Toci.Earrai.Tests.Import
 {
@@ -20,8 +21,21 @@ namespace Toci.Earrai.Tests.Import
 
         protected int categoryIndexColumn;
 
-        // lodziki
+        Dictionary<string, Codesdimension> CodesDimensions;
+        Dictionary<string, Area> Areas;
 
+        protected int indexCounter = 0;
+        protected int areasCounter = 0;
+        protected int areasStart = 0;
+        protected int numberOfAreas = 0;
+        protected bool skipAreaWidth = false;
+
+        protected ImportBase()
+        {
+            CodesDimensions = CodesDimensionProvider.GetCodesDimensions();
+            Areas = AreasProvider.GetAreas();
+        }
+        
         public virtual void ImportProduct(string worksheet, List<List<string>> rows) // row? 
         {
             Worksheet newSheet = WorksheetLogic.Insert(new Worksheet() { Sheetname = worksheet });
@@ -54,7 +68,44 @@ namespace Toci.Earrai.Tests.Import
 
         //protected 
 
-        protected abstract void ImportAreas(List<string> row, int productId);
+        protected virtual void ImportAreas(List<string> row, int productId)
+        {
+            indexCounter = areasStart;
+
+            int idCodeDim = 1;
+
+            if (CodesDimensions.ContainsKey(row[0]))
+            {
+                idCodeDim = CodesDimensions[row[0]].Id;
+            }
+
+            for (int i = 0; i < numberOfAreas; i++)
+            {
+                Areaquantity areaQuantity = new Areaquantity()
+                {
+                    Idproducts = productId,
+                    Idcodesdimensions = idCodeDim
+                };
+
+                areaQuantity.Length = row[indexCounter];
+
+                if (!skipAreaWidth)
+                {
+                    areaQuantity.Width = row[++indexCounter];
+                }
+
+                areaQuantity.Quantity = row[++indexCounter];
+
+                string area = row[++indexCounter];
+
+                if (!string.IsNullOrEmpty(area) && Areas.ContainsKey(area))
+                {
+                    areaQuantity.Idarea = Areas[area].Id;
+
+                    AreaQuantity.Insert(areaQuantity);
+                }
+            }
+        }
 
         protected abstract void ImportSizes(List<string> row, int productId);
 

@@ -12,6 +12,7 @@
         Id = 8,
         ProductCodeShort = 9,
         KgM2 = 10,
-        KgSheet = 11
+        KgSheet = 11,
+        //Size = 12
     }
 }
