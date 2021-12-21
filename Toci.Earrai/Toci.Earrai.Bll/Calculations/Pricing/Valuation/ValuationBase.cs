@@ -14,19 +14,21 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         protected CategoryLengthsProvider Clp = new CategoryLengthsProvider();
         //protected Valuations SourceValuation;
 
-        public virtual double GetPrice(Valuations targetValuation, ProductDto product)
+        public virtual Dictionary<Valuations, double> GetPrices(ProductDto product)
         {
-            if (ValuationsMap.ContainsKey(targetValuation))
-            {
-                return ValuationsMap[targetValuation](product);
-            }
+            Dictionary<Valuations, double> result = new Dictionary<Valuations, double>();
 
-            return -1;
+            foreach (KeyValuePair<Valuations, Func<ProductDto, double>> valItem in ValuationsMap)
+            {
+                result.Add(valItem.Key, valItem.Value(product));
+            }
+            
+            return result;
         }
 
-        protected virtual double GetPriceFromProduct(ProductDto product, string valuation)
+        protected virtual double GetPriceFromProduct(ProductDto product, string valuation) // unneeded
         {
-            Quotesandprice priceValuation = product.Quotesandprices.Where(m => m.Valuation == valuation).FirstOrDefault();
+            Quotesandprice priceValuation = product.Quotesandprices.Where(m => m.Valuation == valuation).FirstOrDefault(); // TODO correct one, last or ? 
 
             if (priceValuation != null && !string.IsNullOrEmpty(priceValuation.Price))
             {
@@ -38,7 +40,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
         protected virtual double GetKgPerMeter(ProductDto product)
         {
-            return product.Pricing.KgPerMeter.Value;
+            return product.Pricing.KgPerMeter.HasValue ? product.Pricing.KgPerMeter.Value : 0;
         }
         //protected abstract double ToValuation(double sourcePrice, Valuations sourceValuation, Valuations targetValuation);
     }

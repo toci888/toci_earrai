@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Toci.Earrai.Bll.Calculations.Pricing.Valuation;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Ui.ControlsStuff;
@@ -23,6 +24,7 @@ namespace Toci.Earrai.Ui
         protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
         protected ControlsManager Cm = new ControlsManager(true);
+        protected ValuationManager Vm = new ValuationManager();
 
         protected Label CommissionsHeader = null;
 
@@ -458,6 +460,8 @@ namespace Toci.Earrai.Ui
                 Qapif.Price.Text = quote.Price;
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
                 Qapif.PriceSubmit.Text = "Update";
+
+                Dictionary<Valuations, double> pricesForPrice = Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product);
             }
         }
 

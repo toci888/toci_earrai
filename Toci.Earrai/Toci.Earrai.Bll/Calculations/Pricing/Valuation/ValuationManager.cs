@@ -3,10 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 {
     public class ValuationManager
     {
+        protected Dictionary<Valuations, ValuationBase> CentralValuationMap = new Dictionary<Valuations, ValuationBase>()
+        {
+            { Valuations.PoundsPerTonne, new PoundsPerTonneValuation() },
+            { Valuations.PoundsPerLength, new PoundsPerLengthValuation() },
+            { Valuations.PoundsPerMeter, new PoundsPerMeterValuation() }, 
+            { Valuations.PoundsPerSheet, new PoundsPerSheetValuation() },
+            { Valuations.PoundsPerSquareMeter, new PoundsPerSquareMeterValuation() },
+        };
+
+        public virtual Dictionary<Valuations, double> GetPrices(Valuations currentValuation, ProductDto product)
+        {
+            if (CentralValuationMap.ContainsKey(currentValuation))
+            {
+                return CentralValuationMap[currentValuation].GetPrices(product);
+            }
+
+            return null;
+        }
     }
 }

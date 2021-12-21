@@ -26,6 +26,8 @@ namespace Toci.Earrai.Bll.Models
 
         public double? PoundsPerMeter { get; set; }
 
+        public double? PoundsPerSquareMeter { get; set; }
+
         public double? PoundsPerLength { get; set; }
 
         public double? KgPerMeter { get; set; }

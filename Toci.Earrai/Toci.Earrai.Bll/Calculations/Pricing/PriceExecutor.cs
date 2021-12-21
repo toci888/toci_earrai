@@ -33,7 +33,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
             int id = dto.Product.Idworksheet.Value;
 
-            var calculator = PricesExecutors[id];
+            PriceCalculationBase calculator = PricesExecutors[id];
 
             return calculator.GetPrices(dto);
         }
