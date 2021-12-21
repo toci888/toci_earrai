@@ -28,10 +28,13 @@ namespace Toci.Earrai.Ui
         protected List<Worksheet> worksheets;
         protected int selectedWorkSheetId = 0;
         protected User LoggedUser;
+        protected LogIn MasterWindow;
 
-        public Form1(User loggedUser)
+        public Form1(User loggedUser, LogIn masterWindow)
         {
             LoggedUser = loggedUser;
+            MasterWindow = masterWindow;
+
             InitializeComponent();
 
             areas = Dm.GetAllAreas();
@@ -41,6 +44,8 @@ namespace Toci.Earrai.Ui
             //IsConnected();
 
             Setup();
+
+            this.FormClosed += (s, e) => MasterWindow.Close();
         }
 
         protected virtual void IsConnected()

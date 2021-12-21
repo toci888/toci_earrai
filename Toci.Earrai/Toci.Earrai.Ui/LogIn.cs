@@ -48,7 +48,7 @@ namespace Toci.Earrai.Ui
 
             if (user != null)
             {
-                Form1 f = new Form1(user);
+                Form1 f = new Form1(user, this);
                 f.Show();
                 Hide();
             }
