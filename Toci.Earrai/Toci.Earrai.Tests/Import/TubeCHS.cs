@@ -32,19 +32,19 @@ namespace Toci.Earrai.Tests.Import
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerTonne,
-                Price = row[21],
+                Price = row[18],
             });
 
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeter,
-                Price = row[22],
+                Price = row[19],
             });
 
-            pricesLogic.Insert(new Quoteandprice() { // TODO (check that in excel)
+            pricesLogic.Insert(new Quoteandprice() { 
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerLength,
-                Price = row[23],
+                Price = row[21],
             });
         }
     }

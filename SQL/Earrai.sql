@@ -289,6 +289,9 @@ select products.id as idproduct, products.idworksheet, productoptionvalues.value
 from products join productoptionvalues on products.id = productoptionvalues.idproducts
 join productoptions on productoptionvalues.idproductoptions = productoptions.id;
 
+update areaquantity set iduser  = 1;
+update quoteandprice set iduser = 1, idvendor = 1;
+
 select * from ProductsSizes;
 select * from users;
 select * from roles;

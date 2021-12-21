@@ -40,6 +40,13 @@ namespace Toci.Earrai.Tests.Import
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeter,
                 Price = row[17],
             });
+
+            pricesLogic.Insert(new Quoteandprice()
+            {
+                Idproducts = productId,
+                Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerLength,
+                Price = row[19],
+            });
         }
     }
 }

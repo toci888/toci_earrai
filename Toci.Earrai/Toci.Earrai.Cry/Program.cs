@@ -11,6 +11,7 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Tests;
+using Toci.Earrai.Tests.Import.Excel;
 using Toci.Microsoft.Graph.Excel;
 //using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
 
@@ -27,25 +28,7 @@ namespace OneDriveWithMSGraph {
             Console.WriteLine("Working with Graph and One Drive is fun!");
 
 
-            // 01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS big xlsx
-
-            // Initialize the auth provider with values from appsettings.json
-            var authProvider = new DeviceCodeAuthProvider();
-
-            // Request a token to sign in the user
-            var accessToken = authProvider.GetAccessToken().Result; //"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiI5OGE5ODQ0My0xODYwLTQwNWQtOTI3Ny1iOGJjY2JhNzI0ZjciLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0L3YyLjAiLCJpYXQiOjE2Mjk1NTI3NDcsIm5iZiI6MTYyOTU1Mjc0NywiZXhwIjoxNjI5NTU2NjQ3LCJhaW8iOiJBVFFBeS84VEFBQUFiNkdxYzZscXNDbUoraXRqTlhvVitPTUJLK0lCNUZuUWYyeE8rWkYxczQyaXpQaC83MHBmTHIzSVhNcXNLcWhlIiwiYXpwIjoiOThhOTg0NDMtMTg2MC00MDVkLTkyNzctYjhiY2NiYTcyNGY3IiwiYXpwYWNyIjoiMCIsIm5hbWUiOiJCYXJ0xYJvbWllaiBaYXBhcnQiLCJvaWQiOiI4MmYxNWVlOS00NGU3LTRkNTMtOGVmMS0yNmRlOWVkM2IyZDQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJiemFwYXJ0QHRvY2l6YXBhcnQub25taWNyb3NvZnQuY29tIiwicmgiOiIwLkFRd0FzTUxUNlFYTS1rR2ZSbnVUZDlHaWxFT0VxWmhnR0YxQWtuZTR2TXVuSlBjTUFJVS4iLCJzY3AiOiJBcGlBY2Nlc3MiLCJzdWIiOiJsNmVaZ05BTFdib3pzRlE3VURJVGh3S191WXozVWV2TVdFUzgwUjE1YndNIiwidGlkIjoiZTlkM2MyYjAtY2MwNS00MWZhLTlmNDYtN2I5Mzc3ZDFhMjk0IiwidXRpIjoiVlM1amZaM3ZjVS00dTZVVHFXWTBBQSIsInZlciI6IjIuMCJ9.f7LK83YJ-Dp1D0R2pF9L5LPEV74cdKqkM1oyG0z8u4jF3u-oltNteJD5q7ftcBo9irfNgs3jcwo66jO4d9ke3UCEdAhr4PxiS-lBBfRp8nVS-oURN1FS2kqam54VHuGOpBCM9Kpga76VRyvDQaJaGqSl4flJx4idd--qhdPPHLGfBitv--SVdvxhoHORoAQjaFZpKTkYjqWaxkiwBvb7cpRYEdCs522MY5OE1vnTX0-XRWI6w997evnodoNmNDa18qrVUAesn7zPksvuk7OaPQP9zZSyY9kxt9lT4SIOP1xaMnrtIs2bH1U5g0oRynrKWovTH9i2l8LNTTUx4ILRlA"; //
-
-            GraphHelper.Initialize(authProvider);
-            EntityGeneratorService.SetAuthProvider(authProvider);
-
-  
-            //EntityGenerator entityGenerator =
-            //    new EntityGenerator(authProvider, "01SCYADGNAT2TT2TUGPZF3AMIF4KNILOIS", 0, 0, 0);
-
-            //entityGenerator.generateEntity();
-
-            //entityGenerator.ListOfSheets();
-
+         
 
 
             int choice = -1;
@@ -56,9 +39,9 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("2. List your OneDrive contents");
                 Console.WriteLine("3. Generate entities for all file's worksheets (type workbook index)");
                 Console.WriteLine("4. GraphHelper.GetContentOfFileAsync");
-                Console.WriteLine("5. Seed the db by excel files");
+                Console.WriteLine("5. Seed the db by excel file");
                 Console.WriteLine("6. The test of updating excel cells");
-                Console.WriteLine("7. Seed the areaquantity");
+                Console.WriteLine("7. Seed the db");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -102,12 +85,14 @@ namespace OneDriveWithMSGraph {
                     case 5:
 
                         Console.WriteLine("Lets start");
-                        //v/ar ele = new SeedWorkBook();
-                        //ele.SeedDBByWorkbook();
-                                                 
-                        Console.WriteLine("Press any button if finished");
-                        Console.ReadKey();
-                        choice = 0;
+
+                        ExcelEx client1 = new ExcelEx();
+
+                        client1.RequestWorkbooksEx();
+
+                        Console.WriteLine("Finished");
+                        //Console.ReadKey();
+                        //choice = 0;
                         break;
                     case 6:
                         var TestObject = new EntityOperations();
@@ -115,9 +100,10 @@ namespace OneDriveWithMSGraph {
                         choice = 0;
                         break;
                     case 7:
-                        var ele2 = new ObtainRecordsFromContentForAreaQuantity();
-                        ele2.ObtainRecords();
-                        choice = 0;
+                        SeedDb seedDb = new SeedDb();
+
+                        seedDb.SeedAllDb();
+                        Console.WriteLine("Finished");
                         break;
                     default:
                         Console.WriteLine("Invalid choice! Please try again.");
