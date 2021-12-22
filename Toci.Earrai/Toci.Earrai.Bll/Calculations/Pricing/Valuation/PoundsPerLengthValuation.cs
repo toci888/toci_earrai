@@ -11,9 +11,9 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
     {
         public PoundsPerLengthValuation()
         {
-            ValuationsMap = new Dictionary<Valuations, Func<ProductDto, double>>()
+            ValuationsMap = new Dictionary<Valuations, Func<ProductDto, double, double>>()
             {
-                { Valuations.PoundsPerTonne, (product) => { if (product.Pricing.KgPerMeter.Value == 0) { return -1; } return product.Pricing.PoundsPerMeter.Value / product.Pricing.KgPerMeter.Value * 1000; } },
+                { Valuations.PoundsPerTonne, (product, price) => { if (product.Pricing.KgPerMeter.Value == 0) { return -1; } return product.Pricing.PoundsPerMeter.Value / product.Pricing.KgPerMeter.Value * 1000; } },
             };
         }
     }

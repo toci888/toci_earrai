@@ -461,7 +461,7 @@ namespace Toci.Earrai.Ui
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
                 Qapif.PriceSubmit.Text = "Update";
 
-                Dictionary<Valuations, double> pricesForPrice = Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product);
+                Dictionary<Valuations, double> pricesForPrice = Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price);
             }
         }
 

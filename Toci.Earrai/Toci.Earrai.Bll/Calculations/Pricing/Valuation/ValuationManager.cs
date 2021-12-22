@@ -18,11 +18,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             { Valuations.PoundsPerSquareMeter, new PoundsPerSquareMeterValuation() },
         };
 
-        public virtual Dictionary<Valuations, double> GetPrices(Valuations currentValuation, ProductDto product)
+        public virtual Dictionary<Valuations, double> GetPrices(Valuations currentValuation, ProductDto product, double valuationPrice)
         {
             if (CentralValuationMap.ContainsKey(currentValuation))
             {
-                return CentralValuationMap[currentValuation].GetPrices(product);
+                return CentralValuationMap[currentValuation].GetPrices(product, valuationPrice);
             }
 
             return null;

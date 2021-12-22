@@ -10,17 +10,17 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 {
     public abstract class ValuationBase
     {
-        protected Dictionary<Valuations, Func<ProductDto, double>> ValuationsMap;
+        protected Dictionary<Valuations, Func<ProductDto, double, double>> ValuationsMap;
         protected CategoryLengthsProvider Clp = new CategoryLengthsProvider();
         //protected Valuations SourceValuation;
 
-        public virtual Dictionary<Valuations, double> GetPrices(ProductDto product)
+        public virtual Dictionary<Valuations, double> GetPrices(ProductDto product, double currentPrice)
         {
             Dictionary<Valuations, double> result = new Dictionary<Valuations, double>();
 
-            foreach (KeyValuePair<Valuations, Func<ProductDto, double>> valItem in ValuationsMap)
+            foreach (KeyValuePair<Valuations, Func<ProductDto, double, double>> valItem in ValuationsMap)
             {
-                result.Add(valItem.Key, valItem.Value(product));
+                result.Add(valItem.Key, valItem.Value(product, currentPrice));
             }
             
             return result;
