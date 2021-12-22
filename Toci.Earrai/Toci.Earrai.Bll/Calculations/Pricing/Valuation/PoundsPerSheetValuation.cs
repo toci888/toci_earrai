@@ -14,8 +14,23 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         {
             ValuationsMap = new Dictionary<Valuations, Func<ProductDto, double, double>>()
             {
-                { Valuations.PoundsPerSquareMeter,  (product, price) => GetPoundsPerMeterSquared(product, price) }
+                { Valuations.PoundsPerSquareMeter,  (product, price) => GetPoundsPerMeterSquared(product, price) },
+                { Valuations.PoundsPerTonne, (product, price) => GetPoundsPerTonne(product, price) }
             };
+        }
+
+        protected virtual double GetPoundsPerTonne(ProductDto product, double poundsPerSheet)
+        {
+            double poundsPerMeterSquared = GetPoundsPerMeterSquared(product, poundsPerSheet);
+
+            double kgPerSqrtMeter = product.Pricing.kgPerSqrtMeter.HasValue ? product.Pricing.kgPerSqrtMeter.Value : 0;
+
+            if (kgPerSqrtMeter == 0)
+            {
+                return 0;
+            }
+
+            return poundsPerMeterSquared / kgPerSqrtMeter * 1000;
         }
 
         protected virtual double GetPoundsPerMeterSquared(ProductDto product, double poundsPerSheet)

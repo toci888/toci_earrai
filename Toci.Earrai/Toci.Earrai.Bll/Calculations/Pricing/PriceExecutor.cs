@@ -12,15 +12,15 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         ProductDto dto;
 
         protected Dictionary<int, PriceCalculationBase> PricesExecutors = new Dictionary<int, PriceCalculationBase> {
-            {1, new PltSheetPriceCalculation() },
-            {2, new AlumCalculation() },
-            {7, new MshExpMetalCalculation() },
-            {6, new ChanBmsCalculation() },
-            {3, new AnglesTCalculation() },
-            {4, new FLTSCalculation() },
-            {5, new RHSCalculation() },
-            {8, new TubeCHSCalculation() },
-            {9, new RndsSqrsHolBarCalculation() },
+            { WorksheetsIds.PLTandSHEET, new PltSheetPriceCalculation() },
+            { WorksheetsIds.Alum, new AlumCalculation() },
+            { WorksheetsIds.MshandExpMetal, new MshExpMetalCalculation() },
+            { WorksheetsIds.ChanandBms, new ChanBmsCalculation() },
+            { WorksheetsIds.AnglesplusT, new AnglesTCalculation() },
+            { WorksheetsIds.FLTS, new FLTSCalculation() },
+            { WorksheetsIds.RHS, new RHSCalculation() },
+            { WorksheetsIds.Tube_CHS, new TubeCHSCalculation() },
+            { WorksheetsIds.Rnds_Sqrs_HolBar, new RndsSqrsHolBarCalculation() },
         };
 
 

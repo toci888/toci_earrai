@@ -63,7 +63,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                     }
                     else
                     {
-                        map.Value(pricingDto, double.Parse(priceValuation.Price));
+                        double price = 0;
+                        double.TryParse(priceValuation.Price, out price);
+
+                        map.Value(pricingDto, price);
                     }
                 }
             }
@@ -77,7 +80,9 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
             if (kgpermeter != null && !string.IsNullOrEmpty(kgpermeter.Value))
             {
-                double KgPerMeter = double.Parse(kgpermeter.Value);
+                double KgPerMeter = 0; 
+                double.TryParse(kgpermeter.Value, out KgPerMeter);
+
                 dto.KgPerMeter = KgPerMeter;
             }
 
@@ -88,9 +93,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         {
             Quotesandprice pricePerMeter = product.Quotesandprices.Where(m => m.Valuation == CalculationsConsts.PoundsPerMeter).FirstOrDefault(); // TODO duplicated calculation logic
 
-            if (pricePerMeter != null)
+            if (pricePerMeter != null && !string.IsNullOrEmpty(pricePerMeter.Price))
             {
-                double price = double.Parse(pricePerMeter.Price);
+                double price = 0;
+                double.TryParse(pricePerMeter.Price, out price);
 
                 if (dto.KgPerMeter != 0)
                 {
