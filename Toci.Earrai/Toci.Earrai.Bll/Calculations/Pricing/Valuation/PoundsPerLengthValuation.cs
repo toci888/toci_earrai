@@ -13,8 +13,24 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         {
             ValuationsMap = new Dictionary<Valuations, Func<ProductDto, double, double>>()
             {
-                { Valuations.PoundsPerTonne, (product, price) => { if (product.Pricing.KgPerMeter.Value == 0) { return -1; } return product.Pricing.PoundsPerMeter.Value / product.Pricing.KgPerMeter.Value * 1000; } },
+                { Valuations.PoundsPerTonne, (product, price) => GetPoundsPerTonne(product, price) },
+                { Valuations.PoundsPerMeter, (product, price) => GetPoundsPerMeter(product, price)}
             };
+        }
+
+        protected virtual double GetPoundsPerTonne(ProductDto product, double poundsPerLength)
+        {
+            if (!product.Pricing.KgPerMeter.HasValue || product.Pricing.KgPerMeter.Value == 0) 
+            { 
+                return 0; 
+            }
+
+            return GetPoundsPerMeter(product, poundsPerLength) / product.Pricing.KgPerMeter.Value * 1000;
+        }
+
+        protected virtual double GetPoundsPerMeter(ProductDto product, double poundsPerLength)
+        {
+            return poundsPerLength / Clp.GetCategoryLength(product.Product.Idcategories.Value);
         }
     }
 }

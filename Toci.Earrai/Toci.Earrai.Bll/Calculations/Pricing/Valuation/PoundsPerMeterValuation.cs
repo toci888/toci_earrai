@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         {
             ValuationsMap = new Dictionary<Valuations, Func<ProductDto, double, double>>()
             {
-
+                //tonne
             };
         }
     }
