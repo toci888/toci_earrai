@@ -35,6 +35,7 @@ namespace Toci.Earrai.Ui
         protected int xLeft = 10;
         protected int xOptionsSizes = 350;
         protected int xCommisions = 550;
+        protected int xPrices = 800;
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
@@ -46,6 +47,8 @@ namespace Toci.Earrai.Ui
 
         protected AreaQuantityInputForm Aqif = new AreaQuantityInputForm();
         protected QuoteAndPriceInputForm Qapif = new QuoteAndPriceInputForm();
+
+        protected List<Control> PricesForPriceList = new List<Control>();
 
         protected Areasquantity areaQ;
         protected Quotesandprice quote;
@@ -461,7 +464,37 @@ namespace Toci.Earrai.Ui
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
                 Qapif.PriceSubmit.Text = "Update";
 
-                Dictionary<Valuations, double> pricesForPrice = Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price);
+                RenderPricesForPrice(Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price));
+            }
+        }
+
+        protected virtual void RenderPricesForPrice(Dictionary<Valuations, double> prices)
+        {
+            if (PricesForPriceList.Count > 0)
+            {
+                foreach (Control c in PricesForPriceList)
+                {
+                    Controls.Remove(c);
+                }
+
+                PricesForPriceList = new List<Control>();
+            }
+
+
+            int y = 10;
+
+            foreach (KeyValuePair<Valuations, double> price in prices)
+            {
+                Label priceKey = Cm.CreateLabel(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ", 90, 20, xLeft + xPrices, y);
+                Label priceValue = Cm.CreateLabel(price.Value.ToString("0.00"), 90, 20, xLeft + xPrices + Cm.GetSize(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ") + 10, y);
+
+                Controls.Add(priceKey);
+                Controls.Add(priceValue);
+
+                PricesForPriceList.Add(priceKey);
+                PricesForPriceList.Add(priceValue);
+
+                y += 25;
             }
         }
 

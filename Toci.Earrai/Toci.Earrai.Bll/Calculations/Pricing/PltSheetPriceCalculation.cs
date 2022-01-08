@@ -41,7 +41,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (width_.Value == "") { return dto; }
                 double width = Convert.ToDouble(width_.Value);
 
-                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000;
+                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000000;
             } catch (Exception) {
 
                 return dto;
