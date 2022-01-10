@@ -32,5 +32,13 @@ namespace Toci.Earrai.Bll.Models
 
         public double? KgPerMeter { get; set; }
 
+        public double? TotalWeight { get; set; }
+
+        public double? TotalMeters { get; set; }
+
+        public double? StockTakeValue { get; set; }
+
+        public double? TotalSquareMeters { get; set; }
+
     }
 }

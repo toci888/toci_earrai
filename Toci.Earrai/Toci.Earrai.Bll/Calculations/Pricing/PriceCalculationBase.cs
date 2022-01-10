@@ -37,8 +37,67 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
             dto = GetPricesFromProduct(product, dto);
 
+            
+            
             return dto;
         }
+
+        protected virtual double GetAreasQuantitySquareMeters(ProductDto product, bool inclWidth = true)
+        {
+            if (product.AreaQuantities.Any())
+            {
+                double result = 0;
+
+                foreach (Areasquantity arQ in product.AreaQuantities)
+                {
+                    double length = 0;
+                    double width = 0;
+                    double quantity = 0;
+
+                    double.TryParse(arQ.Width, out width);
+                    double.TryParse(arQ.Length, out length);
+                    double.TryParse(arQ.Quantity, out quantity);
+
+                    if (inclWidth)
+                    {
+                        result += width * length * quantity / 1000000;
+                    }
+                    else
+                    {
+                        result += length * quantity / 1000000;
+                    }
+                }
+
+                return result;
+            }
+
+            return 0;
+        }
+
+        protected virtual double GetAreasQuantityTotalMeters(ProductDto product)
+        {
+            if (product.AreaQuantities.Any())
+            {
+                double result = 0;
+
+                foreach (Areasquantity arQ in product.AreaQuantities)
+                {
+                    double length = 0;
+                    double quantity = 0;
+
+                    double.TryParse(arQ.Length, out length);
+                    double.TryParse(arQ.Quantity, out quantity);
+
+                  
+                    result += length * quantity;
+                }
+
+                return result;
+            }
+
+            return 0;
+        }
+
         protected virtual PricingDto KgPerSqrtMeter(ProductDto product, PricingDto dto) { return dto; }
 
         protected virtual PricingDto KgPerSheet(ProductDto product, PricingDto dto) { return dto; }

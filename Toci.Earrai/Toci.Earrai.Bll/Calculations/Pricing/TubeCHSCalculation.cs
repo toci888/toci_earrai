@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
-    class TubeCHSCalculation : PriceCalculationBase {
+    public class TubeCHSCalculation : PriceCalculationBase 
+    {
+        public override PricingDto GetPrices(ProductDto product)
+        {
+            PricingDto dto = base.GetPrices(product);
+
+            dto.TotalMeters = GetAreasQuantityTotalMeters(product);
+            dto = GetStockTakeValue(product, dto);
+
+            return dto;
+        }
+
+        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        {
+            dto.StockTakeValue = 0; // TODO
+
+            return dto;
+        }
 
         protected override PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) {
 
