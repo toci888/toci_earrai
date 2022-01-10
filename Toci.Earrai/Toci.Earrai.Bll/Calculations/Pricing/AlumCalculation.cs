@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
     public class AlumCalculation : PriceCalculationBase 
@@ -21,7 +22,26 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = 0; // TODO
+            double width = 0;
+            double length = 0;
+
+            dto.StockTakeValue = 0;
+
+            Productssize widthPSize = product.Sizes.Where(m => m.Name == ProductSizesEnum.Width.ToString()).FirstOrDefault();
+            Productssize lengthPSize = product.Sizes.Where(m => m.Name == ProductSizesEnum.Length.ToString()).FirstOrDefault();
+
+            if (widthPSize != null && lengthPSize != null)
+            {
+                double.TryParse(widthPSize.Value, out width);
+                double.TryParse(lengthPSize.Value, out length);
+
+                double lwResult = width * length / 1000000;
+
+                if (lwResult != 0)
+                {
+                    dto.StockTakeValue = dto.TotalSquareMeters * dto.PoundsPerSheet / lwResult;
+                }
+            }
 
             return dto;
         }

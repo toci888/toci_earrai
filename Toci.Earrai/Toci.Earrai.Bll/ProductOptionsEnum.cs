@@ -9,7 +9,6 @@ namespace Toci.Earrai.Bll
     public static class ProductOptions
     {
         public const string KgSqrtM = "KgSqrtM";
-
-
+        public const string KgM = "KgM";
     }
 }
