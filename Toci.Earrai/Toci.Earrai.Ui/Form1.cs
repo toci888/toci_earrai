@@ -12,6 +12,7 @@ using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using System.Reflection;
 using Toci.Earrai.Bll.Client.UI;
+using Toci.Earrai.Bll.Client.UI.ToGrid;
 
 namespace Toci.Earrai.Ui
 {
@@ -257,9 +258,18 @@ namespace Toci.Earrai.Ui
 
         private void BindToGrid(List<ProductDto> products)
         {
-            FlattenManager fm = new FlattenManager();
+            //FlattenManager fm = new FlattenManager();
+            ApplyToGridManager atgm = new ApplyToGridManager();
 
-            List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
+            ApplyToGridBase atgLogic = atgm.GetApplyToGridLogic(selectedWorkSheetId);
+
+            List<List<FlattenedEntity>> result = new List<List<FlattenedEntity>>();
+
+            foreach (ProductDto product in products)
+            {
+                result.Add(atgLogic.GetFlattenedProduct(product));
+            }
+            //List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
 
             bind2(result);
 
