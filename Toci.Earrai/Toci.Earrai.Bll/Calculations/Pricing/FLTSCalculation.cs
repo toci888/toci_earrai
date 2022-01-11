@@ -57,7 +57,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             if (y_.Value == "") { return dto; }
             double y = Convert.ToDouble(y_.Value);
 
-            dto.PoundsPerMeter = (x / 1000) / y;
+            dto.PoundsPerMeter = (x / 1000) / y; // TODO / 1000000 ?
 
             return dto; 
         }

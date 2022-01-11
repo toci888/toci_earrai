@@ -17,8 +17,15 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
             (product) => new FlattenedEntity() { Name = "Stock take value", Value = product.Pricing.StockTakeValue.ToString() },
         };
 
+        protected virtual void AddToMap()
+        {
+            
+        }
+
         public virtual List<FlattenedEntity> GetFlattenedProduct(ProductDto product)
         {
+            AddToMap();
+
             List<FlattenedEntity> result = new List<FlattenedEntity>();
 
             int i = 0;

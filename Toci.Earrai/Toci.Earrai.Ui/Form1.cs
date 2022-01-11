@@ -180,11 +180,14 @@ namespace Toci.Earrai.Ui
         {
             selectedWorkSheetId = int.Parse(workbookDdl.SelectedValue.ToString());
 
-            List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
+            if (valueDdl.SelectedItem != null)
+            {
+                List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
 
-            ProductsFiltered = products;
+                ProductsFiltered = products;
 
-            BindToGrid(products);
+                BindToGrid(products);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -258,7 +261,7 @@ namespace Toci.Earrai.Ui
 
         private void BindToGrid(List<ProductDto> products)
         {
-            //FlattenManager fm = new FlattenManager();
+            FlattenManager fm = new FlattenManager();
             ApplyToGridManager atgm = new ApplyToGridManager();
 
             ApplyToGridBase atgLogic = atgm.GetApplyToGridLogic(selectedWorkSheetId);
@@ -267,7 +270,10 @@ namespace Toci.Earrai.Ui
 
             foreach (ProductDto product in products)
             {
-                result.Add(atgLogic.GetFlattenedProduct(product));
+                List<FlattenedEntity> element = atgLogic.GetFlattenedProduct(product);
+                element = fm.FlattenProduct(product, element);
+                result.Add(element);
+                
             }
             //List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
 

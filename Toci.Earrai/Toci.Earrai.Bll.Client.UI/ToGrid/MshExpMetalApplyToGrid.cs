@@ -8,5 +8,9 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
 {
     public class MshExpMetalApplyToGrid : ApplyToGridBase
     {
+        public MshExpMetalApplyToGrid()
+        {
+            WorksheetColumnsMap.Add((product) => new FlattenedEntity() { Name = "Total square meters", Value = product.Pricing.TotalSquareMeters.ToString() });
+        }
     }
 }

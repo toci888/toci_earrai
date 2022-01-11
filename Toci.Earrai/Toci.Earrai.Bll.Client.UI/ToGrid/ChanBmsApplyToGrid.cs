@@ -8,5 +8,9 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
 {
     public class ChanBmsApplyToGrid : ApplyToGridBase
     {
+        public ChanBmsApplyToGrid()
+        {
+            WorksheetColumnsMap.Add((product) => new FlattenedEntity() { Name = "Total metres", Value = product.Pricing.TotalMeters.ToString() });
+        }
     }
 }

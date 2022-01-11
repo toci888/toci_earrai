@@ -8,5 +8,9 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
 {
     public class FLTSApplyToGrid : ApplyToGridBase 
     {
+        public FLTSApplyToGrid()
+        {
+            WorksheetColumnsMap.Add((product) => new FlattenedEntity() { Name = "Total metres", Value = product.Pricing.TotalMeters.ToString() });
+        }
     }
 }
