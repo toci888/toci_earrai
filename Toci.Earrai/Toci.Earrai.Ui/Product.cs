@@ -27,6 +27,7 @@ namespace Toci.Earrai.Ui
         protected ValuationManager Vm = new ValuationManager();
 
         protected Label CommissionsHeader = null;
+        protected Label StockTakeValue = null;
 
         protected int ySlided = 0;
         protected int xSlided = 0;
@@ -76,6 +77,13 @@ namespace Toci.Earrai.Ui
             //IsConnected();
 
             Setup();
+        }
+
+        protected virtual void RefreshItems()
+        {
+            product = Dm.GetProduct(prodId);
+
+            StockTakeValue.Text = product.Pricing.StockTakeValue.ToString();
         }
 
         protected virtual void AddCommissions(double price)
@@ -133,10 +141,17 @@ namespace Toci.Earrai.Ui
             Label description = Cm.CreateLabel("Description: ", 90, 20, xLeft, y);
             Label descriptionValue = Cm.CreateLabel(product.Product.Description, 90, 20, xLeft + xSlide, y);
 
+            y += ySlide;
+
+            Label stockTake = Cm.CreateLabel("Stock take value: ", 90, 20, xLeft, y);
+            StockTakeValue = Cm.CreateLabel(product.Pricing.StockTakeValue.ToString(), 90, 20, xLeft + Cm.GetSize("Stock take value: "), y);
+
             Controls.Add(productaccountreference);
             Controls.Add(productaccountreferenceValue);
             Controls.Add(description);
             Controls.Add(descriptionValue);
+            Controls.Add(stockTake);
+            Controls.Add(StockTakeValue);
         }
 
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord, string header)
@@ -279,6 +294,8 @@ namespace Toci.Earrai.Ui
                 Aqif.DisplayGrid.DataSource = GetQuantities(prodId);
                 Aqif.QuantitySubmit.Text = "Add";
             }
+
+            RefreshItems();
         }
 
         protected virtual void AddPricingForm()
@@ -399,6 +416,8 @@ namespace Toci.Earrai.Ui
 
                 AddCommissions(priceD);
             }
+
+            RefreshItems();
         }
 
         protected virtual void QuantitiesCellClick(object sender, DataGridViewCellEventArgs e)
