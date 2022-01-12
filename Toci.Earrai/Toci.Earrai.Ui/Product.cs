@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Earrai.Bll.Calculations.Pricing.Valuation;
+using Toci.Earrai.Bll.Client.UI.ProductTotal;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Ui.ControlsStuff;
@@ -25,9 +26,12 @@ namespace Toci.Earrai.Ui
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
         protected ControlsManager Cm = new ControlsManager(true);
         protected ValuationManager Vm = new ValuationManager();
+        protected TotalResolver Tr = new TotalResolver();
 
         protected Label CommissionsHeader = null;
         protected Label StockTakeValue = null;
+        protected Label TotalValue = null;
+
 
         protected int ySlided = 0;
         protected int xSlided = 0;
@@ -84,6 +88,7 @@ namespace Toci.Earrai.Ui
             product = Dm.GetProduct(prodId);
 
             StockTakeValue.Text = product.Pricing.StockTakeValue.ToString();
+            TotalValue.Text = Tr.GetLabelAmount(product).Amount;
         }
 
         protected virtual void AddCommissions(double price)
@@ -146,12 +151,21 @@ namespace Toci.Earrai.Ui
             Label stockTake = Cm.CreateLabel("Stock take value: ", 90, 20, xLeft, y);
             StockTakeValue = Cm.CreateLabel(product.Pricing.StockTakeValue.ToString(), 90, 20, xLeft + Cm.GetSize("Stock take value: "), y);
 
+            y += ySlide;
+
+            TotalEntity te = Tr.GetLabelAmount(product);
+
+            Label totalLabel = Cm.CreateLabel(te.Label, 90, 20, xLeft, y);
+            TotalValue = Cm.CreateLabel(te.Amount, 90, 20, xLeft + Cm.GetSize(te.Label), y);
+
             Controls.Add(productaccountreference);
             Controls.Add(productaccountreferenceValue);
             Controls.Add(description);
             Controls.Add(descriptionValue);
             Controls.Add(stockTake);
             Controls.Add(StockTakeValue);
+            Controls.Add(totalLabel);
+            Controls.Add(TotalValue);
         }
 
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord, string header)
