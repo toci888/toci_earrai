@@ -221,7 +221,7 @@ namespace Toci.Earrai.Ui
             excelDataGrid.Rows.Clear();
 
             bool columns = false;
-            foreach (var item in items)
+            foreach (List<FlattenedEntity> item in items)
             {
                 if (!columns)
                 {

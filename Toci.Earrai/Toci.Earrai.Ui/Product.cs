@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Earrai.Bll.Calculations.Pricing.Valuation;
+using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Client.UI.ProductTotal;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
@@ -31,6 +32,7 @@ namespace Toci.Earrai.Ui
         protected Label CommissionsHeader = null;
         protected Label StockTakeValue = null;
         protected Label TotalValue = null;
+        protected DataGridView PricesCommissionsDgv = null;
 
 
         protected int ySlided = 0;
@@ -428,7 +430,7 @@ namespace Toci.Earrai.Ui
 
                 double.TryParse(price.Price, out priceD);
 
-                AddCommissions(priceD);
+                //AddCommissions(priceD);
             }
 
             RefreshItems();
@@ -490,14 +492,66 @@ namespace Toci.Earrai.Ui
 
                 double.TryParse(quote.Price, out price);
 
-                AddCommissions(price);
+                //AddCommissions(price);
 
                 Qapif.Vendors.SelectedValue = quote.Idvendor;
                 Qapif.Price.Text = quote.Price;
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
                 Qapif.PriceSubmit.Text = "Update";
 
-                RenderPricesForPrice(Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price));
+                PricesAndCommissionsToGrid(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price);
+
+                //RenderPricesForPrice(Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price));
+            }
+        }
+
+        protected virtual void PricesAndCommissionsToGrid(Valuations valuation, ProductDto product, double price)
+        {
+            Dictionary<Valuations, double> prices = Vm.GetPrices(valuation, product, price);
+
+            List<List<string>> dgvData = new List<List<string>>();
+
+            List<string> headers = new List<string>() { "Valuation", "Price", "30%", "35%", "40%", "50%" };
+
+            dgvData.Add(headers);
+
+            foreach (KeyValuePair<Valuations, double> singlePrice in prices)
+            {
+                Dictionary<string, double> commissions = Dm.GetCommissions(product.Product.Id, singlePrice.Value);
+
+                List<string> record = new List<string>() { singlePrice.Key.ToString(), singlePrice.Value.ToString() };
+
+                record.AddRange(commissions.Select(m => m.Value.ToString()));
+
+                dgvData.Add(record);
+            }
+            
+            PricesCommissionsDgv = Cm.CreateGrid(null, 600, 250, 600, 10);
+
+            ShowOnGrid(PricesCommissionsDgv, dgvData);
+
+            Controls.Add(PricesCommissionsDgv);
+        }
+
+        protected virtual void ShowOnGrid(DataGridView dataGrid, List<List<string>> items)
+        {
+            bool columns = true;
+            foreach (List<string> item in items)
+            {
+                if (columns)
+                {
+                    foreach (string element in item)
+                    {
+                        dataGrid.Columns.Add(element, element);
+                        //excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                    }
+                }
+
+                columns = false;
+
+
+                dataGrid.Rows.Add(item.Select(m => m).ToArray());
             }
         }
 
