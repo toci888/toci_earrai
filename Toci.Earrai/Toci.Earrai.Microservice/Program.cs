@@ -21,6 +21,7 @@ namespace Toci.Earrai.Microservice
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                   // webBuilder.UseUrls("http://192.168.43.59:8642");
                 });
     }
 }

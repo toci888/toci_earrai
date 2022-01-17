@@ -26,5 +26,21 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
         {
             return Map.ContainsKey(worksheetId) ? Map[worksheetId] : null;
         }
+
+        public virtual List<List<FlattenedEntity>> PrepareLinearData(int worksheetId, List<ProductDto> products)
+        {
+            List<List<FlattenedEntity>> result = new List<List<FlattenedEntity>>();
+
+            FlattenManager fm = new FlattenManager();
+
+            foreach (ProductDto product in products)
+            {
+                List<FlattenedEntity> element = Map[worksheetId].GetFlattenedProduct(product);
+                element = fm.FlattenProduct(product, element);
+                result.Add(element);
+            }
+
+            return result;
+        }
     }
 }

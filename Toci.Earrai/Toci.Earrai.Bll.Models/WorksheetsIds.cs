@@ -17,5 +17,18 @@ namespace Toci.Earrai.Bll.Models
         public const int FLTS = 7;
         public const int Rnds_Sqrs_HolBar = 8;
         public const int RHS = 9;
+
+        public static List<int> AllWorksheets = new List<int>() 
+        {
+            PLTandSHEET,
+            Alum,
+            MshandExpMetal,
+            ChanandBms,
+            AnglesplusT,
+            Tube_CHS,
+            FLTS,
+            Rnds_Sqrs_HolBar,
+            RHS
+        };
     }
 }
