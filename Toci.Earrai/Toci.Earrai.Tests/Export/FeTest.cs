@@ -7,12 +7,21 @@ using Toci.ExcelLibrary.Extensions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Erp;
 
 namespace Toci.Earrai.Tests.Export
 {
     [TestClass]
     public class FeTest
     {
+        [TestMethod]
+        public void ExportEarraiToExcel()
+        {
+            ExportLogic exL = new ExportLogic();
+
+            exL.GenerateCompleteExcel("Feilim_1st");
+        }
+
         [TestMethod]
         public void dupa()
         {

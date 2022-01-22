@@ -30,5 +30,18 @@ namespace Toci.Earrai.Bll.Models
             Rnds_Sqrs_HolBar,
             RHS
         };
+
+        public static Dictionary<int, string> AllWorksheetsNames = new Dictionary<int, string>()
+        {
+            { PLTandSHEET, "PLTandSHEET" },
+            { Alum, "Alum" },
+            { MshandExpMetal, "MshandExpMetal" },
+            { ChanandBms, "ChanandBms" },
+            { AnglesplusT, "AnglesplusT" },
+            { Tube_CHS, "Tube_CHS" },
+            { FLTS, "FLTS" },
+            { Rnds_Sqrs_HolBar, "Rnds_Sqrs_HolBar" },
+            { RHS, "RHS" }
+        };
     }
 }
