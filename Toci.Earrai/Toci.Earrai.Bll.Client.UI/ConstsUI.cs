@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Toci.Earrai.Bll
 {
-    public static class Consts
+    public static class ConstsUI
     {
         public const string Thickness = "Thickness";
         public const string DimA = "SizeA";

@@ -54,8 +54,8 @@ namespace Toci.Earrai.Tests.Import
 
                 if (productCategory == "") continue; // empty category column(propably the whole row is empty)
 
-                int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : 0; // TODO dummy category
-                if (categoryId == 0) continue; // some shit in FLTS row 83
+                int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : categories[Consts.DummyCategory].Id; // TODO dummy category
+                //if (categoryId == 0) continue; // some shit in FLTS row 83
 
                 Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = newSheet.Id });
 

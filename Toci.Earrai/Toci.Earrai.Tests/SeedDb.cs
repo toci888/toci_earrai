@@ -521,6 +521,13 @@ CON".Split("\n", StringSplitOptions.None);
                     });
                 }
             }
+
+            Categories.Insert(new Category()
+            {
+                Name = "DUMMY",
+                Prefix = "DUMMY",
+                Description = "DUMMY"
+            });
         }
 
         [TestMethod]

@@ -27,7 +27,13 @@ namespace Toci.Earrai.Bll.Erp
 
             foreach (KeyValuePair<int, List<ProductDto>> worksheetProducts in data)
             {
-                List<List<string>> resultSet = GetFlattenedToStringData(Atgm.PrepareLinearData(worksheetProducts.Key, worksheetProducts.Value));
+                List<List<FlattenedEntity>> dataOfWorksheet = Atgm.PrepareLinearData(worksheetProducts.Key, worksheetProducts.Value);
+
+                List<List<string>> resultSet = new List<List<string>>();
+
+                resultSet.Add(dataOfWorksheet.First().Select(m => m.Name).ToList());
+
+                resultSet.AddRange(GetFlattenedToStringData(dataOfWorksheet));
 
                 setForExcel.Add(WorksheetsIds.AllWorksheetsNames[worksheetProducts.Key], resultSet);
             }

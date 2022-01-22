@@ -15,9 +15,9 @@ namespace Toci.Earrai.Tests.Import
         public AlumImport() 
         {
             categoryIndexColumn = 0;
-            areasStart = 8;
+            areasStart = 6;
             numberOfAreas = 2;
-            skipAreaWidth = true;
+            skipAreaWidth = false;
         }
 
         protected override void ImportOptions(List<string> row, int productId)
