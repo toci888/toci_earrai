@@ -38,10 +38,15 @@ namespace Toci.Earrai.Ui
 
             InitializeComponent();
 
-            areas = Dm.GetAllAreas();
-            vendors = Dm.GetAllVendors();
-            quotesandprices = Dm.GetQuotesAndMetrics();
-            worksheets = Dm.GetWorksheets();
+            TaskFactory taskFactory = new TaskFactory();
+
+            Task<List<Area>> taskAreas = taskFactory.StartNew(() => areas = Dm.GetAllAreas());
+            Task<List<Vendor>> taskVendors = taskFactory.StartNew(() => vendors = Dm.GetAllVendors());
+            Task<List<Quoteandmetric>> taskQuotes = taskFactory.StartNew(() => quotesandprices = Dm.GetQuotesAndMetrics());
+            Task<List<Worksheet>> taskWorksheets = taskFactory.StartNew(() => worksheets = Dm.GetWorksheets());
+
+            taskWorksheets.Wait();
+
             //IsConnected();
 
             Setup();
