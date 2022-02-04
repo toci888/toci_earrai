@@ -69,7 +69,7 @@ create table users
 	password text,
 	emailConfirmed int default 0,
 	token text,
-	idRole int references roles(id) default 1
+	idRole int references roles(id) default 1 not null
 );
 
 

@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
-        protected string BaseUrl = "http://51.137.109.9/";
+        protected string BaseUrl = "http://localhost:5000/";
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -34,6 +34,12 @@ namespace Toci.Earrai.Bll.Client.UI
         {
             return ApiPost<Areaquantity, Areaquantity>("api/AreaQuantity/UpdateAreaQuantity", item, false);
         }
+
+        public object GetVendors(int v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
+
         //public virtual Areaquantity DeleteAreaQuantity() //DELETE
         //{
         //    return ApiGet<Areaquantity>("api/AreaQuantity/UpdateAreaQuantity");
