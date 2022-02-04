@@ -11,8 +11,13 @@ namespace Toci.Earrai.Microservice
 {
     public class Program
     {
+        private static IConfigurationRoot config;
         public static void Main(string[] args)
         {
+            config = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json").Build();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -21,6 +26,10 @@ namespace Toci.Earrai.Microservice
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                    string ipToBind = config.GetValue<string>("BindToIp");
+
+                    webBuilder.UseUrls(ipToBind);
                 });
     }
 }

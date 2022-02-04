@@ -10,6 +10,30 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
     public class PltSheetPriceCalculation : PriceCalculationBase
     {
 
+        public override PricingDto GetPrices(ProductDto product)
+        {
+            PricingDto dto = base.GetPrices(product);
+            
+            dto = GetTotalWeight(product, dto);
+            dto = GetStockTakeValue(product, dto);
+
+            return dto;
+        }
+
+        protected virtual PricingDto GetTotalWeight(ProductDto product, PricingDto dto)
+        {
+            dto.TotalWeight = dto.kgPerSqrtMeter * GetAreasQuantitySquareMeters(product);
+
+            return dto;
+        }
+
+        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        {
+            dto.StockTakeValue = dto.TotalWeight / 1000 * dto.PoundsPerTonne;
+
+            return dto;
+        }
+
 
         protected override PricingDto KgPerSqrtMeter(ProductDto product, PricingDto dto)
         {
@@ -41,7 +65,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (width_.Value == "") { return dto; }
                 double width = Convert.ToDouble(width_.Value);
 
-                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000;
+                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000000;
             } catch (Exception) {
 
                 return dto;

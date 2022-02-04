@@ -12,29 +12,17 @@ namespace Toci.Earrai.Tests.Import
 {
     public class AlumImport : ImportBase
     {
-        public AlumImport() {
-            categoryIndexColumn = 0;
-        }
-
-        protected override void ImportAreas(List<string> row, int productId)
+        public AlumImport() 
         {
-            string area1 = row[10];
-            string area2 = row[14];
-
-            if (!string.IsNullOrEmpty(area1))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[8], Quantity = row[9], Idarea = AreasProvider.GetAreas()[area1].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[categoryIndexColumn]].Id });
-            }
-
-            if (!string.IsNullOrEmpty(area2))
-            {
-                AreaQuantity.Insert(new Areaquantity() { Length = row[12], Quantity = row[13], Idarea = AreasProvider.GetAreas()[area2].Id, Idproducts = productId, Idcodesdimensions = CodesDimensionProvider.GetCodesDimensions()[row[categoryIndexColumn]].Id });
-            }
+            categoryIndexColumn = 0;
+            areasStart = 6;
+            numberOfAreas = 2;
+            skipAreaWidth = false;
         }
 
         protected override void ImportOptions(List<string> row, int productId)
         {
-            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[4] });
+            //ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[4] });
         }
 
         protected override void ImportPricing(List<string> row, int productId)

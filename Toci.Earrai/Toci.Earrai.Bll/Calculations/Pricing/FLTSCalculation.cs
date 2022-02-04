@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
-    class FLTSCalculation : PriceCalculationBase {
+    public class FLTSCalculation : PriceCalculationBase 
+    {
+
+        public override PricingDto GetPrices(ProductDto product)
+        {
+            PricingDto dto = base.GetPrices(product);
+
+            dto.TotalMeters = GetAreasQuantityTotalMeters(product);
+            dto = GetStockTakeValue(product, dto);
+
+            return dto;
+        }
+
+        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        {
+            dto.StockTakeValue = dto.PoundsPerMeter * dto.TotalMeters; 
+
+            return dto;
+        }
 
         protected override PricingDto KgPerMeter(ProductDto product, PricingDto dto) {
 
@@ -39,7 +57,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             if (y_.Value == "") { return dto; }
             double y = Convert.ToDouble(y_.Value);
 
-            dto.PoundsPerMeter = (x / 1000) / y;
+            dto.PoundsPerMeter = (x / 1000) / y; // TODO / 1000000 ?
 
             return dto; 
         }

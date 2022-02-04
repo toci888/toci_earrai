@@ -12,11 +12,14 @@ namespace Toci.Earrai.Bll
         public const string DimA = "SizeA";
         public const string DimB = "SizeB";
         public const string Width = "Width";
+        public const string Length = "Length";
         public const string Od = "ChsOd";
         public const string Type = "Type";
         public const string Metric = "Metric";
         public const string Id = "Id";
         public const string Pcs = "Product Code Short";
         public const string Description = "Description";
+        public const string DateFormat = "dd-MM-yyyy";
+        public const string DummyCategory = "DUMMY";
     }
 }

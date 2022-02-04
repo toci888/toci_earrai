@@ -15,6 +15,7 @@ namespace Toci.Earrai.Bll.Client.UI
             FlattenMap.Add("Id", (ob, input) => { input.Add(new FlattenedEntity() { Name = "Id", Value = ((ProductDto)ob).Product.Id.ToString() }); return input; });
             FlattenMap.Add("Description", (ob, input) => { input.Add(new FlattenedEntity() { Name = "Description", Value = ((ProductDto)ob).Product.Description }); return input; });
             FlattenMap.Add("Balance", (ob, input) => { input.Add(new FlattenedEntity() { Name = "Balance", Value = ((ProductDto)ob).Balance.ToString() }); return input; });
+            FlattenMap.Add("Stock take value", (ob, input) => { input.Add(new FlattenedEntity() { Name = "Stock take value", Value = ((ProductDto)ob).Pricing.StockTakeValue.ToString() }); return input; });
         }
     }
 }

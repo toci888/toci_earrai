@@ -4,12 +4,17 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.4.1" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="ExcelLibrary" Version="1.2011.7.31" />
+    <PackageReference Include="ExpertXls.ExcelLibrary" Version="6.0.2" />
+    <PackageReference Include="FastExcel" Version="3.0.13" />
     <PackageReference Include="IdentityModel" Version="5.1.0" />
     <PackageReference Include="IronXL.Excel" Version="2021.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9">
@@ -31,6 +36,7 @@
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Database\Toci.Common.Database.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices.Interfaces\Toci.Common.Microservices.Interfaces.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.ExcelLibrary.Extensions\Toci.ExcelLibrary.Extensions.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI.Interfaces\Toci.Earrai.Bll.Client.UI.Interfaces.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj" />

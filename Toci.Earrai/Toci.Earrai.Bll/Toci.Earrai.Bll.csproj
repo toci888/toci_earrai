@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="ExcelLibrary" Version="1.2011.7.31" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.10" />
     <PackageReference Include="Microsoft.Graph" Version="4.3.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.2" />
@@ -14,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Bll\Toci.Common.Bll.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices.Interfaces\Toci.Common.Microservices.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.ExcelLibrary.Extensions\Toci.ExcelLibrary.Extensions.csproj" />
+    <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Database.Persistence\Toci.Earrai.Database.Persistence.csproj" />
   </ItemGroup>

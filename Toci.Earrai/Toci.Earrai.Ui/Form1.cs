@@ -11,8 +11,8 @@ using System.ComponentModel;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using System.Reflection;
-using Microsoft.Graph;
 using Toci.Earrai.Bll.Client.UI;
+using Toci.Earrai.Bll.Client.UI.ToGrid;
 
 namespace Toci.Earrai.Ui
 {
@@ -24,20 +24,34 @@ namespace Toci.Earrai.Ui
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
+        protected List<Quoteandmetric> quotesandprices;
         protected List<ProductDto> ProductsFiltered;
         protected List<Worksheet> worksheets;
         protected int selectedWorkSheetId = 0;
+        protected User LoggedUser;
+        protected LogIn MasterWindow;
 
-        public Form1()
+        public Form1(User loggedUser, LogIn masterWindow)
         {
+            LoggedUser = loggedUser;
+            MasterWindow = masterWindow;
+
             InitializeComponent();
 
-            areas = Dm.GetAllAreas();
-            vendors = Dm.GetAllVendors();
-            worksheets = Dm.GetWorksheets();
+            TaskFactory taskFactory = new TaskFactory();
+
+            Task<List<Area>> taskAreas = taskFactory.StartNew(() => areas = Dm.GetAllAreas());
+            Task<List<Vendor>> taskVendors = taskFactory.StartNew(() => vendors = Dm.GetAllVendors());
+            Task<List<Quoteandmetric>> taskQuotes = taskFactory.StartNew(() => quotesandprices = Dm.GetQuotesAndMetrics());
+            Task<List<Worksheet>> taskWorksheets = taskFactory.StartNew(() => worksheets = Dm.GetWorksheets());
+
+            taskWorksheets.Wait();
+
             //IsConnected();
 
             Setup();
+
+            this.FormClosed += (s, e) => MasterWindow.Close();
         }
 
         protected virtual void IsConnected()
@@ -50,10 +64,10 @@ namespace Toci.Earrai.Ui
 
         protected virtual void Setup()
         {
-            workbookDdl.DataSource = worksheets;
             workbookDdl.ValueMember = "Id";
             workbookDdl.DisplayMember = "Sheetname";
-
+            workbookDdl.DataSource = worksheets;
+            
             SearchCombosHandler(worksheets.First().Id);
         }
 
@@ -108,7 +122,7 @@ namespace Toci.Earrai.Ui
                                                             //DataGridViewCellEventHandler
         private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors);
+            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors, LoggedUser, quotesandprices);
             p.Show();
         }
 
@@ -165,18 +179,20 @@ namespace Toci.Earrai.Ui
 
             //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
-
         }
 
         private void showBtn_Click(object sender, EventArgs e)
         {
             selectedWorkSheetId = int.Parse(workbookDdl.SelectedValue.ToString());
 
-            List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
+            if (valueDdl.SelectedItem != null)
+            {
+                List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
 
-            ProductsFiltered = products;
+                ProductsFiltered = products;
 
-            BindToGrid(products);
+                BindToGrid(products);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -197,7 +213,7 @@ namespace Toci.Earrai.Ui
             string worksheetID = ((ComboBox)sender).SelectedValue.ToString();
 
             int worksheetId = int.Parse(worksheetID);
-
+            
             SearchCombosHandler(worksheetId);
         }
 
@@ -210,7 +226,7 @@ namespace Toci.Earrai.Ui
             excelDataGrid.Rows.Clear();
 
             bool columns = false;
-            foreach (var item in items)
+            foreach (List<FlattenedEntity> item in items)
             {
                 if (!columns)
                 {
@@ -251,8 +267,20 @@ namespace Toci.Earrai.Ui
         private void BindToGrid(List<ProductDto> products)
         {
             FlattenManager fm = new FlattenManager();
+            ApplyToGridManager atgm = new ApplyToGridManager();
 
-            List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
+            ApplyToGridBase atgLogic = atgm.GetApplyToGridLogic(selectedWorkSheetId);
+
+            List<List<FlattenedEntity>> result = new List<List<FlattenedEntity>>();
+
+            foreach (ProductDto product in products)
+            {
+                List<FlattenedEntity> element = atgLogic.GetFlattenedProduct(product);
+                element = fm.FlattenProduct(product, element);
+                result.Add(element);
+                
+            }
+            //List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
 
             bind2(result);
 

@@ -11,5 +11,7 @@ namespace Toci.Earrai.Bll.Client.UI
         public string Name { get; set; }
 
         public string Value { get; set; }
+
+        public int GridPosition { get; set; }
     }
 }

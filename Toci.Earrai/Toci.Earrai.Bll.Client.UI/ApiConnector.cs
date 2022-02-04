@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
-        protected string BaseUrl = "http://localhost:5000/";
+        protected string BaseUrl = "http://localhost:8642/";
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -25,21 +25,30 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
         }
 
-        public virtual Areaquantity PostAreaQuantities(Areaquantity item) //POST
+        public virtual Dictionary<string, double> GetCommissions(int productId, double price)
         {
-            return ApiPost<Areaquantity, Areaquantity>("api/AreaQuantity/PostAreaQuantities", item, false);
+            return ApiGet<Dictionary<string, double>>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);
         }
 
-        public virtual Areaquantity UpdateAreaQuantity(Areaquantity item) //POST
+        public virtual List<Areaquantity> PostAreaQuantities(Areaquantity item) //POST
         {
-            return ApiPost<Areaquantity, Areaquantity>("api/AreaQuantity/UpdateAreaQuantity", item, false);
+            List<Areaquantity> parameter = new List<Areaquantity>()
+            {
+                item
+            };
+
+            return ApiPost<List<Areaquantity>, List<Areaquantity>>("api/AreaQuantity/PostAreaQuantities", parameter, true);
         }
 
-        public object GetVendors(int v1, int v2)
+        public virtual Areaquantity UpdateAreaQuantity(Areaquantity item) //PUT
         {
-            throw new NotImplementedException();
+            return ApiPut<Areaquantity, Areaquantity>("api/AreaQuantity/UpdateAreaQuantity", item, false);
         }
 
+        public virtual Quoteandprice UpdateQuoteAndPrice(Quoteandprice item) //PUT
+        {
+            return ApiPut<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/UpdateQuoteAndPrice", item, false);
+        }
         //public virtual Areaquantity DeleteAreaQuantity() //DELETE
         //{
         //    return ApiGet<Areaquantity>("api/AreaQuantity/UpdateAreaQuantity");
@@ -70,14 +79,24 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Areasquantity>>("api/AreasQuantities/GetAreasQuantitiesByProduct/" + productId, true);
         }
 
+        public virtual int DeleteQuantity(int id)
+        {
+            return ApiDelete<int, int>("api/AreaQuantity/" + id, id, false);
+        }
+
+        public virtual int DeletePrice(int id)
+        {
+            return ApiDelete<int, int>("api/QuoteAndPrice/DeleteQuoteAndPrice/" + id, id, false);    
+        }
+
         public virtual Commision GetCommisions(int productId, double price) //price?
         {
             return ApiGet<Commision>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);
         }
 
-        public virtual Quoteandprice PostQuoteandPrice(Quoteandprice item) //POST
+        public virtual int PostQuoteandPrice(Quoteandprice item) //POST
         {
-            return ApiPost<Quoteandprice, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
+            return ApiPost<int, Quoteandprice>("api/QuoteAndPrice/PostQuoteandPrice", item, false);
         }
 
         public virtual List<Vendor> GetAllVendors() //price?
@@ -85,14 +104,14 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Vendor>>("api/QuoteAndPrice/GetAllVendorsFromDb", true);
         }
 
-        public virtual List<Quoteandprice> GetQuoteAndMetric()
+        public virtual List<Quoteandmetric> GetQuoteAndMetric()
         {
-            return ApiGet<List<Quoteandprice>>("api/QuoteAndMetric", true);
+            return ApiGet<List<Quoteandmetric>>("api/QuoteAndMetric", true);
         }
 
-        public virtual List<Quoteandprice> GetQuotesAndPricesByProductId(int productId)
+        public virtual List<Quotesandprice> GetQuotesAndPricesByProductId(int productId)
         {
-            return ApiGet<List<Quoteandprice>>("api/QuoteAndPrice/QuoteAndPriceByProductId/" + productId, true);
+            return ApiGet<List<Quotesandprice>>("api/QuoteAndPrice/QuoteAndPriceByProductId/" + productId, true);
         }
 
         protected virtual T ApiGet<T>(string url, bool isResponseArray)
@@ -104,7 +123,17 @@ namespace Toci.Earrai.Bll.Client.UI
                 HttpResponseMessage response = hc.GetAsync(url).Result;
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
-                
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
             }
         }
@@ -121,6 +150,70 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
+                return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
+            }
+        }
+
+        protected virtual T ApiPut<T, TDto>(string url, TDto dto, bool isResponseArray)
+        {
+            using (HttpClient hc = new HttpClient())
+            {
+                hc.BaseAddress = new Uri(BaseUrl);
+
+                HttpContent content = JsonContent.Create<TDto>(dto);
+
+                HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage() 
+                { Method = HttpMethod.Put, RequestUri = new Uri(url, UriKind.Relative), Content = content }).Result;
+
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
+                return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
+            }
+        }
+
+        protected virtual T ApiDelete<T, TDto>(string url, TDto dto, bool isResponseArray)
+        {
+            using (HttpClient hc = new HttpClient())
+            {
+                hc.BaseAddress = new Uri(BaseUrl);
+
+              //  HttpContent content = JsonContent.Create<TDto>(dto);
+
+                HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage()
+                { Method = HttpMethod.Delete, RequestUri = new Uri(url, UriKind.Relative) }).Result;
+
+                string responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (responseContent == string.Empty)
+                {
+                    return default(T);
+                }
+
+                if (typeof(T).IsValueType)
+                {
+                    return (T)Convert.ChangeType(responseContent, typeof(T));
+                }
+
                 return isResponseArray ? JArray.Parse(responseContent).ToObject<T>() : JObject.Parse(responseContent).ToObject<T>();
             }
         }
@@ -133,6 +226,16 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual List<ProductDto> GetProductsEx(ProductSearchRequestDto dto) ////api/Product/GetProductsEx
         {
             return ApiPost<List<ProductDto>, ProductSearchRequestDto>("api/Product/GetProductsEx", dto, true);
+        }
+
+        public virtual User Login(string email, string password)
+        {
+            return ApiPost<User, User>("api/Account/Login", new User() { Email = email, Password = password }, false);
+        }
+
+        public virtual int Register(string firstName, string lastName, string email, string password)
+        {
+            return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
     }
 }

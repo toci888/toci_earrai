@@ -11,6 +11,6 @@ namespace Toci.Earrai.Bll {
         PoundsPerLength = 2,
         PoundsPerMeter = 3,
         PoundsPerSheet = 4,
-        
+        PoundsPerMeterSquared = 5
     }
 }

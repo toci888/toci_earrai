@@ -11,12 +11,12 @@ namespace Toci.Earrai.Bll.Client.UI
     {
         protected Dictionary<string, FlattenBase> Flatteners = new Dictionary<string, FlattenBase>()
         {
-            { "Product", new FlattenProduct() },
+            //{ "Product", new FlattenProduct() },
             { "Prices", new FlattenCollections() },
         };
-        public virtual List<FlattenedEntity> FlattenProduct(ProductDto product)
+        public virtual List<FlattenedEntity> FlattenProduct(ProductDto product, List<FlattenedEntity> result)
         {
-            List<FlattenedEntity> result = new List<FlattenedEntity>();
+            //List<FlattenedEntity> result = new List<FlattenedEntity>();
 
             foreach (KeyValuePair<string, FlattenBase> flatItem in Flatteners)
             {
