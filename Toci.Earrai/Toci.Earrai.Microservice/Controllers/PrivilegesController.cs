@@ -31,9 +31,9 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost("change")]
-        public User ChangePrivileges(User user, int privileges)
+        public User ChangePrivileges(User user, PrivilegesEnum privileges)
         {
-            return Logic.ChangePrivileges(user, privileges);
+            return Logic.ChangePrivileges(user, (int)privileges);
         }
     }
 }

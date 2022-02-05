@@ -15,12 +15,12 @@ namespace Toci.Earrai.Bll
                 return null;
             }
 
-            if (u.Idrole != (int)PrivilegesEnum.Admin) // TODO idrole check nullable
+            if (u.Idrole != (int)PrivilegesEnum.Admin)
             {
                 u.Idrole++;
             }
 
-            ChangePrivileges(u, u.Idrole);
+            Update(u);
 
             return u;
         }
@@ -39,7 +39,7 @@ namespace Toci.Earrai.Bll
                 u.Idrole--;
             }
 
-            ChangePrivileges(u, u.Idrole);
+            Update(u);
 
             return u;
         }
@@ -48,14 +48,9 @@ namespace Toci.Earrai.Bll
         {
             var u = Select(x => x.Email == user.Email && x.Firstname == user.Firstname && x.Lastname == user.Lastname).FirstOrDefault();
 
-            if (u == null)
+            if (u == null || privileges == null)
             {
                 return null;
-            }
-
-            if (privileges == null)
-            {
-                privileges = (int)PrivilegesEnum.User;
             }
 
             u.Idrole = privileges;
