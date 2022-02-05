@@ -116,17 +116,17 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public virtual int IncreasePrivileges(User user)
         {
-            return ApiPost<int, User>("api/Priveleges/increase", user, false);
+            return ApiPost<int, User>("api/Priveleges/Increase", user, false);
         }
 
         public virtual int DecreasePrivileges(User user)
         {
-            return ApiPost<int, User>("api/Priveleges/decrease", user, false);
+            return ApiPost<int, User>("api/Priveleges/Decrease", user, false);
         }
 
         public virtual int ChangePrivileges(User user, int priveleges)
         {
-            return ApiPost<int, User>("api/Priveleges/change?privileges=" + priveleges, user, false);
+            return ApiPost<int, User>("api/Priveleges/Change?privileges=" + priveleges, user, false);
         }
 
         protected virtual T ApiGet<T>(string url, bool isResponseArray)
