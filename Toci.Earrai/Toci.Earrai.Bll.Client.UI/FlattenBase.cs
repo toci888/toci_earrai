@@ -22,7 +22,7 @@ namespace Toci.Earrai.Bll.Client.UI
             return result;
         }
 
-        protected virtual List<FlattenedEntity> Flatten<T>(List<T> collection, Func<T, FlattenedEntity> mapper)
+        protected virtual List<FlattenedEntity> Flatten<T>(List<T> collection, Func<T, List<FlattenedEntity>> mapper)
         {
             List<FlattenedEntity> result = new List<FlattenedEntity>();
 
@@ -30,7 +30,7 @@ namespace Toci.Earrai.Bll.Client.UI
             {
                 foreach (T obj in collection)
                 {
-                    result.Add(mapper(obj));
+                    result.AddRange(mapper(obj));
                 }
             }
 

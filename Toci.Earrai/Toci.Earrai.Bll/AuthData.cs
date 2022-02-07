@@ -40,7 +40,7 @@ namespace Toci.Earrai.Bll
 
         public static string[] GetScopes()
         {
-            return new string[] { }; // { "https://graph.microsoft.com/User.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
+            return new string[] { }; // { "https://graph.microsoft.com/U.ReadWrite.All", "https://graph.microsoft.com/Files.ReadWrite.All",
             //"https://graph.microsoft.com/Files.Read.All", "https://graph.microsoft.com/Sites.Read.All",
             //"https://graph.microsoft.com/Sites.ReadWrite.All" };
         }

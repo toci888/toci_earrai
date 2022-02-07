@@ -55,7 +55,11 @@ export default function Login({navigation}) {
     }
     
   };
-
+  console.log("LOGIN: "+login);
+  console.log("LOGIN: "+login);
+  console.log("LOGIN: "+login);
+  console.log("LOGIN: "+login);
+  console.log("LOGIN: "+login);
   return (
     <Formik initialValues={{
       email: 'user@wp.pl',
