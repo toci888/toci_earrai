@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll;
@@ -17,29 +18,28 @@ namespace Toci.Earrai.Microservice.Controllers
     {
         public AreaQuantityController(IAreaquantityLogic logic) : base(logic) { }
 
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetAllAreaQuantitiesFromDb")]
         public ActionResult<List<Areaquantity>> GetAllAreaQuantitiesFromDb()
         {
-
-            List<Areaquantity> areaQuantities = Logic.GetAllAreaQuantitiesFromDb();
-
-            return Ok(areaQuantities);
+            return Ok(Logic.GetAllAreaQuantitiesFromDb());
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpPost("PostAreaQuantities")]
         public ActionResult<List<Areasquantity>> PostAreaQuantities(List<Areaquantity> areaQuantityCollection)
         {
-            List<Areasquantity> x = Logic.PostAreaQuantities(areaQuantityCollection);
-
-            return Ok(x);
+            return Ok(Logic.PostAreaQuantities(areaQuantityCollection));
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpDelete("{Id}")]
         public ActionResult DeleteById(int Id)
         {
             return Ok(Logic.DeleteById(Id));
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpPut("UpdateAreaQuantity")]
         public ActionResult UpdateModel(Areaquantity areaquantity)
         {
@@ -47,6 +47,5 @@ namespace Toci.Earrai.Microservice.Controllers
 
             return Ok(areaquantity);
         }
-
     }
 }

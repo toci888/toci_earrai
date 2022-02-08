@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll;
@@ -9,31 +10,28 @@ using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
-namespace Toci.Earrai.Microservice.Controllers {
-
+namespace Toci.Earrai.Microservice.Controllers 
+{
     [Route("api/[controller]")]
     [ApiController]
     public class WorksheetContentController : ApiControllerBase<IWorksheetcontentLogic, Worksheetcontent> {
         public WorksheetContentController(IWorksheetcontentLogic logic) : base(logic) { }
 
-
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("searchWorksheet/{worksheetId}/{phrase}/{skipCounter}")]
-        public List<List<Worksheetcontent>> searchWorksheet(int worksheetId, string phrase, int skipCounter) {
-
-            var workbooks = Logic.SearchWorksheet(worksheetId, phrase, skipCounter);
-
-            return workbooks;
+        public List<List<Worksheetcontent>> searchWorksheet(int worksheetId, string phrase, int skipCounter) 
+        {
+            return Logic.SearchWorksheet(worksheetId, phrase, skipCounter);
         }
 
-
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetColumnsForWorksheet/{worksheetId}")]
-        public ActionResult<List<List<Worksheetcontent>>> GetColumnsForWorksheet(int worksheetId) {
-
-            var workbooks = Logic.GetColumnsForWorksheet(worksheetId);
-
-            return Ok(workbooks);
+        public ActionResult<List<List<Worksheetcontent>>> GetColumnsForWorksheet(int worksheetId) 
+        {
+            return Ok(Logic.GetColumnsForWorksheet(worksheetId));
         }
 
+        //[Authorize(Roles = PrivelegesRoles.User)]
         [HttpPost("flushCache")]
         public ActionResult<List<List<Worksheetcontent>>> flushCache(List<Worksheetcontent> worksheetcontentCollection)
         {
@@ -56,15 +54,13 @@ namespace Toci.Earrai.Microservice.Controllers {
             return Ok("OK");
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpPost("GetIncreaseWorksheetcontents")]
         public ActionResult<List<List<Worksheetcontent>>> GetIncreaseWorksheetcontents(MyDatetimeDto date) 
         {
             var dateTime = DateTime.Parse(date.Year + "-" + date.Month + "-" + date.Day + " " + date.Hour + ":" + date.Minute + ":" + date.Second);
 
-            var newestWorksheets = Logic.Select(x => 
-                x.Updatedat > dateTime && 
-                x.Idworksheet == date.worksheetId)
-                .ToList();
+            var newestWorksheets = Logic.Select(x => x.Updatedat > dateTime && x.Idworksheet == date.worksheetId).ToList();
 
             return Ok(newestWorksheets);
         }

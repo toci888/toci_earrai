@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
@@ -15,22 +16,22 @@ namespace Toci.Earrai.Microservice.Controllers
     [ApiController]
     public class ProductController : ApiControllerBase<IProductLogic, Product>
     {
-        public ProductController(IProductLogic logic) : base(logic)
-        {
+        public ProductController(IProductLogic logic) : base(logic) { }
 
-        }
-
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetProduct/{productId}")]
         public ActionResult<ProductDto> GetProduct(int productId)
         {
             return Ok(Logic.GetProduct(productId));
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("GetProducts/{worksheetId}")]
         public ActionResult<List<ProductDto>> GetProductsByWorksheet(int worksheetId) {
             return Ok(Logic.GetProductsByWorksheet(worksheetId));
         }
 
+        //[Authorize(Roles = PrivilegesEnum.User)]
         [HttpPost("GetProductsEx")]
         public ActionResult<List<ProductDto>> GetProductsByWorksheet(ProductSearchRequestDto dto)
         {
@@ -39,13 +40,13 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(sm.SearchEx(dto));
         }
 
+        //[Authorize(Roles = PrivilegesEnum.User)]
         [HttpPost("GetProductsFiltersEx")]
         public ActionResult<List<string>> GetProductFiltersByWorksheet(ProductSearchRequestDto dto)
         {
             SearchConditionsProvider scp = new SearchConditionsProvider();
 
             return Ok(scp.GetFilters(dto.WorksheetId, dto.Name));
-            
         }
     }
 }

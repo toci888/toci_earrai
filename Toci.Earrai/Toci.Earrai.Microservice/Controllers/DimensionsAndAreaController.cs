@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll;
@@ -17,22 +18,18 @@ namespace Toci.Earrai.Microservice.Controllers
     {
         public DimensionsAndAreaController(IAreasLogic logic): base(logic) { }
 
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetAllAreasFromDb")]
         public ActionResult<List<Area>> GetAllAreasFromDb()
         {
-
-            List<Area> areas = Logic.GetAllAreasFromDb();
-
-            return Ok(areas);
+            return Ok(Logic.GetAllAreasFromDb());
         }
 
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetAllCodesDimensionsFromDb")]
         public ActionResult<List<Codesdimension>> GetAllCodesDimensionsFromDb()
         {
-
-            List<Codesdimension> codesDimensions = Logic.GetAllCodesDimensionsFromDb();
-
-            return Ok(codesDimensions);
+            return Ok(Logic.GetAllCodesDimensionsFromDb());
         }
     }
 }

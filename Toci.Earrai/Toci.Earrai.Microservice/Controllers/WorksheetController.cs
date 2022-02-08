@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Interfaces;
@@ -14,24 +15,11 @@ namespace Toci.Earrai.Microservice.Controllers {
 
         public WorksheetController(IWorksheetLogic logic) : base(logic) { }
 
-
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("GetAllWorksheetsFromDb")]
-        public ActionResult<List<Worksheet>> GetAllWorksheetsFromDb() {
-
-            var Worksheets = Logic.GetAllWorksheetsFromDb();
-
-            return Ok(Worksheets);
+        public ActionResult<List<Worksheet>> GetAllWorksheetsFromDb() 
+        {
+            return Ok(Logic.GetAllWorksheetsFromDb());
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

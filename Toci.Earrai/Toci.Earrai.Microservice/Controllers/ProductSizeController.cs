@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Calculations;
 using Toci.Earrai.Bll.Interfaces;
@@ -17,7 +18,7 @@ namespace Toci.Earrai.Microservice.Controllers
     {
         public ProductSizeController(IProductSizeLogic logic) : base(logic) { }
 
-
+        [Authorize(Roles = PrivelegesRoles.User)]
         [HttpGet("TestGetCalculations/{productId}")]
         public ActionResult<List<Productssize>> TestGetCalculations(int productId) {
 
@@ -40,10 +41,5 @@ namespace Toci.Earrai.Microservice.Controllers
 
             //return Ok(productsizes);
         }
-
-
-
-
-
     }
 }

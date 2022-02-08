@@ -3,11 +3,8 @@
     public enum PrivilegesEnum
     {
         User = 1,
-        O = 2,
-        P = 4,
-        A = 8,
-        Office = User | O,
-        Pc = Office | P,
-        Admin = Pc | A
+        Office = 2,
+        Pc = 3,
+        Admin = 4
     }
 }

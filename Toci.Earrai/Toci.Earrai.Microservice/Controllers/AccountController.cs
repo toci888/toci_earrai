@@ -19,6 +19,7 @@ namespace Toci.Earrai.Microservice.Controllers
         {
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public int RegisterUser([FromBody] User user)
         {
@@ -28,13 +29,12 @@ namespace Toci.Earrai.Microservice.Controllers
             return Logic.CreateAccount(user);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public ActionResult<User> Login([FromBody]LoginDto user)
         {
             Userrole loggedUser = Logic.GenerateJwt(user);
             return Ok(loggedUser);
         }
-
-
     }
 }

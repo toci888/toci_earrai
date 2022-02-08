@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll;
@@ -17,47 +18,42 @@ namespace Toci.Earrai.Microservice.Controllers
     {
         public QuoteAndPriceController(IQuoteandpriceLogic logic) : base(logic) { }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("GetAllQuotesAndPricesFromDb")]
         public ActionResult<List<Quoteandprice>> GetAllQuotesAndPricesFromDb()
         {
-
-            List<Quoteandprice> quoteandprice = Logic.GetAllQuotesAndPrices();
-
-            return Ok(quoteandprice);
+            return Ok(Logic.GetAllQuotesAndPrices());
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("GetAllQuotesAndMetrics")]
         public ActionResult<List<Quoteandmetric>> GetAllQuotesAndMetrics()
         {
-
-            List<Quoteandmetric> quoteandmetric = Logic.GetAllQuotesAndMetrics();
-
-            return Ok(quoteandmetric);
+            return Ok(Logic.GetAllQuotesAndMetrics());
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("GetAllVendorsFromDb")]
         public ActionResult<List<Vendor>> GetAllVendorsFromDb()
         {
-
-            List<Vendor> vendors = Logic.GetAllVendors();
-
-            return Ok(vendors);
+            return Ok(Logic.GetAllVendors());
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpPost("PostQuoteandPrice")]
         public ActionResult<int> PostAreaQuantities(Quoteandprice quoteandprice)
         {
-            int id = Logic.PostQuoteAndPrice(quoteandprice);
-
-            return Ok(id);
+            return Ok(Logic.PostQuoteAndPrice(quoteandprice));
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("QuoteAndPriceByProductId/{productId}")]
         public ActionResult<List<Quotesandprice>> GetQuoteAndPriceByProductId(int productId)
         {
             return Ok(Logic.GetAllQuotesAndPricesView(productId));
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpPut("UpdateQuoteAndPrice")]
         public ActionResult<Quoteandprice> UpdateQuoteAndPrice(Quoteandprice priceEntity)
         {
@@ -66,11 +62,11 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(priceEntity);
         }
 
+        [Authorize(Roles = PrivelegesRoles.Office)]
         [HttpDelete("DeleteQuoteAndPrice/{id}")]
         public ActionResult<int> DeleteQuoteAndPrice(int id)
         {
             return Logic.DeleteById(id);
         }
-
     }
 }

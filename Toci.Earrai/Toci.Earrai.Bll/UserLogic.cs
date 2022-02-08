@@ -11,7 +11,6 @@ using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Microservice;
-using Toci.Earrai.Microservice.Exceptions;
 
 namespace Toci.Earrai.Bll
 {

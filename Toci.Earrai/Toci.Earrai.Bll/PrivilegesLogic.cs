@@ -44,16 +44,16 @@ namespace Toci.Earrai.Bll
             return u;
         }
 
-        public User ChangePrivileges(User user, int privileges)
+        public User ChangePrivileges(User user, int newPrivileges)
         {
             var u = Select(x => x.Email == user.Email && x.Firstname == user.Firstname && x.Lastname == user.Lastname).FirstOrDefault();
 
-            if (u == null || privileges == null)
+            if (u == null || newPrivileges == null)
             {
                 return null;
             }
 
-            u.Idrole = privileges;
+            u.Idrole = newPrivileges;
 
             Update(u);
 
