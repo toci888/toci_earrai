@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
-        protected string BaseUrl = "http://localhost:8642/";
+        protected string BaseUrl = "http://82.153.17.97:8864/";
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
