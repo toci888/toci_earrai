@@ -19,7 +19,7 @@ namespace Toci.Earrai.Bll.Client.UI
             {
                 input.AddRange(Flatten(((ProductDto)ob).AreaQuantities, (obj) => new List<FlattenedEntity>()
                 {
-                    new FlattenedEntity() // -  -  ;  + " - " +  + " - " + 
+                    new FlattenedEntity()
                     {
                         Name = "Area",
                         Value = (obj).Areaname
@@ -47,7 +47,7 @@ namespace Toci.Earrai.Bll.Client.UI
                     {
                         new FlattenedEntity()
                         {
-                            Name = "Valuation=",
+                            Name = "Valuation",
                             Value = (obj).Valuation
                         },
                         new FlattenedEntity()
