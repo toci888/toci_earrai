@@ -87,7 +87,7 @@ export default function Login({navigation}) {
       <View style={formStyles.container}>
         <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
         { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
-        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password 123" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
+        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
         { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
         <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={() => {handleSubmit()}} />
         <ActivityIndicator size="large" color="blue" animating={indicator}/>

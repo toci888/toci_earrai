@@ -93,49 +93,6 @@ namespace Toci.Earrai.Ui
             TotalValue.Text = Tr.GetLabelAmount(product).Amount;
         }
 
-        protected virtual void AddCommissions(double price)
-        {
-            bool addToDict = !CommissionsView.Any();
-            int y = 10;
-
-            if (addToDict)
-            {
-                CommissionsHeader = Cm.CreateLabel("Commissions for price: " + price.ToString("0.00"), 90, 20, xLeft + xCommisions, y);
-
-                Controls.Add(CommissionsHeader);
-
-                y += ySlide;
-            }
-            else
-            {
-                CommissionsHeader.Text = "Commissions for price: " + price.ToString("0.00");
-            }
-
-            Dictionary<string, double> commissions = Dm.GetCommissions(product.Product.Id, price); 
-
-            
-
-            foreach (KeyValuePair<string, double> commission in commissions)
-            {
-                if (addToDict)
-                {
-                    Label commKey = Cm.CreateLabel(commission.Key + ": ", 90, 20, xLeft + xCommisions, y);
-                    Label commValue = Cm.CreateLabel(commission.Value.ToString("0.00"), 90, 20, xLeft + xCommisions + Cm.GetSize(commission.Key + ": ") + 10, y);
-
-                    Controls.Add(commKey);
-                    Controls.Add(commValue);
-
-                    CommissionsView.Add(commission.Key, new Tuple<Label, Label>(commKey, commValue));
-                }
-                else
-                {
-                    CommissionsView[commission.Key].Item2.Text = commission.Value.ToString("0.00");
-                }
-
-                y += ySlide;
-            }
-        }
-
         protected virtual void AddBasicProductInfo()
         {
             int y = 10;
@@ -429,8 +386,6 @@ namespace Toci.Earrai.Ui
                 double priceD = 0;
 
                 double.TryParse(price.Price, out priceD);
-
-                //AddCommissions(priceD);
             }
 
             RefreshItems();

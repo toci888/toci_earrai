@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
 import { getQuotesAndPricesByProductIdUrl } from './RequestConfig'
 
 export default class AppUser {
@@ -68,9 +67,8 @@ export default class AppUser {
     }
 
     static checkIfAlreadyExists = async () => {
-        let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
-        console.log(x)
-        return x ? x : false
+        
+        return false;
     }
 
     static getAllQuotesAndPricesByProductId = async () => {
