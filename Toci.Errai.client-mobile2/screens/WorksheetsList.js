@@ -112,11 +112,11 @@ export default function WorksheetsList({ route, navigation }) {
                         </View>
                         <View onClick={ () => showWorksheets(item) }  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                            <View>
-                           {/* <TouchableOpacity onPress={ () => showWorksheets(item) }> */}
+                           <TouchableOpacity onPress={ () => showWorksheets(item) }>
                                 <Text style={ [worksheetsList.listText], {fontSize: 16} }>
                                         { item.sheetname }
                                     </Text>
-                            {/* </TouchableOpacity> */}
+                            </TouchableOpacity>
                             </View>
                         {/* </TouchableOpacity> */}
                         </View>

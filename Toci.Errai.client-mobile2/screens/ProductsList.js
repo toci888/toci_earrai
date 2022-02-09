@@ -310,7 +310,7 @@ export default function ProductsList({ route, navigation }) {
 
                                     <View style={{display: 'flex', flexDirection: 'row'}}>
 
-                                        {/* <TouchableOpacity onPress={ () => showProductDetails(index) }> */}
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
                                             { img &&
 
                                                 <View style={{ height: 40, width: 30, margin: 5}}>
@@ -320,14 +320,14 @@ export default function ProductsList({ route, navigation }) {
                                                     />
                                                 </View>
                                             }
-                                        {/* </TouchableOpacity> */}
+                                        </TouchableOpacity>
 
-                                        {/* <TouchableOpacity onPress={ () => showProductDetails(index) }> */}
+                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
                                             <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
                                                 <Text style={ps.small}>{product.description}</Text>
                                                 <Text style={ps.small}>{product.productaccountreference}</Text>
                                             </View>
-                                        {/* </TouchableOpacity> */}
+                                        </TouchableOpacity>
 
                                         {/* <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                             <Text style={ps.small}>{product.description}</Text>
