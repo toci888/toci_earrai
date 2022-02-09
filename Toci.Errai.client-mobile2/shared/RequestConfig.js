@@ -43,7 +43,6 @@ export function deleteRequestParams(dataToSend_) {
         },
         body: JSON.stringify([dataToSend_])
     }
-
 }
 
 export const getProductsEx =  environment.apiUrl + "api/Product/GetProductsEx"
@@ -55,13 +54,13 @@ export function getProductsFromWorksheet(worksheetId, phrase, skip) {
     return environment.apiUrl + "api/Product/GetProducts/" + worksheetId + "/" + phrase + "/" + skip
 }
 
-export const getAllWorksheetsUrl = environment.apiUrl + "api/Worksheet/GetAllWorksheetsFromDb"
+export const getAllWorksheetsUrl = "api/Worksheet/GetAllWorksheetsFromDb"
 
 export function getAllProductsByWorksheet(worksheetId) {
     return environment.apiUrl + "api/Product/GetProducts/" + worksheetId
 }
 
-export const getAreasUrl = environment.apiUrl + 'api/Areas'
+export const getAreasUrl = 'api/Areas';
 
 export function getAreasQuantitiesByProduct(productId) {
     return environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByProduct/' + productId
@@ -73,9 +72,9 @@ export function getCommisions(productId, price) {
 
 export const addVendorUrl = environment.apiUrl + 'api/QuoteAndPrice/PostQuoteandPrice'
 
-export const getVendorsUrl = environment.apiUrl + 'api/QuoteAndPrice/GetAllVendorsFromDb'
+export const getVendorsUrl = 'api/QuoteAndPrice/GetAllVendorsFromDb';
 
-export const getQuoteAndMetricUrl = environment.apiUrl + 'api/QuoteAndMetric'
+export const getQuoteAndMetricUrl = 'api/QuoteAndMetric'
 
 export function getQuotesAndPricesByProductIdUrl(productId_) {
     return environment.apiUrl + 'api/QuoteAndPrice/QuoteAndPriceByProductId/' + productId_

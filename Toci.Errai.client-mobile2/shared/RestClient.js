@@ -7,7 +7,8 @@ export default class RestClient {
       if (!baseUrl) throw new Error('missing baseUrl');
       this.headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + AppUser.token
       };
       Object.assign(this.headers, headers);
       this.baseUrl = baseUrl;
@@ -27,19 +28,10 @@ export default class RestClient {
       return `${this.baseUrl}${url}`;
     }
 
-    _fetch (route, method, bodyy, isQuery = false) {
-
-      console.log("TOKEN");
-      console.log(AppUser.token);
-      // if(AppUser.token) {
-      //   body = {body, ... AppUser.token};
-      // }
-      // let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
-      // body = {body, ... AppUser.token};
-      // body = {body, ...x};
-      
-      let body = Object.assign(bodyy , AppUser.token)
-      console.log(body);
+    _fetch (route, method, body, isQuery = false) {
+          
+      console.log("Header:");
+      console.log(this.headers);
       
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
@@ -66,8 +58,7 @@ export default class RestClient {
           .then(() => fetchPromise())
           .then(extractResponse);
       } else {
-        return fetchPromise()
-          .then(extractResponse);
+        return fetchPromise().then(extractResponse);
       }
     }
 

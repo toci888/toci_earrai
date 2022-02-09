@@ -36,7 +36,7 @@ export default function Login({navigation}) {
       console.log("LOGIN RESPONSE:")
       console.log(response);
       AppUser.logIn(response.id, response.token);
-      AsyncStorage.setItem(AppUser.userName, response.token);
+      // AsyncStorage.setItem(AppUser.userName, response.token);
       setIndicator(false);
 
       if(response == undefined) {
