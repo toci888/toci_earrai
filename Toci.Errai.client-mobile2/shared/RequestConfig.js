@@ -3,21 +3,6 @@ import { environment } from "../environment";
 
 export const insertUrl = environment.apiUrl + "api/AreaQuantity/PostAreaQuantities"
 
-export function PostRequestParams(dataToSend_, isCollection = false) {
-    const json_ = JSON.parse(JSON.stringify(dataToSend_))
-
-    const toSend = isCollection ? [json_] : json_
-
-    return {
-        method: "POST",
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(toSend) // arequantity
-    }
-}
-
 export const updateUrl = "api/AreaQuantity/UpdateAreaQuantity";
 
 export function updateRequestParams(dataToSend_) {
@@ -33,6 +18,20 @@ export function updateRequestParams(dataToSend_) {
 
 }
 
+export function PostRequestParams(dataToSend_, isCollection = false) {
+    const json_ = JSON.parse(JSON.stringify(dataToSend_))
+
+    const toSend = isCollection ? [json_] : json_
+
+    return {
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(toSend) // arequantity
+    }
+}
 
 export function deleteUrl(id_) { return "api/AreaQuantity/" + id_ }
 
@@ -47,7 +46,7 @@ export function deleteRequestParams(dataToSend_) {
     }
 }
 
-export const getProductsEx =  environment.apiUrl + "api/Product/GetProductsEx"
+export const getProductsEx =  "api/Product/GetProductsEx"
 
 export function getProductUrl(id_) { return 'api/Product/GetProduct/' + id_ }
 
@@ -65,12 +64,12 @@ export function getAllProductsByWorksheet(worksheetId) {
 export const getAreasUrl = 'api/Areas';
 
 export function getAreasQuantitiesByProduct(productId) {
-    return environment.apiUrl + 'api/AreasQuantities/GetAreasQuantitiesByProduct/' + productId
+    return 'api/AreasQuantities/GetAreasQuantitiesByProduct/' + productId;
 }
 
-export function getCommisions(productId, price) {
-    return environment.apiUrl + 'api/Commisions/GetCommisions?productId=' + productId + '&price=' + price
-}
+// export function getCommisions(productId, price) {
+//     return environment.apiUrl + 'api/Commisions/GetCommisions?productId=' + productId + '&price=' + price
+// }
 
 export const addVendorUrl = 'api/QuoteAndPrice/PostQuoteandPrice'
 

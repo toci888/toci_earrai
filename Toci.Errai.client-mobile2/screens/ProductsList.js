@@ -8,8 +8,7 @@ import AppUser from '../shared/AppUser'
 import {
     getAllProductsByWorksheet,
     getAvailableValuesForSelectedOptionUrl,
-    getProductsEx,
-    PostRequestParams
+    getProductsEx
 } from '../shared/RequestConfig'
 import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -75,14 +74,12 @@ export default function ProductsList({ route, navigation }) {
         const x = createFilterDto(navigation.getParam('worksheetId'), type_)
         const y = dbNameReplacer(x)
 
-        const k = PostRequestParams(y)
         console.log("k")
         console.log(x)
         console.log(y)
-        console.log(k)
         console.log(getAvailableValuesForSelectedOptionUrl)
 
-        restClient.POST(getAvailableValuesForSelectedOptionUrl, x).then(x => {
+        restClient.POST(getAvailableValuesForSelectedOptionUrl, y).then(x => {
             console.log(x);
             availableValues = x;
             filteredValues = x;
@@ -104,26 +101,21 @@ export default function ProductsList({ route, navigation }) {
             filteredValues[SelectedFilteredIndexHook],
         )
         console.log(x)
-
-        fetch(getProductsEx, PostRequestParams(dbNameReplacer(x)))
-        .then(response => response.json())
-        .then(response => {
-
+        
+        restClient.POST(getProductsEx, dbNameReplacer(x)).then(response => {
             if(response.length == 0) {
-                setNomoredata(true)
-                return
-            }
+                setNomoredata(true);
+                return;
+            };
 
             setProductsListHook(prev => {
                 return [...prev, ...response]
-            })
-
-
+            });
         }).catch(error => {
             console.log(error)
         }).finally(() => {
             setloading(false)
-        })
+        });
     }
 
     const showProductDetails = (index_) => {
