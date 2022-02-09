@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Ui;
 
 namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
-        protected string BaseUrl = "http://localhost:8642/";
+        protected string BaseUrl = "http://82.153.17.97:8864/";
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -134,6 +135,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
+                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 HttpResponseMessage response = hc.GetAsync(url).Result;
 
@@ -158,6 +160,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
+                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 HttpContent content = JsonContent.Create<TDto>(dto);
 
@@ -184,6 +187,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
+                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 HttpContent content = JsonContent.Create<TDto>(dto);
 
@@ -211,8 +215,9 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
+                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
-              //  HttpContent content = JsonContent.Create<TDto>(dto);
+                //  HttpContent content = JsonContent.Create<TDto>(dto);
 
                 HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage()
                 { Method = HttpMethod.Delete, RequestUri = new Uri(url, UriKind.Relative) }).Result;

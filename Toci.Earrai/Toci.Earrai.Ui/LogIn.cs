@@ -48,6 +48,7 @@ namespace Toci.Earrai.Ui
 
             if (user != null)
             {
+                LoggedUserContext.User = user;
                 Form1 f = new Form1(user, this);
                 f.Show();
                 Hide();
