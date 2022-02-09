@@ -23,6 +23,8 @@ export default class AppUser {
 
     static metrics = null
 
+    static userName = "AppUser"
+
     static getApiData = async () => AppUser.apiData
 
     static setApiData = data => { AppUser.apiData = data }
@@ -65,10 +67,11 @@ export default class AppUser {
     static logOut = () => {
         AppUser.id = null
         AppUser.token = null
+        AsyncStorage.clear();
     }
 
     static checkIfAlreadyExists = async () => {
-        let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
+        let x = JSON.parse(await AsyncStorage.getItem(this.userName))
         console.log(x)
         return x ? x : false
     }

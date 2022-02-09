@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
 import { environment } from '../../environment';
 import ErrorEntity  from '../../ErrorHandling/ErrorEntity';
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default function Login({navigation}) {
 
@@ -19,7 +20,6 @@ export default function Login({navigation}) {
       navigation.navigate('WorksheetRecord')
     } else {
       console.log("Not logged already.")
-
     }
   }
 
@@ -29,17 +29,21 @@ export default function Login({navigation}) {
 
   const login = async (values) => {
     setIndicator(true);
+    
     let restClient = new RestClient();
-    navigation.navigate('WorksheetsList');
-    try {
-      let response = await restClient.POST('api/Account/login', values);
-      console.log("RESPONSE: " + response);
+    
+    return await restClient.POST('api/Account/login', values).then(response => {
+      console.log("LOGIN RESPONSE:")
+      console.log(response);
+      AppUser.logIn(response.id, response.token);
+      AsyncStorage.setItem(AppUser.userName, response.token);
+      setIndicator(false);
 
       if(response == undefined) {
         Alert.alert("Login error", "Check e-mail and password.");
         console.log("Your username or password may be incorrect");
+        
       } else if(response) {
-        console.log(response);
         AppUser.setUserData(response)
         navigation.navigate('WorksheetsList');
       }
@@ -47,19 +51,13 @@ export default function Login({navigation}) {
         Alert.alert("Login error", "Check e-mail and password.");
         console.log("Log in ERROR NIe wiadomo jaki")
       }
-    } catch(e) {
+    }).catch(e => {
       Alert.alert("Server error",  environment.apiUrl + "The server is probably down.");
       console.log("The server is probably down " + environment.apiUrl);
-    } finally {
       setIndicator(false);
-    }
-    
+    });
   };
-  console.log("LOGIN: "+login);
-  console.log("LOGIN: "+login);
-  console.log("LOGIN: "+login);
-  console.log("LOGIN: "+login);
-  console.log("LOGIN: "+login);
+
   return (
     <Formik initialValues={{
       email: 'user@wp.pl',
@@ -87,7 +85,7 @@ export default function Login({navigation}) {
       <View style={formStyles.container}>
         <TextInput value={values.email} style={formStyles.input} onChangeText={handleChange('email')} onBlur={() => setFieldTouched('email')} placeholder="E-mail"/>
         { touched.email && errors.email && <Text style={formStyles.required}>{errors.email}</Text> }
-        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password 123" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
+        <TextInput value={values.password} style={formStyles.input} onChangeText={handleChange('password')} placeholder="Password" onBlur={() => setFieldTouched('password')} secureTextEntry={true}/>
         { touched.password && errors.password && <Text style={formStyles.required}>{errors.password}</Text> }
         <Button color="#3740FE" title='Submit' disabled={!isValid} onPress={() => {handleSubmit()}} />
         <ActivityIndicator size="large" color="blue" animating={indicator}/>

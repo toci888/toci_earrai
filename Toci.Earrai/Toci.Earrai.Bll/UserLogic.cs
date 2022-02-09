@@ -80,6 +80,11 @@ namespace Toci.Earrai.Bll
 
         private string HashPassword(string password)
         {
+            if (password == null)
+            {
+                return null;
+            }
+
             SHA256 algorithm = SHA256.Create();
             StringBuilder sb = new StringBuilder();
             foreach (Byte b in algorithm.ComputeHash(Encoding.UTF8.GetBytes(password)))

@@ -1,4 +1,6 @@
 import { environment } from '../environment';
+import AsyncStorage from '@react-native-community/async-storage'
+import AppUser from '../shared/AppUser'
 
 export default class RestClient {
     constructor (baseUrl = environment.apiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
@@ -25,7 +27,20 @@ export default class RestClient {
       return `${this.baseUrl}${url}`;
     }
 
-    _fetch (route, method, body, isQuery = false) {
+    _fetch (route, method, bodyy, isQuery = false) {
+
+      console.log("TOKEN");
+      console.log(AppUser.token);
+      // if(AppUser.token) {
+      //   body = {body, ... AppUser.token};
+      // }
+      // let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
+      // body = {body, ... AppUser.token};
+      // body = {body, ...x};
+      
+      let body = Object.assign(bodyy , AppUser.token)
+      console.log(body);
+      
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);
       if (isQuery && body) {
@@ -56,6 +71,7 @@ export default class RestClient {
       }
     }
 
+    // let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
     GET (route, query) { return this._fetch(route, 'GET', query, true); }
     POST (route, body) { return this._fetch(route, 'POST', body); }
     // POST (route, body) { return this._fetch(route, 'POST', body).catch(e => { return { IsError: true, ErrorMessage: "Server unavailable.", ErrorCode: 500, e: e};}); }
