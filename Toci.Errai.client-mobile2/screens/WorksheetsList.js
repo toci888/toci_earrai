@@ -7,7 +7,7 @@ import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
-
+import RestClient from '../shared/RestClient';
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -35,34 +35,46 @@ export default function WorksheetsList({ route, navigation }) {
         apiFetch()
     }, [] )
 
+    let restClient = new RestClient();
 
-    const apiFetch = () => {
-        setloading(true)
+    const apiFetch = async () => {
+        setloading(true);
 
-        Promise.all([
-            fetch(getAllWorksheetsUrl).then(x => x.json()),
-            fetch(getAreasUrl).then(x => x.json()),
-            fetch(getVendorsUrl).then(x => x.json()),
-            fetch(getQuoteAndMetricUrl).then(x => x.json()),
-        ]).then( response_ => {
-            console.log(response_)
-
-            setworksheets(response_[0])
-            setdisplayedWorksheets(response_[0])
-
-
-            response_[1].forEach(element => {
-                element.name = element.name.trim()
-            });
-
-            AppUser.setAreas(response_[1]);
-            AppUser.setVendors(response_[2]);
-            AppUser.setMetrics(response_[3]);
-
-        }).catch((error) => { console.log(error)
-        }).finally(() => { setloading(false) })
-
+        restClient.GET(getAllWorksheetsUrl).then(x => { console.log("getAllWorksheetsUrl:"); console.log(x); setworksheets(x); setdisplayedWorksheets(x) }).catch(e => console.log(e));
+        restClient.GET(getAreasUrl).then(x => { console.log("getAreasUrl:"); console.log(x); AppUser.setAreas(x); x.forEach(element => { element.name = element.name.trim(); }); AppUser.setAreas(x); }).catch(e => console.log(e)) ;
+        restClient.GET(getVendorsUrl).then(x => {console.log("getVendorsUrl:"); console.log(x); console.log(x.json); AppUser.setVendors(x); }).catch(e => console.log(e));
+        restClient.GET(getQuoteAndMetricUrl).then(x => {console.log("getQuoteAndMetricUrl:"); console.log(x); AppUser.setMetrics(x); }).catch(e => console.log(e));
+        
+        setloading(false);
     }
+
+    // const apiFetch = () => {
+    //     setloading(true)
+
+    //     Promise.all([            
+    //         //fetch(getAllWorksheetsUrl).then(x => x.json()),
+    //         fetch(getAreasUrl).then(x => x.json()),
+    //         fetch(getVendorsUrl).then(x => x.json()),
+    //         fetch(getQuoteAndMetricUrl).then(x => x.json()),
+    //     ]).then( response_ => {
+    //         console.log(response_)
+
+    //         setworksheets(response_[0])
+    //         setdisplayedWorksheets(response_[0])
+
+
+    //         response_[1].forEach(element => {
+    //             element.name = element.name.trim()
+    //         });
+
+    //         AppUser.setAreas(response_[1]);
+    //         AppUser.setVendors(response_[2]);
+    //         AppUser.setMetrics(response_[3]);
+
+    //     }).catch((error) => { console.log(error)
+    //     }).finally(() => { setloading(false) })
+
+    // }
 
     const reloadApp = () => {
         setloading(true)
