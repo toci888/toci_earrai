@@ -160,7 +160,13 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
-                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
+
+                //todo logout
+                if (LoggedUserContext.User != null)
+                {
+                    hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
+                }
+                
 
                 HttpContent content = JsonContent.Create<TDto>(dto);
 

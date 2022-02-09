@@ -38,6 +38,7 @@ namespace Toci.Earrai.Ui
             this.SearchWorksheetBtn = new System.Windows.Forms.Button();
             this.KindDdl = new System.Windows.Forms.ComboBox();
             this.valueDdl = new System.Windows.Forms.ComboBox();
+            this.logout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +94,6 @@ namespace Toci.Earrai.Ui
             this.excelDataGrid.Size = new System.Drawing.Size(1700, 565);
             this.excelDataGrid.TabIndex = 5;
             this.excelDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellClick);
-           // this.excelDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.excelDataGrid_CellContentClick);
             // 
             // internetConnection
             // 
@@ -133,11 +133,22 @@ namespace Toci.Earrai.Ui
             this.valueDdl.Size = new System.Drawing.Size(302, 23);
             this.valueDdl.TabIndex = 8;
             // 
+            // logout
+            // 
+            this.logout.Location = new System.Drawing.Point(1652, 24);
+            this.logout.Name = "logout";
+            this.logout.Size = new System.Drawing.Size(126, 51);
+            this.logout.TabIndex = 9;
+            this.logout.Text = "Logout";
+            this.logout.UseVisualStyleBackColor = true;
+            this.logout.Click += new System.EventHandler(this.logout_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1800, 850);
+            this.Controls.Add(this.logout);
             this.Controls.Add(this.valueDdl);
             this.Controls.Add(this.KindDdl);
             this.Controls.Add(this.SearchWorksheetBtn);
@@ -168,6 +179,7 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.Button SearchWorksheetBtn;
         private System.Windows.Forms.ComboBox KindDdl;
         private System.Windows.Forms.ComboBox valueDdl;
+        private System.Windows.Forms.Button logout;
     }
 }
 

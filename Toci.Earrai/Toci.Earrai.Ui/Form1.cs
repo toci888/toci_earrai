@@ -285,5 +285,15 @@ namespace Toci.Earrai.Ui
             bind2(result);
 
         }
+
+        private void logout_Click(object sender, EventArgs e)
+        {
+            LoggedUserContext.User = null;
+
+            this.Dispose();
+
+            LogIn login = new LogIn();
+            login.Show();
+        }
     }
 }
