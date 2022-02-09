@@ -59,7 +59,7 @@ export default function Register({navigation}) {
         lastName: yup.string()
           .required('Last name is required.'),
         email: yup.string()
-          //.email()
+          .email("E-Mail must be a valid format")
           .required('E-Mail is required.'),
         password: yup.string()
           .min(4)

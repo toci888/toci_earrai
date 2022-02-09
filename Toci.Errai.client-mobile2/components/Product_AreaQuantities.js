@@ -5,10 +5,12 @@ import { productCSS } from '../styles/Product_Util_Styles'
 import { Alert, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { deleteRequestParams, deleteUrl } from '../shared/RequestConfig'
-
+import RestClient from '../shared/RestClient'
 
 
 export default function Product_AreaQuantities(props) {
+
+    let restClient = new RestClient();
 
     const deleteData = (index_) => {
 
@@ -16,24 +18,17 @@ export default function Product_AreaQuantities(props) {
         console.log(x)
 
         props.setloading(true)
-        fetch(deleteUrl(x['id']), deleteRequestParams(x['id'])).then( response => {
-            console.log(response)
-            props.deleteProduct(index_)
-            Alert.alert(
-                "OK",
-                "Area Quantity deleted",
-                [ { onPress: () => console.log("OK") } ]
-            )
+
+        restClient.DELETE(deleteUrl(x['id'], deleteRequestParams(x['id'])).then( x => {
+            console.log(x);
+            props.deleteProduct(index_);
+            Alert.alert("OK", "Area Quantity deleted", [ { onPress: () => console.log("OK") } ]);
         }).catch(error => {
-            console.log(error)
-            Alert.alert(
-                "Error",
-                "Something went wrong",
-                [ { onPress: () => console.log("OK") } ]
-            )
+            console.log(error);
+            Alert.alert("Error", "Something went wrong",[ { onPress: () => console.log("OK") } ]);
         }).finally(data => {
             props.setloading(false)
-        })
+        }));
     }
 
     const updateData = (index_) => {

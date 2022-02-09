@@ -1,5 +1,6 @@
 import NetInfo from '@react-native-community/netinfo';
 import { environment } from '../environment';
+import RestClient from '../shared/RestClient';
 
 export class ConnectionService {
 
@@ -45,6 +46,7 @@ export class ConnectionService {
         { workbookId: 3, workSheetName: "Arkusz2", row: 6, column: 4, value: "DUPA2" },*/
     ]
 
+    restClient = new RestClient();
 
     disconnect() {
         if(!this.testPermanentDisconnect) {
@@ -105,36 +107,12 @@ export class ConnectionService {
 
         console.log("Flush cache data to API");
 
-
-        fetch(environment.apiUrl + "api/AreaQuantity/PostAreaQuantities", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(ConnectionService.cacheData) // arequantity
-        })
-        .then( response => {
-            console.log(response)
-            ConnectionService.cacheData = []
-        })
-        .catch(error => {
-            console.log(error)
-        })
-
-        /*fetch(environment.apiUrl + "api/WorksheetContent/flushCache", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-
-            body: JSON.stringify(ConnectionService.cacheData)
-        })
-        .then( response => response.json() )
-        .then( response => { console.log(response) })
-        .catch( error => { console.log(error) } )*/
-
-
-        //this.getDataFromNow()
+        this.restClient.GET("api/AreaQuantity/PostAreaQuantities", JSON.stringify(ConnectionService.cacheData)).then( response => {
+            console.log(response);
+            ConnectionService.cacheData = [];
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
 
@@ -152,23 +130,14 @@ export class ConnectionService {
             second: d.getSeconds(),
         }
 
-        console.log(d)
-        d = {dateTime: d}
-        fetch(environment.apiUrl + "api/WorksheetContent/GetIncreaseWorksheetcontents", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(x)
-        })
-        .then( response => response.json() )
-        .then( response => {
+        console.log(d);
+        d = {dateTime: d};
 
-            if(response.length > 0) {
-                this.compareDataFromAPI(response)
+        this.restClient.POST("api/WorksheetContent/GetIncreaseWorksheetcontents").then( x => {
+            if(x.length > 0) {
+                this.compareDataFromAPI(x)
             }
-        })
-
+        }).catch(e => console.log(e));
     }
 
     compareDataFromAPI(responseAPI) {

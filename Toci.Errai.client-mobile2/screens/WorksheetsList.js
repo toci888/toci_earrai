@@ -17,64 +17,18 @@ export default function WorksheetsList({ route, navigation }) {
     const [loading, setloading] = useState(true)
     const [apierror, setApierror] = useState(false)
 
-    useEffect( () => {
-
-        /*const response_ = loginData
-
-        setworksheets(response_[0])
-        setdisplayedWorksheets(response_[0])
-
-
-        response_[1].forEach(element => {
-            element.name = element.name.trim()
-        });
-
-        AppUser.setAreas(response_[1]);
-        AppUser.setVendors(response_[2]);
-        AppUser.setMetrics(response_[3]); setloading(false); AppUser.setUserData(loginUserData)*/
-        apiFetch()
-    }, [] )
-
     let restClient = new RestClient();
 
-    const apiFetch = async () => {
+    useEffect( () => {
         setloading(true);
 
-        restClient.GET(getAllWorksheetsUrl).then(x => { console.log("getAllWorksheetsUrl:"); console.log(x); setworksheets(x); setdisplayedWorksheets(x) }).catch(e => console.log(e));
-        restClient.GET(getAreasUrl).then(x => { console.log("getAreasUrl:"); console.log(x); AppUser.setAreas(x); x.forEach(element => { element.name = element.name.trim(); }); AppUser.setAreas(x); }).catch(e => console.log(e)) ;
-        restClient.GET(getVendorsUrl).then(x => {console.log("getVendorsUrl:"); console.log(x); console.log(x.json); AppUser.setVendors(x); }).catch(e => console.log(e));
-        restClient.GET(getQuoteAndMetricUrl).then(x => {console.log("getQuoteAndMetricUrl:"); console.log(x); AppUser.setMetrics(x); }).catch(e => console.log(e));
+        restClient.GET(getAllWorksheetsUrl).then(x => { setworksheets(x); setdisplayedWorksheets(x) }).catch(e => console.log(e));
+        restClient.GET(getAreasUrl).then(x => { AppUser.setAreas(x); x.forEach(element => { element.name = element.name.trim(); }); AppUser.setAreas(x); }).catch(e => console.log(e)) ;
+        restClient.GET(getVendorsUrl).then(x => { console.log(x.json); AppUser.setVendors(x); }).catch(e => console.log(e));
+        restClient.GET(getQuoteAndMetricUrl).then(x => { AppUser.setMetrics(x); }).catch(e => console.log(e));
         
         setloading(false);
-    }
-
-    // const apiFetch = () => {
-    //     setloading(true)
-
-    //     Promise.all([            
-    //         //fetch(getAllWorksheetsUrl).then(x => x.json()),
-    //         fetch(getAreasUrl).then(x => x.json()),
-    //         fetch(getVendorsUrl).then(x => x.json()),
-    //         fetch(getQuoteAndMetricUrl).then(x => x.json()),
-    //     ]).then( response_ => {
-    //         console.log(response_)
-
-    //         setworksheets(response_[0])
-    //         setdisplayedWorksheets(response_[0])
-
-
-    //         response_[1].forEach(element => {
-    //             element.name = element.name.trim()
-    //         });
-
-    //         AppUser.setAreas(response_[1]);
-    //         AppUser.setVendors(response_[2]);
-    //         AppUser.setMetrics(response_[3]);
-
-    //     }).catch((error) => { console.log(error)
-    //     }).finally(() => { setloading(false) })
-
-    // }
+    }, [] )
 
     const reloadApp = () => {
         setloading(true)
@@ -83,13 +37,10 @@ export default function WorksheetsList({ route, navigation }) {
     }
 
     const filterWorkbooks = (text) => {
-
         setfilteredValue(text)
 
         let filtered = worksheets.filter(item => item.sheetname.toLowerCase().includes( text.toLowerCase() ))
-
         setdisplayedWorksheets(filtered)
-
     }
 
     const showWorksheets = (_worksheetId) => {
@@ -114,38 +65,29 @@ export default function WorksheetsList({ route, navigation }) {
     )
 
     return (
-
         <View style={ globalStyles.content }>
-
             { loading && (
                 <View style={modalStyles.tempContainer}>
                     <Text style={modalStyles.tempText}>Wait..</Text>
                 </View>
             )}
-
             <Text style={globalStyles.chooseWorkbookHeader}> All Worksheets </Text>
-
             <View>
-
                 <TextInput
                     value={filteredValue}
                     style={globalStyles.inputStyle}
                     onChangeText={ (text) => filterWorkbooks(text) }
                     placeholder="Filter.."
                 />
-
             </View>
 
             <FlatList
                 keyExtractor={ (item) => item.id.toString() }
                 data={displayedWorksheets}
                 renderItem={ ( { item } ) => (
-
-
                     <View key={ item.id }
                             style={ [worksheetsList.listItem], {backgroundColor: ((item.id % 2 == 0) ? '#c8c9cf' : '#e5e5e5') , flexDirection: 'row', height: 70} }>
                         <View  style={{width: '50%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-
                             {
                                 imagesForWorksheet[item.id].map((v,k) => {
 
@@ -167,29 +109,20 @@ export default function WorksheetsList({ route, navigation }) {
                                     )
                                 })
                             }
-
-
                         </View>
                         <View onClick={ () => showWorksheets(item) }  style={{width: '40%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-
-
                            <View>
-                           <TouchableOpacity onPress={ () => showWorksheets(item) }>
+                           {/* <TouchableOpacity onPress={ () => showWorksheets(item) }> */}
                                 <Text style={ [worksheetsList.listText], {fontSize: 16} }>
                                         { item.sheetname }
                                     </Text>
-                            </TouchableOpacity>
+                            {/* </TouchableOpacity> */}
                             </View>
-
                         {/* </TouchableOpacity> */}
                         </View>
                     </View>
-
-
-
                 )}
             />
-
 
             {/* <View style={{position: 'fixed', bottom: 0}}  >
                 <Text style={{color: 'black'}}>

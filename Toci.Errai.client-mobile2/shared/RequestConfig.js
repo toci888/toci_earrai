@@ -2,6 +2,7 @@ import { environment } from "../environment";
 
 
 export const insertUrl = environment.apiUrl + "api/AreaQuantity/PostAreaQuantities"
+
 export function PostRequestParams(dataToSend_, isCollection = false) {
     const json_ = JSON.parse(JSON.stringify(dataToSend_))
 
@@ -17,7 +18,8 @@ export function PostRequestParams(dataToSend_, isCollection = false) {
     }
 }
 
-export const updateUrl = environment.apiUrl + "api/AreaQuantity/UpdateAreaQuantity"
+export const updateUrl = "api/AreaQuantity/UpdateAreaQuantity";
+
 export function updateRequestParams(dataToSend_) {
     const x = JSON.parse(JSON.stringify(dataToSend_))
     return {
@@ -32,7 +34,7 @@ export function updateRequestParams(dataToSend_) {
 }
 
 
-export function deleteUrl(id_) { return environment.apiUrl + "api/AreaQuantity/" + id_ }
+export function deleteUrl(id_) { return "api/AreaQuantity/" + id_ }
 
 export function deleteRequestParams(dataToSend_) {
     return {
@@ -47,7 +49,7 @@ export function deleteRequestParams(dataToSend_) {
 
 export const getProductsEx =  environment.apiUrl + "api/Product/GetProductsEx"
 
-export function getProductUrl(id_) { return environment.apiUrl + 'api/Product/GetProduct/' + id_ }
+export function getProductUrl(id_) { return 'api/Product/GetProduct/' + id_ }
 
 
 export function getProductsFromWorksheet(worksheetId, phrase, skip) {
@@ -57,7 +59,7 @@ export function getProductsFromWorksheet(worksheetId, phrase, skip) {
 export const getAllWorksheetsUrl = "api/Worksheet/GetAllWorksheetsFromDb"
 
 export function getAllProductsByWorksheet(worksheetId) {
-    return environment.apiUrl + "api/Product/GetProducts/" + worksheetId
+    return "api/Product/GetProducts/" + worksheetId
 }
 
 export const getAreasUrl = 'api/Areas';
@@ -70,14 +72,14 @@ export function getCommisions(productId, price) {
     return environment.apiUrl + 'api/Commisions/GetCommisions?productId=' + productId + '&price=' + price
 }
 
-export const addVendorUrl = environment.apiUrl + 'api/QuoteAndPrice/PostQuoteandPrice'
+export const addVendorUrl = 'api/QuoteAndPrice/PostQuoteandPrice'
 
 export const getVendorsUrl = 'api/QuoteAndPrice/GetAllVendorsFromDb';
 
 export const getQuoteAndMetricUrl = 'api/QuoteAndMetric'
 
 export function getQuotesAndPricesByProductIdUrl(productId_) {
-    return environment.apiUrl + 'api/QuoteAndPrice/QuoteAndPriceByProductId/' + productId_
+    return 'api/QuoteAndPrice/QuoteAndPriceByProductId/' + productId_
 }
 
-export const getAvailableValuesForSelectedOptionUrl = environment.apiUrl + 'api/Product/GetProductsFiltersEx'
+export const getAvailableValuesForSelectedOptionUrl = 'api/Product/GetProductsFiltersEx'

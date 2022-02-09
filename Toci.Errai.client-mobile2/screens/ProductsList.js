@@ -22,6 +22,7 @@ import {
 } from './ProductsList_Config'
 import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
 import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
+import RestClient from '../shared/RestClient';
 
 let availableValues = []
 
@@ -45,6 +46,8 @@ export default function ProductsList({ route, navigation }) {
     const [SelectedFilterTypeIndexHook, setSelectedFilterTypeIndexHook] = useState(0)
     const [SelectedFilteredIndexHook, setSelectedFilteredIndexHook] = useState(0)
     const [availableTypesOfSearch, setAvailableTypesOfSearch] = useState([])
+
+    let restClient = new RestClient();
 
     useEffect(() => {
 
@@ -73,21 +76,21 @@ export default function ProductsList({ route, navigation }) {
         const y = dbNameReplacer(x)
 
         const k = PostRequestParams(y)
+        console.log("k")
+        console.log(x)
+        console.log(y)
         console.log(k)
+        console.log(getAvailableValuesForSelectedOptionUrl)
 
-        fetch(getAvailableValuesForSelectedOptionUrl, k)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            availableValues = response
-            filteredValues = response
-
+        restClient.POST(getAvailableValuesForSelectedOptionUrl, x).then(x => {
+            console.log(x);
+            availableValues = x;
+            filteredValues = x;
         }).catch(error => {
             console.log(error)
         }).finally(() => {
             setloading(false)
         })
-
     }
 
     const searchForData = () => {
@@ -164,15 +167,9 @@ export default function ProductsList({ route, navigation }) {
         setSelectedFilteredIndexHook(0)
 
     }
-
-    const loadAllData = () => {
-
-        fetch(getAllProductsByWorksheet(navigation.getParam('worksheetId')))
-        .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            setProductsListHook(response)
-        })
+    
+    const loadAllData = async () => {
+        restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response));    
     }
 
     const selectValue = (idx_) => {
@@ -321,7 +318,7 @@ export default function ProductsList({ route, navigation }) {
 
                                     <View style={{display: 'flex', flexDirection: 'row'}}>
 
-                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                        {/* <TouchableOpacity onPress={ () => showProductDetails(index) }> */}
                                             { img &&
 
                                                 <View style={{ height: 40, width: 30, margin: 5}}>
@@ -331,14 +328,14 @@ export default function ProductsList({ route, navigation }) {
                                                     />
                                                 </View>
                                             }
-                                        </TouchableOpacity>
+                                        {/* </TouchableOpacity> */}
 
-                                        <TouchableOpacity onPress={ () => showProductDetails(index) }>
+                                        {/* <TouchableOpacity onPress={ () => showProductDetails(index) }> */}
                                             <View onClick={ () => showProductDetails(index) } style={{ margin: 5, height: 40, justifyContent: 'center'}}>
                                                 <Text style={ps.small}>{product.description}</Text>
                                                 <Text style={ps.small}>{product.productaccountreference}</Text>
                                             </View>
-                                        </TouchableOpacity>
+                                        {/* </TouchableOpacity> */}
 
                                         {/* <View style={{ height: 40, padding: 5, margin: 5, justifyContent: 'center'}} >
                                             <Text style={ps.small}>{product.description}</Text>

@@ -33,25 +33,26 @@ export default function Login({navigation}) {
     let restClient = new RestClient();
     
     return await restClient.POST('api/Account/login', values).then(response => {
-      console.log("LOGIN RESPONSE:")
+      console.log("LOGIN RESPONSE:");
       console.log(response);
-      AppUser.logIn(response.id, response.token);
-      // AsyncStorage.setItem(AppUser.userName, response.token);
+      
       setIndicator(false);
 
       if(response == undefined) {
         Alert.alert("Login error", "Check e-mail and password.");
         console.log("Your username or password may be incorrect");
-        
       } else if(response) {
-        AppUser.setUserData(response)
+        AppUser.setUserData(response);
+        // AsyncStorage.setItem(AppUser.userName, response.token);
+        AppUser.logIn(response.id, response.token);
         navigation.navigate('WorksheetsList');
       }
       else {
-        Alert.alert("Login error", "Check e-mail and password.");
-        console.log("Log in ERROR NIe wiadomo jaki")
+        Alert.alert("Login error", "Unexpected Error");
+        console.log("Nieoczekiwany blad")
       }
     }).catch(e => {
+      console.log(e);
       Alert.alert("Server error",  environment.apiUrl + "The server is probably down.");
       console.log("The server is probably down " + environment.apiUrl);
       setIndicator(false);
@@ -60,8 +61,8 @@ export default function Login({navigation}) {
 
   return (
     <Formik initialValues={{
-      email: 'user@wp.pl',
-      password: '123456789'
+      email: 'admin@wp.pl',
+      password: '123456783'
     }}
 
     onSubmit={(values, {resetForm}) => {
@@ -74,11 +75,11 @@ export default function Login({navigation}) {
 
     validationSchema={yup.object().shape({
       email: yup.string()
-        //.email()
+        .email("E-Mail must be a valid format")
         .required('E-Mail is required.'),
       password: yup.string()
         .min(4)
-        .required(),
+        .required("Password is required"),
     })}>
 
     {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (

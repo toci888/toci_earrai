@@ -14,6 +14,7 @@ import Product_AreaQuantities from '../../components/Product_AreaQuantities'
 import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
 import  Product_Commisions  from './../../components/Product_Commisions'
+import RestClient from '../../shared/RestClient';
 
 export default function Product({ route, navigation }) {
 
@@ -41,42 +42,24 @@ export default function Product({ route, navigation }) {
         updatedat: null,
     })
 
+    let restClient = new RestClient();
+
     useEffect( () => {
 
-        /*fetch('http://localhost:18158/api/QuoteAndPrice/GetAllVendorsFromDb')
-        .then(r => r.json())
-        .then(r => { console.log(r); console.log('OK') })
-        .catch(r => { console.log(r)})*/
         fetchAreas()
 
-        /*const response_ = productData
-        console.log(response_)
-
-        setProduct(response_)
-
-        settempAreaquantityRow(prev => {
-            return {  ...prev, idproducts: response_.product.id,  }
-        })
-
-        initAreaQuantities(response_)
-
-        setloading(false)*/
         console.log(navigation.getParam('productId'))
 
-        fetch(getProductUrl(navigation.getParam('productId'))).then(response_ => {
-            return response_.json()
-        }).then(response_ => { console.log(response_)
-            setProduct(response_)
-
+        restClient.GET(getProductUrl(navigation.getParam('productId'))).then(x => {
+            console.log(x)
+            setProduct(x)
+    
             settempAreaquantityRow(prev => {
-                return {  ...prev, idproducts: response_.product.id,  }
-            })
-
-            initAreaQuantities(response_)
-
-        }).finally(x => {
-            setloading(false)
-        })
+                return { ...prev, idproducts: x.product.id }
+            }
+        )}).finally(x => {
+            setloading(false);
+        });
 
     }, [] )
 
@@ -125,25 +108,21 @@ export default function Product({ route, navigation }) {
     const updateAreaQuantitiesfterRequest = async () => {
         let logName, message
 
-       fetch(getAreasQuantitiesByProduct(AppUser.getProductId())).then(response_ => {
-            return response_.json()
-        }).then(response_ => {
-            console.log(response_)
-            let newProduct = ProductHook
-            newProduct.areaQuantities = response_
-            setProduct(prev => {return newProduct})
-            logName = "Ok"; message = "Added new(or updated) area Quantities"
+        restClient.GET(getAreasQuantitiesByProduct(AppUser.getProductId())).then(x => {
+            console.log(x);
+            let newProduct = ProductHook;
+            newProduct.areaQuantities = x;
+            setProduct(prev => {return newProduct});
+            logName = "Ok"; 
+            message = "Added new(or updated) area Quantities";
         }).catch(error => {
             console.log(error);
-            logName = "Error"; message = "Something went wrong"
+            logName = "Error"; 
+            message = "Something went wrong";
         }).finally(x => {
-            setloading(false)
-            Alert.alert(
-                logName,
-                message,
-                [ { onPress: () => console.log("OK") } ]
-            )
-        })
+            setloading(false);
+            Alert.alert(logName, message, [ { onPress: () => console.log("OK") } ]);
+        });
     }
 
     const clearInputs = () => {

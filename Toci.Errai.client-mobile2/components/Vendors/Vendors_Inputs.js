@@ -5,9 +5,11 @@ import AppUser from '../../shared/AppUser'
 import { addVendorUrl, PostRequestParams } from '../../shared/RequestConfig'
 import { Vendors_Inputs_Styles as vI } from './Vendors_Inputs_Styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import RestClient from '../../shared/RestClient'
 
 export default function Vendor_Inputs(props) {
 
+    let restClient = new RestClient();
 
     const [SelectedVendorsHook, setSelectedVendorsHook] = useState({
         id: 0,
@@ -51,15 +53,16 @@ export default function Vendor_Inputs(props) {
         let logName, message
 
         console.log(addVendorUrl)
-        console.log(SelectedVendorsHook)
-        fetch(addVendorUrl, PostRequestParams(SelectedVendorsHook))
-        .then( response_ => {
-            console.log(response_)
-            props.getAllQuotesAndPricesByProductId()
-            logName = "Ok"; message = "Added new Record"
-        }).catch(error_ => {
-            console.log(error_)
-            logName = "Error"; message = "Something went wrong"
+        console.log(SelectedVendorsHook);
+
+        restClient.POST(addVendorUrl, JSON.stringify(SelectedVendorsHook)).then( x => {
+            console.log(x);
+            props.getAllQuotesAndPricesByProductId();
+            logName = "Ok"; 
+            message = "Added new Record";
+        }).catch(e => {
+            console.log(e);
+            logName = "Error"; message = "Something went wrong";
         }).finally( () => {
             Alert.alert(
                 logName,

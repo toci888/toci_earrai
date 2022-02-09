@@ -29,9 +29,6 @@ export default class RestClient {
     }
 
     _fetch (route, method, body, isQuery = false) {
-          
-      console.log("Header:");
-      console.log(this.headers);
       
       if (!route) throw new Error('Route is undefined');
       var fullRoute = this._fullRoute(route);

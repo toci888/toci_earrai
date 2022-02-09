@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { getQuotesAndPricesByProductIdUrl } from './RequestConfig'
+import RestClient from './RestClient';
 
 export default class AppUser {
 
@@ -59,6 +60,7 @@ export default class AppUser {
 
     static getToken = () => AppUser.token
 
+    
     static logIn = (id_, token_ = null) => {
         AppUser.id = id_
         AppUser.token = token_
@@ -77,12 +79,7 @@ export default class AppUser {
     }
 
     static getAllQuotesAndPricesByProductId = async () => {
-
-        const x = await fetch(getQuotesAndPricesByProductIdUrl(AppUser.productId))
-
-        return await x.json()
+        const restClient = new RestClient();
+        return await restClient.GET(getQuotesAndPricesByProductIdUrl(AppUser.productId))
     }
-
-    //static getWorksheetNameById = id_ =>
-
 }
