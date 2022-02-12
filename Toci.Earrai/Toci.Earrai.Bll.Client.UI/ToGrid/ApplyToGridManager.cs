@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Client.UI.ToGrid
 {
@@ -33,6 +34,8 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
 
             FlattenManager fm = new FlattenManager();
 
+            products = EnlargeAreasQuantities(products);
+
             foreach (ProductDto product in products)
             {
                 List<FlattenedEntity> element = Map[worksheetId].GetFlattenedProduct(product);
@@ -41,6 +44,41 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
             }
 
             return result;
+        }
+
+        protected virtual int LongestAreaQuantity(List<ProductDto> products)
+        {
+            int longest = 0;
+
+            foreach (ProductDto product in products)
+            {
+                if (product.AreaQuantities.Count() > longest)
+                {
+                    longest = product.AreaQuantities.Count();
+                }
+            }
+
+            return longest;
+        }
+
+        public virtual List<ProductDto> EnlargeAreasQuantities(List<ProductDto> products)
+        {
+            int longest = LongestAreaQuantity(products);
+
+            foreach (ProductDto product in products)
+            {
+                if (product.AreaQuantities.Count() < longest)
+                {
+                    int difference = longest - product.AreaQuantities.Count();
+
+                    for (int i = 0; i < difference; i++)
+                    {
+                        product.AreaQuantities.Add(new Areasquantity() { Areaname = "n/a", Quantity = "0", Createdat = DateTime.Now });
+                    }
+                }
+            }
+
+            return products;
         }
     }
 }
