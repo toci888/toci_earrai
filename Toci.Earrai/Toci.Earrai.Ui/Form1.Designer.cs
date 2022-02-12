@@ -39,6 +39,7 @@ namespace Toci.Earrai.Ui
             this.KindDdl = new System.Windows.Forms.ComboBox();
             this.valueDdl = new System.Windows.Forms.ComboBox();
             this.logout = new System.Windows.Forms.Button();
+            this.users = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,11 +144,22 @@ namespace Toci.Earrai.Ui
             this.logout.UseVisualStyleBackColor = true;
             this.logout.Click += new System.EventHandler(this.logout_Click);
             // 
+            // users
+            // 
+            this.users.Location = new System.Drawing.Point(1652, 93);
+            this.users.Name = "users";
+            this.users.Size = new System.Drawing.Size(126, 49);
+            this.users.TabIndex = 10;
+            this.users.Text = "Users";
+            this.users.UseVisualStyleBackColor = true;
+            this.users.Click += new System.EventHandler(this.users_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1800, 850);
+            this.Controls.Add(this.users);
             this.Controls.Add(this.logout);
             this.Controls.Add(this.valueDdl);
             this.Controls.Add(this.KindDdl);
@@ -180,6 +192,7 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.ComboBox KindDdl;
         private System.Windows.Forms.ComboBox valueDdl;
         private System.Windows.Forms.Button logout;
+        private System.Windows.Forms.Button users;
     }
 }
 

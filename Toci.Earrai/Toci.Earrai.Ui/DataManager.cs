@@ -122,5 +122,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.GetQuotesAndPricesByProductId(productId);
         }
+
+        public virtual List<User> GetAllUsers()
+        {
+            return ApiProxy.GetAllUsers();
+        }
     }
 }

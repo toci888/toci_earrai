@@ -13,6 +13,7 @@ using Toci.Earrai.Database.Persistence.Models;
 using System.Reflection;
 using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Client.UI.ToGrid;
+using Toci.Earrai.Bll.Interfaces;
 
 namespace Toci.Earrai.Ui
 {
@@ -52,6 +53,11 @@ namespace Toci.Earrai.Ui
             Setup();
 
             this.FormClosed += (s, e) => MasterWindow.Close();
+
+            //if (LoggedUserContext.User.Idrole != (int)PrivilegesEnum.Admin)
+            //{
+            //    this.users.Visible = false;
+            //}
         }
 
         protected virtual void IsConnected()
@@ -294,6 +300,12 @@ namespace Toci.Earrai.Ui
 
             LogIn login = new LogIn();
             login.Show();
+        }
+
+        private void users_Click(object sender, EventArgs e)
+        {
+            Users users = new Users();
+            users.Show();
         }
     }
 }
