@@ -30,8 +30,6 @@ namespace Toci.Earrai.Bll.Erp
             Dictionary<int, List<ProductDto>> data = GetAllData();
             Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
 
-            // todo int to string ws name, atgm data to list of string and push to excel
-
             foreach (KeyValuePair<int, List<ProductDto>> worksheetProducts in data)
             {
                 List<List<FlattenedEntity>> dataOfWorksheet = Atgm.PrepareLinearData(worksheetProducts.Key, worksheetProducts.Value);
