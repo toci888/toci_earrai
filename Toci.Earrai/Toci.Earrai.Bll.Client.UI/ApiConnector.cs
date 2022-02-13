@@ -14,7 +14,7 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
-        protected string BaseUrl = "http://82.153.17.97:8864/";
+        protected string BaseUrl = "http://127.0.0.1:8642/";
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -128,6 +128,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual int ChangePrivileges(User user, int priveleges)
         {
             return ApiPost<int, User>("api/Priveleges/Change?privileges=" + priveleges, user, false);
+        }
+
+        public virtual List<Userrole> GetAllUsers()
+        {
+            return ApiGet<List<Userrole>>("api/Account", true);
         }
 
         protected virtual T ApiGet<T>(string url, bool isResponseArray)
@@ -254,9 +259,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<List<ProductDto>, ProductSearchRequestDto>("api/Product/GetProductsEx", dto, true);
         }
 
-        public virtual User Login(string email, string password)
+        public virtual Userrole Login(string email, string password)
         {
-            return ApiPost<User, User>("api/Account/Login", new User() { Email = email, Password = password }, false);
+            return ApiPost<Userrole, User>("api/Account/Login", new User() { Email = email, Password = password }, false);
         }
 
         public virtual int Register(string firstName, string lastName, string email, string password)

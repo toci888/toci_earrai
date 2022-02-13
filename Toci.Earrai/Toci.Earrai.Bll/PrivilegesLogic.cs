@@ -46,7 +46,7 @@ namespace Toci.Earrai.Bll
 
         public User ChangePrivileges(User user, int newPrivileges)
         {
-            var u = Select(x => x.Email == user.Email && x.Firstname == user.Firstname && x.Lastname == user.Lastname).FirstOrDefault();
+            var u = Select(x => x.Id == user.Id || (x.Email == user.Email && x.Firstname == user.Firstname && x.Lastname == user.Lastname)).FirstOrDefault();
 
             if (u == null || newPrivileges == null)
             {

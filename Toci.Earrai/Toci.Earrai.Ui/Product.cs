@@ -47,7 +47,7 @@ namespace Toci.Earrai.Ui
         protected List<Area> areas;
         protected List<Vendor> vendors;
         protected List<Quoteandmetric> quotesandmetrics;
-        protected User LoggedUser;
+        protected Userrole LoggedUser;
 
         protected List<Quotesandprice> CurrentPrices;
         protected List<Areasquantity> CurrentQuantities;
@@ -62,7 +62,7 @@ namespace Toci.Earrai.Ui
 
        protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
 
-        public Product(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
+        public Product(int productId, List<Area> _areas, List<Vendor> _vendors, Userrole loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
             InitializeComponent();
             prodId = productId;

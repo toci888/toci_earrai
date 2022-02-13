@@ -29,10 +29,10 @@ namespace Toci.Earrai.Ui
         protected List<ProductDto> ProductsFiltered;
         protected List<Worksheet> worksheets;
         protected int selectedWorkSheetId = 0;
-        protected User LoggedUser;
+        protected Userrole LoggedUser;
         protected LogIn MasterWindow;
 
-        public Form1(User loggedUser, LogIn masterWindow)
+        public Form1(Userrole loggedUser, LogIn masterWindow)
         {
             LoggedUser = loggedUser;
             MasterWindow = masterWindow;
@@ -52,12 +52,14 @@ namespace Toci.Earrai.Ui
 
             Setup();
 
+            this.users.Visible = false;
+
             this.FormClosed += (s, e) => MasterWindow.Close();
 
-            //if (LoggedUserContext.User.Idrole != (int)PrivilegesEnum.Admin)
-            //{
-            //    this.users.Visible = false;
-            //}
+            if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
+            {
+                this.users.Visible = true;
+            }
         }
 
         protected virtual void IsConnected()

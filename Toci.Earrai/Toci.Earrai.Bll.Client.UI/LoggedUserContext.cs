@@ -9,6 +9,6 @@ namespace Toci.Earrai.Ui
 {
     public static class LoggedUserContext
     {
-        public static User User { get; set; }
+        public static Userrole User { get; set; }
     }
 }

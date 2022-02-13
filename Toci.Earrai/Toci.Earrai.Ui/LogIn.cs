@@ -25,8 +25,8 @@ namespace Toci.Earrai.Ui
 
             passwordTextbox.PasswordChar = '*';
 
-            loginTextBox.Text = "user@wp.pl";
-            passwordTextbox.Text = "123456789";
+            loginTextBox.Text = "admin@wp.pl";
+            passwordTextbox.Text = "123456783";
         }
         private void loginButton_Click(object sender, EventArgs e)
         {
@@ -44,7 +44,7 @@ namespace Toci.Earrai.Ui
             loginValidation1.Visible = false;
             loginValidation2.Visible = false;
 
-            User user = Dm.Login(loginTextBox.Text, passwordTextbox.Text);
+            Userrole user = Dm.Login(loginTextBox.Text, passwordTextbox.Text);
 
             if (user != null)
             {

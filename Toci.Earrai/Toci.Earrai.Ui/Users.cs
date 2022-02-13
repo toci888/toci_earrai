@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -16,40 +17,45 @@ namespace Toci.Earrai.Ui
     {
         protected DataManager Dm = new DataManager();
 
-        protected List<User> users;
+        protected List<Userrole> users;
 
-        protected Dictionary<int, RadioButton> privelegeButtons = new();
+        protected Dictionary<string, RadioButton> privelegeButtons = new();
 
+        protected Dictionary<string, PrivilegesEnum> privilegesMap = new Dictionary<string, PrivilegesEnum>()
+        {
+            { "User", PrivilegesEnum.User },
+            { "Office", PrivilegesEnum.Office },
+            { "Pc", PrivilegesEnum.Pc },
+            { "Admin", PrivilegesEnum.Admin }
+        };
         public Users()
         {
             InitializeComponent();
 
-            TaskFactory taskFactory = new TaskFactory();
-            Task<List<User>> taskUsers = taskFactory.StartNew(() => users = Dm.GetAllUsers());
-            users = taskUsers.Result;
+            users = Dm.GetAllUsers();
 
             Setup();
         }
 
         protected virtual void Setup()
         {
+            privelegeButtons.Add("User", userPrivelegeButton);
+            privelegeButtons.Add("Office", officePrivelegeButton);
+            privelegeButtons.Add("Pc", pcPrivelegeButton);
+            privelegeButtons.Add("Admin", adminPrivelegeButton);
+
             allUsers.ValueMember = "Id";
             allUsers.DisplayMember = "Email";
             allUsers.DataSource = users;
-            
-            privelegeButtons.Add(1,userPrivelegeButton);
-            privelegeButtons.Add(2,officePrivelegeButton);
-            privelegeButtons.Add(3,pcPrivelegeButton);
-            privelegeButtons.Add(4,adminPrivelegeButton);
         }
 
         private void allUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedId = (int)allUsers.SelectedValue;
 
-            User user = users.First(m => m.Id == selectedId);
+            Userrole user = users.First(m => m.Id == selectedId);
 
-            privelegeButtons[user.Idrole].Checked = true;
+            privelegeButtons[user.Name].Checked = true;
 
             //foreach (KeyValuePair<int, RadioButton> btn in privelegeButtons)
             //{
@@ -64,7 +70,11 @@ namespace Toci.Earrai.Ui
 
         private void submit_Click(object sender, EventArgs e)
         {
+            Userrole user = (Userrole)allUsers.SelectedItem;
 
+            string priveleges = privelegeButtons.Where(m => m.Value.Checked == true).First().Key;
+
+            Dm.ChangePrivileges(new User() {Id = user.Id.Value}, (int)privilegesMap[priveleges]);
         }
     }
 }

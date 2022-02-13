@@ -93,7 +93,7 @@ namespace Toci.Earrai.Ui
             return ApiProxy.GetCommissions(productId, price);
         }
 
-        public virtual User Login(string user, string pass)
+        public virtual Userrole Login(string user, string pass)
         {
             return ApiProxy.Login(user, pass);
         }
@@ -123,9 +123,14 @@ namespace Toci.Earrai.Ui
             return ApiProxy.GetQuotesAndPricesByProductId(productId);
         }
 
-        public virtual List<User> GetAllUsers()
+        public virtual List<Userrole> GetAllUsers()
         {
             return ApiProxy.GetAllUsers();
+        }
+
+        public virtual int ChangePrivileges(User user, int priveleges)
+        {
+            return ApiProxy.ChangePrivileges(user, priveleges);
         }
     }
 }
