@@ -261,5 +261,10 @@ namespace Toci.Earrai.Bll.Client.UI
         {
             return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
+
+        public virtual List<ProductDto> ExportToSage(DateTime dateCondition)
+        {
+            return ApiGet<List<ProductDto>>("api/sage/exporttosage", true);
+        }
     }
 }

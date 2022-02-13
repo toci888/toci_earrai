@@ -77,7 +77,7 @@ namespace Toci.Earrai.Bll.Erp
             return result;
         }
 
-        public virtual void GenerateExportToSageExcel(string excelName)
+        public virtual void GenerateExportToSageExcel(string excelName, DateTime condition)
         {
             //todo based on what create list<productdto> ?
             List<ProductDto> exportDataResult = new List<ProductDto>(); // todo get to api, some condition etc.
