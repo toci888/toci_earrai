@@ -281,6 +281,8 @@ namespace Toci.Earrai.Ui
 
             List<List<FlattenedEntity>> result = new List<List<FlattenedEntity>>();
 
+            products = atgm.EnlargeAreasQuantities(products);
+
             foreach (ProductDto product in products)
             {
                 List<FlattenedEntity> element = atgLogic.GetFlattenedProduct(product);
