@@ -79,44 +79,11 @@ namespace Toci.Earrai.Ui
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
         {
-           /* TextBox tb = (TextBox)sender;
 
-            AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
-            acsc.Add("dupa");
-            acsc.Add("sraka");
-
-            tb.AutoCompleteCustomSource = acsc;*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-            //productsFiltered = Dm.GetProducts(6, "", "");
-            //FlattenManager fm = new FlattenManager();
-
-            ////List<FlattenedEntity> result =  fm.FlattenProduct(productsFiltered);
-
-
-
-            //List<List<FlattenedEntity>> tyest = new List<List<FlattenedEntity>>()
-            //{
-            ////    result
-            //};
-
-            //foreach (ProductDto item in productsFiltered)
-            //{
-            //    tyest.Add(fm.FlattenProduct(item));
-            //}
-
-            ////excelDataGrid.BindingContext = new 
-            ////excelDataGrid.DataSource = tyest;
-            //bind(tyest);
-            //excelDataGrid.DataSourceChanged += ExcelDataGrid_DataSourceChanged; // Refresh();
-            //excelDataGrid.CellClick += ExcelDataGrid_CellClick;
-
-            ////FillExcelGrid(tempUsers);
-
 
         }
                                                             //DataGridViewCellEventHandler
@@ -125,36 +92,6 @@ namespace Toci.Earrai.Ui
             Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors, LoggedUser, quotesandprices);
             p.Show();
         }
-
-        private void FillExcelGrid(List<ProductDto> products)
-        {
-            SingleObjFill(products[0].Product);
-            //SingleObjFill(products[0].Sizes[]);
-        }
-
-        private void SingleObjFill(object obj)
-        {
-            PropertyInfo[] props = obj.GetType().GetProperties();
-
-            foreach (PropertyInfo prop in props)
-            {
-                excelDataGrid.Columns.Add(prop.Name, prop.Name); //prop.GetValue(obj)
-            }
-        }
-
-       // private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e) {
-
-            //Product p = new Product(tempUsers[e.RowIndex].Id, areas, vendors);
-            //p.Show();
-
-            /*tempUsers.Add(new TempUser() { Id = 4, Name = "Mati", Profession = "Zul" });
-            excelDataGrid.SuspendLayout();
-            excelDataGrid.DataSource = tempUsers.ToArray();
-            
-            excelDataGrid.ResumeLayout();*/
-
-            //excelDataGrid.Rows.Add(4, "Mati", "Zul");
-      //  }
 
         private void ExcelDataGrid_DataSourceChanged(object sender, EventArgs e)
         {
@@ -177,7 +114,6 @@ namespace Toci.Earrai.Ui
 
             selectedWorkSheetId = int.Parse(worksheetId);
 
-            //ShowOnGrid(products, (p) => p.Product.Description);
             BindToGrid(products);
         }
 
@@ -203,7 +139,32 @@ namespace Toci.Earrai.Ui
         //kindDdl combo
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<string> elements = Dm.GetFilters(selectedWorkSheetId, ((ComboBox)sender).SelectedItem.ToString());
+            Dictionary<int, Dictionary<string, string>> Remapper = new Dictionary<int, Dictionary<string, string>>()
+            {
+                { 5, new Dictionary<string, string>()
+                    {
+                        { "DimA", "SizeA" },
+                        { "DimB", "SizeB" } 
+                    } 
+                },
+                { 8, new Dictionary<string, string>()
+                    {
+                        { "OD", "ChsOd" }
+                    }
+                },
+            };
+
+            string selectedItem = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (Remapper.ContainsKey(selectedWorkSheetId))
+            {
+                if (Remapper[selectedWorkSheetId].ContainsKey(selectedItem))
+                {
+                    selectedItem = Remapper[selectedWorkSheetId][selectedItem];
+                }
+            }
+
+            List<string> elements = Dm.GetFilters(selectedWorkSheetId, selectedItem);
 
             valueDdl.DataSource = elements;
         }
@@ -246,19 +207,7 @@ namespace Toci.Earrai.Ui
                 }
 
                 columns = true;
-                int j = 0;
-                foreach (FlattenedEntity element in item)
-                {
-                    //if (keeper[element.Name] == j)
-                    //{
-                //        excelDataGrid.Rows.Add(element.Value);
-                    //}
-                    //else
-                    //{
-                    //    excelDataGrid.Rows.Add("");
-                    //}
-                    j++;
-                }
+                
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
             }
 
@@ -282,8 +231,7 @@ namespace Toci.Earrai.Ui
                 result.Add(element);
                 
             }
-            //List<List<FlattenedEntity>> result = products.Select(product => fm.FlattenProduct(product)).ToList();
-
+          
             bind2(result);
 
         }
