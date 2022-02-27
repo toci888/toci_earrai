@@ -122,5 +122,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.GetQuotesAndPricesByProductId(productId);
         }
+
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        {
+            return ApiProxy.GetAvailableOptionsSizes(worksheetId);
+        }
     }
 }

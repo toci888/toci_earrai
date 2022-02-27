@@ -75,6 +75,10 @@ namespace Toci.Earrai.Ui
         {
             selectedWorkSheetId = worksheetId;
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
+
+
+            //ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUser);
+            //pAdd.Show();
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)

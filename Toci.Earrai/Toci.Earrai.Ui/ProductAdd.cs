@@ -19,14 +19,14 @@ namespace Toci.Earrai.Ui
 {
     public partial class ProductAdd : Form
     {
-        protected int worksheetId;
+        protected string worksheetId;
         protected DataManager Dm = new DataManager();
         protected ConnectionCheck ConnCheck = new ConnectionCheck();
         protected int prodId;
-        protected ProductDto product;
-        protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
-        protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
-        protected ControlsManager Cm = new ControlsManager(true);
+        protected OptionsSizesAvailableDto OsaDto;
+        protected ProductOsConverter<Sizeworksheetelement> ProductSwConverter = new ProductOsConverter<Sizeworksheetelement>();
+        protected ProductOsConverter<Optionworksheetelement> ProductOwConverter = new ProductOsConverter<Optionworksheetelement>();
+        protected ControlsManager ControlMan = new ControlsManager(true);
         protected ValuationManager Vm = new ValuationManager();
         protected TotalResolver Tr = new TotalResolver();
 
@@ -61,78 +61,49 @@ namespace Toci.Earrai.Ui
         protected Areasquantity areaQ;
         protected Quotesandprice quote;
 
-       protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
-
-        public ProductAdd(int productId, List<Area> _areas, List<Vendor> _vendors, User loggedUser, List<Quoteandmetric> _quotesandmetrics)
+        public ProductAdd(string worksId, User loggedUser)
         {
             InitializeComponent();
-            prodId = productId;
+            worksheetId = worksId;
 
-            areas = _areas;
-            vendors = _vendors;
             LoggedUser = loggedUser;
-            quotesandmetrics = _quotesandmetrics;
 
-            product = Dm.GetProduct(prodId);
+            OsaDto = Dm.GetAvailableOptionsSizes(worksheetId);
 
             AddBasicProductInfo();
-            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, 20, "Product sizing information.");
-            AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
+            AddElementsToLayout(ProductSwConverter.Convert(OsaDto.Sizeworksheetelements, (swe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Sizes, LabelItemId = swe.Idsizes.Value, LabelItemName = swe.Name }; }), xLeft + xOptionsSizes, 20, "Product sizing information.");
+            AddElementsToLayout(ProductOwConverter.Convert(OsaDto.Optionworksheetelements, (owe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Options, LabelItemId = owe.Idproductoptions.Value, LabelItemName = owe.Name }; }), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
            // AddCommissions();
-            AddAreasQuantitiesForm();
-            AddPricingForm();
+           // AddAreasQuantitiesForm();
+          //  AddPricingForm();
             //IsConnected();
 
-            Setup();
-        }
-
-        protected virtual void RefreshItems()
-        {
-            product = Dm.GetProduct(prodId);
-
-            StockTakeValue.Text = product.Pricing.StockTakeValue.ToString();
-            TotalValue.Text = Tr.GetLabelAmount(product).Amount;
+          //  Setup();
         }
 
         protected virtual void AddBasicProductInfo()
         {
             int y = 10;
             
-            Label productaccountreference = Cm.CreateLabel("Product Account Reference: ", 90, 20, xLeft, y);
-            Label productaccountreferenceValue = Cm.CreateLabel(product.Product.Productaccountreference, 90, 20, xLeft + Cm.GetSize("Product Account Reference: "), y);
+            Label productaccountreference = ControlMan.CreateLabel("Product Account Reference: ", 90, 20, xLeft, y);
+            TextBox productaccountreferenceValue = ControlMan.CreateTextBox("", 90, 20, xLeft + ControlMan.GetSize("Product Account Reference: "), y);
 
             y += ySlide;
 
-            Label description = Cm.CreateLabel("Description: ", 90, 20, xLeft, y);
-            Label descriptionValue = Cm.CreateLabel(product.Product.Description, 90, 20, xLeft + xSlide, y);
-
-            y += ySlide;
-
-            Label stockTake = Cm.CreateLabel("Stock take value: ", 90, 20, xLeft, y);
-            StockTakeValue = Cm.CreateLabel(product.Pricing.StockTakeValue.ToString(), 90, 20, xLeft + Cm.GetSize("Stock take value: "), y);
-
-            y += ySlide;
-
-            TotalEntity te = Tr.GetLabelAmount(product);
-
-            Label totalLabel = Cm.CreateLabel(te.Label, 90, 20, xLeft, y);
-            TotalValue = Cm.CreateLabel(te.Amount, 90, 20, xLeft + Cm.GetSize(te.Label), y);
+            Label description = ControlMan.CreateLabel("Description: ", 90, 20, xLeft, y);
+            TextBox descriptionValue = ControlMan.CreateTextBox("", 90, 20, xLeft + xSlide, y);
 
             Controls.Add(productaccountreference);
             Controls.Add(productaccountreferenceValue);
             Controls.Add(description);
             Controls.Add(descriptionValue);
-            Controls.Add(stockTake);
-            Controls.Add(StockTakeValue);
-            Controls.Add(totalLabel);
-            Controls.Add(TotalValue);
         }
 
         protected virtual void AddElementsToLayout(List<ProductLayoutDto> elements, int xCoord, int yCoord, string header)
         {
             int newY = yCoord;
 
-            Label head = Cm.CreateLabel(header, 90, 20, xCoord, newY);
+            Label head = ControlMan.CreateLabel(header, 90, 20, xCoord, newY);
 
             Controls.Add(head);
 
@@ -140,13 +111,13 @@ namespace Toci.Earrai.Ui
 
             foreach (ProductLayoutDto item in elements)
             {
-                Label l = Cm.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
-                Label lR = Cm.CreateLabel(item.LabelItemValue, 90, 20, xCoord + xSlide, newY);
-
+                Label l = ControlMan.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
+                InputTextBox inTb = ControlMan.CreateInputTextBox(item.LabelItemValue, 90, 20, xCoord + xSlide, newY, item.LabelItemId, item.Kind);
+                //todo add textboxes on list on purpose of submit action
                 newY += ySlide;
 
                 Controls.Add(l);
-                Controls.Add(lR);
+                Controls.Add(inTb);
             }
 
             ySlided = newY;
@@ -156,43 +127,43 @@ namespace Toci.Earrai.Ui
         {
             ySlided += ySlide;
 
-            Label widthL = Cm.CreateLabel("Width: ", 90, 20, xLeft, ySlided);
+            Label widthL = ControlMan.CreateLabel("Width: ", 90, 20, xLeft, ySlided);
 
-            xSlided = xLeft + Cm.GetSize("Width: "); 
+            xSlided = xLeft + ControlMan.GetSize("Width: "); 
 
-            Aqif.Width = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + xSlide;
-
-            Label lengthL = Cm.CreateLabel("Length: ", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + Cm.GetSize("Length: ");
-
-            Aqif.Length = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+            Aqif.Width = ControlMan.CreateTextBox("", 90, 20, xSlided, ySlided);
 
             xSlided += xLeft + xSlide;
 
-            Label quantityL = Cm.CreateLabel("Quantity: ", 90, 20, xSlided, ySlided);
+            Label lengthL = ControlMan.CreateLabel("Length: ", 90, 20, xSlided, ySlided);
 
-            xSlided += xLeft + Cm.GetSize("Quantity: ");
+            xSlided += xLeft + ControlMan.GetSize("Length: ");
 
-            Aqif.Quantity = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+            Aqif.Length = ControlMan.CreateTextBox("", 90, 20, xSlided, ySlided);
 
             xSlided += xLeft + xSlide;
 
-            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xSlided, ySlided);
+            Label quantityL = ControlMan.CreateLabel("Quantity: ", 90, 20, xSlided, ySlided);
 
-            xSlided += xLeft + Cm.GetSize("Area: ");
+            xSlided += xLeft + ControlMan.GetSize("Quantity: ");
 
-            Aqif.Area = Cm.CreateComboBox(areas, "Name", 180, 20, xSlided, ySlided, "Id");
+            Aqif.Quantity = ControlMan.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + xSlide;
+
+            Label areasLabel = ControlMan.CreateLabel("Area: ", 90, 20, xSlided, ySlided);
+
+            xSlided += xLeft + ControlMan.GetSize("Area: ");
+
+            Aqif.Area = ControlMan.CreateComboBox(areas, "Name", 180, 20, xSlided, ySlided, "Id");
 
             xSlided += xLeft + xSlide + xSlide;
 
-            Aqif.QuantitySubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
+            Aqif.QuantitySubmit = ControlMan.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
 
             ySlided += ySlide;
 
-            Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 1000, 200, xLeft, ySlided);
+            Aqif.DisplayGrid = ControlMan.CreateGrid(GetQuantities(prodId), 1000, 200, xLeft, ySlided);
             Aqif.DisplayGrid.CellClick += QuantitiesCellClick;
 
             DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
@@ -243,7 +214,7 @@ namespace Toci.Earrai.Ui
 
             int areaId = int.Parse(Aqif.Area.SelectedValue.ToString());                                               
             Areaquantity areaquantity = new Areaquantity() {          
-                Idarea = areaId, Idproducts = product.Product.Id, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
+                Idarea = areaId, Idproducts = 1, Iduser = LoggedUser.Id, Quantity = Aqif.Quantity.Text, Length = Aqif.Length.Text, Width = Aqif.Width.Text };
 
             List<Areaquantity> result = new List<Areaquantity>();
 
@@ -268,8 +239,6 @@ namespace Toci.Earrai.Ui
                 Aqif.DisplayGrid.DataSource = GetQuantities(prodId);
                 Aqif.QuantitySubmit.Text = "Add";
             }
-
-            RefreshItems();
         }
 
         protected virtual void AddPricingForm()
@@ -277,35 +246,35 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
             xSlided = 0;
 
-            Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
+            Label vendorsLabel = ControlMan.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
 
-            xSlided += xLeft + Cm.GetSize("Vendor: ");
+            xSlided += xLeft + ControlMan.GetSize("Vendor: ");
 
-            Qapif.Vendors = Cm.CreateComboBox(vendors, "Name", 90, 20, xSlided, ySlided, "Id");
-
-            xSlided += xSlide;
-
-            Label valuationLabel = Cm.CreateLabel("Price kind: ", 90, 20, xSlided, ySlided);
-
-            xSlided += Cm.GetSize("Price kind: ");
-
-            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xSlided, ySlided, "Id");
+            Qapif.Vendors = ControlMan.CreateComboBox(vendors, "Name", 90, 20, xSlided, ySlided, "Id");
 
             xSlided += xSlide;
 
-            Label priceLabel = Cm.CreateLabel("Price: ", 90, 20, xSlided, ySlided);
+            Label valuationLabel = ControlMan.CreateLabel("Price kind: ", 90, 20, xSlided, ySlided);
 
-            xSlided += Cm.GetSize("Price: "); ;
+            xSlided += ControlMan.GetSize("Price kind: ");
 
-            Qapif.Price = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+            Qapif.PriceKind = ControlMan.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xSlided, ySlided, "Id");
 
             xSlided += xSlide;
 
-            Qapif.PriceSubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
+            Label priceLabel = ControlMan.CreateLabel("Price: ", 90, 20, xSlided, ySlided);
+
+            xSlided += ControlMan.GetSize("Price: "); ;
+
+            Qapif.Price = ControlMan.CreateTextBox("", 90, 20, xSlided, ySlided);
+
+            xSlided += xSlide;
+
+            Qapif.PriceSubmit = ControlMan.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
 
             ySlided += ySlide;
 
-            Qapif.DisplayGrid = Cm.CreateGrid(GetPrices(prodId), 1000, 200, xLeft, ySlided);
+            Qapif.DisplayGrid = ControlMan.CreateGrid(GetPrices(prodId), 1000, 200, xLeft, ySlided);
             Qapif.DisplayGrid.CellClick += PricesCellClick;
 
             DataGridViewButtonColumn deleteButton = new DataGridViewButtonColumn();
@@ -356,7 +325,7 @@ namespace Toci.Earrai.Ui
             {
                 Idvendor = vendorId,
                 Idquoteandmetric = quoteandmetricId,
-                Idproducts = product.Product.Id,
+                Idproducts = 1,
                 Iduser = LoggedUser.Id,
                 Price = Qapif.Price.Text
             };
@@ -388,8 +357,6 @@ namespace Toci.Earrai.Ui
 
                 double.TryParse(price.Price, out priceD);
             }
-
-            RefreshItems();
         }
 
         protected virtual void QuantitiesCellClick(object sender, DataGridViewCellEventArgs e)
@@ -455,9 +422,7 @@ namespace Toci.Earrai.Ui
                 Qapif.PriceKind.SelectedValue = quote.Idquoteandmetric;
                 Qapif.PriceSubmit.Text = "Update";
 
-                PricesAndCommissionsToGrid(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price);
-
-                //RenderPricesForPrice(Vm.GetPrices(ValuationsMapUtil.EnumifyStringValuation(quote.Valuation), product, price));
+              
             }
         }
 
@@ -487,7 +452,7 @@ namespace Toci.Earrai.Ui
                 Controls.Remove(PricesCommissionsDgv);
             }
             
-            PricesCommissionsDgv = Cm.CreateGrid(null, 650, 250, 600, 10);
+            PricesCommissionsDgv = ControlMan.CreateGrid(null, 650, 250, 600, 10);
 
             ShowOnGrid(PricesCommissionsDgv, dgvData);
 
@@ -541,8 +506,8 @@ namespace Toci.Earrai.Ui
 
             foreach (KeyValuePair<Valuations, double> price in prices)
             {
-                Label priceKey = Cm.CreateLabel(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ", 90, 20, xLeft + xPrices, y);
-                Label priceValue = Cm.CreateLabel(price.Value.ToString("0.00"), 90, 20, xLeft + xPrices + Cm.GetSize(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ") + 10, y);
+                Label priceKey = ControlMan.CreateLabel(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ", 90, 20, xLeft + xPrices, y);
+                Label priceValue = ControlMan.CreateLabel(price.Value.ToString("0.00"), 90, 20, xLeft + xPrices + ControlMan.GetSize(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ") + 10, y);
 
                 Controls.Add(priceKey);
                 Controls.Add(priceValue);
