@@ -141,13 +141,19 @@ namespace Toci.Earrai.Ui
         {
             Dictionary<int, Dictionary<string, string>> Remapper = new Dictionary<int, Dictionary<string, string>>()
             {
-                { 5, new Dictionary<string, string>()
+                { WorksheetsIds.MshandExpMetal, new Dictionary<string, string>()
+                    {
+                        { "DimA", "SizeA" },
+                        { "DimB", "SizeB" }
+                    }
+                },
+                { WorksheetsIds.AnglesplusT, new Dictionary<string, string>()
                     {
                         { "DimA", "SizeA" },
                         { "DimB", "SizeB" } 
                     } 
                 },
-                { 8, new Dictionary<string, string>()
+                { WorksheetsIds.Rnds_Sqrs_HolBar, new Dictionary<string, string>()
                     {
                         { "OD", "ChsOd" }
                     }

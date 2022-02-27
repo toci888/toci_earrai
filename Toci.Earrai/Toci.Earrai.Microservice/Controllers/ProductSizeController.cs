@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Toci.Common.Microservices;
+using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Calculations;
 using Toci.Earrai.Bll.Interfaces;
+using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Bll.Models.Calculation;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -41,9 +43,17 @@ namespace Toci.Earrai.Microservice.Controllers
             //return Ok(productsizes);
         }
 
+        [HttpGet("GetAvailableOptionsSizes/{worksheetId}")]
+        public ActionResult<OptionsSizesAvailableDto> GetAvailableOptionsSizes(int worksheetId)
+        {
+            IProductOptionValuesLogic povLogic = new ProductOptionValuesLogic();
 
+            OptionsSizesAvailableDto result = new OptionsSizesAvailableDto();
 
+            result.Sizeworksheetelements = Logic.GetProductSizesAvailable(worksheetId);
+            result.Optionworksheetelements = povLogic.GetProductOptionsAvailable(worksheetId);
 
-
+            return Ok(result);
+        }
     }
 }

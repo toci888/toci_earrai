@@ -11,6 +11,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         {
             Productsizes = new HashSet<Productsize>();
             Sizecategories = new HashSet<Sizecategory>();
+            Sizeworksheetmaps = new HashSet<Sizeworksheetmap>();
         }
 
         public int Id { get; set; }
@@ -18,5 +19,6 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         public virtual ICollection<Productsize> Productsizes { get; set; }
         public virtual ICollection<Sizecategory> Sizecategories { get; set; }
+        public virtual ICollection<Sizeworksheetmap> Sizeworksheetmaps { get; set; }
     }
 }

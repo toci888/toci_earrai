@@ -11,5 +11,7 @@ namespace Toci.Earrai.Bll.Interfaces
     public interface IProductOptionValuesLogic : ILogicBase<Productoptionvalue>
     {
         List<Productsoptionsstate> GetProductValues(int productId);
+
+        List<Optionworksheetelement> GetProductOptionsAvailable(int worksheetId);
     }
 }

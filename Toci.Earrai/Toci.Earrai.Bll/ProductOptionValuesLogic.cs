@@ -11,10 +11,16 @@ namespace Toci.Earrai.Bll
     public class ProductOptionValuesLogic : Logic<Productoptionvalue>, IProductOptionValuesLogic
     {
         protected Logic<Productsoptionsstate> ProductsoptionsstateLogic = new Logic<Productsoptionsstate>();
+        protected Logic<Optionworksheetelement> OptionWeLogic = new Logic<Optionworksheetelement>();
 
         public List<Productsoptionsstate> GetProductValues(int productId)
         {
             return ProductsoptionsstateLogic.Select(m => m.Idproducts == productId).ToList();
+        }
+
+        public virtual List<Optionworksheetelement> GetProductOptionsAvailable(int worksheetId)
+        {
+            return OptionWeLogic.Select(m => m.Idworksheet == worksheetId).ToList();
         }
     }
 }
