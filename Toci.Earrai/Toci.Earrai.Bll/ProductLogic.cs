@@ -37,6 +37,16 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
+        public virtual int AddNewProduct(NewProductDto dto)
+        {
+            Product newProduct = Insert(new Product() { Description = dto.Description, Idworksheet = dto.WorksheetId, Productaccountreference = dto.Reference });
+
+            ProductOVLogic.SetNewProductOptions(newProduct.Id, dto.Options);
+            ProductSizeLogic.SetNewProductSizes(newProduct.Id, dto.Sizes);
+
+            return newProduct.Id;
+        }
+
         public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
         {
             List<ProductDto> result = new List<ProductDto>();

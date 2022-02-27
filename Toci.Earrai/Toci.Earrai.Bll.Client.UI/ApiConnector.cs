@@ -32,6 +32,11 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
         }
 
+        public virtual int AddNewProduct(NewProductDto item) //POST
+        {
+            return ApiPost<int, NewProductDto>("api/Product/AddNewProduct", item, false);
+        }
+
         public virtual Dictionary<string, double> GetCommissions(int productId, double price)
         {
             return ApiGet<Dictionary<string, double>>("api/Commisions/GetCommisions?productId=" + productId + "&price=" + price, false);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Interfaces;
+using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll
@@ -21,6 +22,16 @@ namespace Toci.Earrai.Bll
         public virtual List<Sizeworksheetelement> GetProductSizesAvailable(int worksheetId)
         {
             return SizeWeLogic.Select(m => m.Idworksheet == worksheetId).ToList();
+        }
+
+        public virtual bool SetNewProductSizes(int productId, List<SoDto> options)
+        {
+            foreach (SoDto option in options)
+            {
+                Insert(new Productsize() { Idsizes = option.SoId, Idproducts = productId, Value = option.Value });
+            }
+
+            return true;
         }
     }
 }
