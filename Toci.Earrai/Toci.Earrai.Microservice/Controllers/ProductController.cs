@@ -46,7 +46,13 @@ namespace Toci.Earrai.Microservice.Controllers
         {
             SearchConditionsProvider scp = new SearchConditionsProvider();
 
-            return Ok(scp.GetFilters(dto.WorksheetId, dto.Name));
+            return Ok(scp.GetFilters(dto.WorksheetId, dto.Name));   
+        }
+
+        [HttpPost("AddNewProduct")]
+        public ActionResult<int> AddNewProduct(NewProductDto dto)
+        {
+            return Ok(Logic.AddNewProduct(dto));
         }
     }
 }

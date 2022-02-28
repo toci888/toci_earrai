@@ -113,6 +113,11 @@ namespace Toci.Earrai.Ui
             return ApiProxy.PostQuoteandPrice(item);
         }
 
+        public virtual int AddProduct(NewProductDto item)
+        {
+            return ApiProxy.AddNewProduct(item);
+        }
+
         public virtual List<Areasquantity> GetQuantites(int productId)
         {
             return ApiProxy.GetAreasQuantitiesByProduct(productId);
@@ -131,6 +136,11 @@ namespace Toci.Earrai.Ui
         public virtual int ChangePrivileges(User user, int priveleges)
         {
             return ApiProxy.ChangePrivileges(user, priveleges);
+        }
+
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        {
+            return ApiProxy.GetAvailableOptionsSizes(worksheetId);
         }
     }
 }

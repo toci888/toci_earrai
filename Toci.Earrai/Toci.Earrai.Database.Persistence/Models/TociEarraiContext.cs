@@ -28,6 +28,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Density> Densities { get; set; }
         public virtual DbSet<Densitymaterial> Densitymaterials { get; set; }
         public virtual DbSet<Densityopdict> Densityopdicts { get; set; }
+        public virtual DbSet<Optionworksheetelement> Optionworksheetelements { get; set; }
+        public virtual DbSet<Optionworksheetmap> Optionworksheetmaps { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Productcategoryoption> Productcategoryoptions { get; set; }
         public virtual DbSet<Productoption> Productoptions { get; set; }
@@ -45,10 +47,11 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Rolesaction> Rolesactions { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Sizecategory> Sizecategories { get; set; }
+        public virtual DbSet<Sizeworksheetelement> Sizeworksheetelements { get; set; }
+        public virtual DbSet<Sizeworksheetmap> Sizeworksheetmaps { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
-        public virtual DbSet<Workbook> Workbooks { get; set; }
         public virtual DbSet<Worksheet> Worksheets { get; set; }
         public virtual DbSet<Worksheetcontent> Worksheetcontents { get; set; }
         public virtual DbSet<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
@@ -64,7 +67,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
+            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
             modelBuilder.Entity<Action>(entity =>
             {
@@ -267,6 +270,40 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Optionworksheetelement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("optionworksheetelements");
+
+                entity.Property(e => e.Idproductoptions).HasColumnName("idproductoptions");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Optionworksheetmap>(entity =>
+            {
+                entity.ToTable("optionworksheetmap");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idproductoptions).HasColumnName("idproductoptions");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.HasOne(d => d.IdproductoptionsNavigation)
+                    .WithMany(p => p.Optionworksheetmaps)
+                    .HasForeignKey(d => d.Idproductoptions)
+                    .HasConstraintName("optionworksheetmap_idproductoptions_fkey");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Optionworksheetmaps)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("optionworksheetmap_idworksheet_fkey");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -594,6 +631,40 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .HasConstraintName("sizecategories_idsizes_fkey");
             });
 
+            modelBuilder.Entity<Sizeworksheetelement>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("sizeworksheetelements");
+
+                entity.Property(e => e.Idsizes).HasColumnName("idsizes");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Sizeworksheetmap>(entity =>
+            {
+                entity.ToTable("sizeworksheetmap");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Idsizes).HasColumnName("idsizes");
+
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
+                entity.HasOne(d => d.IdsizesNavigation)
+                    .WithMany(p => p.Sizeworksheetmaps)
+                    .HasForeignKey(d => d.Idsizes)
+                    .HasConstraintName("sizeworksheetmap_idsizes_fkey");
+
+                entity.HasOne(d => d.IdworksheetNavigation)
+                    .WithMany(p => p.Sizeworksheetmaps)
+                    .HasForeignKey(d => d.Idworksheet)
+                    .HasConstraintName("sizeworksheetmap_idworksheet_fkey");
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
@@ -623,7 +694,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.HasOne(d => d.IdroleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Idrole)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("users_idrole_fkey");
             });
 
@@ -657,21 +727,6 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
-            });
-
-            modelBuilder.Entity<Workbook>(entity =>
-            {
-                entity.ToTable("workbooks");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Createdat).HasColumnName("createdat");
-
-                entity.Property(e => e.Filename).HasColumnName("filename");
-
-                entity.Property(e => e.Idoffile).HasColumnName("idoffile");
-
-                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
             });
 
             modelBuilder.Entity<Worksheet>(entity =>

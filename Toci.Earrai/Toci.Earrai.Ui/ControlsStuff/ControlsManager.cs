@@ -54,6 +54,19 @@ namespace Toci.Earrai.Ui.ControlsStuff
             return tb;
         }
 
+        public virtual InputTextBox CreateInputTextBox(string text, int sizeX, int sizeY, int locX, int locY, int id, int kind)
+        {
+            InputTextBox tb = new InputTextBox();
+
+            tb.Text = text;
+            tb.Size = new Size(sizeX, sizeY);
+            tb.Location = new Point(locX, locY);
+            tb.EntryId = id;
+            tb.EntryKind = kind;
+
+            return tb;
+        }
+
         public virtual ComboBox CreateComboBox(object data, string displayMember, int sizeX, int sizeY, int locX, int locY, string valueMember = "")
         {
             ComboBox combo = new ComboBox();

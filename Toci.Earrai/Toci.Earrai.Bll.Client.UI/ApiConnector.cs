@@ -14,7 +14,13 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
+        //protected string BaseUrl = "http://82.153.17.97:8864/";
         protected string BaseUrl = "http://127.0.0.1:8642/";
+
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        {
+            return ApiGet<OptionsSizesAvailableDto>("api/ProductSize/GetAvailableOptionsSizes/" + worksheetId, false);
+        }
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -24,6 +30,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual ProductDto GetProduct(int productId)
         {
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
+        }
+
+        public virtual int AddNewProduct(NewProductDto item) //POST
+        {
+            return ApiPost<int, NewProductDto>("api/Product/AddNewProduct", item, false);
         }
 
         public virtual Dictionary<string, double> GetCommissions(int productId, double price)
@@ -140,7 +151,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
-                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
+               // hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 HttpResponseMessage response = hc.GetAsync(url).Result;
 
@@ -198,7 +209,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
-                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
+               // hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 HttpContent content = JsonContent.Create<TDto>(dto);
 
@@ -226,7 +237,7 @@ namespace Toci.Earrai.Bll.Client.UI
             using (HttpClient hc = new HttpClient())
             {
                 hc.BaseAddress = new Uri(BaseUrl);
-                hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
+               // hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
 
                 //  HttpContent content = JsonContent.Create<TDto>(dto);
 
