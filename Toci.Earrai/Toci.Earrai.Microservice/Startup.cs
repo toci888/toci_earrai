@@ -21,6 +21,8 @@ using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Bll.Warehouse.Interfaces;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Erp;
+using Toci.Common;
+using Toci.Earrai.Bll.ErrorLog;
 
 namespace Toci.Earrai.Microservice
 {
@@ -38,6 +40,9 @@ namespace Toci.Earrai.Microservice
         {
             AuthenticationSettings authenticationSettings = new AuthenticationSettings();
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+            GlobalExceptionHandler Geh = new GlobalExceptionHandler(new EarraiErrorLogger());
+            Geh.ActivateGlobalExceptionHandling();
 
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
             services.AddScoped<IWorksheetcontentLogic, WorksheetcontentLogic>();

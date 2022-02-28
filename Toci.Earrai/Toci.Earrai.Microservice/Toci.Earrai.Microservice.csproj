@@ -48,6 +48,7 @@
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Database\Toci.Common.Database.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices.Interfaces\Toci.Common.Microservices.Interfaces.csproj" />
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common\Toci.Common.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Interfaces\Toci.Earrai.Bll.Interfaces.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Models\Toci.Earrai.Bll.Models.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Warehouse\Toci.Earrai.Bll.Warehouse.csproj" />
