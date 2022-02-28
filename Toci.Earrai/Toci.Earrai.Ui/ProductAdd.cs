@@ -96,10 +96,10 @@ namespace Toci.Earrai.Ui
             OsaDto = Dm.GetAvailableOptionsSizes(worksheetId);
 
             AddBasicProductInfo();
-            AddElementsToLayout(ProductSwConverter.Convert(OsaDto.Sizeworksheetelements, (swe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Sizes, LabelItemId = swe.Idsizes.Value, LabelItemName = swe.Name }; }), xLeft + xOptionsSizes, 20, "Product sizing information.");
-            AddElementsToLayout(ProductOwConverter.Convert(OsaDto.Optionworksheetelements, (owe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Options, LabelItemId = owe.Idproductoptions.Value, LabelItemName = owe.Name }; }), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
+            AddElementsToLayout(ProductSwConverter.Convert(OsaDto.Sizeworksheetelements, (swe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Sizes, LabelItemId = swe.Idsizes.Value, LabelItemName = swe.Name }; }), xLeft, 90, "Product sizing information.");
+            AddElementsToLayout(ProductOwConverter.Convert(OsaDto.Optionworksheetelements, (owe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Options, LabelItemId = owe.Idproductoptions.Value, LabelItemName = owe.Name }; }), xLeft, ySlided + ySlide+10, "Product options.");
 
-            Button submit = ControlMan.CreateButton("Add new product", 90, 20, xLeft, ySlided, ProductAddConfirm);
+            Button submit = ControlMan.CreateButton("Add new product", 90, 40, xLeft+50, ySlided+20, ProductAddConfirm);
 
             Controls.Add(submit);
         }
