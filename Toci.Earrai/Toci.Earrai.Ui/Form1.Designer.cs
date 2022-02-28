@@ -40,6 +40,9 @@ namespace Toci.Earrai.Ui
             this.valueDdl = new System.Windows.Forms.ComboBox();
             this.logout = new System.Windows.Forms.Button();
             this.users = new System.Windows.Forms.Button();
+            this.addNewProductButton = new System.Windows.Forms.Button();
+            this.sageExportButton = new System.Windows.Forms.Button();
+            this.sageImportButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,9 +105,8 @@ namespace Toci.Earrai.Ui
             this.internetConnection.Location = new System.Drawing.Point(0, 0);
             this.internetConnection.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.internetConnection.Name = "internetConnection";
-            this.internetConnection.Size = new System.Drawing.Size(79, 15);
+            this.internetConnection.Size = new System.Drawing.Size(0, 15);
             this.internetConnection.TabIndex = 3;
-            this.internetConnection.Text = "";
             this.internetConnection.Click += new System.EventHandler(this.internetConnection_Click);
             // 
             // SearchWorksheetBtn
@@ -154,11 +156,44 @@ namespace Toci.Earrai.Ui
             this.users.UseVisualStyleBackColor = true;
             this.users.Click += new System.EventHandler(this.users_Click);
             // 
+            // addNewProductButton
+            // 
+            this.addNewProductButton.Location = new System.Drawing.Point(370, 111);
+            this.addNewProductButton.Name = "addNewProductButton";
+            this.addNewProductButton.Size = new System.Drawing.Size(154, 58);
+            this.addNewProductButton.TabIndex = 11;
+            this.addNewProductButton.Text = "New Product";
+            this.addNewProductButton.UseVisualStyleBackColor = true;
+            this.addNewProductButton.Click += new System.EventHandler(this.addNewProductButton_Click);
+            // 
+            // sageExportButton
+            // 
+            this.sageExportButton.Location = new System.Drawing.Point(1469, 85);
+            this.sageExportButton.Name = "sageExportButton";
+            this.sageExportButton.Size = new System.Drawing.Size(131, 51);
+            this.sageExportButton.TabIndex = 12;
+            this.sageExportButton.Text = "Sage Export";
+            this.sageExportButton.UseVisualStyleBackColor = true;
+            this.sageExportButton.Click += new System.EventHandler(this.sageExportButton_Click);
+            // 
+            // sageImportButton
+            // 
+            this.sageImportButton.Location = new System.Drawing.Point(1469, 26);
+            this.sageImportButton.Name = "sageImportButton";
+            this.sageImportButton.Size = new System.Drawing.Size(131, 49);
+            this.sageImportButton.TabIndex = 13;
+            this.sageImportButton.Text = "Sage Import";
+            this.sageImportButton.UseVisualStyleBackColor = true;
+            this.sageImportButton.Click += new System.EventHandler(this.sageImportButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1800, 850);
+            this.Controls.Add(this.sageImportButton);
+            this.Controls.Add(this.sageExportButton);
+            this.Controls.Add(this.addNewProductButton);
             this.Controls.Add(this.users);
             this.Controls.Add(this.logout);
             this.Controls.Add(this.valueDdl);
@@ -193,6 +228,9 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.ComboBox valueDdl;
         private System.Windows.Forms.Button logout;
         private System.Windows.Forms.Button users;
+        private System.Windows.Forms.Button addNewProductButton;
+        private System.Windows.Forms.Button sageExportButton;
+        private System.Windows.Forms.Button sageImportButton;
     }
 }
 

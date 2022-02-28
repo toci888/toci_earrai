@@ -272,5 +272,20 @@ namespace Toci.Earrai.Ui
             Users users = new Users();
             users.Show();
         }
+
+        private void addNewProductButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sageExportButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sageImportButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
