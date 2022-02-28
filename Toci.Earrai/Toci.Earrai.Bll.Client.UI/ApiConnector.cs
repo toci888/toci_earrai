@@ -159,7 +159,7 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<int, string>("api/Account/resetPassword?userId="+ id, password, false);
         }
 
-        protected virtual T ApiGet<T>(string url, bool isResponseArray)
+        protected virtual T ApiGet<T>(string url, bool isResponseArray) where T : new()
         {
             using (HttpClient hc = new HttpClient())
             {
