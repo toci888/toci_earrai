@@ -75,8 +75,11 @@ namespace Toci.Earrai.Ui
             workbookDdl.ValueMember = "Id";
             workbookDdl.DisplayMember = "Sheetname";
             workbookDdl.DataSource = worksheets;
-            
-            SearchCombosHandler(worksheets.First().Id);
+
+            if (worksheets.First() != null)
+            {
+                SearchCombosHandler(worksheets.First().Id);
+            }
         }
 
         protected virtual void SearchCombosHandler(int worksheetId)
@@ -85,7 +88,7 @@ namespace Toci.Earrai.Ui
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
 
 
-            ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUser, areas, vendors, quotesandprices);
+            ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
             pAdd.Show();
         }
 

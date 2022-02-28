@@ -40,7 +40,7 @@ namespace Toci.Earrai.Ui
         protected List<Area> areas;
         protected List<Vendor> vendors;
         protected List<Quoteandmetric> quotesandmetrics;
-        protected User LoggedUser;
+        protected Userrole LoggedUser;
 
         TextBox productaccountreferenceValue;
         TextBox descriptionValue;
@@ -82,7 +82,7 @@ namespace Toci.Earrai.Ui
             }
         }
 
-        public ProductAdd(string worksId, User loggedUser, List<Area> _areas, List<Vendor> _vendors, List<Quoteandmetric> _quotesandmetrics)
+        public ProductAdd(string worksId, Userrole loggedUser, List<Area> _areas, List<Vendor> _vendors, List<Quoteandmetric> _quotesandmetrics)
         {
             InitializeComponent();
             worksheetId = worksId;
