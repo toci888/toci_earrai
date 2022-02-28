@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Client.UI;
+using Toci.Earrai.Bll.Models.Erp;
 
 namespace Toci.Earrai.Bll.Erp
 {
@@ -34,7 +35,16 @@ namespace Toci.Earrai.Bll.Erp
                 tables.Add(data.Tables[i].TableName);
             }
 
+            List<EiEntity> importEntities = new List<EiEntity>();
             // todo create a list<productdto>, shoot to api connector
+
+            if (data.Tables.Count > 0)
+            {
+                foreach (DataRow row in data.Tables[0].Rows)
+                {
+                    importEntities.Add(RowToEiEntity(row));
+                }
+            }
         }
     }
 }
