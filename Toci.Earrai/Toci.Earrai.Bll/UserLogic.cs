@@ -68,6 +68,15 @@ namespace Toci.Earrai.Bll
             return u;
         }
 
+        public int ResetPassword(int userId, string password)
+        {
+            User user = userLogic.Select(m => m.Id == userId).FirstOrDefault();
+
+            user.Password = password;
+
+            return userLogic.Update(user).Id;
+        }
+
         public IEnumerable<User> GetAll()
         {
             return userLogic.Select(m => m.Id > 0);

@@ -76,5 +76,18 @@ namespace Toci.Earrai.Ui
 
             Dm.ChangePrivileges(new User() {Id = user.Id.Value}, (int)privilegesMap[priveleges]);
         }
+
+        private void newUserButton_Click(object sender, EventArgs e)
+        {
+            AddUser addUser = new AddUser();
+            addUser.Show();
+        }
+
+        private void resetPasswordButton_Click(object sender, EventArgs e)
+        {
+            Userrole user = (Userrole)allUsers.SelectedItem;
+
+            Dm.ResetPassword(user.Id.Value, "XD");
+        }
     }
 }

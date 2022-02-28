@@ -28,6 +28,7 @@ namespace Toci.Earrai.Ui
             loginTextBox.Text = "admin@wp.pl";
             passwordTextbox.Text = "123456783";
         }
+
         private void loginButton_Click(object sender, EventArgs e)
         {
             if (loginTextBox.Text == string.Empty)

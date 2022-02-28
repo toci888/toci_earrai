@@ -135,6 +135,16 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiGet<List<Userrole>>("api/Account", true);
         }
 
+        public virtual int CreateUser(User user)
+        {
+            return ApiPost<int, User>("api/Account/register", user, false);
+        }
+
+        public virtual int ResetPassword(int id, string password)
+        {
+            return ApiPost<int, string>("api/Account/resetPassword?userId="+ id, password, false);
+        }
+
         protected virtual T ApiGet<T>(string url, bool isResponseArray)
         {
             using (HttpClient hc = new HttpClient())

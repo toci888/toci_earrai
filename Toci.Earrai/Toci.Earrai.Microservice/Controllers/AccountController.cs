@@ -24,7 +24,6 @@ namespace Toci.Earrai.Microservice.Controllers
         public int RegisterUser([FromBody] User user)
         {
             user.Initials = "" + user.Firstname[0] + user.Lastname[0];
-            user.Idrole = 1;
 
             return Logic.CreateAccount(user);
         }
@@ -35,6 +34,13 @@ namespace Toci.Earrai.Microservice.Controllers
         {
             Userrole loggedUser = Logic.GenerateJwt(user);
             return Ok(loggedUser);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("resetPassword")]
+        public int ResetPassword(int userId, [FromBody] string password)
+        {
+            return Logic.ResetPassword(userId, password);
         }
     }
 }

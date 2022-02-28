@@ -36,6 +36,8 @@ namespace Toci.Earrai.Ui
             this.officePrivelegeButton = new System.Windows.Forms.RadioButton();
             this.pcPrivelegeButton = new System.Windows.Forms.RadioButton();
             this.adminPrivelegeButton = new System.Windows.Forms.RadioButton();
+            this.newUserButton = new System.Windows.Forms.Button();
+            this.resetPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // submit
@@ -105,11 +107,34 @@ namespace Toci.Earrai.Ui
             this.adminPrivelegeButton.UseVisualStyleBackColor = true;
             this.adminPrivelegeButton.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
             // 
+            // newUserButton
+            // 
+            this.newUserButton.Location = new System.Drawing.Point(149, 181);
+            this.newUserButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.newUserButton.Name = "newUserButton";
+            this.newUserButton.Size = new System.Drawing.Size(109, 60);
+            this.newUserButton.TabIndex = 7;
+            this.newUserButton.Text = "Add User";
+            this.newUserButton.UseVisualStyleBackColor = true;
+            this.newUserButton.Click += new System.EventHandler(this.newUserButton_Click);
+            // 
+            // resetPasswordButton
+            // 
+            this.resetPasswordButton.Location = new System.Drawing.Point(12, 408);
+            this.resetPasswordButton.Name = "resetPasswordButton";
+            this.resetPasswordButton.Size = new System.Drawing.Size(114, 30);
+            this.resetPasswordButton.TabIndex = 8;
+            this.resetPasswordButton.Text = "Reset Password";
+            this.resetPasswordButton.UseVisualStyleBackColor = true;
+            this.resetPasswordButton.Click += new System.EventHandler(this.resetPasswordButton_Click);
+            // 
             // Users
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.resetPasswordButton);
+            this.Controls.Add(this.newUserButton);
             this.Controls.Add(this.adminPrivelegeButton);
             this.Controls.Add(this.pcPrivelegeButton);
             this.Controls.Add(this.officePrivelegeButton);
@@ -152,5 +177,7 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.RadioButton officePrivelegeButton;
         private System.Windows.Forms.RadioButton pcPrivelegeButton;
         private System.Windows.Forms.RadioButton adminPrivelegeButton;
+        private System.Windows.Forms.Button newUserButton;
+        private System.Windows.Forms.Button resetPasswordButton;
     }
 }

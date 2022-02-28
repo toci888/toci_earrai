@@ -132,5 +132,15 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.ChangePrivileges(user, priveleges);
         }
+
+        public virtual int CreateUser(User user)
+        {
+            return ApiProxy.CreateUser(user);
+        }
+
+        public virtual int ResetPassword(int userId, string password = "")
+        {
+            return ApiProxy.ResetPassword(userId, password);
+        }
     }
 }
