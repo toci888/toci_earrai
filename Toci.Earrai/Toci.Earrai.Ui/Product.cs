@@ -480,8 +480,13 @@ namespace Toci.Earrai.Ui
 
                 dgvData.Add(record);
             }
+
+            if (PricesCommissionsDgv != null)
+            {
+                Controls.Remove(PricesCommissionsDgv);
+            }
             
-            PricesCommissionsDgv = Cm.CreateGrid(null, 600, 250, 600, 10);
+            PricesCommissionsDgv = Cm.CreateGrid(null, 650, 250, 600, 10);
 
             ShowOnGrid(PricesCommissionsDgv, dgvData);
 
@@ -491,6 +496,8 @@ namespace Toci.Earrai.Ui
         protected virtual void ShowOnGrid(DataGridView dataGrid, List<List<string>> items)
         {
             bool columns = true;
+            bool hasAddedCols = false;
+
             foreach (List<string> item in items)
             {
                 if (columns)
@@ -501,12 +508,18 @@ namespace Toci.Earrai.Ui
                         //excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                     }
+
+                    hasAddedCols = true;
                 }
 
                 columns = false;
 
+                if (!hasAddedCols)
+                {
+                    dataGrid.Rows.Add(item.Select(m => m).ToArray());
+                }
 
-                dataGrid.Rows.Add(item.Select(m => m).ToArray());
+                hasAddedCols = false;
             }
         }
 

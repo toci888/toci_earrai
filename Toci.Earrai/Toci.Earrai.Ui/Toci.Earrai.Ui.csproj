@@ -15,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ProductAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Product.cs">
       <SubType>Form</SubType>
     </Compile>

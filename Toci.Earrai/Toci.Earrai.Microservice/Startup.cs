@@ -20,6 +20,9 @@ using IWorksheetLogic = Toci.Earrai.Bll.Interfaces.IWorksheetLogic;
 using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Bll.Warehouse.Interfaces;
 using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Erp;
+using Toci.Common;
+using Toci.Earrai.Bll.ErrorLog;
 
 namespace Toci.Earrai.Microservice
 {
@@ -38,6 +41,9 @@ namespace Toci.Earrai.Microservice
             AuthenticationSettings authenticationSettings = new AuthenticationSettings();
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
 
+            GlobalExceptionHandler Geh = new GlobalExceptionHandler(new EarraiErrorLogger());
+            Geh.ActivateGlobalExceptionHandling();
+
             services.AddScoped<IWorksheetLogic, WorksheetLogic>();
             services.AddScoped<IWorksheetcontentLogic, WorksheetcontentLogic>();
             services.AddScoped<IEntityOperations, EntityOperations>();
@@ -49,6 +55,7 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<IProductSizeLogic, ProductSizeLogic>();
             services.AddScoped<IQuoteAndMetricLogic, QuoteAndMetricLogic>();
             services.AddScoped<IPrivilegesLogic, PrivilegesLogic>();
+            services.AddScoped<ISageLogic, SageLogic>();
 
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>

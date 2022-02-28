@@ -9,12 +9,8 @@ using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.Interfaces
 {
-    public interface IProductSizeLogic : ILogicBase<Productsize>
+    public interface ISageLogic : ILogicBase<Product>
     {
-        List<Productssize> GetProductSizes(int productId);
-
-        List<Sizeworksheetelement> GetProductSizesAvailable(int worksheetId);
-
-        bool SetNewProductSizes(int productId, List<SoDto> options);
+        List<ProductDto> Export(DateTime condition);
     }
 }

@@ -9,7 +9,9 @@ namespace Toci.Earrai.Database.Persistence.Models
     {
         public Worksheet()
         {
+            Optionworksheetmaps = new HashSet<Optionworksheetmap>();
             Products = new HashSet<Product>();
+            Sizeworksheetmaps = new HashSet<Sizeworksheetmap>();
             Worksheetcontents = new HashSet<Worksheetcontent>();
             Worksheetcontentshistories = new HashSet<Worksheetcontentshistory>();
         }
@@ -19,7 +21,9 @@ namespace Toci.Earrai.Database.Persistence.Models
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
 
+        public virtual ICollection<Optionworksheetmap> Optionworksheetmaps { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Sizeworksheetmap> Sizeworksheetmaps { get; set; }
         public virtual ICollection<Worksheetcontent> Worksheetcontents { get; set; }
         public virtual ICollection<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
     }

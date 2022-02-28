@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -14,7 +15,15 @@ namespace Toci.Earrai.Bll.Client.UI
 {
     public class ApiConnector
     {
+        public const HttpStatusCode StatusCodeSuccess = HttpStatusCode.OK;
+
+        //protected string BaseUrl = "http://82.153.17.97:8864/";
         protected string BaseUrl = "http://127.0.0.1:8642/";
+
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        {
+            return ApiGet<OptionsSizesAvailableDto>("api/ProductSize/GetAvailableOptionsSizes/" + worksheetId, false);
+        }
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
@@ -24,6 +33,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual ProductDto GetProduct(int productId)
         {
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
+        }
+
+        public virtual int AddNewProduct(NewProductDto item) //POST
+        {
+            return ApiPost<int, NewProductDto>("api/Product/AddNewProduct", item, false);
         }
 
         public virtual Dictionary<string, double> GetCommissions(int productId, double price)
@@ -154,6 +168,13 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 HttpResponseMessage response = hc.GetAsync(url).Result;
 
+                if (response.StatusCode != StatusCodeSuccess)
+                {
+                    //handle error
+
+                    return new T();
+                }
+
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
                 if (responseContent == string.Empty)
@@ -170,7 +191,7 @@ namespace Toci.Earrai.Bll.Client.UI
             }
         }
 
-        protected virtual T ApiPost<T, TDto>(string url, TDto dto, bool isResponseArray)
+        protected virtual T ApiPost<T, TDto>(string url, TDto dto, bool isResponseArray) where T : new()
         {
             using (HttpClient hc = new HttpClient())
             {
@@ -181,11 +202,17 @@ namespace Toci.Earrai.Bll.Client.UI
                 {
                     hc.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", LoggedUserContext.User.Token);
                 }
-                
 
-                HttpContent content = JsonContent.Create<TDto>(dto);
+                HttpContent content = JsonContent.Create(dto);
 
                 HttpResponseMessage response = hc.PostAsync(url, content).Result;
+
+                if (response.StatusCode != StatusCodeSuccess)
+                {
+                    //handle error
+
+                    return new T();
+                }
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
@@ -203,7 +230,7 @@ namespace Toci.Earrai.Bll.Client.UI
             }
         }
 
-        protected virtual T ApiPut<T, TDto>(string url, TDto dto, bool isResponseArray)
+        protected virtual T ApiPut<T, TDto>(string url, TDto dto, bool isResponseArray) 
         {
             using (HttpClient hc = new HttpClient())
             {
@@ -214,6 +241,13 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage() 
                 { Method = HttpMethod.Put, RequestUri = new Uri(url, UriKind.Relative), Content = content }).Result;
+
+                if (response.StatusCode != StatusCodeSuccess)
+                {
+                    //handle error
+
+                    return default(T);
+                }
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
@@ -242,6 +276,13 @@ namespace Toci.Earrai.Bll.Client.UI
 
                 HttpResponseMessage response = hc.SendAsync(new HttpRequestMessage()
                 { Method = HttpMethod.Delete, RequestUri = new Uri(url, UriKind.Relative) }).Result;
+
+                if (response.StatusCode != StatusCodeSuccess)
+                {
+                    //handle error
+
+                    return default(T);
+                }
 
                 string responseContent = response.Content.ReadAsStringAsync().Result;
 
@@ -277,6 +318,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual int Register(string firstName, string lastName, string email, string password)
         {
             return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
+        }
+
+        public virtual List<ProductDto> ExportToSage(DateTime dateCondition)
+        {
+            return ApiGet<List<ProductDto>>("api/sage/exporttosage", true);
         }
     }
 }

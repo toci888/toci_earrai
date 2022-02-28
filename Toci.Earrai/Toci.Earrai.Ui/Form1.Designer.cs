@@ -104,7 +104,7 @@ namespace Toci.Earrai.Ui
             this.internetConnection.Name = "internetConnection";
             this.internetConnection.Size = new System.Drawing.Size(79, 15);
             this.internetConnection.TabIndex = 3;
-            this.internetConnection.Text = "Disconnected";
+            this.internetConnection.Text = "";
             this.internetConnection.Click += new System.EventHandler(this.internetConnection_Click);
             // 
             // SearchWorksheetBtn

@@ -9,6 +9,7 @@ namespace Toci.Earrai.Database.Persistence.Models
     {
         public Productoption()
         {
+            Optionworksheetmaps = new HashSet<Optionworksheetmap>();
             Productcategoryoptions = new HashSet<Productcategoryoption>();
             Productoptionvalues = new HashSet<Productoptionvalue>();
         }
@@ -17,6 +18,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public string Code { get; set; }
         public string Name { get; set; }
 
+        public virtual ICollection<Optionworksheetmap> Optionworksheetmaps { get; set; }
         public virtual ICollection<Productcategoryoption> Productcategoryoptions { get; set; }
         public virtual ICollection<Productoptionvalue> Productoptionvalues { get; set; }
     }

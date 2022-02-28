@@ -52,9 +52,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{882ED250-85D9-45B7-9C80-2C105F4E7562}"
 	ProjectSection(SolutionItems) = preProject
 		..\SQL\Earrai.sql = ..\SQL\Earrai.sql
+		EarraiEx.sql = EarraiEx.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.ExcelLibrary.Extensions", "..\..\toci_common\Toci.Common\Toci.ExcelLibrary.Extensions\Toci.ExcelLibrary.Extensions.csproj", "{96B476FC-8E4E-4227-86BD-5EE4AE546103}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Common", "..\..\toci_common\Toci.Common\Toci.Common\Toci.Common.csproj", "{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -224,6 +227,14 @@ Global
 		{96B476FC-8E4E-4227-86BD-5EE4AE546103}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96B476FC-8E4E-4227-86BD-5EE4AE546103}.Release|x64.ActiveCfg = Release|x64
 		{96B476FC-8E4E-4227-86BD-5EE4AE546103}.Release|x64.Build.0 = Release|x64
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
