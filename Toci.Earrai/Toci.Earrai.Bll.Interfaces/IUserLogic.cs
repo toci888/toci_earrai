@@ -12,7 +12,6 @@ namespace Toci.Earrai.Bll.Interfaces
         public int CreateAccount(User user);
         public Userrole GenerateJwt(LoginDto user);
         public IEnumerable<User> GetAll();
-
-        int ResetPassword(int userId, string password);
+        public int ResetPassword(int userId, string password);
     }
 }

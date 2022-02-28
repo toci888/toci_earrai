@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Toci.Common;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -87,7 +88,7 @@ namespace Toci.Earrai.Ui
         {
             Userrole user = (Userrole)allUsers.SelectedItem;
 
-            Dm.ResetPassword(user.Id.Value, "XD");
+            Dm.ResetPassword(user.Id.Value, StringUtils.GetRandomString(12));
         }
     }
 }
