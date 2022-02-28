@@ -88,8 +88,8 @@ namespace Toci.Earrai.Ui
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
 
 
-            ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
-            pAdd.Show();
+            //ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
+            //pAdd.Show();
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
@@ -275,7 +275,8 @@ namespace Toci.Earrai.Ui
 
         private void addNewProductButton_Click(object sender, EventArgs e)
         {
-
+            ProductAdd pAdd = new ProductAdd(selectedWorkSheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
+            pAdd.Show();
         }
 
         private void sageExportButton_Click(object sender, EventArgs e)
@@ -285,7 +286,12 @@ namespace Toci.Earrai.Ui
 
         private void sageImportButton_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel files | *.xlsx";
 
+            DialogResult dr = ofd.ShowDialog();
+
+            
         }
     }
 }
