@@ -31,12 +31,12 @@ namespace Toci.Earrai.Ui
         {
             this.SuspendLayout();
             // 
-            // Product
+            // ProductAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1297, 757);
-            this.Name = "Product";
+            this.ClientSize = new System.Drawing.Size(386, 493);
+            this.Name = "ProductAdd";
             this.Text = "Earrai";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

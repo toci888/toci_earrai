@@ -75,7 +75,9 @@ namespace Toci.Earrai.Ui
 
             string priveleges = privelegeButtons.Where(m => m.Value.Checked == true).First().Key;
 
-            Dm.ChangePrivileges(new User() {Id = user.Id.Value}, (int)privilegesMap[priveleges]);
+            Dm.ChangePrivileges(new User() { Id = user.Id.Value }, (int)privilegesMap[priveleges]);
+
+            MessageBox.Show(user.Email + " priveleges have been changed to: " + privilegesMap[priveleges], "", MessageBoxButtons.OK);
         }
 
         private void newUserButton_Click(object sender, EventArgs e)
@@ -88,7 +90,14 @@ namespace Toci.Earrai.Ui
         {
             Userrole user = (Userrole)allUsers.SelectedItem;
 
-            Dm.ResetPassword(user.Id.Value, StringUtils.GetRandomString(12));
+            if (Dm.ResetPassword(user.Id.Value, StringUtils.GetRandomString(12)) > 0)
+            {
+                MessageBox.Show("Password has been changed.", "", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("An error while changing password.", "", MessageBoxButtons.OK);
+            }
         }
     }
 }
