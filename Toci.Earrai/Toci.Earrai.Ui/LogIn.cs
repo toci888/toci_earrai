@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Toci.Common;
+using Toci.Earrai.Bll.ErrorLog;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Ui
@@ -18,6 +20,9 @@ namespace Toci.Earrai.Ui
         public LogIn()
         {
             InitializeComponent();
+
+            GlobalExceptionHandler Geh = new GlobalExceptionHandler(new EarraiErrorLogger());
+            Geh.ActivateGlobalExceptionHandling();
 
             loginValidation1.Visible = loginValidation2.Visible = false;
 
