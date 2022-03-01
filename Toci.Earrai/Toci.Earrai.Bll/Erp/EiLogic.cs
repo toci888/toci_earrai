@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Models.Erp;
@@ -10,6 +11,7 @@ namespace Toci.Earrai.Bll.Erp
 {
     public abstract class EiLogic
     {
+        
         protected Dictionary<int, Func<DataRow, EiEntity, EiEntity>> EiEntityCreationMap = new Dictionary<int, Func<DataRow, EiEntity, EiEntity>>()
         {
             { 0, (row, eiEnt) => { eiEnt.AccountReference = row[0].ToString(); return eiEnt; } },
@@ -48,12 +50,8 @@ namespace Toci.Earrai.Bll.Erp
         {
             EiEntity result = new EiEntity();
 
-            foreach (KeyValuePair<int, Func<DataRow, EiEntity, EiEntity>> mapItem in EiEntityCreationMap)
-            {
-                result = mapItem.Value(row, result);
-            }
-
-            return result;
+            return EiEntityCreationMap.Aggregate(result, (current, mapItem) => mapItem.Value(row, current));
         }
+
     }
 }

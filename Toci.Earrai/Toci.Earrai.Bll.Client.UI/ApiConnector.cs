@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Toci.Common.Microservices;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Bll.Models.Erp;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Ui;
 
@@ -157,6 +158,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual int ResetPassword(int id, string password)
         {
             return ApiPost<int, string>("api/Account/resetPassword?userId="+ id, password, false);
+        }
+
+        public virtual int InsertEiEntity(List<EiEntity> entity)
+        {
+            return ApiPost<int, List<EiEntity>>("api/Sage/InsertEiEntity", entity, true);
         }
 
         protected virtual T ApiGet<T>(string url, bool isResponseArray) where T : new()

@@ -17,7 +17,9 @@ namespace Toci.Earrai.Bll.Erp
         //read the excel file and save the data in the database
         public virtual void ReadExcelFile(string pathToExcel)
         {
-            IExcelDataReader rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream("e:\\Feilim_Excel.xlsx", FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") });
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            IExcelDataReader rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream(pathToExcel, FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") });
             
             DataSet dataToImportDs = rdr.AsDataSet();
 
@@ -45,6 +47,8 @@ namespace Toci.Earrai.Bll.Erp
                     importEntities.Add(RowToEiEntity(row));
                 }
             }
+
+            apiConnector.InsertEiEntity(importEntities);
         }
     }
 }

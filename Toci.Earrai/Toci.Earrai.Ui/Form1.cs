@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.IO;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 using System.Reflection;
+using ExcelDataReader;
 using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Client.UI.ToGrid;
+using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.Interfaces;
 
 namespace Toci.Earrai.Ui
@@ -291,7 +294,11 @@ namespace Toci.Earrai.Ui
 
             DialogResult dr = ofd.ShowDialog();
 
-            
+            string path = ofd.FileName;
+
+            ImportLogic il = new ImportLogic();
+
+            il.ReadExcelFile(path);
         }
     }
 }

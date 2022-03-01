@@ -53,6 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\SQL\Earrai.sql = ..\SQL\Earrai.sql
 		EarraiEx.sql = EarraiEx.sql
+		..\SQL\Erp.sql = ..\SQL\Erp.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.ExcelLibrary.Extensions", "..\..\toci_common\Toci.Common\Toci.ExcelLibrary.Extensions\Toci.ExcelLibrary.Extensions.csproj", "{96B476FC-8E4E-4227-86BD-5EE4AE546103}"

@@ -8,8 +8,8 @@ namespace Toci.Earrai.Bll.Erp
 {
     public static class SageIeColumns
     {
-        public const string ProductRecordAccountReference = "ProductRecord.AccountReference"; // yes
-        public const string ProductRecordDescription = "ProductRecord.Description"; //yes
+        public const string AccountReference = "ProductRecord.AccountReference"; // yes
+        public const string Description = "ProductRecord.Description"; //yes
         public const string ProductRecordVATCode = "ProductRecord.VATCode"; // ??
         public const string ProductRecordSalesPrice = "ProductRecord.SalesPrice"; // Ł / tonne ?
         public const string ProductRecordCostPriceStandard = "ProductRecord.CostPriceStandard"; // 0 ....

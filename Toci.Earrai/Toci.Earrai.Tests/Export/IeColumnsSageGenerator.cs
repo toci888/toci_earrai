@@ -3,9 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.Models.Erp;
+using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Tests.Export
 {
@@ -64,6 +68,25 @@ namespace Toci.Earrai.Tests.Export
             {
                 result += "{ " + i + ", (row, eiEnt) => { eiEnt." + column.Replace("ProductRecord.", "") + " = row["+i+"].ToString(); return eiEnt; } }, " + Environment.NewLine;
                 i++;
+            }
+        }
+
+        [TestMethod]
+        public void GenerateErpColumns()
+        {
+            Logic<Erpcolumn> erpColumns = new Logic<Erpcolumn>();
+
+            FieldInfo[] columns = typeof(SageIeColumns).GetFields();
+
+            foreach (FieldInfo col in columns)
+            {
+                if (col.Name.Contains("ProductRecord"))
+                {
+                    erpColumns.Insert(new Erpcolumn()
+                    {
+                        Name = col.GetValue(col).ToString()
+                    });
+                }
             }
         }
     }

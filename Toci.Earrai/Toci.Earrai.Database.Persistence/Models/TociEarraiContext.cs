@@ -28,6 +28,9 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Density> Densities { get; set; }
         public virtual DbSet<Densitymaterial> Densitymaterials { get; set; }
         public virtual DbSet<Densityopdict> Densityopdicts { get; set; }
+        public virtual DbSet<Erpcolumn> Erpcolumns { get; set; }
+        public virtual DbSet<Erpproduct> Erpproducts { get; set; }
+        public virtual DbSet<Erpproductvalue> Erpproductvalues { get; set; }
         public virtual DbSet<Optionworksheetelement> Optionworksheetelements { get; set; }
         public virtual DbSet<Optionworksheetmap> Optionworksheetmaps { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -52,6 +55,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<Workbook> Workbooks { get; set; }
         public virtual DbSet<Worksheet> Worksheets { get; set; }
         public virtual DbSet<Worksheetcontent> Worksheetcontents { get; set; }
         public virtual DbSet<Worksheetcontentshistory> Worksheetcontentshistories { get; set; }
@@ -67,7 +71,7 @@ namespace Toci.Earrai.Database.Persistence.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
+            modelBuilder.HasAnnotation("Relational:Collation", "Polish_Poland.1250");
 
             modelBuilder.Entity<Action>(entity =>
             {
@@ -270,6 +274,53 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Erpcolumn>(entity =>
+            {
+                entity.ToTable("erpcolumns");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Erpproduct>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("erpproduct");
+
+                entity.Property(e => e.Idproduct).HasColumnName("idproduct");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Productaccountreference).HasColumnName("productaccountreference");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+            });
+
+            modelBuilder.Entity<Erpproductvalue>(entity =>
+            {
+                entity.ToTable("erpproductvalues");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Iderpcolumn).HasColumnName("iderpcolumn");
+
+                entity.Property(e => e.Idproduct).HasColumnName("idproduct");
+
+                entity.Property(e => e.Value).HasColumnName("value");
+
+                entity.HasOne(d => d.IderpcolumnNavigation)
+                    .WithMany(p => p.Erpproductvalues)
+                    .HasForeignKey(d => d.Iderpcolumn)
+                    .HasConstraintName("erpproductvalues_iderpcolumn_fkey");
+
+                entity.HasOne(d => d.IdproductNavigation)
+                    .WithMany(p => p.Erpproductvalues)
+                    .HasForeignKey(d => d.Idproduct)
+                    .HasConstraintName("erpproductvalues_idproduct_fkey");
             });
 
             modelBuilder.Entity<Optionworksheetelement>(entity =>
@@ -694,6 +745,7 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.HasOne(d => d.IdroleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Idrole)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("users_idrole_fkey");
             });
 
@@ -727,6 +779,21 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Workbook>(entity =>
+            {
+                entity.ToTable("workbooks");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Createdat).HasColumnName("createdat");
+
+                entity.Property(e => e.Filename).HasColumnName("filename");
+
+                entity.Property(e => e.Idoffile).HasColumnName("idoffile");
+
+                entity.Property(e => e.Updatedat).HasColumnName("updatedat");
             });
 
             modelBuilder.Entity<Worksheet>(entity =>
