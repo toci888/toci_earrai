@@ -19,9 +19,13 @@ namespace Toci.Earrai.Bll.Erp
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            IExcelDataReader rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream(pathToExcel, FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") });
+            FileStream fs = new FileStream(pathToExcel, FileMode.Open);
+
+            IExcelDataReader rdr = ExcelReaderFactory.CreateOpenXmlReader(fs, new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") });
             
             DataSet dataToImportDs = rdr.AsDataSet();
+
+            fs.Close();
 
             ImportProductsDs(dataToImportDs);
         }

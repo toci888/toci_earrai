@@ -490,6 +490,13 @@ namespace Toci.Earrai.Ui
 
             ShowOnGrid(PricesCommissionsDgv, dgvData);
 
+            DataGridViewElementStates states = DataGridViewElementStates.None;
+           // dgv.ScrollBars = ScrollBars.None;
+            int totalHeight = PricesCommissionsDgv.Rows.GetRowsHeight(states) + PricesCommissionsDgv.ColumnHeadersHeight;
+            totalHeight += PricesCommissionsDgv.Rows.Count * 4; // a correction I need
+            int totalWidth = PricesCommissionsDgv.Columns.GetColumnsWidth(states) + PricesCommissionsDgv.RowHeadersWidth + 5;
+            PricesCommissionsDgv.ClientSize = new System.Drawing.Size(totalWidth, totalHeight);
+
             Controls.Add(PricesCommissionsDgv);
         }
 
