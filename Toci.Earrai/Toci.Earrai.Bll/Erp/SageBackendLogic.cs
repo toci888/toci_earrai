@@ -19,7 +19,7 @@ namespace Toci.Earrai.Bll.Erp
             return allColumns.ToDictionary(column => column.Name, column => column.Id);
         }
 
-        public virtual int InsertEiEntity(List<EiEntity> entities)
+        public virtual int InsertEiEntity(List<EiEntity> entities, int worksheetId) // ?
         {
             Dictionary<string, int> ErpColumns = GetErpColumns();
 
@@ -28,7 +28,8 @@ namespace Toci.Earrai.Bll.Erp
                 Product prod = Products.Insert(new Product()
                 {
                     Productaccountreference = entity.AccountReference,
-                    Description = entity.Description
+                    Description = entity.Description,
+                    Idworksheet = worksheetId
                 });
 
                 foreach (KeyValuePair<string, int> column in ErpColumns)

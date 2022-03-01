@@ -33,7 +33,7 @@ namespace Toci.Earrai.Bll.Erp
 
         public virtual int InsertEiEntity(List<EiEntity> entity)
         {
-            return Sbl.InsertEiEntity(entity);
+            return Sbl.InsertEiEntity(entity, 2); // todo
         }
     }
 }
