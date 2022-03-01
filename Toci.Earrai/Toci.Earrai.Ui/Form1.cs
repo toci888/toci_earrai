@@ -80,6 +80,11 @@ namespace Toci.Earrai.Ui
             {
                 SearchCombosHandler(worksheets.First().Id);
             }
+
+            Type dgvType = excelDataGrid.GetType();
+                      PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                          BindingFlags.Instance | BindingFlags.NonPublic);
+                      pi.SetValue(excelDataGrid, true, null);
         }
 
         protected virtual void SearchCombosHandler(int worksheetId)
