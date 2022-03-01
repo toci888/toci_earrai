@@ -109,7 +109,15 @@ namespace Toci.Earrai.Ui
                                                             //DataGridViewCellEventHandler
         private void excelDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Product p = new Product(ProductsFiltered[e.RowIndex].Product.Id, areas, vendors, LoggedUser, quotesandprices);
+            if (e.RowIndex == -1) // sorting
+            {
+                return;
+            }
+            //ProductsFiltered[e.RowIndex].Product.Id
+
+            int productId = int.Parse(excelDataGrid.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+            Product p = new Product(productId, areas, vendors, LoggedUser, quotesandprices);
             p.Show();
         }
 

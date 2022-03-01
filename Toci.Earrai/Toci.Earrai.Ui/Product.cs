@@ -486,7 +486,7 @@ namespace Toci.Earrai.Ui
                 Controls.Remove(PricesCommissionsDgv);
             }
             
-            PricesCommissionsDgv = Cm.CreateGrid(null, 650, 250, 600, 10);
+            PricesCommissionsDgv = Cm.CreateGrid(null, 750, 250, 600, 10);
 
             ShowOnGrid(PricesCommissionsDgv, dgvData);
 
@@ -563,7 +563,7 @@ namespace Toci.Earrai.Ui
 
         protected virtual void Setup()
         {
-
+            //PricesCommissionsDgv.resize
         }
 
         private void Form1_Load(object sender, EventArgs e)
