@@ -42,6 +42,8 @@ namespace Toci.Earrai.Ui
             validationLabels.Add(emailTextBox, emailValidationLabel);
             validationLabels.Add(passwordTextBox, passwordValidationLabel);
 
+            passwordTextBox.PasswordChar = '*';
+
             foreach (KeyValuePair<TextBox, Label> el in validationLabels)
             {
                 el.Value.Visible = false;
