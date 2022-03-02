@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Client.UI.ToGrid;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Bll.Models.Erp;
 using Toci.ExcelLibrary.Extensions;
 
 namespace Toci.Earrai.Bll.Erp
@@ -82,31 +84,34 @@ namespace Toci.Earrai.Bll.Erp
             //todo based on what create list<productdto> ?
             List<ProductDto> exportDataResult = new List<ProductDto>(); // todo get to api, some condition etc.
 
-            ApiC.ExportToSage(condition);
-
-            Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
+            List<EiEntity> sageData = ApiC.ExportToSage(condition);
 
             List<List<string>> setForExcelData = new List<List<string>>();
 
-            setForExcelData.Add(SageColumnsItemsMap.Select(m => m.Key).ToList());
-
-            foreach (ProductDto item in exportDataResult)
+            foreach (EiEntity sageEl in sageData)
             {
-                List<string> record = new List<string>();
+                List<string> row = new List<string>();
 
-                foreach (KeyValuePair<string, Func<ProductDto, string>> element in SageColumnsItemsMap)
+                PropertyInfo[] props = sageEl.GetType().GetProperties();
+
+                foreach (PropertyInfo p in props)
                 {
-                    record.Add(element.Value(item));
+                    object o = p.GetValue(sageEl);
+
+                    if (o != null)
+                    {
+                        row.Add(o.ToString()); 
+                    }
                 }
 
-                setForExcelData.Add(record);
+                setForExcelData.Add(row);
             }
 
-            setForExcel.Add("SageReportData", setForExcelData);
+            // create header
 
             Workbook wb = new Workbook();
 
-            wb.PopulateWorksheets(setForExcel);
+            wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", setForExcelData } });
 
             FileStream f = new FileStream(excelPath, FileMode.CreateNew);
 

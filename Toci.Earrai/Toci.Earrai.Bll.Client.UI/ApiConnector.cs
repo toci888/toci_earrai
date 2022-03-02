@@ -328,7 +328,7 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public virtual List<EiEntity> ExportToSage(DateTime dateCondition)
         {
-            return ApiGet<List<EiEntity>>("api/sage/exporttosage?dateCondition=" + dateCondition.ToString("dd-mm-yyyy"), true);
+            return ApiGet<List<EiEntity>>("api/sage/exporttosage?dateCondition=" + dateCondition.ToString("dd-MM-yyyy"), true);
         }
     }
 }
