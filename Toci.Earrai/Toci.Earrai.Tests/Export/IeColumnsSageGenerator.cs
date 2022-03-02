@@ -72,7 +72,15 @@ namespace Toci.Earrai.Tests.Export
         }
 
         [TestMethod]
-        public void GenerateErpColumns()
+        public void TestSageExport()
+        {
+            SageLogic sl = new SageLogic();
+
+            List<EiEntity> result = sl.Export(DateTime.Now);
+        }
+
+        [TestMethod]
+        public void GenerateErpColumns() // TODO run on prod
         {
             Logic<Erpcolumn> erpColumns = new Logic<Erpcolumn>();
 

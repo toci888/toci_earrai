@@ -22,20 +22,42 @@ namespace Toci.Earrai.Bll.Erp
 
         public virtual List<EiEntity> Export(DateTime condition)
         {
+            List<EiEntity> result = new List<EiEntity>();
             List<int> productIds = FilterDataToExport(condition);
 
             List<ProductDto> products = productIds.Select(id => ProdLogic.GetProduct(id)).ToList();
 
-            //foreach products
-            // todo get sage data and create eientities
-            //SageProductLogic.Select(m => m.Idproduct == )
+            foreach (ProductDto prod in products)
+            {
+                List<Erpproduct> data = SageProductLogic.Select(m => m.Idproduct == prod.Product.Id).ToList();
 
-            return new List<EiEntity>(); // TODO
+                result.Add(FlattenSageData(data));
+            }
+
+            //todo any business logic about the data HERE
+
+            return result;
+        }
+
+        protected virtual EiEntity FlattenSageData(List<Erpproduct> productDataCollection)
+        {
+            EiEntity result = new EiEntity();
+
+            foreach (Erpproduct item in productDataCollection)
+            {
+                string propName = item.Name.Replace("ProductRecord.", "");
+
+                PropertyInfo propInfo = result.GetType().GetProperty(propName);
+
+                propInfo.SetValue(result, item.Value);
+            }
+
+            return result;
         }
 
         protected virtual List<int> FilterDataToExport(DateTime condition)
         {
-            return new List<int>() { 1, 8 }; //todo
+            return new List<int>() { 727, 728 }; //todo
         }
 
         public virtual int InsertEiEntity(List<EiEntity> entity)
