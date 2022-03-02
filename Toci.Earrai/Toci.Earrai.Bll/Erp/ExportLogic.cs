@@ -77,10 +77,12 @@ namespace Toci.Earrai.Bll.Erp
             return result;
         }
 
-        public virtual void GenerateExportToSageExcel(string excelName, DateTime condition)
+        public virtual void GenerateExportToSageExcel(string excelPath, DateTime condition)
         {
             //todo based on what create list<productdto> ?
             List<ProductDto> exportDataResult = new List<ProductDto>(); // todo get to api, some condition etc.
+
+            //ApiC
 
             Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
 
@@ -106,7 +108,7 @@ namespace Toci.Earrai.Bll.Erp
 
             wb.PopulateWorksheets(setForExcel);
 
-            FileStream f = new FileStream("D:\\" + excelName + ".xlsx", FileMode.CreateNew);
+            FileStream f = new FileStream(excelPath, FileMode.CreateNew);
 
             wb.Save(f);
             f.Close();

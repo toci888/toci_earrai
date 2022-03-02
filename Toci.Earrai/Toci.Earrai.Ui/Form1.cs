@@ -297,7 +297,16 @@ namespace Toci.Earrai.Ui
 
         private void sageExportButton_Click(object sender, EventArgs e)
         {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel files | *.xlsx";
+            sfd.DefaultExt = "xlsx";
+            sfd.FileName = "SageExport_" + DateTime.Now.ToString("dd-mm-yyyy");
 
+            DialogResult dr = sfd.ShowDialog();
+
+            ExportLogic el = new ExportLogic();
+
+            el.GenerateExportToSageExcel(sfd.FileName, DateTime.Now);
         }
 
         private void sageImportButton_Click(object sender, EventArgs e)
