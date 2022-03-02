@@ -1,4 +1,4 @@
-drop table ErpColumnValues;
+drop table ErpProductValues cascade;
 drop table ErpColumns;
 
 
@@ -22,3 +22,6 @@ select products.productaccountreference, ErpColumns.name, ErpProductValues.value
 from products join ErpProductValues on products.id = ErpProductValues.idProduct
 join ErpColumns on ErpColumns.id = ErpProductValues.idErpColumn;
 
+select * from ErpColumns;
+select * from ErpProductValues;
+select * from ErpProduct;
