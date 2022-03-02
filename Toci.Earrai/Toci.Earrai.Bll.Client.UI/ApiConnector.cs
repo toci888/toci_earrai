@@ -326,9 +326,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
 
-        public virtual List<ProductDto> ExportToSage(DateTime dateCondition)
+        public virtual List<EiEntity> ExportToSage(DateTime dateCondition)
         {
-            return ApiGet<List<ProductDto>>("api/sage/exporttosage", true);
+            return ApiGet<List<EiEntity>>("api/sage/exporttosage?dateCondition=" + dateCondition.ToString("dd-mm-yyyy"), true);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Toci.Earrai.Microservice.Controllers
 
         // get data to export by datetime = x vs price return List<ProductDto> => jest gotowa logika zasysania calego atomowego preoductdto
         [HttpGet("ExportToSage")]
-        public ActionResult<List<ProductDto>> GetProductsToExportToSage(DateTime dateCondition)
+        public ActionResult<List<EiEntity>> GetProductsToExportToSage(DateTime dateCondition)
         {
             return Ok(Logic.Export(dateCondition));
         }

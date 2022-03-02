@@ -82,7 +82,7 @@ namespace Toci.Earrai.Bll.Erp
             //todo based on what create list<productdto> ?
             List<ProductDto> exportDataResult = new List<ProductDto>(); // todo get to api, some condition etc.
 
-            //ApiC
+            ApiC.ExportToSage(condition);
 
             Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
 

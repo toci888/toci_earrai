@@ -18,17 +18,24 @@ namespace Toci.Earrai.Bll.Erp
     {
         IProductLogic ProdLogic = new ProductLogic();
         SageBackendLogic Sbl = new SageBackendLogic();
+        Logic<Erpproduct> SageProductLogic = new Logic<Erpproduct>();
 
-        public virtual List<ProductDto> Export(DateTime condition)
+        public virtual List<EiEntity> Export(DateTime condition)
         {
             List<int> productIds = FilterDataToExport(condition);
 
-            return productIds.Select(id => ProdLogic.GetProduct(id)).ToList();
+            List<ProductDto> products = productIds.Select(id => ProdLogic.GetProduct(id)).ToList();
+
+            //foreach products
+            // todo get sage data and create eientities
+            //SageProductLogic.Select(m => m.Idproduct == )
+
+            return new List<EiEntity>(); // TODO
         }
 
         protected virtual List<int> FilterDataToExport(DateTime condition)
         {
-            return new List<int>() { 1, 8 };
+            return new List<int>() { 1, 8 }; //todo
         }
 
         public virtual int InsertEiEntity(List<EiEntity> entity)
