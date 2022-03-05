@@ -14,6 +14,7 @@ namespace Toci.Earrai.Ui
 {
     public partial class AddUser : Form
     {
+        private Users usersForm;
         protected DataManager Dm = new DataManager();
         protected Dictionary<string, RadioButton> privelegeButtons = new();
         protected Dictionary<string, PrivilegesEnum> privilegesMap = new Dictionary<string, PrivilegesEnum>()
@@ -26,7 +27,7 @@ namespace Toci.Earrai.Ui
 
         protected Dictionary<TextBox, Label> validationLabels = new Dictionary<TextBox, Label>();
 
-        public AddUser()
+        public AddUser(Users usersForm)
         {
             InitializeComponent();
 
@@ -48,6 +49,8 @@ namespace Toci.Earrai.Ui
             {
                 el.Value.Visible = false;
             }
+
+            this.usersForm = usersForm;
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -86,6 +89,7 @@ namespace Toci.Earrai.Ui
             if (Dm.CreateUser(user) > 0)
             {
                 MessageBox.Show("Account created.", "", MessageBoxButtons.OK);
+                usersForm.UpdateUsers();
 
                 Hide();
             }

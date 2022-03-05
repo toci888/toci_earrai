@@ -29,11 +29,10 @@ namespace Toci.Earrai.Ui
             { "Pc", PrivilegesEnum.Pc },
             { "Admin", PrivilegesEnum.Admin }
         };
+
         public Users()
         {
             InitializeComponent();
-
-            users = Dm.GetAllUsers();
 
             Setup();
         }
@@ -47,7 +46,8 @@ namespace Toci.Earrai.Ui
 
             allUsers.ValueMember = "Id";
             allUsers.DisplayMember = "Email";
-            allUsers.DataSource = users;
+
+            UpdateUsers();
         }
 
         private void allUsers_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,7 +82,7 @@ namespace Toci.Earrai.Ui
 
         private void newUserButton_Click(object sender, EventArgs e)
         {
-            AddUser addUser = new AddUser();
+            AddUser addUser = new AddUser(this);
             addUser.Show();
         }
 
@@ -98,6 +98,14 @@ namespace Toci.Earrai.Ui
             {
                 MessageBox.Show("An unknown error while changing of the password.", "", MessageBoxButtons.OK);
             }
+        }
+
+        public int UpdateUsers()
+        {
+            users = Dm.GetAllUsers();
+            allUsers.DataSource = users;
+
+            return 1;
         }
     }
 }
