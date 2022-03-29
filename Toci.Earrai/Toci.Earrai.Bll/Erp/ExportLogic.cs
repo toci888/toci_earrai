@@ -38,11 +38,14 @@ namespace Toci.Earrai.Bll.Erp
 
                 List<List<string>> resultSet = new List<List<string>>();
 
-                resultSet.Add(dataOfWorksheet.First().Select(m => m.Name).ToList());
+                if (dataOfWorksheet.Count > 0)
+                {
+                    resultSet.Add(dataOfWorksheet.First().Select(m => m.Name).ToList());
 
-                resultSet.AddRange(GetFlattenedToStringData(dataOfWorksheet));
+                    resultSet.AddRange(GetFlattenedToStringData(dataOfWorksheet));
 
-                setForExcel.Add(WorksheetsIds.AllWorksheetsNames[worksheetProducts.Key], resultSet);
+                    setForExcel.Add(WorksheetsIds.AllWorksheetsNames[worksheetProducts.Key], resultSet);
+                }
             }
 
             Workbook wb = new Workbook();

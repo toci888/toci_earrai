@@ -161,7 +161,13 @@ export default function ProductsList({ route, navigation }) {
     }
     
     const loadAllData = async () => {
-        restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response));    
+        setloading(true)
+        restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
+        .catch(error => {
+            console.log(error)
+        }).finally(() => {
+            setloading(false)
+        });
     }
 
     const selectValue = (idx_) => {

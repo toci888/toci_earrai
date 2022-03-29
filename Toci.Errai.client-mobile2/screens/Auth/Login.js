@@ -7,7 +7,6 @@ import * as yup from 'yup';
 import RestClient from '../../shared/RestClient';
 import { environment } from '../../environment';
 import ErrorEntity  from '../../ErrorHandling/ErrorEntity';
-import AsyncStorage from '@react-native-community/async-storage'
 
 export default function Login({navigation}) {
 
@@ -43,7 +42,6 @@ export default function Login({navigation}) {
         console.log("Your username or password may be incorrect");
       } else if(response) {
         AppUser.setUserData(response);
-        // AsyncStorage.setItem(AppUser.userName, response.token);
         AppUser.logIn(response.id, response.token);
         navigation.navigate('WorksheetsList');
       }

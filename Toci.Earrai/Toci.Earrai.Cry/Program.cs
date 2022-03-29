@@ -11,6 +11,7 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Warehouse;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Tests;
+using Toci.Earrai.Tests.Export;
 using Toci.Earrai.Tests.Import.Excel;
 using Toci.Microsoft.Graph.Excel;
 //using Workbook = Toci.Earrai.Database.Persistence.Models.Workbook;
@@ -42,6 +43,7 @@ namespace OneDriveWithMSGraph {
                 Console.WriteLine("5. Seed the db by excel file");
                 Console.WriteLine("6. The test of updating excel cells");
                 Console.WriteLine("7. Seed the db");
+                Console.WriteLine("8. Seed sage tables");
                 try {
                     choice = int.Parse(Console.ReadLine());
                 } catch (System.FormatException) {
@@ -103,6 +105,13 @@ namespace OneDriveWithMSGraph {
                         SeedDb seedDb = new SeedDb();
 
                         seedDb.SeedAllDb();
+                        Console.WriteLine("Finished");
+                        break;
+                    case 8:
+                        IeColumnsSageGenerator csg = new IeColumnsSageGenerator();
+
+                        csg.GenerateErpColumns();
+
                         Console.WriteLine("Finished");
                         break;
                     default:

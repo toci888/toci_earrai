@@ -1,5 +1,4 @@
 import { environment } from '../environment';
-import AsyncStorage from '@react-native-community/async-storage'
 import AppUser from '../shared/AppUser'
 
 export default class RestClient {
