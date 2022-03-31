@@ -95,12 +95,12 @@ export default function WorksheetsList({ route, navigation }) {
                                     return(
                                         <View onClick={ () => showWorksheets(item) } style={{flexDirection: 'row'}} key={k}>
                                             <View style={{width: 40}}>
-
+                                            <TouchableOpacity onPress={ () => showWorksheets(item) }>
                                                 <Image
                                                     style={{height: 30, width: 30}}
                                                     source={x}
                                                 />
-
+                                            </TouchableOpacity>
                                             </View>
                                             </View>
                                     )
