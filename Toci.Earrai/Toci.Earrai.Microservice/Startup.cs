@@ -58,6 +58,9 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<ISageLogic, SageLogic>();
 
             services.AddSingleton(authenticationSettings);
+
+            services.AddResponseCompression();
+
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = "Bearer";
@@ -89,6 +92,8 @@ namespace Toci.Earrai.Microservice
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
