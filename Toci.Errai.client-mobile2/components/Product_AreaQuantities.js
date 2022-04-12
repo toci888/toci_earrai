@@ -15,20 +15,30 @@ export default function Product_AreaQuantities(props) {
     const deleteData = (index_) => {
 
         let x = props.areaQuantities[index_]
-        console.log(x)
+        // console.log(x)
 
         props.setloading(true)
 
-        restClient.DELETE(deleteUrl(x['id'], deleteRequestParams(x['id'])).then( x => {
-            console.log(x);
+        console.log("111111111111111111");
+        console.log(deleteUrl(x['id']));
+        console.log("1111111111111111112222222222222222222");
+        console.log(deleteRequestParams(x['id']));
+
+        restClient.DELETE(deleteUrl(x['id']), deleteRequestParams(x['id'])).then( x => {
+            console.log("22222222222222222222222");
+            // console.log(x);
             props.deleteProduct(index_);
+            console.log("3333333333333333333333");
             Alert.alert("OK", "Area Quantity deleted", [ { onPress: () => console.log("OK") } ]);
+            console.log("44444444444444444444444444");
         }).catch(error => {
             console.log(error);
             Alert.alert("Error", "Something went wrong",[ { onPress: () => console.log("OK") } ]);
         }).finally(data => {
+            console.log("5555555555555555555555");
             props.setloading(false)
-        }));
+        });
+        console.log("666666666666666666666666");
     }
 
     const updateData = (index_) => {
@@ -107,7 +117,12 @@ export default function Product_AreaQuantities(props) {
                     </DataTable.Cell>
                     <DataTable.Cell key={i + "delete"} style={productCSS.gridShort}>
                         <Text>
-                            <TouchableOpacity style={productCSS.button} onPress={() => deleteData(i)}>
+                            <TouchableOpacity style={productCSS.button} onPress={() => {
+                                Alert.alert("Delete", "Are you sure?", [
+                                    {text:"Yes", onPress: () => deleteData(i)},
+                                    {text:"No"}
+                                ])
+                            }}>
                                 <Text style={productCSS.text}>DELETE</Text>
                             </TouchableOpacity>
                         </Text>
