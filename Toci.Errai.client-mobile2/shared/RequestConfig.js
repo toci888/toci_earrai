@@ -58,7 +58,7 @@ export function getProductsFromWorksheet(worksheetId, phrase, skip) {
 export const getAllWorksheetsUrl = "api/Worksheet/GetAllWorksheetsFromDb"
 
 export function getAllProductsByWorksheet(worksheetId) {
-    return "api/Product/GetProducts/" + worksheetId
+    return "api/Product/GetProducts/" + worksheetId + "?IsMobileRequest=true"
 }
 
 export const getAreasUrl = 'api/Areas';
