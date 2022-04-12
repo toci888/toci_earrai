@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { Text, View, TextInput, ScrollView, Pressable, Image } from 'react-native'
 import { ProductStyle as ps } from '../styles/ProductStyle'
 import { DataTable } from 'react-native-paper'
-import { modalStyles } from '../styles/modalStyles'
+
 import AppUser from '../shared/AppUser'
 import {
     getAllProductsByWorksheet,
@@ -22,6 +22,7 @@ import {
 import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_AreaQuantityInputsStyle'
 import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 import RestClient from '../shared/RestClient';
+import Waiter from '../shared/Waiter'
 
 let availableValues = []
 
@@ -47,6 +48,7 @@ export default function ProductsList({ route, navigation }) {
     const [availableTypesOfSearch, setAvailableTypesOfSearch] = useState([])
 
     let restClient = new RestClient();
+    let waiter = Waiter(true);
 
     useEffect(() => {
 
@@ -189,13 +191,8 @@ export default function ProductsList({ route, navigation }) {
 
     return (
         <ScrollView style={globalStyles.content}>
-
-            { loading && (
-                <View style={modalStyles.tempContainer}>
-                    <Text style={modalStyles.tempText}>Wait..</Text>
-                </View>
-            )}
-
+{ loading && waiter }
+          
             <View style={{height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{fontSize: 17, fontWeight: 'bold'}}>{ navigation.getParam('worksheetName')}</Text>
 

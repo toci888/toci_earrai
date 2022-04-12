@@ -20,7 +20,7 @@ namespace Toci.Earrai.Bll.Search
 
         protected virtual List<Product> GetProductsBasic(ProductSearchRequestDto request)
         {
-            return ProductLogic.Select(prod => prod.Description.Contains(request.Name) && prod.Idworksheet == request.WorksheetId).ToList();
+            return ProductLogic.Select(prod => prod.Idworksheet == request.WorksheetId).ToList();
         }
 
         protected virtual List<Productsoptionsstate> GetOptions(string option, string value)

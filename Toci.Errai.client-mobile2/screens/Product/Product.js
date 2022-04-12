@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Text, View, ScrollView, Image } from 'react-native'
 import AppUser from '../../shared/AppUser'
-import { modalStyles } from '../../styles/modalStyles'
 import ProductPrices from './ProducPrices'
 import ProductSizes from './productSizes'
 import { getAreasQuantitiesByProduct, getProductUrl } from '../../shared/RequestConfig'
@@ -15,6 +14,7 @@ import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
 import  Product_Commisions  from './../../components/Product_Commisions'
 import RestClient from '../../shared/RestClient';
+import Waiter from '../../shared/Waiter'
 
 export default function Product({ route, navigation }) {
 
@@ -26,7 +26,7 @@ export default function Product({ route, navigation }) {
     })
 
     const [areas, setareas] = useState([])
-    const [btnvalueHook, setbtnvalueHook] = useState("ADD")
+    const [btnvalueHook, setbtnvalueHook] = useState("Add")
     const [UpdatingIndex, setUpdatingIndex] = useState(null)
     const [loading, setloading] = useState(true)
     const [tempAreaquantityRow, settempAreaquantityRow] = useState({
@@ -43,6 +43,7 @@ export default function Product({ route, navigation }) {
     })
 
     let restClient = new RestClient();
+    let waiter = Waiter(true);
 
     useEffect( () => {
 
@@ -82,7 +83,7 @@ export default function Product({ route, navigation }) {
             }
         })
 
-        setbtnvalueHook("ADD")
+        setbtnvalueHook("Add")
     }
 
     const fetchAreas = () => {
@@ -138,7 +139,7 @@ export default function Product({ route, navigation }) {
                 updatedat: null,
             }
         })
-        setbtnvalueHook("ADD")
+        setbtnvalueHook("Add")
     }
 
     return (
@@ -161,11 +162,7 @@ export default function Product({ route, navigation }) {
                 <Text style={{textAlign: 'center'}} >No Image</Text>
             }
 
-            { loading && (
-                <View style={modalStyles.tempContainer}>
-                    <Text style={modalStyles.tempText}>Wait..</Text>
-                </View>
-            )}
+            { loading && waiter }
 
             <ProductDetails product={ProductHook?.product} />
 

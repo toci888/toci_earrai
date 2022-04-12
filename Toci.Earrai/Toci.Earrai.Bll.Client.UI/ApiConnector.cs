@@ -28,7 +28,7 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public virtual List<ProductDto> GetProductsByWorksheetId(string worksheetId)
         {
-            return ApiGet<List<ProductDto>>("api/Product/GetProducts/" + worksheetId, true);
+            return ApiGet<List<ProductDto>>("api/Product/GetProducts/" + worksheetId + "?IsMobileRequest=false", true);
         }
 
         public virtual ProductDto GetProduct(int productId)

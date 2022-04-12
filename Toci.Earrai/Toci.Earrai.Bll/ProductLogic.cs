@@ -61,7 +61,7 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public List<ProductDto> GetProductsByWorksheet(int worksheetId) 
+        public virtual  List<ProductDto> GetProductsByWorksheet(int worksheetId) 
         {
             List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
 

@@ -9,6 +9,7 @@ using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Bll.Search;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Bll;
 
 namespace Toci.Earrai.Microservice.Controllers
 {
@@ -25,9 +26,17 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(Logic.GetProduct(productId));
         }
 
-        [Authorize(Roles = PrivelegesRoles.Office)]
+        //[Authorize(Roles = PrivelegesRoles.Office)]
         [HttpGet("GetProducts/{worksheetId}")]
-        public ActionResult<List<ProductDto>> GetProductsByWorksheet(int worksheetId) {
+        public ActionResult<List<ProductDto>> GetProductsByWorksheet(int worksheetId, bool IsMobileRequest = true) {
+
+            if (IsMobileRequest)
+            {
+                IProductLogic mobileLogic = new ProductMobileLogic();
+
+                return mobileLogic.GetProductsByWorksheet(worksheetId);
+            }
+
             return Ok(Logic.GetProductsByWorksheet(worksheetId));
         }
 

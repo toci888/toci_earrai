@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput, Image } from 'react-native'
-import { modalStyles } from '../styles/modalStyles'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
 import RestClient from '../shared/RestClient';
+import Waiter from '../shared/Waiter'
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -18,6 +18,7 @@ export default function WorksheetsList({ route, navigation }) {
     const [apierror, setApierror] = useState(false)
 
     let restClient = new RestClient();
+    let waiter = Waiter(true);
 
     useEffect( () => {
         setloading(true);
@@ -66,11 +67,7 @@ export default function WorksheetsList({ route, navigation }) {
 
     return (
         <View style={ globalStyles.content }>
-            { loading && (
-                <View style={modalStyles.tempContainer}>
-                    <Text style={modalStyles.tempText}>Wait..</Text>
-                </View>
-            )}
+            { loading && waiter }
             <Text style={globalStyles.chooseWorkbookHeader}> All Worksheets </Text>
             <View>
                 <TextInput
@@ -98,12 +95,12 @@ export default function WorksheetsList({ route, navigation }) {
                                     return(
                                         <View onClick={ () => showWorksheets(item) } style={{flexDirection: 'row'}} key={k}>
                                             <View style={{width: 40}}>
-
+                                            <TouchableOpacity onPress={ () => showWorksheets(item) }>
                                                 <Image
                                                     style={{height: 30, width: 30}}
                                                     source={x}
                                                 />
-
+                                            </TouchableOpacity>
                                             </View>
                                             </View>
                                     )
