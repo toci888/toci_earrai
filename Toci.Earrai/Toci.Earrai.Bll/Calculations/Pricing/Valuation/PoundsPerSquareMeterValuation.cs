@@ -19,7 +19,23 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             };
         }
 
-        protected virtual double GetPoundsPerSheet(ProductDto product, double poundsPerSquareMeter)
+        public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerMeter(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override double GetPoundsPerSheet(ProductDto product, double poundsPerSquareMeter)
         {
             Productssize widthEnt = product.Sizes.Where(m => m.Name == Consts.Width).FirstOrDefault();
             Productssize lengthEnt = product.Sizes.Where(m => m.Name == Consts.Length).FirstOrDefault();

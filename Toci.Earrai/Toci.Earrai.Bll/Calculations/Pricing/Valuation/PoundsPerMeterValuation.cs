@@ -18,6 +18,26 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             };
         }
 
+        public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerMeter(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
         protected virtual double GetPoundsPerTonne(ProductDto product, double poundsPerMeter)
         {
             double kgPerMeter = product.Pricing.KgPerMeter.HasValue ? product.Pricing.KgPerMeter.Value : 0;

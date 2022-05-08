@@ -33,7 +33,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             return poundsPerMeterSquared / kgPerSqrtMeter * 1000;
         }
 
-        protected virtual double GetPoundsPerMeterSquared(ProductDto product, double poundsPerSheet)
+        public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerSheet)
         {
             Productssize widthEnt = product.Sizes.Where(m => m.Name == Consts.Width).FirstOrDefault();
             Productssize lengthEnt = product.Sizes.Where(m => m.Name == Consts.Length).FirstOrDefault();
@@ -60,5 +60,22 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
             return poundsPerSheet / divisor * 1000000;
         }
+
+        public override double GetPoundsPerMeter(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

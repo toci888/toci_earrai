@@ -26,6 +26,16 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             return result;
         }
 
+        public abstract double GetPoundsPerMeter(ProductDto product, double poundsPerTonne);
+
+        public abstract double GetPoundsPerLength(ProductDto product, double poundsPerTonne);
+
+        public abstract double GetPoundsPerSheet(ProductDto product, double poundsPerTonne);
+
+        public abstract double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne);
+
+
+
         protected virtual double GetPriceFromProduct(ProductDto product, string valuation) // unneeded
         {
             Quotesandprice priceValuation = product.Quotesandprices.Where(m => m.Valuation == valuation).FirstOrDefault(); // TODO correct one, last or ? 

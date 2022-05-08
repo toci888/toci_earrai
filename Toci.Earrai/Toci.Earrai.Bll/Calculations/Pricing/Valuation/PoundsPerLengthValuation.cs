@@ -28,9 +28,24 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             return GetPoundsPerMeter(product, poundsPerLength) / product.Pricing.KgPerMeter.Value * 1000;
         }
 
-        protected virtual double GetPoundsPerMeter(ProductDto product, double poundsPerLength)
+        public override double GetPoundsPerMeter(ProductDto product, double poundsPerLength)
         {
             return poundsPerLength / Clp.GetCategoryLength(product.Product.Idcategories.Value);
+        }
+
+        public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
+        {
+            throw new NotImplementedException();
         }
     }
 }

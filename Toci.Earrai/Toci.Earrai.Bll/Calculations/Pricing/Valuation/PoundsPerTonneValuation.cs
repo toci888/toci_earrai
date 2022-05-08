@@ -22,7 +22,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             };
         }
 
-        protected virtual double GetPoundsPerMeter(ProductDto product, double poundsPerTonne)
+        public override double GetPoundsPerMeter(ProductDto product, double poundsPerTonne)
         {
             double kgPerM = GetKgPerMeter(product);
 
@@ -35,7 +35,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             // return product.Pricing.PoundsPerMeter.Value / GetKgPerMeter(product) * 1000;
         }
 
-        protected virtual double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
+        public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
         {
             if (PricePoundsPerMeter == 0)
             {
@@ -45,12 +45,12 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
             return PricePoundsPerMeter * Clp.GetCategoryLength(product.Product.Idcategories.Value);
         }
 
-        protected virtual double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
+        public override double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
         {
             return poundsPerTonne / 1000 * (product.Pricing.kgPerSheet.HasValue ? product.Pricing.kgPerSheet.Value : 0);
         }
 
-        protected virtual double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
+        public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
         {
             double kgPerSqrtMeter = product.Pricing.kgPerSqrtMeter.HasValue ? product.Pricing.kgPerSqrtMeter.Value : 0;
 

@@ -23,6 +23,15 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
             { CalculationsConsts.LPerTonne, (dto, valuation) => { dto.PoundsPerTonne = valuation; return dto; } },
         };
 
+        protected Dictionary<string, ValuationBase> ValuationsCalculationMap = new Dictionary<string, ValuationBase>()
+        {
+            { CalculationsConsts.LPerLength, new PoundsPerLengthValuation() },
+            { CalculationsConsts.LPerMeter, new PoundsPerMeterValuation() },
+            { CalculationsConsts.LPerSheet, new PoundsPerSheetValuation() },
+            { CalculationsConsts.LPerSquareMeter, new PoundsPerSquareMeterValuation() },
+            { CalculationsConsts.LPerTonne, new PoundsPerTonneValuation() },
+        };
+
         public virtual PricingDto GetPrices(ProductDto product) //product
         {
             PricingDto dto = new PricingDto();
@@ -102,10 +111,19 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected virtual PricingDto KgPerSheet(ProductDto product, PricingDto dto) { return dto; }
 
-        protected virtual PricingDto PoundPerSheet(ProductDto product, PricingDto dto) { return dto; }
+        protected virtual PricingDto PoundPerSheet(ProductDto product, PricingDto dto) 
+        {
+            ValuationsCalculationMap[CalculationsConsts.LPerSheet].GetPoundsPerSheet(product, dto.PoundsPerTonne.Value);
 
-        protected virtual PricingDto PoundsPerMeter(ProductDto product, PricingDto dto) { return dto; }
+            return dto; 
+        }
 
+        protected virtual PricingDto PoundsPerMeter(ProductDto product, PricingDto dto)
+        {
+            ValuationsCalculationMap[CalculationsConsts.LPerMeter].GetPoundsPerMeter(product, dto.PoundsPerTonne.Value);
+
+            return dto;
+        }
         protected virtual PricingDto GetPricesFromProduct(ProductDto product, PricingDto pricingDto)
         {
             List<Quotesandprice> pricesValuation = product.Quotesandprices.OrderByDescending(m => m.Createdat).ToList();
