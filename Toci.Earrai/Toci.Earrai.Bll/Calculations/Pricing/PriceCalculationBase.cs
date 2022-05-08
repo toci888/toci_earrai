@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Calculations.Pricing.ParametersProviders;
 using Toci.Earrai.Bll.Calculations.Pricing.Valuation;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
@@ -12,6 +13,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
     public abstract class PriceCalculationBase
     {
         protected const int DensityFormKgPerSqrtMeter = 7500;
+
+        protected ParameterProviderBase paramsProvBase = new SelfParameterProvider();
 
         // 5 metod wg enum
         protected Dictionary<string, Func<PricingDto, double, PricingDto>> ValuationsMap = new Dictionary<string, Func<PricingDto, double, PricingDto>>()
@@ -25,6 +28,9 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         public virtual PricingDto GetPrices(ProductDto product) //product
         {
+            product = paramsProvBase.FillWidthAndLength(product);
+            product = paramsProvBase.FillMissingOptions(product);
+
             PricingDto dto = new PricingDto();
 
             // wyw tych 5 metod i zasilenie dto
@@ -37,8 +43,6 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
             dto = GetPricesFromProduct(product, dto);
 
-            
-            
             return dto;
         }
 

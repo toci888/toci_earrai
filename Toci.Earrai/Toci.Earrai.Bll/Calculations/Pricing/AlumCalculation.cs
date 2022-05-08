@@ -51,6 +51,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             return dto;
         }
 
+        
 
         // total Sqrt Meters(m2) = SUMA areaQ1(LxW * Qty) + areaQ2(LxW * Qty)
 
