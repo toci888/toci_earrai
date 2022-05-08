@@ -50,14 +50,19 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             var x_ = product.Prices.Where(price => price.Name == CalculationsConsts.PoundsPerTonne).FirstOrDefault();
             if (x_ == null) { return dto; }
             if (x_.Price == "") { return dto; }
-            double x = Convert.ToDouble(x_.Price);
+            double price = 0;
+            double.TryParse(x_.Price, out price);
 
             var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault(); // TODO option or calc?
             if (y_ == null) { return dto; }
             if (y_.Value == "") { return dto; }
-            double y = Convert.ToDouble(y_.Value);
+            double kgm = 0;
+            double.TryParse(y_.Value, out kgm);
 
-            dto.PoundsPerMeter = (x / 1000) / y; // TODO / 1000000 ?
+            if (kgm != 0)
+            {
+                dto.PoundsPerMeter = (price / 1000) / kgm; // TODO / 1000000 ?
+            }
 
             return dto; 
         }

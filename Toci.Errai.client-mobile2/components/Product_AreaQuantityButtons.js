@@ -12,8 +12,8 @@ export default function Product_AreaQuantityButtons(props) {
     const sendRequest = () => {
         console.log(2)
 
-        if(props.tempAreaquantityRow == "" || props.tempAreaquantityRow.quantity == "" || props.tempAreaquantityRow.width == "") {
-            Alert.alert("Form not field", "Please fill in the form");
+        if(props.tempAreaquantityRow.length == "" || props.tempAreaquantityRow.quantity == "" || props.tempAreaquantityRow.width == "") {
+            Alert.alert("Form not filled", "Please fill in the form");
             return;
         }
 
