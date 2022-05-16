@@ -54,7 +54,7 @@ export default function Product({ route, navigation }) {
         restClient.GET(getProductUrl(navigation.getParam('productId'))).then(x => {
             console.log(x)
             setProduct(x)
-    
+            initAreaQuantities(x)
             settempAreaquantityRow(prev => {
                 return { ...prev, idproducts: x.product.id }
             }
