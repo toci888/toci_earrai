@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
 using Toci.Earrai.Bll.Calculations.Pricing.ParametersProviders;
 using Toci.Earrai.Bll.Calculations.Pricing.Valuation;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -19,11 +21,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         // 5 metod wg enum
         protected Dictionary<string, Func<PricingDto, double, PricingDto>> ValuationsMap = new Dictionary<string, Func<PricingDto, double, PricingDto>>()
         {
-            { CalculationsConsts.LPerLength, (dto, valuation) => { dto.PoundsPerLength = valuation; return dto; } },
-            { CalculationsConsts.LPerMeter, (dto, valuation) => { dto.PoundsPerMeter = valuation; return dto; }  },
-            { CalculationsConsts.LPerSheet, (dto, valuation) => { dto.PoundsPerSheet = valuation; return dto; }  },
-            { CalculationsConsts.LPerSquareMeter, (dto, valuation) => { dto.PoundsPerSquareMeter = valuation; return dto; }  },
-            { CalculationsConsts.LPerTonne, (dto, valuation) => { dto.PoundsPerTonne = valuation; return dto; } },
+            { CalculationsConsts.LPerLength, (dto, valuation) => { dto.PoundsPerLength = DoubleUtils.RoundDouble(valuation, DoubleConstants.NumOfDecimalPlaces); return dto; } },
+            { CalculationsConsts.LPerMeter, (dto, valuation) => { dto.PoundsPerMeter = DoubleUtils.RoundDouble(valuation, DoubleConstants.NumOfDecimalPlaces); return dto; }  },
+            { CalculationsConsts.LPerSheet, (dto, valuation) => { dto.PoundsPerSheet = DoubleUtils.RoundDouble(valuation, DoubleConstants.NumOfDecimalPlaces); return dto; }  },
+            { CalculationsConsts.LPerSquareMeter, (dto, valuation) => { dto.PoundsPerSquareMeter = DoubleUtils.RoundDouble(valuation, DoubleConstants.NumOfDecimalPlaces); return dto; }  },
+            { CalculationsConsts.LPerTonne, (dto, valuation) => { dto.PoundsPerTonne = DoubleUtils.RoundDouble(valuation, DoubleConstants.NumOfDecimalPlaces); return dto; } },
         };
 
         public virtual PricingDto GetPrices(ProductDto product) //product
@@ -45,6 +47,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
             return dto;
         }
+
+        protected abstract PricingDto GetStockTakeValue(ProductDto product, PricingDto dto);
 
         protected virtual double GetAreasQuantitySquareMeters(ProductDto product, bool inclWidth = true)
         {
@@ -72,6 +76,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                     }
                 }
 
+                result = DoubleUtils.RoundDouble(result, DoubleConstants.NumOfDecimalPlaces);
+
                 return result;
             }
 
@@ -96,7 +102,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                     result += length * quantity;
                 }
 
-                return result;
+                return DoubleUtils.RoundDouble(result, DoubleConstants.NumOfDecimalPlaces);
             }
 
             return 0;

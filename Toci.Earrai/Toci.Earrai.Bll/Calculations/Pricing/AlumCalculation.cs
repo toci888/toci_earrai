@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -14,13 +16,13 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
         {
             PricingDto dto = base.GetPrices(product);
 
-            dto.TotalSquareMeters = GetAreasQuantitySquareMeters(product);
+            dto.TotalSquareMeters = DoubleUtils.RoundDouble(GetAreasQuantitySquareMeters(product), DoubleConstants.NumOfDecimalPlaces);
             dto = GetStockTakeValue(product, dto);
 
             return dto;
         }
 
-        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
             double width = 0;
             double length = 0;
@@ -39,7 +41,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
                 if (lwResult != 0)
                 {
-                    dto.StockTakeValue = dto.TotalSquareMeters * dto.PoundsPerSheet / lwResult;
+                    dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalSquareMeters.Value * dto.PoundsPerSheet.Value / lwResult, DoubleConstants.NumOfDecimalPlaces);
                 }
             }
 

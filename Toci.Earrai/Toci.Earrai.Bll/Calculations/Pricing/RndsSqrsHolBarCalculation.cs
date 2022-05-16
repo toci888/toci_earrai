@@ -19,7 +19,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             return dto;
         }
 
-        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
             double kgPerMeter = 0;
 

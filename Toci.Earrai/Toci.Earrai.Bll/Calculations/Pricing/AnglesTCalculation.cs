@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
@@ -12,15 +14,15 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
         {
             PricingDto dto = base.GetPrices(product);
 
-            dto.TotalMeters = GetAreasQuantityTotalMeters(product);
+            dto.TotalMeters = DoubleUtils.RoundDouble(GetAreasQuantityTotalMeters(product), DoubleConstants.NumOfDecimalPlaces);
             dto = GetStockTakeValue(product, dto);
 
             return dto;
         }
 
-        protected virtual PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
+        protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = dto.PoundsPerMeter * dto.TotalMeters;
+            dto.StockTakeValue = DoubleUtils.RoundDouble(dto.PoundsPerMeter.Value * dto.TotalMeters.Value, DoubleConstants.NumOfDecimalPlaces);
 
             return dto;
         }
@@ -45,10 +47,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
             if (kmperm != 0)
             {
-                dto.PoundsPerMeter = (price / 1000) / kmperm;
+                dto.PoundsPerMeter = DoubleUtils.RoundDouble((price / 1000) / kmperm, DoubleConstants.NumOfDecimalPlaces);
             }
 
-            dto.PoundsPerLength = dto.PoundsPerMeter * 6.2;  
+            dto.PoundsPerLength = DoubleUtils.RoundDouble(dto.PoundsPerMeter.Value * 6.2, DoubleConstants.NumOfDecimalPlaces);  
 
             return dto; // TODO MAKES CALCULATIONS TWO AT ONE
         }
