@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
@@ -25,12 +27,12 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
                 return 0; 
             }
 
-            return GetPoundsPerMeter(product, poundsPerLength) / product.Pricing.KgPerMeter.Value * 1000;
+            return DoubleUtils.RoundDouble(GetPoundsPerMeter(product, poundsPerLength) / product.Pricing.KgPerMeter.Value * 1000, DoubleConstants.NumOfDecimalPlaces);
         }
 
         protected virtual double GetPoundsPerMeter(ProductDto product, double poundsPerLength)
         {
-            return poundsPerLength / Clp.GetCategoryLength(product.Product.Idcategories.Value);
+            return DoubleUtils.RoundDouble(poundsPerLength / Clp.GetCategoryLength(product.Product.Idcategories.Value), DoubleConstants.NumOfDecimalPlaces);
         }
     }
 }

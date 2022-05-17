@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
@@ -26,7 +28,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         {
             double kgPerM = GetKgPerMeter(product);
 
-            PricePoundsPerMeter = poundsPerTonne / 1000 * kgPerM;
+            PricePoundsPerMeter = DoubleUtils.RoundDouble(poundsPerTonne / 1000 * kgPerM, DoubleConstants.NumOfDecimalPlaces);
 
             return PricePoundsPerMeter;
 
@@ -42,21 +44,19 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
                 GetPoundsPerMeter(product, poundsPerTonne);
             }
 
-            return PricePoundsPerMeter * Clp.GetCategoryLength(product.Product.Idcategories.Value);
+            return DoubleUtils.RoundDouble(PricePoundsPerMeter * Clp.GetCategoryLength(product.Product.Idcategories.Value), DoubleConstants.NumOfDecimalPlaces);
         }
 
         protected virtual double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
         {
-            return poundsPerTonne / 1000 * (product.Pricing.kgPerSheet.HasValue ? product.Pricing.kgPerSheet.Value : 0);
+            return DoubleUtils.RoundDouble(poundsPerTonne / 1000 * (product.Pricing.kgPerSheet.HasValue ? product.Pricing.kgPerSheet.Value : 0), DoubleConstants.NumOfDecimalPlaces);
         }
 
         protected virtual double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
         {
             double kgPerSqrtMeter = product.Pricing.kgPerSqrtMeter.HasValue ? product.Pricing.kgPerSqrtMeter.Value : 0;
 
-            return poundsPerTonne / 1000 * kgPerSqrtMeter;
+            return DoubleUtils.RoundDouble(poundsPerTonne / 1000 * kgPerSqrtMeter, DoubleConstants.NumOfDecimalPlaces);
         }
-
-
     }
 }

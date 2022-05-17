@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -31,7 +33,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
             {
                 double.TryParse(kgm.Value, out kgPerMeter);
 
-                dto.StockTakeValue = dto.TotalMeters * dto.PoundsPerTonne * kgPerMeter / 1000;
+                dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalMeters.Value * dto.PoundsPerTonne.Value * kgPerMeter / 1000, DoubleConstants.NumOfDecimalPlaces);
+                ;
             }
 
             return dto;

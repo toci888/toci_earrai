@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
@@ -22,7 +24,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
         {
             if (CentralValuationMap.ContainsKey(currentValuation))
             {
-                return CentralValuationMap[currentValuation].GetPrices(product, valuationPrice);
+                return CentralValuationMap[currentValuation].GetPrices(product, DoubleUtils.RoundDouble(valuationPrice, DoubleConstants.NumOfDecimalPlaces));
             }
 
             return null;

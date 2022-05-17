@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
@@ -27,7 +29,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
                 return 0;
             }
 
-            return poundsPerMeter / kgPerMeter * 1000;
+            return DoubleUtils.RoundDouble(poundsPerMeter / kgPerMeter * 1000, DoubleConstants.NumOfDecimalPlaces);
         }
     }
 }

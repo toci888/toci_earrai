@@ -152,7 +152,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 double KgPerMeter = 0; 
                 double.TryParse(kgpermeter.Value, out KgPerMeter);
 
-                dto.KgPerMeter = KgPerMeter;
+                dto.KgPerMeter = DoubleUtils.RoundDouble(KgPerMeter, DoubleConstants.NumOfDecimalPlaces); ;
             }
 
             return dto; 
@@ -169,7 +169,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
                 if (dto.KgPerMeter != 0)
                 {
-                    dto.PoundsPerTonne = price / dto.KgPerMeter * 1000;
+                    dto.PoundsPerTonne = DoubleUtils.RoundDouble(price / dto.KgPerMeter.Value * 1000, DoubleConstants.NumOfDecimalPlaces); ;
                 }
             }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -39,7 +41,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
             double multiplier = width * length;
 
-            return poundsPerSquareMeter * multiplier / 1000000;
+            return DoubleUtils.RoundDouble(poundsPerSquareMeter * multiplier / 1000000, DoubleConstants.NumOfDecimalPlaces);
         }
     }
 }

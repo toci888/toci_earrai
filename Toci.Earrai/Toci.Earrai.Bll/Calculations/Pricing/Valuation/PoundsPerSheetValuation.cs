@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -30,7 +32,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
                 return 0;
             }
 
-            return poundsPerMeterSquared / kgPerSqrtMeter * 1000;
+            return DoubleUtils.RoundDouble(poundsPerMeterSquared / kgPerSqrtMeter * 1000, DoubleConstants.NumOfDecimalPlaces);
         }
 
         protected virtual double GetPoundsPerMeterSquared(ProductDto product, double poundsPerSheet)
@@ -58,7 +60,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
                 return 0;
             }
 
-            return poundsPerSheet / divisor * 1000000;
+            return DoubleUtils.RoundDouble(poundsPerSheet / divisor * 1000000, DoubleConstants.NumOfDecimalPlaces);
         }
     }
 }

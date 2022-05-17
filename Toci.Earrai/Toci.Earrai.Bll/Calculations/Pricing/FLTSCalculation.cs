@@ -42,7 +42,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
             var res = (DensityFormKgPerSqrtMeter / 1000000) * x * y;
 
-            dto.KgPerMeter = res;
+            dto.KgPerMeter = DoubleUtils.RoundDouble(res, DoubleConstants.NumOfDecimalPlaces);
 
             return dto;
         }

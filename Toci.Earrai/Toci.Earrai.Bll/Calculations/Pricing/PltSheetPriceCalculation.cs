@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing
@@ -22,14 +24,14 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected virtual PricingDto GetTotalWeight(ProductDto product, PricingDto dto)
         {
-            dto.TotalWeight = dto.kgPerSqrtMeter * GetAreasQuantitySquareMeters(product);
+            dto.TotalWeight = DoubleUtils.RoundDouble(dto.kgPerSqrtMeter.Value * GetAreasQuantitySquareMeters(product), DoubleConstants.NumOfDecimalPlaces);
 
             return dto;
         }
 
         protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = dto.TotalWeight / 1000 * dto.PoundsPerTonne;
+            dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalWeight.Value / 1000 * dto.PoundsPerTonne.Value, DoubleConstants.NumOfDecimalPlaces);
 
             return dto;
         }
@@ -43,7 +45,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (thickness_.Value == "") { return dto; }
                 double thickness = Convert.ToDouble(thickness_.Value);
 
-                dto.kgPerSqrtMeter = thickness * DensityFormKgPerSqrtMeter / 1000;
+                dto.kgPerSqrtMeter = DoubleUtils.RoundDouble(thickness * DensityFormKgPerSqrtMeter / 1000, DoubleConstants.NumOfDecimalPlaces); ;
             } catch (Exception) {
 
                 return dto;
@@ -65,7 +67,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (width_.Value == "") { return dto; }
                 double width = Convert.ToDouble(width_.Value);
 
-                dto.kgPerSheet = (length * width * dto.kgPerSqrtMeter) / 1000000;
+                dto.kgPerSheet = DoubleUtils.RoundDouble((length * width * dto.kgPerSqrtMeter.Value) / 1000000, DoubleConstants.NumOfDecimalPlaces); ;
             } catch (Exception) {
 
                 return dto;
@@ -83,8 +85,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                 if (x_ == null) { return dto; }
                 double x = Convert.ToDouble(x_.Price);
 
-                dto.PoundsPerTonne = x;
-                dto.PoundsPerSheet = x / 1000 * dto.kgPerSheet;
+                dto.PoundsPerTonne = DoubleUtils.RoundDouble(x, DoubleConstants.NumOfDecimalPlaces);
+                dto.PoundsPerSheet = DoubleUtils.RoundDouble(x / 1000 * dto.kgPerSheet.Value, DoubleConstants.NumOfDecimalPlaces);
             } catch (Exception) {
 
                 return dto;
@@ -97,7 +99,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
         {
             if (dto.kgPerSheet != 0)
             {
-                dto.PoundsPerTonne = dto.PoundsPerSheet / dto.kgPerSheet * 1000;
+                dto.PoundsPerTonne = DoubleUtils.RoundDouble(dto.PoundsPerSheet.Value / dto.kgPerSheet.Value * 1000, DoubleConstants.NumOfDecimalPlaces);
             }
 
             return dto;

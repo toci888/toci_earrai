@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -32,7 +34,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
             if (priceValuation != null && !string.IsNullOrEmpty(priceValuation.Price))
             {
-                return double.Parse(priceValuation.Price);
+                return DoubleUtils.RoundDouble(double.Parse(priceValuation.Price), DoubleConstants.NumOfDecimalPlaces);
             }
 
             return 0;
@@ -40,7 +42,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
         protected virtual double GetKgPerMeter(ProductDto product)
         {
-            return product.Pricing.KgPerMeter.HasValue ? product.Pricing.KgPerMeter.Value : 0;
+            return DoubleUtils.RoundDouble(product.Pricing.KgPerMeter.HasValue ? product.Pricing.KgPerMeter.Value : 0, DoubleConstants.NumOfDecimalPlaces);
         }
         //protected abstract double ToValuation(double sourcePrice, Valuations sourceValuation, Valuations targetValuation);
     }

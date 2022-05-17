@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Bll.Calculations.Pricing {
@@ -20,7 +22,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = dto.PoundsPerMeter * dto.TotalMeters;
+            dto.StockTakeValue = DoubleUtils.RoundDouble(dto.PoundsPerMeter.Value * dto.TotalMeters.Value, DoubleConstants.NumOfDecimalPlaces);
 
             return dto;
         }
@@ -40,7 +42,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
                 var y_ = product.Options.Where(opt => opt.Name == CalculationsConsts.KgM).FirstOrDefault().Value;
                 double y = Convert.ToDouble(y_);
 
-                dto.PoundsPerMeter = (x / 1000) * y;
+                dto.PoundsPerMeter = DoubleUtils.RoundDouble((x / 1000) * y, DoubleConstants.NumOfDecimalPlaces); ;
 
                 return dto;
 
