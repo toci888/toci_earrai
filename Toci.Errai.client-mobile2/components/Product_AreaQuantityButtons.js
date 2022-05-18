@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { insertUrl, PostRequestParams, updateRequestParams, updateUrl } from '../shared/RequestConfig'
+import { insertUrl, updateUrl } from '../shared/RequestConfig'
 import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 import RestClient from '../shared/RestClient'
 
@@ -10,7 +10,6 @@ export default function Product_AreaQuantityButtons(props) {
     let restClient = new RestClient();
 
     const sendRequest = () => {
-        console.log(2)
 
         if(props.tempAreaquantityRow.length == "" || props.tempAreaquantityRow.quantity == "" || props.tempAreaquantityRow.width == "") {
             Alert.alert("Form not filled", "Please fill in the form");
@@ -19,23 +18,32 @@ export default function Product_AreaQuantityButtons(props) {
 
         // TODO validate inputs
         props.setloading(true)
-        let url, requestParams
-        if(props.btnvalueHook == "ADD") { url = insertUrl; requestParams = PostRequestParams
-        } else { url = updateUrl; requestParams = updateRequestParams }
 
-        restClient.PUT(url, requestParams(props.tempAreaquantityRow, true)).then( x => {
-            console.log(x);
-            props.updateAreaQuantitiesfterRequest();
-            props.initAreaQuantities();
-        }).catch(error => {
-            console.log(error)
-            Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
-            props.setloading(false);
-        });
+        if(props.btnvalueHook == "Add") { 
+            restClient.POST(insertUrl, [props.tempAreaquantityRow]).then( x => {
+                props.updateAreaQuantitiesfterRequest("Added new area Quantities");
+                props.initAreaQuantities();
+            }).catch(error => {
+                console.log(error)
+                Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
+                props.setloading(false);
+            });
+        } else { 
+            restClient.PUT(updateUrl, props.tempAreaquantityRow).then( x => {
+                props.updateAreaQuantitiesfterRequest("Updated area Quantities");
+                props.initAreaQuantities();
+            }).catch(error => {
+                console.log(error)
+                Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
+                props.setloading(false);
+            });
+        }
+        
+        
     }
 
     const cancel = () => {
-        props.setbtnvalueHook("ADD")
+        props.setbtnvalueHook("Add")
         props.initAreaQuantities()
     }
 

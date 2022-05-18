@@ -106,7 +106,7 @@ export default function Product({ route, navigation }) {
         setProduct(newProduct)
     }
 
-    const updateAreaQuantitiesfterRequest = async () => {
+    const updateAreaQuantitiesfterRequest = async (text) => {
         let logName, message
 
         restClient.GET(getAreasQuantitiesByProduct(AppUser.getProductId())).then(x => {
@@ -115,7 +115,7 @@ export default function Product({ route, navigation }) {
             newProduct.areaQuantities = x;
             setProduct(prev => {return newProduct});
             logName = "Ok"; 
-            message = "Added new(or updated) area Quantities";
+            message = text;
         }).catch(error => {
             console.log(error);
             logName = "Error"; 
