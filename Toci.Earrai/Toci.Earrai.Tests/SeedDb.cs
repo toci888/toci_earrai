@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Toci.Earrai.Bll;
 using Toci.Earrai.Database.Persistence.Models;
@@ -77,7 +78,7 @@ namespace Toci.Earrai.Tests
            // Workbooks();
            // AreaQuantities();
             CategoryGroups();
-            Category();
+            //Category();
             Size();
            // SizeCategories();
           //  QuotesAndPrices();
@@ -544,6 +545,99 @@ CON".Split("\n", StringSplitOptions.None);
             Console.WriteLine("Lets start");
             //var ele = new SeedWorkBook();
             //ele.SeedDBByWorkbook();
+        }
+
+        [TestMethod]
+        public void SeedCategoriesEx()
+        {
+            string koopa = @"
+1,PL_Plate Mild Steel,Plt/Sht/Mesh,PL,PL_Plate Mild Steel,Plate Mild Steel
+2,PLCHQ_Chequer Plate Mild Steel,Plt/Sht/Mesh,PLCHQ,PLCHQ_Chequer Plate Mild Steel,Chequer Plate Mild Steel
+3,HD_Hardox Plate,Plt/Sht/Mesh,HD,HD_Hardox Plate,Hardox Plate
+4,GS_Galvanised Sheet,Plt/Sht/Mesh,GS,GS_Galvanised Sheet,Galvanised Sheet
+5,ALSH_Aluminium Sheet,Plt/Sht/Mesh,ALSH,ALSH_Aluminium Sheet,Aluminium Sheet
+6,ALCHQ_Aluminium Chequer Plate,Plt/Sht/Mesh,ALCHQ,ALCHQ_Aluminium Chequer Plate,Aluminium Chequer Plate
+25,MSH_Wire Weld Mesh,Plt/Sht/Mesh,MSH,MSH_Wire Weld Mesh,Wire Weld Mesh
+26,EX_MET_Expanded Metal,Plt/Sht/Mesh,EX_MET,EX_MET_Expanded Metal,Expanded Metal
+7,SHS_Square Hollow Section,Sections & Bars,SHS,SHS_Square Hollow Section,Square Hollow Section
+8,RHS_Rectangular Hollow Section,Sections & Bars,RHS,RHS_Rectangular Hollow Section,Rectangular Hollow Section
+9,PFC_Parallel Flange Channel,Sections & Bars,PFC,PFC_Parallel Flange Channel,Parallel Flange Channel
+10,UB_Universal Beam,Sections & Bars,UB,UB_Universal Beam,Universal Beam
+11,UC_Universal Column,Sections & Bars,UC,UC_Universal Column,Universal Column
+12,IPE_Continental I Beams (I-Sections),Sections & Bars,IPE,IPE_Continental I Beams (I-Sections),Continental I Beams (I-Sections)
+13,EA_Equal Angles,Sections & Bars,EA,EA_Equal Angles,Equal Angles
+14,UA_Unequal Angles,Sections & Bars,UA,UA_Unequal Angles,Unequal Angles
+15,TS_T-Section T-Bar,Sections & Bars,TS,TS_T-Section T-Bar,T-Section T-Bar
+16,CHS_Circular Hollow Section,Sections & Bars,CHS,CHS_Circular Hollow Section,Circular Hollow Section
+17,GCHS_Galv Cirular Hollow Section,Sections & Bars,GCHS,GCHS_Galv Cirular Hollow Section,Galv Cirular Hollow Section
+18,FL_Flat Bar Mild Steel,Sections & Bars,FL,FL_Flat Bar Mild Steel,Flat Bar Mild Steel
+19,FLB_Flat Bar Bright,Sections & Bars,FLB,FLB_Flat Bar Bright,Flat Bar Bright
+20,RB_BLK_Black Round Bar,Sections & Bars,RB_BLK,RB_BLK_Black Round Bar,Black Round Bar
+21,RB_BRI_Bright Round Bar,Sections & Bars,RB_BRI,RB_BRI_Bright Round Bar,Bright Round Bar
+22,SQ_BLK_Square Bar Black,Sections & Bars,SQ_BLK,SQ_BLK_Square Bar Black,Square Bar Black
+23,SQ_BRI_Square Bar Bright,Sections & Bars,SQ_BRI,SQ_BRI_Square Bar Bright,Square Bar Bright
+24,HB_Hollow Bore Bar,Sections & Bars,HB,HB_Hollow Bore Bar,Hollow Bore Bar
+101,F_BH_Finished_Bale Handlers,Finished Products,F_BH,F_BH_Finished_Bale Handlers,Bale Handlers
+102,F_PB_Finished_Power Boxes,Finished Products,F_PB,F_PB_Finished_Power Boxes,Power Boxes
+103,F_TB_Finished_Transport Boxes,Finished Products,F_TB,F_TB_Finished_Transport Boxes,Transport Boxes
+104,F_PS_Finished_Power Scoop,Finished Products,F_PS,F_PS_Finished_Power Scoop,Power Scoop
+105,F_LL_Finished_Land Leveller,Finished Products,F_LL,F_LL_Finished_Land Leveller,Land Leveller
+106,F_TS_Finished_Tip Skip,Finished Products,F_TS,F_TS_Finished_Tip Skip,Tip Skip
+107,F_LR_Finished_Land Rollers,Finished Products,F_LR,F_LR_Finished_Land Rollers,Land Rollers
+108,F_CF_Finished_Circular Feeders,Finished Products,F_CF,F_CF_Finished_Circular Feeders,Circular Feeders
+110,F_BT_Finished_Bale Trailer,Finished Products,F_BT,F_BT_Finished_Bale Trailer,Bale Trailer
+111,F_FT_Finished_Feeding Troughs,Finished Products,F_FT,F_FT_Finished_Feeding Troughs,Feeding Troughs
+112,F_PL_Finished_Pallet Lifter,Finished Products,F_PL,F_PL_Finished_Pallet Lifter,Pallet Lifter
+113,F_FLB_Finished_Fork Lift Bucket,Finished Products,F_FLB,F_FLB_Finished_Fork Lift Bucket,Fork Lift Bucket
+114,F_YS_Finished_Yardscraper,Finished Products,F_YS,F_YS_Finished_Yardscraper,Yardscraper
+115,F_SP_Finished_Snow Plough,Finished Products,F_SP,F_SP_Finished_Snow Plough,Snow Plough
+201,PF_BH_Part Finished_Bale Handlers,Finished Products,PF_BH,PF_BH_Part Finished_Bale Handlers,Bale Handlers
+202,PF_PB_Part Finished_Power Boxes,Finished Products,PF_PB,PF_PB_Part Finished_Power Boxes,Power Boxes
+203,PF_TB_Part Finished_Transport Boxes,Finished Products,PF_TB,PF_TB_Part Finished_Transport Boxes,Transport Boxes
+204,PF_PS_Part Finished_Power Scoop,Finished Products,PF_PS,PF_PS_Part Finished_Power Scoop,Power Scoop
+205,PF_LL_Part Finished_Land Leveller,Finished Products,PF_LL,PF_LL_Part Finished_Land Leveller,Land Leveller
+206,PF_TS_Part Finished_Tip Skip,Finished Products,PF_TS,PF_TS_Part Finished_Tip Skip,Tip Skip
+207,PF_LR_Part Finished_Land Rollers,Finished Products,PF_LR,PF_LR_Part Finished_Land Rollers,Land Rollers
+208,PF_CF_Part Finished_Circular Feeders,Finished Products,PF_CF,PF_CF_Part Finished_Circular Feeders,Circular Feeders
+209,PF_CA_Part Finished_Crush Assemblies,Finished Products,PF_CA,PF_CA_Part Finished_Crush Assemblies,Crush Assemblies
+210,PF_BT_Part Finished_Bale Trailer,Finished Products,PF_BT,PF_BT_Part Finished_Bale Trailer,Bale Trailer
+211,PF_FT_Part Finished_Feeding Troughs,Finished Products,PF_FT,PF_FT_Part Finished_Feeding Troughs,Feeding Troughs
+212,PF_PL_Part Finished_Pallet Lifter,Finished Products,PF_PL,PF_PL_Part Finished_Pallet Lifter,Pallet Lifter
+213,PF_FLB_Part Finished_Fork Lift Bucket,Finished Products,PF_FLB,PF_FLB_Part Finished_Fork Lift Bucket,Fork Lift Bucket
+214,PF_YS_Part Finished_Yardscraper,Finished Products,PF_YS,PF_YS_Part Finished_Yardscraper,Yardscraper
+215,PF_SP_Part Finished_Snow Plough,Finished Products,PF_SP,PF_SP_Part Finished_Snow Plough,Snow Plough
+301,RAM_Rams,Miscelanneous,RAM_,RAM__Rams,Rams
+302,PAI_Paint,Miscelanneous,PAI,PAI_Paint,Paint
+303,CON_Consumables,Miscelanneous,CON,CON_Consumables,Consumables";
+
+            List<string> list = koopa.Split("\n", StringSplitOptions.None).ToList();
+
+            //List<string[]> posiekane = new List<string[]>();
+
+           List< CategoryEntity > znormalizowane = new List<CategoryEntity>();
+
+            foreach (string s in list)
+            {
+                string[] posiekane = (s.Split(","));
+                if (posiekane.Length == 6)
+                {
+                    znormalizowane.Add(new CategoryEntity() { Group = posiekane[2] , Id = posiekane[0], Name = posiekane[1], Prefix = posiekane[3]});
+                }
+            }
+
+            foreach (CategoryEntity item in znormalizowane)
+            {
+                Categorygroup group = CategoryGroup.Select(m => m.Name == item.Group).FirstOrDefault();
+                Categories.Insert(new Category() {  });
+            }
+        }
+
+        class CategoryEntity
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public string Prefix { get; set; }
+            public string Group { get; set; }
         }
     }
 }

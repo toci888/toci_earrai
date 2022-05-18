@@ -58,6 +58,22 @@ namespace Toci.Earrai.Bll.Erp
             f.Close();
         }
 
+        public virtual void GenerateGridExcel(List<List<string>> data)
+        {
+            Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
+
+            setForExcel.Add("Export", data);
+
+            Workbook wb = new Workbook();
+
+            wb.PopulateWorksheets(setForExcel);
+
+            FileStream f = new FileStream("D:\\Export.xlsx", FileMode.CreateNew);
+
+            wb.Save(f);
+            f.Close();
+        }
+
         protected virtual List<List<string>> GetFlattenedToStringData(List<List<FlattenedEntity>> entities)
         {
             List<List<string>> result = new List<List<string>>();

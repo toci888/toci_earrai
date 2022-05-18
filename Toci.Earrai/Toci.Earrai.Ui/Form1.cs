@@ -34,6 +34,8 @@ namespace Toci.Earrai.Ui
         protected int selectedWorkSheetId = 0;
         protected Userrole LoggedUser;
         protected LogIn MasterWindow;
+        protected Button generateExcelFromView;
+        protected List<List<string>> currentGridViewData;
 
         public Form1(Userrole loggedUser, LogIn masterWindow)
         {
@@ -58,6 +60,7 @@ namespace Toci.Earrai.Ui
             this.users.Visible = false;
 
             this.FormClosed += (s, e) => MasterWindow.Close();
+            generateExcelFromView.Click += GenerateExcelFromView_Click;
 
             if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
             {
@@ -218,6 +221,7 @@ namespace Toci.Earrai.Ui
         private void bind2(List<List<FlattenedEntity>> items)
         {
             //excelDataGrid = new DataGridView();
+            currentGridViewData = new List<List<string>>();
             Dictionary<string, int> keeper = new Dictionary<string, int>();
 
             excelDataGrid.Columns.Clear();
@@ -246,6 +250,7 @@ namespace Toci.Earrai.Ui
                 columns = true;
                 
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
+                currentGridViewData.Add(item.Select(m => m.Value).ToList());
             }
 
         }
@@ -293,6 +298,13 @@ namespace Toci.Earrai.Ui
         {
             ProductAdd pAdd = new ProductAdd(selectedWorkSheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
             pAdd.Show();
+        }
+
+        protected void GenerateExcelFromView_Click(object sender, EventArgs e)
+        {
+            ExportLogic el = new ExportLogic();
+
+            el.GenerateGridExcel(currentGridViewData);
         }
 
         private void sageExportButton_Click(object sender, EventArgs e)
