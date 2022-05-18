@@ -64,7 +64,7 @@ namespace Toci.Earrai.Tests
             });
         }
 
-            [TestMethod]
+        [TestMethod]
         public void SeedAllDb()
         {
             Roles();
@@ -75,32 +75,27 @@ namespace Toci.Earrai.Tests
             SeedWlOrSizeCategories();
             Vendors();
             QuotesAndMetrics();
-           // Workbooks();
-           // AreaQuantities();
+            // Workbooks();
+            // AreaQuantities();
             CategoryGroups();
+            SeedCategoriesEx();
             //Category();
             Size();
-           // SizeCategories();
-          //  QuotesAndPrices();
-//            Products();
-           // ProductSizes();
+            // SizeCategories();
+            // QuotesAndPrices();
+            // Products();
+            // ProductSizes();
             ProductOptions();
-           // ProductCategoryOptions();
-           // ProductOptionValues();
+            // ProductCategoryOptions();
+            // ProductOptionValues();
         }
 
         [TestMethod]
-        public void newImport() {
-
+        public void newImport() 
+        {
             ExcelEx client1 = new ExcelEx();
 
             client1.RequestWorkbooksEx();
-
-            //Logic<Quoteandprice> quotesAndPrice = new Logic<Quoteandprice>();
-
-            //quoteandprice.
-    
-
         }
         
         [TestMethod]
