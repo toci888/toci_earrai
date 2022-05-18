@@ -614,21 +614,21 @@ CON".Split("\n", StringSplitOptions.None);
 
             //List<string[]> posiekane = new List<string[]>();
 
-           List< CategoryEntity > znormalizowane = new List<CategoryEntity>();
+            List< CategoryEntity > znormalizowane = new List<CategoryEntity>();
 
             foreach (string s in list)
             {
                 string[] posiekane = (s.Split(","));
                 if (posiekane.Length == 6)
                 {
-                    znormalizowane.Add(new CategoryEntity() { Group = posiekane[2] , Id = posiekane[0], Name = posiekane[1], Prefix = posiekane[3]});
+                    znormalizowane.Add(new CategoryEntity() { Id = posiekane[0], Name = posiekane[1], Group = posiekane[2], Prefix = posiekane[3], Code = posiekane[4], Description = posiekane[5]});
                 }
             }
 
             foreach (CategoryEntity item in znormalizowane)
             {
                 Categorygroup group = CategoryGroup.Select(m => m.Name == item.Group).FirstOrDefault();
-                Categories.Insert(new Category() {  });
+                Categories.Insert(new Category() {Code  = item.Code, Name = item.Name, Description = item.Description, Idcategorygroups = group.Id, Prefix = item.Prefix});
             }
         }
 
@@ -638,6 +638,8 @@ CON".Split("\n", StringSplitOptions.None);
             public string Name { get; set; }
             public string Prefix { get; set; }
             public string Group { get; set; }
+            public string Description { get; set; }
+            public string Code { get; set; }
         }
     }
 }

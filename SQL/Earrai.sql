@@ -105,7 +105,8 @@ create table categories
 	idcategorygroups int references categorygroups(id),
 	name text,
 	prefix text,
-	description text
+	description text,
+	code text
 );
 
 create table commisions
