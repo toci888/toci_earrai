@@ -609,24 +609,31 @@ CON".Split("\n", StringSplitOptions.None);
 
             //List<string[]> posiekane = new List<string[]>();
 
-            List< CategoryEntity > znormalizowane = new List<CategoryEntity>();
+            List<CategoryEntity> znormalizowane = new List<CategoryEntity>();
 
             foreach (string s in list)
             {
                 string[] posiekane = (s.Split(","));
                 if (posiekane.Length == 6)
                 {
-                    znormalizowane.Add(new CategoryEntity() { Id = posiekane[0], Name = posiekane[1], Group = posiekane[2], Prefix = posiekane[3], Code = posiekane[4], Description = posiekane[5]});
+                    znormalizowane.Add(new CategoryEntity()
+                    {
+                        Id = posiekane[0], Name = posiekane[1], Group = posiekane[2],
+                        Prefix = posiekane[3], Description = posiekane[5]
+                    });
                 }
             }
 
             foreach (CategoryEntity item in znormalizowane)
             {
                 Categorygroup group = CategoryGroup.Select(m => m.Name == item.Group).FirstOrDefault();
-                Categories.Insert(new Category() {Code  = item.Code, Name = item.Name, Description = item.Description, Idcategorygroups = group.Id, Prefix = item.Prefix});
+                Categories.Insert(new Category()
+                {
+                    Code  = item.Id, Name = item.Name, Description = item.Description, Idcategorygroups = group.Id, Prefix = item.Prefix
+                });
             }
         }
-
+        // 1 (0.id - code), (1.name)PL_Plate Mild Steel, (2.group) Plt/Sht/Mesh, PL (3.prefix), (4. olewamy)PL_Plate Mild Steel, (5. description)Plate Mild Steel
         class CategoryEntity
         {
             public string Id { get; set; }
@@ -634,7 +641,6 @@ CON".Split("\n", StringSplitOptions.None);
             public string Prefix { get; set; }
             public string Group { get; set; }
             public string Description { get; set; }
-            public string Code { get; set; }
         }
     }
 }
