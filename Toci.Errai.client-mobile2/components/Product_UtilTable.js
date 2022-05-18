@@ -17,7 +17,7 @@ export default function Product_UtilTable(props) {
         ["kgPerSheet", "Kg per sheet"],
         ["totalWeight", "Total weight"],
     ]);
-    //, , 
+
     const x = (param) => {
         return dictionary.get(param)? dictionary.get(param) : param;
     }
@@ -31,14 +31,26 @@ export default function Product_UtilTable(props) {
                 props.details && Object.keys(props.details).map( (value, key) => {
                     if(props.details[value] == null) return
 
+                    // console.log(props)
+                    // console.log(props.details[value])
+                    // let dictionary = new Map([
+                    //     ["£ per tonne"],
+                    //     ["£ per sheet"],
+                    //     ["£ per square meter"],
+                    //     ["£ per length"],
+                    // ]);
+                    console.log("KONIEC4")
+                    console.log(key); 
+                    console.log(value); 
                     console.log(key, value); 
+                    console.log(props.details); 
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <View style={[pd.inlineItem, pd.inlineItemLeft]}>
                                 <Text style={{textAlign: 'right'}}>{x(value)}</Text>
                             </View>
                             <View style={[pd.inlineItem, pd.inlineItemRight]}>
-                                <Text>{props.details[value]}</Text>
+                                <Text>{value.includes("pound")? "£ "+props.details[value] : props.details[value]}</Text>
                             </View>
                         </View>
                     )
