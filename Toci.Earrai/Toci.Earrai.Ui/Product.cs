@@ -38,9 +38,9 @@ namespace Toci.Earrai.Ui
         protected int ySlided = 0;
         protected int xSlided = 0;
         protected int xSlide = 100;
-        protected int ySlide = 30;
+        protected int ySlide = 50;
         protected int xLeft = 10;
-        protected int xOptionsSizes = 350;
+        protected int xOptionsSizes = 450;
         protected int xCommisions = 550;
         protected int xPrices = 800;
 
@@ -486,7 +486,7 @@ namespace Toci.Earrai.Ui
                 Controls.Remove(PricesCommissionsDgv);
             }
             
-            PricesCommissionsDgv = Cm.CreateGrid(null, 750, 250, 600, 10);
+            PricesCommissionsDgv = Cm.CreateGrid(null, 750, 250, 700, 10);
 
             ShowOnGrid(PricesCommissionsDgv, dgvData);
 

@@ -24,14 +24,23 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected virtual PricingDto GetTotalWeight(ProductDto product, PricingDto dto)
         {
-            dto.TotalWeight = DoubleUtils.RoundDouble(dto.kgPerSqrtMeter.Value * GetAreasQuantitySquareMeters(product), DoubleConstants.NumOfDecimalPlaces);
+            if (dto.kgPerSqrtMeter.HasValue)
+            {
+                dto.TotalWeight =
+                    DoubleUtils.RoundDouble(dto.kgPerSqrtMeter.Value * GetAreasQuantitySquareMeters(product),
+                        DoubleConstants.NumOfDecimalPlaces);
+            }
 
             return dto;
         }
 
         protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalWeight.Value / 1000 * dto.PoundsPerTonne.Value, DoubleConstants.NumOfDecimalPlaces);
+            if (dto.TotalWeight.HasValue && dto.PoundsPerTonne.HasValue)
+            {
+                dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalWeight.Value / 1000 * dto.PoundsPerTonne.Value,
+                    DoubleConstants.NumOfDecimalPlaces);
+            }
 
             return dto;
         }
@@ -97,7 +106,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected override PricingDto PoundsPerTonne(ProductDto product, PricingDto dto)
         {
-            if (dto.kgPerSheet != 0)
+            if (dto.kgPerSheet != 0 && dto.PoundsPerSheet.HasValue)
             {
                 dto.PoundsPerTonne = DoubleUtils.RoundDouble(dto.PoundsPerSheet.Value / dto.kgPerSheet.Value * 1000, DoubleConstants.NumOfDecimalPlaces);
             }

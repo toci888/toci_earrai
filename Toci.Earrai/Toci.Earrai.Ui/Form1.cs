@@ -34,7 +34,7 @@ namespace Toci.Earrai.Ui
         protected int selectedWorkSheetId = 0;
         protected Userrole LoggedUser;
         protected LogIn MasterWindow;
-        protected Button generateExcelFromView;
+        protected Button generateExcelFromView = new ();
         protected List<List<string>> currentGridViewData;
 
         public Form1(Userrole loggedUser, LogIn masterWindow)

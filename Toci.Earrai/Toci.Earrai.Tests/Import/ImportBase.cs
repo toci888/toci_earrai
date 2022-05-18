@@ -42,9 +42,16 @@ namespace Toci.Earrai.Tests.Import
 
 
             Dictionary<string, Category> categories = CategoriesProvider.GetCategories();
+            int counter = 0;
 
             foreach (List<string> productItem in rows)
             {
+                if (counter == 0)
+                {
+                    counter++;
+                    continue;
+                }
+                
                 string productCategory = productItem[categoryIndexColumn].Replace("\"", "").Replace("\"", "");
 
                 for (int i = 0; i < productItem.Count; i++)
@@ -53,8 +60,9 @@ namespace Toci.Earrai.Tests.Import
                 }
 
                 if (productCategory == "") continue; // empty category column(propably the whole row is empty)
-
-                int categoryId = categories.ContainsKey(productCategory) ? categories[productCategory].Id : categories[Consts.DummyCategory].Id; // TODO dummy category
+                if (!categories.ContainsKey(productCategory)) continue;
+                
+                int categoryId = categories[productCategory].Id; // TODO dummy category
                 //if (categoryId == 0) continue; // some shit in FLTS row 83
 
                 Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = newSheet.Id });
@@ -63,6 +71,8 @@ namespace Toci.Earrai.Tests.Import
                 ImportSizes(productItem, prod.Id);
                 ImportOptions(productItem, prod.Id);
                 ImportPricing(productItem, prod.Id);
+
+                counter++;
             }
         }
 
