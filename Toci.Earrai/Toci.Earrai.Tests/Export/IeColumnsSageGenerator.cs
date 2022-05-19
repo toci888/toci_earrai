@@ -48,10 +48,11 @@ namespace Toci.Earrai.Tests.Export
             List<string> columns = rawColumns.Split("\t", StringSplitOptions.TrimEntries).ToList();
 
             string result = "";
-
+            int i = 0;
             foreach (string column in columns)
             {
-                result += "public string " + column.Replace("ProductRecord.", "") + " { get; set; } " + Environment.NewLine;
+                result += "public const int " + column.Replace("ProductRecord.", "") + " =  " +i+"; " + Environment.NewLine;
+                i++;
             }
         }
 
