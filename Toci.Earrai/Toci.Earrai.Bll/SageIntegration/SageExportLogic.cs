@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Toci.Common;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
+using Toci.Earrai.Bll.Models.Erp;
 using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.SageIntegration
@@ -20,6 +21,39 @@ namespace Toci.Earrai.Bll.SageIntegration
             List<ProductDto> productDtos = ProductLogic.GetProductsByWorksheet(2);
 
             return GetExportDataForProductDtos(productDtos);
+        }
+
+        public int Import(List<EiEntity> entity)
+        {
+            foreach (var e in entity)
+            {
+                Category category = CategoryLogic.Select(x => x.Code == e.CategoryNumber).FirstOrDefault();
+
+                if (category == null)
+                {
+                    continue;
+                }
+
+                Product prod = Select(x => x.Productaccountreference == e.AccountReference).FirstOrDefault();
+
+                if (prod != null)
+                {
+                    prod.Updatedat = DateTime.Now;
+                    Product product = Update(prod);
+                }
+                else
+                {
+                    Product product = Insert(new Product()
+                    {
+                        Idcategories = category.Id,
+                        Idworksheet = 2,
+                        Productaccountreference = e.AccountReference,
+                        Description = e.Description
+                    });
+                }
+            }
+
+            return entity.Count;
         }
 
         protected virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)

@@ -75,9 +75,9 @@ namespace Toci.Earrai.Tests.Export
         [TestMethod]
         public void TestSageExport()
         {
-            SageLogic sl = new SageLogic();
+            //SageLogic sl = new SageLogic();
 
-            List<EiEntity> result = sl.Export(DateTime.Now);
+            //List<EiEntity> result = sl.Export(DateTime.Now);
         }
 
         [TestMethod]

@@ -17,6 +17,11 @@ namespace Toci.Earrai.Bll.Erp
         //read the excel file and save the data in the database
         public virtual void ReadExcelFile(string pathToExcel)
         {
+            if (pathToExcel == string.Empty)
+            {
+                return;
+            }
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             FileStream fs = new FileStream(pathToExcel, FileMode.Open);

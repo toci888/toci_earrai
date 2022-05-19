@@ -312,7 +312,7 @@ namespace Toci.Earrai.Ui
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel files | *.xlsx";
             sfd.DefaultExt = "xls";
-            sfd.FileName = "SageExport_" + DateTime.Now.ToString("dd-mm-yyyy");
+            sfd.FileName = "SageExport_" + DateTime.Now.ToString("dd-MM-yyyy");
 
             DialogResult dr = sfd.ShowDialog();
 

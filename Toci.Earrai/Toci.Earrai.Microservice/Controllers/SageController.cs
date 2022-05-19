@@ -26,6 +26,12 @@ namespace Toci.Earrai.Microservice.Controllers
             return Ok(Logic.Export(DateTime.Now));
         }
 
+        [HttpPost("InsertEiEntity")]
+        public ActionResult<int> InsertEiEntity(List<EiEntity> entity)
+        {
+            return Ok(Logic.Import(entity));
+        }
+
       
 
         // set data imported from sage => param list<ProductDto>. inserty product ? worksheet ? 
