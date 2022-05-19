@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
+using Toci.Earrai.Bll.Extensions;
 
 namespace Toci.Earrai.Bll
 {
@@ -41,6 +42,8 @@ namespace Toci.Earrai.Bll
         {
             int id = Insert(quoteandprice).Id;
 
+            this.SetUpdatedAtProduct(quoteandprice.Idproducts.Value);
+
             return id;
         }
 
@@ -53,6 +56,8 @@ namespace Toci.Earrai.Bll
 
             Update(priceEntity);
 
+            this.SetUpdatedAtProduct(priceEntity.Idproducts.Value);
+
             return priceEntity;
         }
 
@@ -62,6 +67,8 @@ namespace Toci.Earrai.Bll
             if (quoteAndPrice == null)
                 return 0;
             Delete(quoteAndPrice);
+
+            this.SetUpdatedAtProduct(quoteAndPrice.Idproducts.Value);
 
             return 1;
         }
