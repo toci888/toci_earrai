@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.ExcelLibrary.Extensions\Toci.ExcelLibrary.Extensions.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Client.UI\Toci.Earrai.Bll.Client.UI.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll.Models\Toci.Earrai.Bll.Models.csproj" />
     <ProjectReference Include="..\Toci.Earrai.Bll\Toci.Earrai.Bll.csproj" />

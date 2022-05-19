@@ -21,16 +21,12 @@ namespace Toci.Earrai.Microservice.Controllers
 
         // get data to export by datetime = x vs price return List<ProductDto> => jest gotowa logika zasysania calego atomowego preoductdto
         [HttpGet("ExportToSage")]
-        public ActionResult<List<EiEntity>> GetProductsToExportToSage(DateTime dateCondition)
+        public ActionResult<List<List<string>>> GetProductsToExportToSage()
         {
-            return Ok(Logic.Export(dateCondition));
+            return Ok(Logic.Export(DateTime.Now));
         }
 
-        [HttpPost("InsertEiEntity")]
-        public int InsertEiEntity(List<EiEntity> entity)
-        {
-            return Logic.InsertEiEntity(entity);
-        }
+      
 
         // set data imported from sage => param list<ProductDto>. inserty product ? worksheet ? 
     }

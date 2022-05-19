@@ -152,5 +152,10 @@ namespace Toci.Earrai.Ui
         {
             return ApiProxy.GetAvailableOptionsSizes(worksheetId);
         }
+
+        public virtual List<List<string>> ExportToSage()
+        {
+            return ApiProxy.ExportToSage(DateTime.Now);
+        }
     }
 }

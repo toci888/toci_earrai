@@ -10,11 +10,19 @@ using Toci.Earrai.Database.Persistence.Models;
 
 namespace Toci.Earrai.Bll.SageIntegration
 {
-    public class SageExportLogic
+    public class SageExportLogic : Logic<Product>, ISageLogic
     {
         protected Logic<Category> CategoryLogic = new Logic<Category>();
+        protected ProductLogic ProductLogic = new ProductLogic();
 
-        public virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)
+        public List<List<string>> Export(DateTime condition)
+        {
+            List<ProductDto> productDtos = ProductLogic.GetProductsByWorksheet(2);
+
+            return GetExportDataForProductDtos(productDtos);
+        }
+
+        protected virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)
         {
             List<List<string>> result = new List<List<string>>();
 
@@ -30,7 +38,7 @@ namespace Toci.Earrai.Bll.SageIntegration
 
         protected virtual List<string> GetRecord(ProductDto product)
         {
-            List<string> record = new List<string>();
+            string[] record = new string[30];
 
             record[SageConsts.PartNumber] = record[SageConsts.AccountReference] = product.Product.Productaccountreference;
             record[SageConsts.Description] = product.Product.Description;
@@ -38,9 +46,11 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             Quotesandprice qPrice = product.Quotesandprices.OrderByDescending(x => x.Createdat).FirstOrDefault();
             double price = 0;
+            string dateLast = string.Empty;
 
             if (qPrice != null)
             {
+                dateLast = qPrice.Createdat.ToString();
                 double.TryParse(qPrice.Price, out price);
                 price *= 1.35;
             }
@@ -64,9 +74,50 @@ namespace Toci.Earrai.Bll.SageIntegration
             record[SageConsts.CategoryName] = cat.Name;
             record[SageConsts.CommodityCode] = "7208400010";
             record[SageConsts.Weight] = GetWeight(product).ToString();
+            record[SageConsts.StockTakeDate] = dateLast;
+            record[SageConsts.QuantityLastStockTake] = GetQuantityLastStockTake(product).ToString(); //.Balance.ToString(); //
 
+            Productssize width = product.Sizes.Where(m => m.Name == "Width").FirstOrDefault();
+            Productssize length = product.Sizes.Where(m => m.Name == "Length").FirstOrDefault();
+            Productssize thickness = product.Sizes.Where(size => size.Name == Consts.Thickness).FirstOrDefault();
 
-            return record;
+            if (width != null)
+            {
+                record[SageConsts.WebCategory1] = width.Value;
+            }
+
+            if (length != null)
+            {
+                record[SageConsts.WebCategory2] = length.Value;
+            }
+
+            if (thickness != null)
+            {
+                record[SageConsts.WebCategory3] = thickness.Value;
+            }
+
+            //record[SageConsts.Web]
+
+            return record.ToList();
+        }
+
+        protected virtual double GetQuantityLastStockTake(ProductDto product)
+        {
+            if (WorksheetsIds.MshandExpMetal == product.Product.Idworksheet
+                || WorksheetsIds.Alum == product.Product.Idworksheet
+                || WorksheetsIds.PLTandSHEET == product.Product.Idworksheet)
+            {
+                
+                    return product.Balance;
+            }
+            else
+            {
+                // total meters
+                if (product.Pricing.TotalMeters.HasValue)
+                    return DoubleUtils.RoundDouble(product.Pricing.TotalMeters.Value, DoubleConstants.NumOfDecimalPlaces);
+
+            }
+            return 0;
         }
 
         protected virtual double GetUnitOfSale(ProductDto product)
@@ -115,5 +166,7 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             return elements.ToList();
         }
+
+        
     }
 }

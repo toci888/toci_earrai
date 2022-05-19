@@ -23,6 +23,7 @@ using Toci.Earrai.Bll;
 using Toci.Earrai.Bll.Erp;
 using Toci.Common;
 using Toci.Earrai.Bll.ErrorLog;
+using Toci.Earrai.Bll.SageIntegration;
 
 namespace Toci.Earrai.Microservice
 {
@@ -55,7 +56,7 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<IProductSizeLogic, ProductSizeLogic>();
             services.AddScoped<IQuoteAndMetricLogic, QuoteAndMetricLogic>();
             services.AddScoped<IPrivilegesLogic, PrivilegesLogic>();
-            services.AddScoped<ISageLogic, SageLogic>();
+            services.AddScoped<ISageLogic, SageExportLogic>();
 
             services.AddSingleton(authenticationSettings);
 

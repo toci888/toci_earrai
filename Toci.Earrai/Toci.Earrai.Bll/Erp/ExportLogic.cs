@@ -100,32 +100,12 @@ namespace Toci.Earrai.Bll.Erp
 
         public virtual void GenerateExportToSageExcel(string excelPath, DateTime condition)
         {
-            //todo based on what create list<productdto> ?
-            List<ProductDto> exportDataResult = new List<ProductDto>(); // todo get to api, some condition etc.
+          
+            List<List<string>> setForExcelData = ApiC.ExportToSage(condition);
 
-            List<EiEntity> sageData = ApiC.ExportToSage(condition);
+           // List<List<string>> setForExcelData = new List<List<string>>();
 
-            List<List<string>> setForExcelData = new List<List<string>>();
-
-            foreach (EiEntity sageEl in sageData)
-            {
-                List<string> row = new List<string>();
-
-                PropertyInfo[] props = sageEl.GetType().GetProperties();
-
-                foreach (PropertyInfo p in props)
-                {
-                    object o = p.GetValue(sageEl);
-
-                    if (o != null)
-                    {
-                        row.Add(o.ToString()); 
-                    }
-                }
-
-                setForExcelData.Add(row);
-            }
-
+            
             // create header
 
             Workbook wb = new Workbook();

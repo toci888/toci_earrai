@@ -316,9 +316,12 @@ namespace Toci.Earrai.Ui
 
             DialogResult dr = sfd.ShowDialog();
 
+            //List<List<string>> sageData = Dm.ExportToSage();
+
             ExportLogic el = new ExportLogic();
 
             el.GenerateExportToSageExcel(sfd.FileName, DateTime.Now);
+
         }
 
         private void sageImportButton_Click(object sender, EventArgs e)
