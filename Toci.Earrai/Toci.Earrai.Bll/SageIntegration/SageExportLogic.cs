@@ -15,13 +15,15 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             result.Add(GenerateHeader());
 
+
+
             return result;
         }
 
         protected virtual List<string> GenerateHeader()
         {
             //todo
-            string[] elements = "ProductRecord.AccountReference, ProductRecord.Description".Split(", ", StringSplitOptions.None);
+            string[] elements = "ProductRecord.AccountReference	ProductRecord.Description	ProductRecord.VATCode	ProductRecord.SalesPrice	ProductRecord.CostPriceStandard	ProductRecord.DateLastPurchase	ProductRecord.UnitOfSale	ProductRecord.Location	ProductRecord.SalesNominal	ProductRecord.CategoryNumber	ProductRecord.BarCode	ProductRecord.DepartmentNumber	ProductRecord.SupplierAccountReference	ProductRecord.PartNumber	ProductRecord.QuantityReOrderLevel	ProductRecord.CommodityCode	ProductRecord.Weight	ProductRecord.StockTakeDate	ProductRecord.QuantityReOrder	ProductRecord.QuantityLastStockTake	ProductRecord.InactiveFlag	ProductCategory.Number	ProductRecord.CategoryName	ProductRecord.WebCategory1	ProductRecord.WebCategory2	ProductRecord.WebCategory3	ProductRecord.SupplementaryUnitQuantity	Column1	ProductRecord.QuantityOnLastPurchaseOrder	ProductRecord.QuantityOnOrder".Split("\t", StringSplitOptions.None);
 
             return elements.ToList();
         }
