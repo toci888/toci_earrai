@@ -364,6 +364,10 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Createdat)
+                    .HasColumnName("createdat")
+                    .HasDefaultValueSql("now()");
+
                 entity.Property(e => e.Description).HasColumnName("description");
 
                 entity.Property(e => e.Idcategories).HasColumnName("idcategories");
@@ -373,6 +377,10 @@ namespace Toci.Earrai.Database.Persistence.Models
                 entity.Property(e => e.Productaccountreference).HasColumnName("productaccountreference");
 
                 entity.Property(e => e.Rowindex).HasColumnName("rowindex");
+
+                entity.Property(e => e.Updatedat)
+                    .HasColumnName("updatedat")
+                    .HasDefaultValueSql("now()");
 
                 entity.HasOne(d => d.IdcategoriesNavigation)
                     .WithMany(p => p.Products)

@@ -65,7 +65,16 @@ namespace Toci.Earrai.Tests.Import
                 int categoryId = categories[productCategory].Id; // TODO dummy category
                 //if (categoryId == 0) continue; // some shit in FLTS row 83
 
-                Product prod = ProductLogic.Insert(new Product() { Description = productItem[3].Replace("\"", "").Replace("\"", ""), Productaccountreference = productItem[2].Replace("\"", "").Replace("\"", ""), Idcategories = categoryId, Idworksheet = newSheet.Id });
+                string productDescription = productItem[3].Replace("\"", "").Replace("\"", "");
+                string accountReference = productItem[2].Replace("\"", "").Replace("\"", "");
+
+                if (worksheet == "Tube_CHS" || worksheet == "Angles+T")
+                {
+                    productDescription = productItem[2].Replace("\"", "").Replace("\"", "");
+                    accountReference = productItem[1].Replace("\"", "").Replace("\"", "");
+                }
+                
+                Product prod = ProductLogic.Insert(new Product() { Description = productDescription, Productaccountreference = accountReference, Idcategories = categoryId, Idworksheet = newSheet.Id });
 
                 ImportAreas(productItem, prod.Id);
                 ImportSizes(productItem, prod.Id);

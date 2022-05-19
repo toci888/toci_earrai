@@ -22,6 +22,8 @@ namespace Toci.Earrai.Database.Persistence.Models
         public int? Rowindex { get; set; }
         public string Productaccountreference { get; set; }
         public string Description { get; set; }
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
 
         public virtual Category IdcategoriesNavigation { get; set; }
         public virtual Worksheet IdworksheetNavigation { get; set; }

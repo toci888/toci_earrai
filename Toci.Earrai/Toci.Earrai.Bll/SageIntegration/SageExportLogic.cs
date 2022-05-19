@@ -41,7 +41,15 @@ namespace Toci.Earrai.Bll.SageIntegration
             string[] record = new string[30];
 
             record[SageConsts.PartNumber] = record[SageConsts.AccountReference] = product.Product.Productaccountreference;
-            record[SageConsts.Description] = product.Product.Description;
+
+            string recordDescription = product.Product.Description;
+
+            if (product.Product.Idworksheet != WorksheetsIds.PLTandSHEET && product.Product.Idworksheet != WorksheetsIds.Tube_CHS && product.Product.Idworksheet != WorksheetsIds.AnglesplusT)
+            {
+                recordDescription = string.Format("{0} {1}", product.Product.Productaccountreference, product.Product.Description);
+            }
+
+            record[SageConsts.Description] = recordDescription;
             record[SageConsts.VATCode] = "T1";
 
             Quotesandprice qPrice = product.Quotesandprices.OrderByDescending(x => x.Createdat).FirstOrDefault();
@@ -52,10 +60,12 @@ namespace Toci.Earrai.Bll.SageIntegration
             {
                 dateLast = qPrice.Createdat.ToString();
                 double.TryParse(qPrice.Price, out price);
-                price *= 1.35;
+                
             }
 
-            record[SageConsts.SalesPrice] = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString(); //??
+            record[SageConsts.SalesPrice] = DoubleUtils.RoundDouble(price * 1.35, DoubleConstants.NumOfDecimalPlaces).ToString(); //??
+            record[SageConsts.CostPriceStandard] = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString();
+            record[SageConsts.DateLastPurchase] = dateLast;
 
             record[SageConsts.UnitOfSale] = GetUnitOfSale(product).ToString();
 
