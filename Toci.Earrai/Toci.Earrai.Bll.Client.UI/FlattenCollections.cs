@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -53,7 +54,7 @@ namespace Toci.Earrai.Bll.Client.UI
                         new FlattenedEntity()
                         {
                             Name = "Price",
-                            Value = (obj).Price
+                            Value = (obj).Price //DoubleUtils.RoundDouble(double.Parse((obj).Price), 2).ToString()
                         },
                         new FlattenedEntity()
                         {

@@ -135,6 +135,8 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                         double price = 0;
                         double.TryParse(priceValuation.Price, out price);
 
+                        price = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces);
+
                         map.Value(pricingDto, price);
                     }
                 }
