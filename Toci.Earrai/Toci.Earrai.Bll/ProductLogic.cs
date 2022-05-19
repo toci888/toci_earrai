@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Common;
 using Toci.Earrai.Bll.Calculations.Pricing;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
@@ -24,9 +25,9 @@ namespace Toci.Earrai.Bll
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
             result.Options = ProductOVLogic.GetProductValues(productId);
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
-            result.Prices = ProductPriceLogic.Select(m => m.Idproducts == productId).ToList();
+            result.Prices = RoundPrices(ProductPriceLogic.Select(m => m.Idproducts == productId).ToList());
             result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
-            result.Quotesandprices = QuoteandpriceLogic.GetAllQuotesAndPricesView(productId);
+            result.Quotesandprices = RoundQuotesAndPrices(QuoteandpriceLogic.GetAllQuotesAndPricesView(productId));
 
             PriceExecutor priceExec = new PriceExecutor(result);
 
@@ -35,6 +36,34 @@ namespace Toci.Earrai.Bll
             result.Balance = GetBalance(result);
 
             return result;
+        }
+
+        protected virtual List<Quotesandprice> RoundQuotesAndPrices(List<Quotesandprice> quotesandprices)
+        {
+            foreach (Quotesandprice item in quotesandprices)
+            {
+                double price = 0;
+
+                double.TryParse(item.Price, out price);
+
+                item.Price = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString();
+            }
+
+            return quotesandprices;
+        }
+
+        protected virtual List<Productsprice> RoundPrices(List<Productsprice> prices)
+        {
+            foreach (Productsprice item in prices)
+            {
+                double price = 0;
+
+                double.TryParse(item.Price, out price);
+
+                item.Price = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString();
+            }
+
+            return prices;
         }
 
         public virtual int AddNewProduct(NewProductDto dto)
