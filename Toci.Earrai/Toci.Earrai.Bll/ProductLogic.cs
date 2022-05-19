@@ -23,7 +23,7 @@ namespace Toci.Earrai.Bll
         {
             ProductDto result = new ProductDto();
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
-            result.Options = ProductOVLogic.GetProductValues(productId);
+            result.Options = RoundKgSheet(ProductOVLogic.GetProductValues(productId));
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
             result.Prices = RoundPrices(ProductPriceLogic.Select(m => m.Idproducts == productId).ToList());
             result.AreaQuantities = ProductQuantitesLogic.GetAreasQuantitiesByRowIndexAndWorksheet(productId);
@@ -36,6 +36,20 @@ namespace Toci.Earrai.Bll
             result.Balance = GetBalance(result);
 
             return result;
+        }
+
+        protected virtual List<Productsoptionsstate> RoundKgSheet(List<Productsoptionsstate> productsoptionsstate)
+        {
+            foreach (Productsoptionsstate item in productsoptionsstate)
+            {
+                double price = 0;
+
+                double.TryParse(item.Value, out price);
+
+                item.Value = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString();
+            }
+
+            return productsoptionsstate;
         }
 
         protected virtual List<Quotesandprice> RoundQuotesAndPrices(List<Quotesandprice> quotesandprices)
