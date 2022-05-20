@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="User\**" />
+    <EmbeddedResource Remove="User\**" />
+    <None Remove="User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="ExcelLibrary" Version="1.2011.7.31" />
@@ -29,7 +35,6 @@
     <Folder Include="Managers\Calculations\" />
     <Folder Include="Managers\Options\" />
     <Folder Include="Managers\Sizes\" />
-    <Folder Include="User\" />
   </ItemGroup>
 
 </Project>

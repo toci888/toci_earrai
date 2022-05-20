@@ -4,6 +4,7 @@ using System.Linq;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 using Toci.Earrai.Bll.Extensions;
+using Toci.Common;
 
 namespace Toci.Earrai.Bll
 {
@@ -28,7 +29,18 @@ namespace Toci.Earrai.Bll
 
         public List<Quotesandprice> GetAllQuotesAndPricesView(int productId)
         {
-            return Quotesandprices.Select(m => m.Idproducts == productId).OrderByDescending(m => m.Createdat).ToList();
+            List<Quotesandprice> result = Quotesandprices.Select(m => m.Idproducts == productId).OrderByDescending(m => m.Createdat).ToList();
+
+            foreach (Quotesandprice element in result)
+            {
+                double price = 0;
+
+                double.TryParse(element.Price, out price);
+
+                element.Price = DoubleUtils.RoundDouble(price, DoubleConstants.NumOfDecimalPlaces).ToString();
+            }
+
+            return result;
         }
 
         public List<Vendor> GetAllVendors()
