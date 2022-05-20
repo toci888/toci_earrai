@@ -21,6 +21,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public string Prefix { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
+        public int? Idworksheet { get; set; }
 
         public virtual Categorygroup IdcategorygroupsNavigation { get; set; }
         public virtual ICollection<Commision> Commisions { get; set; }

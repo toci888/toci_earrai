@@ -188,6 +188,8 @@ namespace Toci.Earrai.Database.Persistence.Models
 
                 entity.Property(e => e.Idcategorygroups).HasColumnName("idcategorygroups");
 
+                entity.Property(e => e.Idworksheet).HasColumnName("idworksheet");
+
                 entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Prefix).HasColumnName("prefix");

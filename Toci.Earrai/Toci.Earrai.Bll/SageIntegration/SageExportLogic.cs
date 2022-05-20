@@ -46,7 +46,7 @@ namespace Toci.Earrai.Bll.SageIntegration
                     Product product = Insert(new Product()
                     {
                         Idcategories = category.Id,
-                        Idworksheet = 2,
+                        Idworksheet = category.Idworksheet,
                         Productaccountreference = e.AccountReference,
                         Description = e.Description
                     });
