@@ -317,6 +317,17 @@ select * from quoteandprice;
 select * from QuotesAndPrices;
 
 
+select * from categories
+
 alter table categories add column idworksheet int;
 
-update categories set idworksheet = 1 where prefix in ('PL', 'PLCHQ', 'HD' , 'GS');
+update categories set idworksheet = 1 where prefix in ('PL', 'PLCHQ', 'HD' , 'GS'); 		 -- PLTSHEET
+update categories set idworksheet = 2 where prefix in ('ALSH', 'ALCHQ'); 					 -- ALUM
+update categories set idworksheet = 3 where prefix in ('MSH', 'EX_MET'); 					 -- MshandExpMetal
+update categories set idworksheet = 4 where prefix in ('PFC', 'UB', 'UC' , 'IPE');  		 -- ChanandBms
+update categories set idworksheet = 5 where prefix in ('EA', 'UA', 'TS'); 			 		 -- AnglesplusT
+update categories set idworksheet = 6 where prefix in ('CHS', 'GCHS'); 						 -- Tube_CHS
+update categories set idworksheet = 7 where prefix in ('FL', 'FLB'); 						 -- FLTS
+update categories set idworksheet = 8 where prefix in ('RB_BLK', 'SQ_BLK', 'RB_BRI' , 'HB'); -- Rnds_Sqrs_HolBar
+update categories set idworksheet = 9 where prefix in ('SHS', 'RHS'); 						 -- RHS
+

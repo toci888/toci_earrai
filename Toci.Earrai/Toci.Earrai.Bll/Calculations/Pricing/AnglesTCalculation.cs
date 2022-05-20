@@ -50,7 +50,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
                 dto.PoundsPerMeter = DoubleUtils.RoundDouble((price / 1000) / kmperm, DoubleConstants.NumOfDecimalPlaces);
             }
 
-            dto.PoundsPerLength = DoubleUtils.RoundDouble(dto.PoundsPerMeter.Value * 6.2, DoubleConstants.NumOfDecimalPlaces);  
+            if (dto.PoundsPerMeter != null)
+            {
+                dto.PoundsPerLength = DoubleUtils.RoundDouble(dto.PoundsPerMeter.Value * 6.2, DoubleConstants.NumOfDecimalPlaces);
+            }
 
             return dto; // TODO MAKES CALCULATIONS TWO AT ONE
         }
