@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Toci.Earrai.Bll.Extensions;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Database.Persistence.Models;
 
@@ -17,6 +18,8 @@ namespace Toci.Earrai.Bll
                 return 0;
             Delete(areaQuantity);
 
+            this.SetUpdatedAtProduct(areaQuantity.Idproducts.Value);
+
             return 1;
         }
 
@@ -28,6 +31,8 @@ namespace Toci.Earrai.Bll
             areaquantity.Updatedat = DateTime.Now;
 
             Update(areaquantity);
+
+            this.SetUpdatedAtProduct(areaquantity.Idproducts.Value);
 
             return areaquantity;
         }
@@ -63,9 +68,13 @@ namespace Toci.Earrai.Bll
             }
             
             var newList = areasQuantity.Select(item => true).ToList();
-
+            
+            foreach (var item in newList)
+            {
+                this.SetUpdatedAtProduct(item.Idproducts.Value);
+            }
+            
             return newList.Take(counter).Reverse().ToList();
-        
         }
     }
 }
