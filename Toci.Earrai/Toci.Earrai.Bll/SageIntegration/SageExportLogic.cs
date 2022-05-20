@@ -55,7 +55,10 @@ namespace Toci.Earrai.Bll.SageIntegration
                     });
                 }
 
-                AddQuoteAndPrice(product.Id, e.CostPriceStandard, "Hannon", "£/Tonne");
+                if (e.CostPriceStandard != string.Empty)
+                {
+                    AddQuoteAndPrice(product.Id, e.CostPriceStandard, "Hannon", "£/Tonne");
+                }
             }
 
             return entity.Count;
