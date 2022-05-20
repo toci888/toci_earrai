@@ -15,6 +15,9 @@ namespace Toci.Earrai.Bll.SageIntegration
     {
         protected Logic<Category> CategoryLogic = new Logic<Category>();
         protected ProductLogic ProductLogic = new ProductLogic();
+        protected QuoteAndMetricLogic quoteAndMetricLogic = new QuoteAndMetricLogic();
+        protected Logic<Vendor> vendorsLogic = new Logic<Vendor>();
+        protected QuoteandpriceLogic quoteandpriceLogic = new QuoteandpriceLogic();
 
         public List<List<string>> Export(DateTime condition)
         {
@@ -34,16 +37,16 @@ namespace Toci.Earrai.Bll.SageIntegration
                     continue;
                 }
 
-                Product prod = Select(x => x.Productaccountreference == e.AccountReference).FirstOrDefault();
+                Product product = Select(x => x.Productaccountreference == e.AccountReference).FirstOrDefault();
 
-                if (prod != null)
+                if (product != null)
                 {
-                    prod.Updatedat = DateTime.Now;
-                    Product product = Update(prod);
+                    product.Updatedat = DateTime.Now;
+                    product = Update(product);
                 }
                 else
                 {
-                    Product product = Insert(new Product()
+                    product = Insert(new Product()
                     {
                         Idcategories = category.Id,
                         Idworksheet = category.Idworksheet,
@@ -51,9 +54,28 @@ namespace Toci.Earrai.Bll.SageIntegration
                         Description = e.Description
                     });
                 }
+
+                AddQuoteAndPrice(product.Id, e.CostPriceStandard, "Hannon", "£/Tonne");
             }
 
             return entity.Count;
+        }
+
+        // todo ? - any area quantity ?
+
+        protected virtual bool AddQuoteAndPrice(int productId, string price, string vendor, string valuationKind)
+        {
+            Vendor vnd = vendorsLogic.Select(m => m.Name == vendor).FirstOrDefault();
+            Quoteandmetric quoteandmetric = quoteAndMetricLogic.Select(m => m.Valuation == valuationKind).FirstOrDefault();
+
+            if (vnd != null && quoteandmetric != null)
+            { // todo user id -> sage
+                quoteandpriceLogic.Insert(new Quoteandprice() { Idproducts = productId, Idvendor = vnd.Id, Iduser = 1, Idquoteandmetric = quoteandmetric.Id, Price = price });
+
+                return true;
+            }
+
+            return false;
         }
 
         protected virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)
