@@ -317,3 +317,6 @@ select * from quoteandprice;
 select * from QuotesAndPrices;
 
 
+alter table categories add column idworksheet int;
+
+update categories set idworksheet = 1 where prefix in ('PL', 'PLCHQ', 'HD' , 'GS');
