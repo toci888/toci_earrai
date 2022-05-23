@@ -48,6 +48,7 @@ namespace Toci.Earrai.Database.Persistence.Models
         public virtual DbSet<Quotesandprice> Quotesandprices { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Rolesaction> Rolesactions { get; set; }
+        public virtual DbSet<Sage> Sages { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Sizecategory> Sizecategories { get; set; }
         public virtual DbSet<Sizeworksheetelement> Sizeworksheetelements { get; set; }
@@ -661,6 +662,19 @@ namespace Toci.Earrai.Database.Persistence.Models
                     .WithMany(p => p.Rolesactions)
                     .HasForeignKey(d => d.Idrole)
                     .HasConstraintName("rolesaction_idrole_fkey");
+            });
+
+            modelBuilder.Entity<Sage>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("sage");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");
+
+                entity.Property(e => e.Timeofmanipulation)
+                    .HasColumnName("timeofmanipulation")
+                    .HasDefaultValueSql("now()");
             });
 
             modelBuilder.Entity<Size>(entity =>

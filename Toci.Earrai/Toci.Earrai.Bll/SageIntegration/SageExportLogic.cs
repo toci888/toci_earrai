@@ -14,6 +14,7 @@ namespace Toci.Earrai.Bll.SageIntegration
     public class SageExportLogic : Logic<Product>, ISageLogic
     {
         protected Logic<Category> CategoryLogic = new Logic<Category>();
+        protected Logic<Sage> SageLogic = new Logic<Sage>();
         protected ProductLogic ProductLogic = new ProductLogic();
 
         public List<List<string>> Export(DateTime condition)

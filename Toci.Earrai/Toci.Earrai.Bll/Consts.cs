@@ -22,4 +22,10 @@ namespace Toci.Earrai.Bll
         public const string DateFormat = "dd-MM-yyyy";
         public const string DummyCategory = "DUMMY";
     }
+
+    public static class SageConsts
+    {
+        public const string Import = "ImportFromSage";
+        public const string Export = "ExportToSage";
+    }
 }

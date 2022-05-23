@@ -6,6 +6,7 @@ drop view userRoles;
 drop view AreasQuantities;
 drop view QuotesAndPrices;
 
+drop table sage;
 drop table rolesaction;
 drop table actions;
 drop table productsize cascade;
@@ -247,6 +248,12 @@ create table rolesaction
     id serial primary key,
 	idaction int references actions(id),
 	idrole int references roles(id)
+);
+
+create table sage
+(
+	flag text, 
+	timeOfManipulation timestamp default now()
 );
 
 create or replace view productsoptionsstate as 
