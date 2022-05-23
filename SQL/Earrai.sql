@@ -338,4 +338,4 @@ update categories set idworksheet = 7 where prefix in ('FL', 'FLB'); 						 -- F
 update categories set idworksheet = 8 where prefix in ('RB_BLK', 'SQ_BLK', 'RB_BRI' , 'HB'); -- Rnds_Sqrs_HolBar
 update categories set idworksheet = 9 where prefix in ('SHS', 'RHS'); 						 -- RHS
 
-insert into sage values ('ImportFromSage', '2020-05-19 19:11:47.915287')
+insert into sage values ('ExportToSage', '2020-05-19 19:11:47.915287')

@@ -310,7 +310,7 @@ namespace Toci.Earrai.Ui
         private void sageExportButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Excel files | *.xlsx";
+            sfd.Filter = "Excel files | *.xls";
             sfd.DefaultExt = "xls";
             sfd.FileName = "SageExport_" + DateTime.Now.ToString("dd-MM-yyyy");
 
