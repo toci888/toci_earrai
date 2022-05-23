@@ -252,7 +252,7 @@ create table rolesaction
 
 create table sage
 (
-	flag text, 
+	flag text primary key, 
 	timeOfManipulation timestamp default now()
 );
 
@@ -322,7 +322,7 @@ select * from AreasQuantities;
 select * from quoteandmetric;
 select * from quoteandprice; 
 select * from QuotesAndPrices;
-
+select * from sage;
 
 select * from categories
 
@@ -338,3 +338,4 @@ update categories set idworksheet = 7 where prefix in ('FL', 'FLB'); 						 -- F
 update categories set idworksheet = 8 where prefix in ('RB_BLK', 'SQ_BLK', 'RB_BRI' , 'HB'); -- Rnds_Sqrs_HolBar
 update categories set idworksheet = 9 where prefix in ('SHS', 'RHS'); 						 -- RHS
 
+insert into sage values ('ImportFromSage', '2020-05-19 19:11:47.915287')

@@ -16,6 +16,7 @@ namespace Toci.Earrai.Bll
         protected IProductOptionValuesLogic ProductOVLogic = new ProductOptionValuesLogic();
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
+        protected Logic<Sage> SageLogic = new Logic<Sage>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
         protected IQuoteandpriceLogic QuoteandpriceLogic = new QuoteandpriceLogic();
 
@@ -102,6 +103,20 @@ namespace Toci.Earrai.Bll
             }
 
             return result;
+        }
+
+        public virtual List<ProductDto> GetProductsByDate()
+        {
+            Sage sage = SageLogic.Select(x => x.Flag == SageConsts.Export).FirstOrDefault();
+
+            if (sage == null)
+            {
+                return null;
+            }
+
+            List<Product> products = Select(x => x.Updatedat > sage.Timeofmanipulation).ToList();
+
+            return products.Select(item => GetProduct(item.Id)).ToList();
         }
 
         public virtual  List<ProductDto> GetProductsByWorksheet(int worksheetId) 

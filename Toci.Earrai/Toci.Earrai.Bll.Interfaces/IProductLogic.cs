@@ -16,5 +16,7 @@ namespace Toci.Earrai.Bll.Interfaces
         List<ProductDto> GetProductsByWorksheet(int worksheetId);
 
         int AddNewProduct(NewProductDto dto);
+
+        List<ProductDto> GetProductsByDate();
     }
 }

@@ -23,7 +23,7 @@ namespace Toci.Earrai.Microservice.Controllers
         [HttpGet("ExportToSage")]
         public ActionResult<List<List<string>>> GetProductsToExportToSage()
         {
-            return Ok(Logic.Export(DateTime.Now));
+            return Ok(Logic.Export());
         }
 
         [HttpPost("InsertEiEntity")]

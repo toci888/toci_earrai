@@ -666,7 +666,8 @@ namespace Toci.Earrai.Database.Persistence.Models
 
             modelBuilder.Entity<Sage>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Flag)
+                    .HasName("sage_pkey");
 
                 entity.ToTable("sage");
 

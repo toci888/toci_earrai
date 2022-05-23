@@ -12,7 +12,7 @@ namespace Toci.Earrai.Bll.Interfaces
 {
     public interface ISageLogic : ILogicBase<Product>
     {
-        List<List<string>> Export(DateTime condition);
+        List<List<string>> Export();
         int Import(List<EiEntity> entity);
     }
 }

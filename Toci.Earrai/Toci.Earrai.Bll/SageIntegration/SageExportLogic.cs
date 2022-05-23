@@ -20,9 +20,15 @@ namespace Toci.Earrai.Bll.SageIntegration
         protected Logic<Vendor> vendorsLogic = new Logic<Vendor>();
         protected QuoteandpriceLogic quoteandpriceLogic = new QuoteandpriceLogic();
 
-        public List<List<string>> Export(DateTime condition)
+        public List<List<string>> Export()
         {
-            List<ProductDto> productDtos = ProductLogic.GetProductsByWorksheet(2);
+            List<ProductDto> productDtos = ProductLogic.GetProductsByDate();
+
+            Sage flag = SageLogic.Select(x => x.Flag == Bll.SageConsts.Export).FirstOrDefault();
+
+            flag.Timeofmanipulation = DateTime.Now;
+
+            SageLogic.Update(flag);
 
             return GetExportDataForProductDtos(productDtos);
         }
@@ -61,6 +67,12 @@ namespace Toci.Earrai.Bll.SageIntegration
                     AddQuoteAndPrice(product.Id, e.CostPriceStandard, "Hannon", "£/Tonne");
                 }
             }
+
+            SageLogic.Update(new Sage()
+            {
+                Flag = Bll.SageConsts.Import,
+                Timeofmanipulation = DateTime.Now
+            });
 
             return entity.Count;
         }
@@ -138,10 +150,14 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             record[SageConsts.SalesNominal] = "4003";
 
-            Category cat = CategoryLogic.Select(m => m.Id == product.Product.Idcategories).First();
+            Category cat = CategoryLogic.Select(m => m.Id == product.Product.Idcategories).FirstOrDefault();
 
-            record[SageConsts.ProductCategoryNumber] = record[SageConsts.CategoryNumber] = cat.Code;
-            record[SageConsts.CategoryName] = cat.Name;
+            if (cat != null)
+            {
+                record[SageConsts.ProductCategoryNumber] = record[SageConsts.CategoryNumber] = cat.Code;
+                record[SageConsts.CategoryName] = cat.Name;
+            }
+
             record[SageConsts.CommodityCode] = "7208400010";
             record[SageConsts.Weight] = GetWeight(product).ToString();
             record[SageConsts.StockTakeDate] = dateLast;
