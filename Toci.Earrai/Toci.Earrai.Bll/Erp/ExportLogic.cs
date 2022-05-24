@@ -98,10 +98,10 @@ namespace Toci.Earrai.Bll.Erp
             return result;
         }
 
-        public virtual void GenerateExportToSageExcel(string excelPath, DateTime condition)
+        public virtual void GenerateExportToSageExcel(string excelPath)
         {
           
-            List<List<string>> setForExcelData = ApiC.ExportToSage(condition);
+            List<List<string>> setForExcelData = ApiC.ExportToSage();
 
            // List<List<string>> setForExcelData = new List<List<string>>();
 

@@ -155,7 +155,7 @@ namespace Toci.Earrai.Ui
 
         public virtual List<List<string>> ExportToSage()
         {
-            return ApiProxy.ExportToSage(DateTime.Now);
+            return ApiProxy.ExportToSage();
         }
     }
 }

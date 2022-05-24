@@ -320,8 +320,8 @@ namespace Toci.Earrai.Ui
 
             ExportLogic el = new ExportLogic();
 
-            el.GenerateExportToSageExcel(sfd.FileName, DateTime.Now);
-
+            el.GenerateExportToSageExcel(sfd.FileName);
+            MessageBox.Show("Export done.");
         }
 
         private void sageImportButton_Click(object sender, EventArgs e)
@@ -336,6 +336,7 @@ namespace Toci.Earrai.Ui
             ImportLogic il = new ImportLogic();
 
             il.ReadExcelFile(path);
+            MessageBox.Show("Import done.");
         }
     }
 }

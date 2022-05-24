@@ -18,6 +18,7 @@ namespace Toci.Earrai.Bll.Client.UI
     {
         public const HttpStatusCode StatusCodeSuccess = HttpStatusCode.OK;
         //c338w711
+        //c338w711
         protected string BaseUrl = "http://82.153.17.97:8864/";
         //protected string BaseUrl = "http://127.0.0.1:8642/";
 
@@ -326,9 +327,9 @@ namespace Toci.Earrai.Bll.Client.UI
             return ApiPost<int, User>("api/Account/Register", new User() { Firstname = firstName, Lastname = lastName, Email = email, Password = password }, false);
         }
 
-        public virtual List<List<string>> ExportToSage(DateTime dateCondition)
+        public virtual List<List<string>> ExportToSage()
         {
-            return ApiGet<List<List<string>>>("api/sage/exporttosage?dateCondition=" + dateCondition.ToString("dd-MM-yyyy"), true);
+            return ApiGet<List<List<string>>>("api/sage/exporttosage", true);
         }
     }
 }
