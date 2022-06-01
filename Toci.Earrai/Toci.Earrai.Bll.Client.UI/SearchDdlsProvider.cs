@@ -30,7 +30,7 @@ namespace Toci.Earrai.Bll.Client.UI
             { 3, new List<int>() { 0, 1 } },
             { 4, new List<int>() { 3 } },
             { 5, new List<int>() { 0, 1 } },
-            { 6, new List<int>() { 6, 7 } },
+            { 6, new List<int>() { 2, 3 } },
             { 7, new List<int>() { 6, 9, 10 } },
             { 8, new List<int>() { 4 } },
             { 9, new List<int>() { 4, 9 } },
