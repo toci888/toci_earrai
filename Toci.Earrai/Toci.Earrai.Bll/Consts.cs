@@ -19,6 +19,7 @@ namespace Toci.Earrai.Bll
         public const string Id = "Id";
         public const string Pcs = "Product Code Short";
         public const string Description = "Description";
+        public const string Category = "Category";
         public const string DateFormat = "dd-MM-yyyy";
         public const string DummyCategory = "DUMMY";
     }

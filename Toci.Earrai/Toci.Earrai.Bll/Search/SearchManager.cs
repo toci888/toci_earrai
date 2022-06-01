@@ -9,17 +9,6 @@ namespace Toci.Earrai.Bll.Search
 {
     public class SearchManager
     {
-        protected Dictionary<int, SearchProductBase> SearchHelpers = new Dictionary<int, SearchProductBase>()
-        {
-            { 1, new ThicknessProductSearch() },
-            { 2, new ThicknessProductSearch() },
-            { 3, new DimenstionABProductSearch() },
-            { 5, new DimenstionABProductSearch() },
-            { 4, new WidthProductSearch() },
-            { 7, new DimenstionABProductSearch() },
-            { 8, new OdProductSearch() },
-        };
-
         protected Dictionary<string, SearchProductBase> SearchHelpersEx = new Dictionary<string, SearchProductBase>()
         {
             { Consts.DimA, new DimenstionABProductSearch() },
@@ -31,18 +20,10 @@ namespace Toci.Earrai.Bll.Search
             { Consts.Id, new OdProductSearch() },
             { Consts.Thickness, new ThicknessProductSearch() },
             { Consts.Width, new WidthProductSearch() },
-            { Consts.Description, new DescriptionProductSearch() }
+            { Consts.Description, new DescriptionProductSearch() },
+            { Consts.Category, new CategoryProductSearch() }
         };
 
-        public virtual List<ProductDto> Search(ProductSearchRequestDto request)
-        {
-            if (SearchHelpers.ContainsKey(request.WorksheetId))
-            {
-                return SearchHelpers[request.WorksheetId].Search(request);
-            }
-
-            return null;
-        }
 
         public virtual List<ProductDto> SearchEx(ProductSearchRequestDto request)
         {

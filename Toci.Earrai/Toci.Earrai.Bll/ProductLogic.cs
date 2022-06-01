@@ -17,6 +17,7 @@ namespace Toci.Earrai.Bll
         protected IProductSizeLogic ProductSizeLogic = new ProductSizeLogic();
         protected Logic<Productsprice> ProductPriceLogic = new Logic<Productsprice>();
         protected Logic<Sage> SageLogic = new Logic<Sage>();
+        protected Logic<Category> CategoryLogic = new Logic<Category>();
         protected IAreasquantitiesLogic ProductQuantitesLogic = new AreasquantitiesLogic();
         protected IQuoteandpriceLogic QuoteandpriceLogic = new QuoteandpriceLogic();
 
@@ -24,6 +25,7 @@ namespace Toci.Earrai.Bll
         {
             ProductDto result = new ProductDto();
             result.Product = Select(m => m.Id == productId).FirstOrDefault();
+            result.Category = CategoryLogic.Select(m => m.Id == result.Product.Idcategories).FirstOrDefault();
             result.Options = RoundKgSheet(ProductOVLogic.GetProductValues(productId));
             result.Sizes = ProductSizeLogic.GetProductSizes(productId);
             result.Prices = RoundPrices(ProductPriceLogic.Select(m => m.Idproducts == productId).ToList());
@@ -89,20 +91,6 @@ namespace Toci.Earrai.Bll
             ProductSizeLogic.SetNewProductSizes(newProduct.Id, dto.Sizes);
 
             return newProduct.Id;
-        }
-
-        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
-        {
-            List<ProductDto> result = new List<ProductDto>();
-
-            List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
-
-            foreach (Product item in products)
-            {
-                result.Add(GetProduct(item.Id));
-            }
-
-            return result;
         }
 
         public virtual List<ProductDto> GetProductsByDate()

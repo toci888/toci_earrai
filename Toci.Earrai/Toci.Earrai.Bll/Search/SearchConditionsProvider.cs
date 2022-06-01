@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Bll.Search.Distinct;
 using Toci.Earrai.Database.Persistence.Models;
@@ -15,12 +16,13 @@ namespace Toci.Earrai.Bll.Search
         {
             { new List<string> () { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs }, (self, worksheetId, option) => self.GetFiltersOptions(worksheetId, option) },
             { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) },
-            { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) }
+            { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) },
+            { new List<string>() { Consts.Category }, (self, worksheetId, option) => self.GetFiltersProductsCategories(worksheetId, option) }
         };
 
         protected Logic<Productsizesearch> SizeSearchLogic = new Logic<Productsizesearch>();
         protected Logic<Productoptionsearch> OptionsSearchLogic = new Logic<Productoptionsearch>();
-        protected Logic<Product> ProductSearchLogic = new Logic<Product>();
+        protected IProductLogic ProductSearchLogic = new ProductLogic();
 
         public virtual List<string> GetFilters(int worksheetId, string option)
         {
@@ -68,7 +70,17 @@ namespace Toci.Earrai.Bll.Search
         protected virtual List<string> GetFiltersProducts(int worksheetId, string option)
         {
             // TODO option potential recognition for now always description
-            return ProductSearchLogic.Select(p => p.Idworksheet == worksheetId).Distinct(new ProductEqualityComparer()).Select(m => m.Description).OrderBy(m => m).ToList();
+            List<string> result = ProductSearchLogic.Select(p => p.Idworksheet == worksheetId).Distinct(new ProductEqualityComparer()).Select(m => m.Description).OrderBy(m => m).ToList();
+
+            return result;
+        }
+
+        protected virtual List<string> GetFiltersProductsCategories(int worksheetId, string option)
+        {
+            // TODO option potential recognition for now always description
+            List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.Category).Distinct(new CategoryEqualityComparer()).Select(m => m.Prefix).OrderBy(m => m).ToList();
+
+            return result;
         }
     }
 }
