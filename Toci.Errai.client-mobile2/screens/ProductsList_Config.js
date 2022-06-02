@@ -11,18 +11,20 @@ export const typesOfSearch = [
     "Id",
     "Product Code Short",
     "Description", // idx 10
+    "Category",
+    "Length"
 ]
 
 const selectedIndexOfTypeOfSearchForWorksheet = {
-    1: [2],
-    2: [2],
-    3: [0, 1],
-    4: [3], // flts ??
-    5: [0, 1], // ??
-    6: [6, 7],
-    7: [6, 9, 10],
-    8: [4],
-    9: [4, 9], // TODO whatsupp
+    1: [2, 11],
+    2: [2, 11],
+    3: [3, 12, 11],
+    4: [11], // chan ??
+    5: [0, 1, 11], // ??
+    6: [2, 11],
+    7: [2, 3, 11],
+    8: [4, 11],
+    9: [2, 11], // TODO whatsupp
 }
 
 export function getAvailableTypeForWorksheet(worksheetId) {

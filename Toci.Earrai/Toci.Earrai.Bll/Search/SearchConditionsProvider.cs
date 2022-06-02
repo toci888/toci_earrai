@@ -15,7 +15,7 @@ namespace Toci.Earrai.Bll.Search
         protected Dictionary<List<string>, Func<SearchConditionsProvider, int, string, List<string>>> SearchMap = new Dictionary<List<string>, Func<SearchConditionsProvider, int, string, List<string>>>()
         {
             { new List<string> () { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs }, (self, worksheetId, option) => self.GetFiltersOptions(worksheetId, option) },
-            { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) },
+            { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width, Consts.Length }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) },
             { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) },
             { new List<string>() { Consts.Category }, (self, worksheetId, option) => self.GetFiltersProductsCategories(worksheetId, option) }
         };

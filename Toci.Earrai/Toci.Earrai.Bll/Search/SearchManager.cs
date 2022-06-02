@@ -20,6 +20,7 @@ namespace Toci.Earrai.Bll.Search
             { Consts.Id, new OdProductSearch() },
             { Consts.Thickness, new ThicknessProductSearch() },
             { Consts.Width, new WidthProductSearch() },
+            { Consts.Length, new LengthProductSearch() },
             { Consts.Description, new DescriptionProductSearch() },
             { Consts.Category, new CategoryProductSearch() }
         };

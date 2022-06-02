@@ -123,6 +123,8 @@ namespace Toci.Earrai.Tests.Import
 
                     AreaQuantity.Insert(areaQuantity);
                 }
+
+                ++indexCounter;
             }
         }
 

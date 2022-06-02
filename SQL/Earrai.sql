@@ -107,7 +107,8 @@ create table categories
 	name text,
 	prefix text,
 	description text,
-	code text
+	code text,
+	idworksheet int references worksheets(id)
 );
 
 create table commisions
@@ -125,7 +126,9 @@ create table products
 	idworksheet int references worksheets (id),
 	rowIndex int,
 	productaccountreference text,
-	description text
+	description text,
+	createdAt timestamp,
+	updatedAt timestamp
 );
 
 create table productoptions
