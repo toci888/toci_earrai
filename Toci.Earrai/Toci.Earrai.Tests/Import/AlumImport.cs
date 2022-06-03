@@ -15,7 +15,7 @@ namespace Toci.Earrai.Tests.Import
         public AlumImport() 
         {
             categoryIndexColumn = 0;
-            areasStart = 6;
+            areasStart = 7;
             numberOfAreas = 2;
             skipAreaWidth = false;
         }
@@ -30,7 +30,7 @@ namespace Toci.Earrai.Tests.Import
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerSheet,
-                Price = row[16],
+                Price = row[17],
             });
         }
 
@@ -38,7 +38,7 @@ namespace Toci.Earrai.Tests.Import
         {
             // TODO is it right ?
 
-            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Length, Value = row[7] });
+            ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Length, Value = row[4] });
             ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Width, Value = row[5] });
             ProductSizeLogic.Insert(new Productsize() { Idproducts = productId, Idsizes = (int)ProductSizesEnum.Thickness, Value = row[6] });
         }

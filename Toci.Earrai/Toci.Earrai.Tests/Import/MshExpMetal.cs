@@ -10,7 +10,7 @@ namespace Toci.Earrai.Tests.Import
     {
         public MshExpMetal()
         {
-            areasStart = 7;
+            areasStart = 8;
             numberOfAreas = 2;
             skipAreaWidth = false;
         }
@@ -26,7 +26,7 @@ namespace Toci.Earrai.Tests.Import
         protected override void ImportOptions(List<string> row, int productId)
         {
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.ProductCodeShort, Value = row[3] });
-            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.Type, Value = row[4] });
+            ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SizeMetric, Value = row[4] });
             ProductOptionValue.Insert(new Productoptionvalue() { Idproducts = productId, Idproductoptions = (int)ProductOptionsEnum.SheetSize, Value = row[5] });
         }
 
@@ -35,14 +35,14 @@ namespace Toci.Earrai.Tests.Import
             pricesLogic.Insert(new Quoteandprice() {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerSheet,
-                Price = row[19],
+                Price = row[20],
             });
 
             pricesLogic.Insert(new Quoteandprice()
             {
                 Idproducts = productId,
                 Idquoteandmetric = (int)QuoteAndMetricEnum.PoundsPerMeterSquared,
-                Price = row[20],
+                Price = row[21],
             });
         }
     }

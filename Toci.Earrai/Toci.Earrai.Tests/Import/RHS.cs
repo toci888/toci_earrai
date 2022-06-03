@@ -10,7 +10,7 @@ namespace Toci.Earrai.Tests.Import
     {
         public RHS()
         {
-            areasStart = 6;
+            areasStart = 7;
             numberOfAreas = 3;
             skipAreaWidth = true;
         }
