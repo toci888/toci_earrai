@@ -36,9 +36,12 @@ namespace Toci.Earrai.Ui
         protected LogIn MasterWindow;
         protected Button generateExcelFromView = new ();
         protected List<List<string>> currentGridViewData;
+        protected Dictionary<int, List<string>> ImagesMap;
+        protected List<PictureBox> ImagesOnLayout = new List<PictureBox>();
 
         public Form1(Userrole loggedUser, LogIn masterWindow)
         {
+            CreateImagesMap();
             LoggedUser = loggedUser;
             MasterWindow = masterWindow;
 
@@ -65,6 +68,49 @@ namespace Toci.Earrai.Ui
             if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
             {
                 this.users.Visible = true;
+            }
+
+            AddImages();
+        }
+
+        protected virtual void CreateImagesMap()
+        {
+            ImagesMap = new Dictionary<int, List<string>>()
+            {
+                { WorksheetsIds.PLTandSHEET, new List<string>() { "pltSheetPL.png", "pltSheetPLCHQ.png" } },
+                { WorksheetsIds.MshandExpMetal, new List<string>() { "mshEX_MET.png", "mshMSH.png" } },
+                { WorksheetsIds.AnglesplusT, new List<string>() { "anglesT_EA.png", "anglesT_UA.png" } },
+                { WorksheetsIds.ChanandBms, new List<string>() { "chanIPE.png", "chanPFC.png", "chanUB.png", "chanUC.png" } },
+                { WorksheetsIds.FLTS, new List<string>() { "FLTS_FL.png" } },
+                { WorksheetsIds.RHS, new List<string>() { "RHS_RHS.png", "RHS_SHS.png", "Rnds_HB.png", "Rnds_RB_BLK.png", "Rnds_RB_BRI.png", "Rnds_SQ_BLK.png" } },
+                { WorksheetsIds.Tube_CHS, new List<string>() { "TubeCHS_CHS.png", "TubeCHS_GCHS.png" } },
+            };
+        }
+
+        protected virtual void AddImages()
+        {
+            if (ImagesOnLayout.Any())
+            {
+                foreach(PictureBox pb in ImagesOnLayout)
+                    Controls.Remove(pb);
+            }
+
+            if (selectedWorkSheetId > 0 && ImagesMap.ContainsKey(selectedWorkSheetId))
+            {
+                ImagesOnLayout = new List<PictureBox>();
+                int x = 10;
+                foreach (string path in ImagesMap[selectedWorkSheetId])
+                {
+                    PictureBox pictureBox = new PictureBox();
+                    pictureBox.Size = new System.Drawing.Size(60, 60);
+                    pictureBox.Location = new System.Drawing.Point(x, 10);
+                    x += 70;
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox.Image = new System.Drawing.Bitmap("./assets/" + path);
+
+                    Controls.Add(pictureBox);
+                    ImagesOnLayout.Add(pictureBox);
+                }
             }
         }
 
@@ -98,7 +144,7 @@ namespace Toci.Earrai.Ui
             selectedWorkSheetId = worksheetId;
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
 
-
+            AddImages();
             //ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUserContext.User, areas, vendors, quotesandprices);
             //pAdd.Show();
         }

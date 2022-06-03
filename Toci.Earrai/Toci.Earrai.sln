@@ -60,6 +60,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.ExcelLibrary.Extension
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toci.Common", "..\..\toci_common\Toci.Common\Toci.Common\Toci.Common.csproj", "{1FE1AED2-B9E9-4BA1-92D4-81DAA58B67CE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{CDB92A16-BFA4-4634-8590-8C39775ABB38}"
+	ProjectSection(SolutionItems) = preProject
+		Toci.Earrai.Ui\assets\anglesT_EA.png = Toci.Earrai.Ui\assets\anglesT_EA.png
+		Toci.Earrai.Ui\assets\anglesT_UA.png = Toci.Earrai.Ui\assets\anglesT_UA.png
+		Toci.Earrai.Ui\assets\chanIPE.png = Toci.Earrai.Ui\assets\chanIPE.png
+		Toci.Earrai.Ui\assets\chanPFC.png = Toci.Earrai.Ui\assets\chanPFC.png
+		Toci.Earrai.Ui\assets\chanUB.png = Toci.Earrai.Ui\assets\chanUB.png
+		Toci.Earrai.Ui\assets\chanUC.png = Toci.Earrai.Ui\assets\chanUC.png
+		Toci.Earrai.Ui\assets\FLTS_FL.png = Toci.Earrai.Ui\assets\FLTS_FL.png
+		Toci.Earrai.Ui\assets\mshEX_MET.png = Toci.Earrai.Ui\assets\mshEX_MET.png
+		Toci.Earrai.Ui\assets\mshMSH.png = Toci.Earrai.Ui\assets\mshMSH.png
+		Toci.Earrai.Ui\assets\pltSheetPL.png = Toci.Earrai.Ui\assets\pltSheetPL.png
+		Toci.Earrai.Ui\assets\pltSheetPLCHQ.png = Toci.Earrai.Ui\assets\pltSheetPLCHQ.png
+		Toci.Earrai.Ui\assets\RHS_RHS.png = Toci.Earrai.Ui\assets\RHS_RHS.png
+		Toci.Earrai.Ui\assets\RHS_SHS.png = Toci.Earrai.Ui\assets\RHS_SHS.png
+		Toci.Earrai.Ui\assets\Rnds_HB.png = Toci.Earrai.Ui\assets\Rnds_HB.png
+		Toci.Earrai.Ui\assets\Rnds_RB_BLK.png = Toci.Earrai.Ui\assets\Rnds_RB_BLK.png
+		Toci.Earrai.Ui\assets\Rnds_RB_BRI.png = Toci.Earrai.Ui\assets\Rnds_RB_BRI.png
+		Toci.Earrai.Ui\assets\Rnds_SQ_BLK.png = Toci.Earrai.Ui\assets\Rnds_SQ_BLK.png
+		Toci.Earrai.Ui\assets\TubeCHS_CHS.png = Toci.Earrai.Ui\assets\TubeCHS_CHS.png
+		Toci.Earrai.Ui\assets\TubeCHS_GCHS.png = Toci.Earrai.Ui\assets\TubeCHS_GCHS.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +262,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CDB92A16-BFA4-4634-8590-8C39775ABB38} = {882ED250-85D9-45B7-9C80-2C105F4E7562}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27FA715A-77DF-4DAD-8A31-5EC72B20BB11}
