@@ -37,12 +37,14 @@ namespace Toci.Earrai.Ui
 
         protected int ySlided = 0;
         protected int xSlided = 0;
-        protected int xSlide = 100;
-        protected int ySlide = 50;
+        protected int xSlide = 120;
+        protected int ySlide = 60;
         protected int xLeft = 10;
         protected int xOptionsSizes = 450;
         protected int xCommisions = 550;
         protected int xPrices = 800;
+        protected int sizeX = 120;
+        protected int sizeY = 25;
 
         protected List<Area> areas;
         protected List<Vendor> vendors;
@@ -62,8 +64,12 @@ namespace Toci.Earrai.Ui
 
        protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
 
+        protected Rectangle Monitor;
+
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors, Userrole loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
+            Monitor = Screen.PrimaryScreen.Bounds;
+
             InitializeComponent();
             prodId = productId;
 
@@ -75,7 +81,7 @@ namespace Toci.Earrai.Ui
             product = Dm.GetProduct(prodId);
 
             AddBasicProductInfo();
-            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, 20, "Product sizing information.");
+            AddElementsToLayout(ProductSizeConverter.Convert(product.Sizes), xLeft + xOptionsSizes, sizeY, "Product sizing information.");
             AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
            // AddCommissions();
             AddAreasQuantitiesForm();
@@ -97,25 +103,25 @@ namespace Toci.Earrai.Ui
         {
             int y = 10;
             
-            Label productaccountreference = Cm.CreateLabel("Product Account Reference: ", 90, 20, xLeft, y);
-            Label productaccountreferenceValue = Cm.CreateLabel(product.Product.Productaccountreference, 90, 20, xLeft + Cm.GetSize("Product Account Reference: "), y);
+            Label productaccountreference = Cm.CreateLabel("Product Account Reference: ", sizeX, sizeY, xLeft, y);
+            Label productaccountreferenceValue = Cm.CreateLabel(product.Product.Productaccountreference, sizeX, sizeY, xLeft + Cm.GetSize("Product Account Reference: "), y);
 
             y += ySlide;
 
-            Label description = Cm.CreateLabel("Description: ", 90, 20, xLeft, y);
-            Label descriptionValue = Cm.CreateLabel(product.Product.Description, 90, 20, xLeft + xSlide, y);
+            Label description = Cm.CreateLabel("Description: ", sizeX, sizeY, xLeft, y);
+            Label descriptionValue = Cm.CreateLabel(product.Product.Description, sizeX, sizeY, xLeft + xSlide, y);
 
             y += ySlide;
 
-            Label stockTake = Cm.CreateLabel("Stock take value: ", 90, 20, xLeft, y);
-            StockTakeValue = Cm.CreateLabel(product.Pricing.StockTakeValue.ToString(), 90, 20, xLeft + Cm.GetSize("Stock take value: "), y);
+            Label stockTake = Cm.CreateLabel("Stock take value: ", sizeX, sizeY, xLeft, y);
+            StockTakeValue = Cm.CreateLabel(product.Pricing.StockTakeValue.ToString(), sizeX, sizeY, xLeft + Cm.GetSize("Stock take value: "), y);
 
             y += ySlide;
 
             TotalEntity te = Tr.GetLabelAmount(product);
 
-            Label totalLabel = Cm.CreateLabel(te.Label, 90, 20, xLeft, y);
-            TotalValue = Cm.CreateLabel(te.Amount, 90, 20, xLeft + Cm.GetSize(te.Label), y);
+            Label totalLabel = Cm.CreateLabel(te.Label, sizeX, sizeY, xLeft, y);
+            TotalValue = Cm.CreateLabel(te.Amount, sizeX, sizeY, xLeft + Cm.GetSize(te.Label), y);
 
             Controls.Add(productaccountreference);
             Controls.Add(productaccountreferenceValue);
@@ -131,7 +137,7 @@ namespace Toci.Earrai.Ui
         {
             int newY = yCoord;
 
-            Label head = Cm.CreateLabel(header, 90, 20, xCoord, newY);
+            Label head = Cm.CreateLabel(header, sizeX, sizeY, xCoord, newY);
 
             Controls.Add(head);
 
@@ -139,8 +145,8 @@ namespace Toci.Earrai.Ui
 
             foreach (ProductLayoutDto item in elements)
             {
-                Label l = Cm.CreateLabel(item.LabelItemName, 90, 20, xCoord, newY);
-                Label lR = Cm.CreateLabel(item.LabelItemValue, 90, 20, xCoord + xSlide, newY);
+                Label l = Cm.CreateLabel(item.LabelItemName, sizeX, sizeY, xCoord, newY);
+                Label lR = Cm.CreateLabel(item.LabelItemValue, sizeX, sizeY, xCoord + xSlide, newY);
 
                 newY += ySlide;
 
@@ -155,39 +161,39 @@ namespace Toci.Earrai.Ui
         {
             ySlided += ySlide;
 
-            Label widthL = Cm.CreateLabel("Width: ", 90, 20, xLeft, ySlided);
+            Label widthL = Cm.CreateLabel("Width: ", sizeX, sizeY, xLeft, ySlided);
 
             xSlided = xLeft + Cm.GetSize("Width: "); 
 
-            Aqif.Width = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+            Aqif.Width = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
+
+            xSlided += xSlide;
+
+            Label lengthL = Cm.CreateLabel("Length: ", sizeX, sizeY, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Length: ");
+
+            Aqif.Length = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
+
+            xSlided += xSlide;
+
+            Label quantityL = Cm.CreateLabel("Quantity: ", sizeX, sizeY, xSlided, ySlided);
+
+            xSlided += Cm.GetSize("Quantity: ");
+
+            Aqif.Quantity = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
 
             xSlided += xLeft + xSlide;
 
-            Label lengthL = Cm.CreateLabel("Length: ", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + Cm.GetSize("Length: ");
-
-            Aqif.Length = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + xSlide;
-
-            Label quantityL = Cm.CreateLabel("Quantity: ", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + Cm.GetSize("Quantity: ");
-
-            Aqif.Quantity = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
-
-            xSlided += xLeft + xSlide;
-
-            Label areasLabel = Cm.CreateLabel("Area: ", 90, 20, xSlided, ySlided);
+            Label areasLabel = Cm.CreateLabel("Area: ", sizeX, sizeY, xSlided, ySlided);
 
             xSlided += xLeft + Cm.GetSize("Area: ");
 
-            Aqif.Area = Cm.CreateComboBox(areas, "Name", 180, 20, xSlided, ySlided, "Id");
+            Aqif.Area = Cm.CreateComboBox(areas, "Name", 180, sizeY, xSlided, ySlided, "Id");
 
-            xSlided += xLeft + xSlide + xSlide;
+            xSlided += xSlide + xSlide;
 
-            Aqif.QuantitySubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, QuantityAdd);
+            Aqif.QuantitySubmit = Cm.CreateButton("Add", sizeX, sizeY, xSlided, ySlided, QuantityAdd);
 
             ySlided += ySlide;
 
@@ -276,31 +282,31 @@ namespace Toci.Earrai.Ui
             ySlided += ySlide;
             xSlided = 0;
 
-            Label vendorsLabel = Cm.CreateLabel("Vendor: ", 90, 20, xLeft, ySlided);
+            Label vendorsLabel = Cm.CreateLabel("Vendor: ", sizeX, sizeY, xLeft, ySlided);
 
             xSlided += xLeft + Cm.GetSize("Vendor: ");
 
-            Qapif.Vendors = Cm.CreateComboBox(vendors, "Name", 90, 20, xSlided, ySlided, "Id");
+            Qapif.Vendors = Cm.CreateComboBox(vendors, "Name", sizeX, sizeY, xSlided, ySlided, "Id");
 
             xSlided += xSlide;
 
-            Label valuationLabel = Cm.CreateLabel("Price kind: ", 90, 20, xSlided, ySlided);
+            Label valuationLabel = Cm.CreateLabel("Price kind: ", sizeX, sizeY, xSlided, ySlided);
 
             xSlided += Cm.GetSize("Price kind: ");
 
-            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", 90, 20, xSlided, ySlided, "Id");
+            Qapif.PriceKind = Cm.CreateComboBox(quotesandmetrics, "Valuation", sizeX, sizeY, xSlided, ySlided, "Id");
 
             xSlided += xSlide;
 
-            Label priceLabel = Cm.CreateLabel("Price: ", 90, 20, xSlided, ySlided);
+            Label priceLabel = Cm.CreateLabel("Price: ", sizeX, sizeY, xSlided, ySlided);
 
             xSlided += Cm.GetSize("Price: "); ;
 
-            Qapif.Price = Cm.CreateTextBox("", 90, 20, xSlided, ySlided);
+            Qapif.Price = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
 
             xSlided += xSlide;
 
-            Qapif.PriceSubmit = Cm.CreateButton("Add", 90, 20, xSlided, ySlided, PriceAdd);
+            Qapif.PriceSubmit = Cm.CreateButton("Add", sizeX, sizeY, xSlided, ySlided, PriceAdd);
 
             ySlided += ySlide;
 
@@ -547,8 +553,8 @@ namespace Toci.Earrai.Ui
 
             foreach (KeyValuePair<Valuations, double> price in prices)
             {
-                Label priceKey = Cm.CreateLabel(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ", 90, 20, xLeft + xPrices, y);
-                Label priceValue = Cm.CreateLabel(price.Value.ToString("0.00"), 90, 20, xLeft + xPrices + Cm.GetSize(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ") + 10, y);
+                Label priceKey = Cm.CreateLabel(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ", sizeX, sizeY, xLeft + xPrices, y);
+                Label priceValue = Cm.CreateLabel(price.Value.ToString("0.00"), sizeX, sizeY, xLeft + xPrices + Cm.GetSize(ValuationsMapUtil.StringifyEnumValuation(price.Key) + ": ") + 10, y);
 
                 Controls.Add(priceKey);
                 Controls.Add(priceValue);

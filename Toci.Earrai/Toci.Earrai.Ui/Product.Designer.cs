@@ -33,9 +33,10 @@ namespace Toci.Earrai.Ui
             // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1335, 1007);
+            this.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.Name = "Product";
             this.Text = "Earrai";
             this.Load += new System.EventHandler(this.Form1_Load);
