@@ -21,7 +21,7 @@ namespace Toci.Earrai.Tests.Import.Excel
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 //"e:\Feilim_Excel.xlsx"
                 //C:\Users\bzapa\source\repos\toci888\toci_earrai\SQL\GEng_Stock_Version 2021-12-20.xlsx
-                var rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream(@"C:\Users\bzapa\source\repos\toci888\toci_earrai\SQL\Feilim_Import.xlsx", FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") } );
+                var rdr = ExcelReaderFactory.CreateOpenXmlReader(new FileStream(@"e:\Feilim_Import.xlsx", FileMode.Open), new ExcelReaderConfiguration() { FallbackEncoding = Encoding.GetEncoding("UTF-8") } );
                 //Excel.ExcelClient ex = new ExcelClient();
 
                 DataSet ds = rdr.AsDataSet();

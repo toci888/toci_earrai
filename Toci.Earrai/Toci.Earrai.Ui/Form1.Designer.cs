@@ -1,4 +1,8 @@
 ﻿
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace Toci.Earrai.Ui
 {
     partial class Form1
@@ -21,6 +25,12 @@ namespace Toci.Earrai.Ui
             base.Dispose(disposing);
         }
 
+        protected int clientX = 1800;
+        protected int clientY = 850;
+
+        protected Font LayoutFont = new System.Drawing.Font("Calibri", 10);
+
+        protected List<Control> UiControls = new List<Control>();
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -29,6 +39,8 @@ namespace Toci.Earrai.Ui
         /// </summary>
         private void InitializeComponent()
         {
+            this.Resize += Form1_Resize;
+
             this.showBtn = new System.Windows.Forms.Button();
             this.workbookDdl = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +55,27 @@ namespace Toci.Earrai.Ui
             this.addNewProductButton = new System.Windows.Forms.Button();
             this.sageExportButton = new System.Windows.Forms.Button();
             this.sageImportButton = new System.Windows.Forms.Button();
+
+            UiControls.Add(this.showBtn);
+            UiControls.Add(this.workbookDdl);
+            UiControls.Add(this.label1);
+            UiControls.Add(this.label2);
+            UiControls.Add(this.excelDataGrid);
+            UiControls.Add(this.internetConnection);
+            UiControls.Add(SearchWorksheetBtn);
+            UiControls.Add(KindDdl);
+            UiControls.Add(valueDdl);
+            UiControls.Add(this.logout);
+            UiControls.Add(this.users);
+            UiControls.Add(this.addNewProductButton);
+            UiControls.Add(this.sageExportButton);
+            UiControls.Add(this.sageImportButton);
+
+            foreach (Control cntl in UiControls)
+            {
+                cntl.Font = LayoutFont;
+            }
+
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +103,7 @@ namespace Toci.Earrai.Ui
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 8);
             this.label1.Location = new System.Drawing.Point(167, 79);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
@@ -188,8 +222,8 @@ namespace Toci.Earrai.Ui
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            //this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1800, 850);
             this.Controls.Add(this.sageImportButton);
             this.Controls.Add(this.sageExportButton);
@@ -213,6 +247,19 @@ namespace Toci.Earrai.Ui
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void Form1_Resize(object sender, System.EventArgs e)
+        {
+            Size gridSize = excelDataGrid.Size;
+
+            gridSize.Width += ((Form1)sender).ClientSize.Width - clientX;
+            gridSize.Height += ((Form1)sender).ClientSize.Height - clientY;
+
+            clientX = ((Form1)sender).ClientSize.Width;
+            clientY = ((Form1)sender).ClientSize.Height;
+
+            excelDataGrid.Size = gridSize;
         }
 
         #endregion
