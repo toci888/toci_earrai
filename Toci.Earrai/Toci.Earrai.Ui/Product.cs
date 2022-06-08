@@ -37,8 +37,8 @@ namespace Toci.Earrai.Ui
 
         protected int ySlided = 0;
         protected int xSlided = 0;
-        protected int xSlide = 120;
-        protected int ySlide = 60;
+        protected int xSlide = 130;
+        protected int ySlide = 40;
         protected int xLeft = 10;
         protected int xOptionsSizes = 450;
         protected int xCommisions = 550;

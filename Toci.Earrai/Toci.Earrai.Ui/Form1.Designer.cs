@@ -55,6 +55,10 @@ namespace Toci.Earrai.Ui
             this.addNewProductButton = new System.Windows.Forms.Button();
             this.sageExportButton = new System.Windows.Forms.Button();
             this.sageImportButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
+            this.SuspendLayout();
+
+            this.ClientSize = new Size(clientX, clientY);
 
             UiControls.Add(this.showBtn);
             UiControls.Add(this.workbookDdl);
@@ -71,13 +75,7 @@ namespace Toci.Earrai.Ui
             UiControls.Add(this.sageExportButton);
             UiControls.Add(this.sageImportButton);
 
-            foreach (Control cntl in UiControls)
-            {
-                cntl.Font = LayoutFont;
-            }
-
-            ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
-            this.SuspendLayout();
+            
             // 
             // showBtn
             // 
@@ -103,11 +101,11 @@ namespace Toci.Earrai.Ui
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 8);
+            this.label1.Font = new System.Drawing.Font("Calibri", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(167, 79);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 15);
+            this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Worksheet";
             // 
@@ -219,12 +217,19 @@ namespace Toci.Earrai.Ui
             this.sageImportButton.Text = "Sage Import";
             this.sageImportButton.UseVisualStyleBackColor = true;
             this.sageImportButton.Click += new System.EventHandler(this.sageImportButton_Click);
+
+            foreach (Control cntl in UiControls)
+            {
+                cntl.Font = LayoutFont;
+                cntl.ClientSize = cntl.Size;
+            }
+
             // 
             // Form1
             // 
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1800, 850);
+            //this.ClientSize = new System.Drawing.Size(120, 0);
             this.Controls.Add(this.sageImportButton);
             this.Controls.Add(this.sageExportButton);
             this.Controls.Add(this.addNewProductButton);

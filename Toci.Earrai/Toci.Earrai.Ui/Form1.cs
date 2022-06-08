@@ -102,7 +102,7 @@ namespace Toci.Earrai.Ui
                 foreach (string path in ImagesMap[selectedWorkSheetId])
                 {
                     PictureBox pictureBox = new PictureBox();
-                    pictureBox.Size = new System.Drawing.Size(60, 60);
+                    pictureBox.ClientSize = new System.Drawing.Size(60, 60);
                     pictureBox.Location = new System.Drawing.Point(x, 10);
                     x += 70;
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
