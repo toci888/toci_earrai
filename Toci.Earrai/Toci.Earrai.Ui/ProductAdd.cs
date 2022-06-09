@@ -26,7 +26,7 @@ namespace Toci.Earrai.Ui
         protected OptionsSizesAvailableDto OsaDto;
         protected ProductOsConverter<Sizeworksheetelement> ProductSwConverter = new ProductOsConverter<Sizeworksheetelement>();
         protected ProductOsConverter<Optionworksheetelement> ProductOwConverter = new ProductOsConverter<Optionworksheetelement>();
-        protected ControlsManager ControlMan = new ControlsManager(true);
+        protected ControlsManager ControlMan; // = new ControlsManager(true);
       
         protected int ySlided = 0;
         protected int xSlided = 0;
@@ -45,6 +45,8 @@ namespace Toci.Earrai.Ui
         TextBox productaccountreferenceValue;
         TextBox descriptionValue;
         List<InputTextBox> inputTbs = new List<InputTextBox>();
+        protected Rectangle Monitor;
+        protected ScreenManager ScreenManagerInstance;
 
         protected virtual void ProductAddConfirm(object sender, EventArgs e)
         {
@@ -84,6 +86,12 @@ namespace Toci.Earrai.Ui
 
         public ProductAdd(string worksId, Userrole loggedUser, List<Area> _areas, List<Vendor> _vendors, List<Quoteandmetric> _quotesandmetrics)
         {
+            Monitor = Screen.PrimaryScreen.Bounds;
+
+            ScreenManagerInstance = new ScreenManager(Monitor.Width, Monitor.Height);
+
+            ControlMan = new ControlsManager(true, ScreenManagerInstance);
+
             InitializeComponent();
             worksheetId = worksId;
 

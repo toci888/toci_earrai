@@ -17,6 +17,7 @@ using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Client.UI.ToGrid;
 using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.Interfaces;
+using Toci.Earrai.Ui.ControlsStuff;
 
 namespace Toci.Earrai.Ui
 {
@@ -38,6 +39,8 @@ namespace Toci.Earrai.Ui
         protected List<List<string>> currentGridViewData;
         protected Dictionary<int, List<string>> ImagesMap;
         protected List<PictureBox> ImagesOnLayout = new List<PictureBox>();
+        protected Rectangle Monitor;
+        protected ScreenManager ScreenManagerInstance;
 
         public Form1(Userrole loggedUser, LogIn masterWindow)
         {
@@ -45,7 +48,13 @@ namespace Toci.Earrai.Ui
             LoggedUser = loggedUser;
             MasterWindow = masterWindow;
 
+            Monitor = Screen.PrimaryScreen.Bounds;
+
+            ScreenManagerInstance = new ScreenManager(Monitor.Width, Monitor.Height);
+
             InitializeComponent();
+
+            this.ClientSize = ScreenManagerInstance.GetDimensions(clientX, clientY);
 
             TaskFactory taskFactory = new TaskFactory();
 

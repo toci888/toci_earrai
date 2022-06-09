@@ -11,15 +11,12 @@ namespace Toci.Earrai.Ui.ControlsStuff
     public class ControlsManager
     {
         protected bool AutoSize = false;
+        protected ScreenManager ScreenManagerInstance;
 
-        public ControlsManager()
-        {
-            
-        }
-
-        public ControlsManager(bool autosize)
+        public ControlsManager(bool autosize, ScreenManager scm)
         {
             AutoSize = autosize;
+            ScreenManagerInstance = scm;
         }
 
         public int GetSize(string text)
@@ -37,8 +34,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             Label label = new Label();
 
             label.Text = text;
-            label.ClientSize = new Size(sizeX, sizeY);
-            label.Location = new Point(locX, locY);
+            label.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            label.Location = ScreenManagerInstance.GetLocation(locX, locY); //new Point(locX, locY);
 
             return label;
         }
@@ -48,8 +45,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             TextBox tb = new TextBox();
 
             tb.Text = text;
-            tb.ClientSize = new Size(sizeX, sizeY);
-            tb.Location = new Point(locX, locY);
+            tb.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            tb.Location = ScreenManagerInstance.GetLocation(locX, locY);
 
             return tb;
         }
@@ -59,8 +56,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             InputTextBox tb = new InputTextBox();
 
             tb.Text = text;
-            tb.ClientSize = new Size(sizeX, sizeY);
-            tb.Location = new Point(locX, locY);
+            tb.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            tb.Location = ScreenManagerInstance.GetLocation(locX, locY);
             tb.EntryId = id;
             tb.EntryKind = kind;
 
@@ -74,8 +71,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             combo.DisplayMember = displayMember;
             combo.ValueMember = valueMember;
             combo.DataSource = data;
-            combo.ClientSize = new Size(sizeX, sizeY);
-            combo.Location = new Point(locX, locY);
+            combo.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            combo.Location = ScreenManagerInstance.GetLocation(locX, locY);
 
             return combo;
         }
@@ -85,8 +82,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             Button submit = new Button();
 
             submit.Text = text;
-            submit.ClientSize = new Size(sizeX, sizeY);
-            submit.Location = new Point(locX, locY);
+            submit.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            submit.Location = ScreenManagerInstance.GetLocation(locX, locY);
             submit.Click += submitAction;
 
             return submit;
@@ -97,8 +94,8 @@ namespace Toci.Earrai.Ui.ControlsStuff
             DataGridView dgv = new DataGridView();
 
             dgv.DataSource = dataSource;
-            dgv.ClientSize = new Size(sizeX, sizeY);
-            dgv.Location = new Point(locX, locY);
+            dgv.ClientSize = ScreenManagerInstance.GetDimensions(sizeX, sizeY);// new Size(sizeX, sizeY);
+            dgv.Location = ScreenManagerInstance.GetLocation(locX, locY);
 
             return dgv;
         }

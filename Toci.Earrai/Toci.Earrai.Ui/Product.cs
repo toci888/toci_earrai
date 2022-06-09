@@ -25,7 +25,7 @@ namespace Toci.Earrai.Ui
         protected ProductDto product;
         protected ProductSizeConverter ProductSizeConverter = new ProductSizeConverter();
         protected ProductOptionsConverter ProductOptionsConverter = new ProductOptionsConverter();
-        protected ControlsManager Cm = new ControlsManager(true);
+        protected ControlsManager Cm;//= new ControlsManager(true);
         protected ValuationManager Vm = new ValuationManager();
         protected TotalResolver Tr = new TotalResolver();
 
@@ -65,10 +65,15 @@ namespace Toci.Earrai.Ui
        protected  Dictionary<string, Tuple<Label, Label>> CommissionsView = new Dictionary<string, Tuple<Label, Label>>();
 
         protected Rectangle Monitor;
+        protected ScreenManager ScreenManagerInstance;
 
         public Product(int productId, List<Area> _areas, List<Vendor> _vendors, Userrole loggedUser, List<Quoteandmetric> _quotesandmetrics)
         {
             Monitor = Screen.PrimaryScreen.Bounds;
+
+            ScreenManagerInstance = new ScreenManager(Monitor.Width, Monitor.Height);
+
+            Cm = new ControlsManager(true, ScreenManagerInstance);
 
             InitializeComponent();
             prodId = productId;

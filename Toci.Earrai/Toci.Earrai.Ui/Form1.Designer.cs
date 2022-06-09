@@ -58,7 +58,7 @@ namespace Toci.Earrai.Ui
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
 
-            this.ClientSize = new Size(clientX, clientY);
+            
 
             UiControls.Add(this.showBtn);
             UiControls.Add(this.workbookDdl);
