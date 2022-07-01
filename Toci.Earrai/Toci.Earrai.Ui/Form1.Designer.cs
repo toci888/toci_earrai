@@ -40,6 +40,7 @@ namespace Toci.Earrai.Ui
         private void InitializeComponent()
         {
             this.Resize += Form1_Resize;
+            
 
             this.showBtn = new System.Windows.Forms.Button();
             this.workbookDdl = new System.Windows.Forms.ComboBox();
@@ -227,8 +228,8 @@ namespace Toci.Earrai.Ui
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+           // this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+           // this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             //this.ClientSize = new System.Drawing.Size(120, 0);
             this.Controls.Add(this.sageImportButton);
             this.Controls.Add(this.sageExportButton);
@@ -256,7 +257,7 @@ namespace Toci.Earrai.Ui
 
         private void Form1_Resize(object sender, System.EventArgs e)
         {
-            Size gridSize = excelDataGrid.Size;
+            /*Size gridSize = excelDataGrid.Size;
 
             gridSize.Width += ((Form1)sender).ClientSize.Width - clientX;
             gridSize.Height += ((Form1)sender).ClientSize.Height - clientY;
@@ -264,7 +265,7 @@ namespace Toci.Earrai.Ui
             clientX = ((Form1)sender).ClientSize.Width;
             clientY = ((Form1)sender).ClientSize.Height;
 
-            excelDataGrid.Size = gridSize;
+            excelDataGrid.Size = gridSize;*/
         }
 
         #endregion

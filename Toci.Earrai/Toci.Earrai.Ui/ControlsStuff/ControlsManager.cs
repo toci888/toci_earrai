@@ -21,7 +21,7 @@ namespace Toci.Earrai.Ui.ControlsStuff
 
         public int GetSize(string text)
         {
-            return text.Length * 8;
+            return text.Length * 12;
         }
 
         public virtual Label CreateLabel(string text, int sizeX, int sizeY, int locX, int locY)

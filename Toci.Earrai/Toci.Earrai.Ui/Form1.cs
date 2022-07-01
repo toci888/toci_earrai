@@ -73,6 +73,7 @@ namespace Toci.Earrai.Ui
 
             this.FormClosed += (s, e) => MasterWindow.Close();
             generateExcelFromView.Click += GenerateExcelFromView_Click;
+            excelDataGrid.ClientSize = new System.Drawing.Size(1700, 650);
 
             if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
             {
@@ -293,6 +294,7 @@ namespace Toci.Earrai.Ui
                     {
                         excelDataGrid.Columns.Add(element.Name, element.Name);
                         excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        
                         k++;
 
                         if (!keeper.ContainsKey(element.Name))
@@ -303,7 +305,8 @@ namespace Toci.Earrai.Ui
                 }
 
                 columns = true;
-                
+
+                excelDataGrid.RowTemplate.Height = 30;
                 excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
                 currentGridViewData.Add(item.Select(m => m.Value).ToList());
             }

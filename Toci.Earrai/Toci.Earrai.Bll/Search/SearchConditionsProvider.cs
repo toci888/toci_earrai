@@ -17,7 +17,8 @@ namespace Toci.Earrai.Bll.Search
             { new List<string> () { Consts.Od, Consts.Id, Consts.Type, Consts.Metric, Consts.Pcs }, (self, worksheetId, option) => self.GetFiltersOptions(worksheetId, option) },
             { new List<string> () { Consts.DimA, Consts.DimB, Consts.Thickness, Consts.Width, Consts.Length }, (self, worksheetId, option) => self.GetFiltersSizes(worksheetId, option) },
             { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) },
-            { new List<string>() { Consts.Category }, (self, worksheetId, option) => self.GetFiltersProductsCategories(worksheetId, option) }
+            { new List<string>() { Consts.Category }, (self, worksheetId, option) => self.GetFiltersProductsCategories(worksheetId, option) },
+            { new List<string>() { Consts.Balance }, (self, worksheetId, option) => self.GetFiltersProductsBalance(worksheetId, option) },
         };
 
         protected Logic<Productsizesearch> SizeSearchLogic = new Logic<Productsizesearch>();
@@ -79,6 +80,14 @@ namespace Toci.Earrai.Bll.Search
         {
             // TODO option potential recognition for now always description
             List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.Category).Distinct(new CategoryEqualityComparer()).Select(m => m.Prefix).OrderBy(m => m).ToList();
+
+            return result;
+        }
+
+        protected virtual List<string> GetFiltersProductsBalance(int worksheetId, string option)
+        {
+            // TODO option potential recognition for now always description
+            List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.Balance).Distinct(new BalanceEqualityComparer()).Select(m => m.ToString()).OrderBy(m => m).ToList();
 
             return result;
         }
