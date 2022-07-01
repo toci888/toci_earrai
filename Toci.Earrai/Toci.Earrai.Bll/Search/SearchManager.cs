@@ -23,7 +23,9 @@ namespace Toci.Earrai.Bll.Search
             { Consts.Length, new LengthProductSearch() },
             { Consts.Description, new DescriptionProductSearch() },
             { Consts.Category, new CategoryProductSearch() },
-            { Consts.Balance, new BalanceProductSearch() }
+            { Consts.Balance, new BalanceProductSearch() },
+            { Consts.Area, new AreaProductSearch() },
+            { Consts.StockTakeValue, new StockTakeValueProductSearch() },
         };
 
 

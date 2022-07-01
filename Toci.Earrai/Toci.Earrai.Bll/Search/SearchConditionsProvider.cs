@@ -19,6 +19,8 @@ namespace Toci.Earrai.Bll.Search
             { new List<string> () { Consts.Description }, (self, worksheetId, option) => self.GetFiltersProducts(worksheetId, option) },
             { new List<string>() { Consts.Category }, (self, worksheetId, option) => self.GetFiltersProductsCategories(worksheetId, option) },
             { new List<string>() { Consts.Balance }, (self, worksheetId, option) => self.GetFiltersProductsBalance(worksheetId, option) },
+            { new List<string>() { Consts.Area }, (self, worksheetId, option) => self.GetFiltersProductsArea(worksheetId, option) },
+            { new List<string>() { Consts.StockTakeValue }, (self, worksheetId, option) => self.GetFiltersProductsStv(worksheetId, option) },
         };
 
         protected Logic<Productsizesearch> SizeSearchLogic = new Logic<Productsizesearch>();
@@ -86,10 +88,38 @@ namespace Toci.Earrai.Bll.Search
 
         protected virtual List<string> GetFiltersProductsBalance(int worksheetId, string option)
         {
-            // TODO option potential recognition for now always description
             List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.Balance).Distinct(new BalanceEqualityComparer()).Select(m => m.ToString()).OrderBy(m => m).ToList();
 
             return result;
+        }
+
+        protected virtual List<string> GetFiltersProductsStv(int worksheetId, string option)
+        {
+            List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.Pricing.StockTakeValue).Distinct(new StockTakeValueEqualityComparer()).Select(m => m.ToString()).OrderBy(m => m).ToList();
+
+            return result;
+        }
+
+        protected virtual List<string> GetFiltersProductsArea(int worksheetId, string option)
+        {
+            List<List<string>> list = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.AreaQuantities.Select(n => n.Areacode).ToList()).ToList();
+
+            Dictionary<string, string> map = new Dictionary<string, string>();
+
+            foreach (List<string> item in list)
+            {
+                foreach (string category in item)
+                {
+                    if (!map.ContainsKey(category))
+                    {
+                        map.Add(category, category);
+                    }
+                }
+            }
+
+            //List<string> result = ProductSearchLogic.GetProductsByWorksheet(worksheetId).Select(m => m.AreaQuantities.Select(n => n.Areacode).ToList()).ToList().Distinct(new AreaEqualityComparer()).Select(m => m.ToString()).OrderBy(m => m).ToList();
+
+            return map.Select(m => m.Key).ToList();
         }
     }
 }

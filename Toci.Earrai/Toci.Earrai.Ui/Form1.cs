@@ -74,6 +74,9 @@ namespace Toci.Earrai.Ui
             this.FormClosed += (s, e) => MasterWindow.Close();
             generateExcelFromView.Click += GenerateExcelFromView_Click;
             excelDataGrid.ClientSize = new System.Drawing.Size(1700, 650);
+            excelDataGrid.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle(new DataGridViewCellStyle() { BackColor = Color.LightBlue });
+            excelDataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 12.75F, FontStyle.Bold);
+            excelDataGrid.ColumnHeadersHeight = 35;
 
             if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
             {

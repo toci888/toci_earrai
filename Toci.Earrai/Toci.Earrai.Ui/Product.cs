@@ -164,13 +164,19 @@ namespace Toci.Earrai.Ui
 
         protected virtual void AddAreasQuantitiesForm()
         {
+            List<Productssize> prodSize = product.Sizes;
+
             ySlided += ySlide;
 
             Label widthL = Cm.CreateLabel("Width: ", sizeX, sizeY, xLeft, ySlided);
 
-            xSlided = xLeft + Cm.GetSize("Width: "); 
+            xSlided = xLeft + Cm.GetSize("Width: ");
 
-            Aqif.Width = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
+            Productssize width = prodSize.Where(p => p.Name == "Width").FirstOrDefault();
+
+            string Width = width != null ? width.Value : string.Empty;
+
+            Aqif.Width = Cm.CreateTextBox(Width, sizeX, sizeY, xSlided, ySlided);
 
             xSlided += xSlide;
 
@@ -178,7 +184,11 @@ namespace Toci.Earrai.Ui
 
             xSlided += Cm.GetSize("Length: ");
 
-            Aqif.Length = Cm.CreateTextBox("", sizeX, sizeY, xSlided, ySlided);
+            Productssize length = prodSize.Where(p => p.Name == "Length").FirstOrDefault();
+
+            string Length = length != null ? length.Value : string.Empty;
+
+            Aqif.Length = Cm.CreateTextBox(Length, sizeX, sizeY, xSlided, ySlided);
 
             xSlided += xSlide;
 
