@@ -18,5 +18,7 @@ namespace Toci.Earrai.Ui.ControlsStuff
         public TextBox Quantity { get; set; }
 
         public Button QuantitySubmit { get; set; }
+
+        public Button QuantityClearCancel { get; set; }
     }
 }

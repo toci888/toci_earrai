@@ -210,6 +210,10 @@ namespace Toci.Earrai.Ui
 
             Aqif.QuantitySubmit = Cm.CreateButton("Add", sizeX, sizeY, xSlided, ySlided, QuantityAdd);
 
+            xSlided += xSlide + xSlide;
+
+            Aqif.QuantityClearCancel = Cm.CreateButton("Clear", sizeX, sizeY, xSlided, ySlided, QuantityClearCancel);
+
             ySlided += ySlide;
 
             Aqif.DisplayGrid = Cm.CreateGrid(GetQuantities(prodId), 1000, 200, xLeft, ySlided);
@@ -244,6 +248,7 @@ namespace Toci.Earrai.Ui
             Controls.Add(quantityL);
             Controls.Add(Aqif.Quantity);
             Controls.Add(Aqif.QuantitySubmit);
+            Controls.Add(Aqif.QuantityClearCancel);
             Controls.Add(Aqif.DisplayGrid);
         }
 
@@ -252,6 +257,25 @@ namespace Toci.Earrai.Ui
             CurrentQuantities = Dm.GetQuantites(productId);
 
             return CurrentQuantities;
+        }
+
+        protected virtual void QuantityClearCancel(object sender, EventArgs e)
+        {
+            if (Aqif.QuantityClearCancel.Text == "Clear")
+            {
+                Aqif.Width.Text = string.Empty;
+                Aqif.Length.Text = string.Empty;
+                Aqif.Quantity.Text = string.Empty;
+            }
+
+            if (Aqif.QuantityClearCancel.Text == "Cancel")
+            {
+                Aqif.Width.Text = string.Empty;
+                Aqif.Length.Text = string.Empty;
+                Aqif.Quantity.Text = string.Empty;
+                Aqif.QuantitySubmit.Text = "Add";
+                Aqif.QuantityClearCancel.Text = "Clear";
+            }
         }
 
         protected virtual void QuantityAdd(object sender, EventArgs e)
@@ -439,6 +463,7 @@ namespace Toci.Earrai.Ui
                 Aqif.Quantity.Text = areaQ.Quantity;
                 Aqif.Width.Text = areaQ.Width;
                 Aqif.QuantitySubmit.Text = "Update";
+                Aqif.QuantityClearCancel.Text = "Cancel";
             }
         }
 
