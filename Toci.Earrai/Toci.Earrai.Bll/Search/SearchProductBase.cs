@@ -31,6 +31,16 @@ namespace Toci.Earrai.Bll.Search
                 return products.Where(m => m.Pricing.StockTakeValue > min && m.Pricing.StockTakeValue < max).ToList();
             }
 
+            if (min > 0)
+            {
+                return products.Where(m => m.Pricing.StockTakeValue > min).ToList();
+            }
+
+            if (max > 0)
+            {
+                return products.Where(m => m.Pricing.StockTakeValue < max).ToList();
+            }
+
             return products;
         }
 
