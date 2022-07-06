@@ -63,12 +63,12 @@ namespace Toci.Earrai.Ui
             // 
             // showBtn
             // 
-            this.showBtn.Location = new System.Drawing.Point(1153, 76);
+            this.showBtn.Location = new System.Drawing.Point(1344, 81);
             this.showBtn.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.showBtn.Name = "showBtn";
             this.showBtn.Size = new System.Drawing.Size(280, 63);
             this.showBtn.TabIndex = 0;
-            this.showBtn.Text = "Show";
+            this.showBtn.Text = "Filter";
             this.showBtn.UseVisualStyleBackColor = true;
             this.showBtn.Click += new System.EventHandler(this.showBtn_Click);
             // 
@@ -78,7 +78,7 @@ namespace Toci.Earrai.Ui
             this.workbookDdl.Location = new System.Drawing.Point(219, 81);
             this.workbookDdl.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.workbookDdl.Name = "workbookDdl";
-            this.workbookDdl.Size = new System.Drawing.Size(352, 23);
+            this.workbookDdl.Size = new System.Drawing.Size(352, 49);
             this.workbookDdl.TabIndex = 1;
             this.workbookDdl.SelectedIndexChanged += new System.EventHandler(this.workbookDdl_SelectedIndexChanged);
             // 
@@ -89,7 +89,7 @@ namespace Toci.Earrai.Ui
             this.label1.Location = new System.Drawing.Point(70, 92);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(133, 33);
             this.label1.TabIndex = 2;
             this.label1.Text = "Worksheet";
             // 
@@ -99,7 +99,7 @@ namespace Toci.Earrai.Ui
             this.label2.Location = new System.Drawing.Point(603, 84);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 15);
+            this.label2.Size = new System.Drawing.Size(171, 41);
             this.label2.TabIndex = 3;
             this.label2.Text = "Search kind";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -122,7 +122,7 @@ namespace Toci.Earrai.Ui
             this.internetConnection.Location = new System.Drawing.Point(0, 0);
             this.internetConnection.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.internetConnection.Name = "internetConnection";
-            this.internetConnection.Size = new System.Drawing.Size(0, 15);
+            this.internetConnection.Size = new System.Drawing.Size(0, 41);
             this.internetConnection.TabIndex = 3;
             this.internetConnection.Click += new System.EventHandler(this.internetConnection_Click);
             // 
@@ -132,30 +132,30 @@ namespace Toci.Earrai.Ui
             this.SearchWorksheetBtn.Name = "SearchWorksheetBtn";
             this.SearchWorksheetBtn.Size = new System.Drawing.Size(188, 58);
             this.SearchWorksheetBtn.TabIndex = 6;
-            this.SearchWorksheetBtn.Text = "Search";
+            this.SearchWorksheetBtn.Text = "Show All";
             this.SearchWorksheetBtn.UseVisualStyleBackColor = true;
             this.SearchWorksheetBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // KindDdl
             // 
             this.KindDdl.FormattingEnabled = true;
-            this.KindDdl.Location = new System.Drawing.Point(798, 81);
+            this.KindDdl.Location = new System.Drawing.Point(907, 76);
             this.KindDdl.Name = "KindDdl";
-            this.KindDdl.Size = new System.Drawing.Size(276, 23);
+            this.KindDdl.Size = new System.Drawing.Size(360, 49);
             this.KindDdl.TabIndex = 7;
             this.KindDdl.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // valueDdl
             // 
             this.valueDdl.FormattingEnabled = true;
-            this.valueDdl.Location = new System.Drawing.Point(798, 163);
+            this.valueDdl.Location = new System.Drawing.Point(907, 158);
             this.valueDdl.Name = "valueDdl";
-            this.valueDdl.Size = new System.Drawing.Size(276, 23);
+            this.valueDdl.Size = new System.Drawing.Size(360, 49);
             this.valueDdl.TabIndex = 8;
             // 
             // logout
             // 
-            this.logout.Location = new System.Drawing.Point(2532, 76);
+            this.logout.Location = new System.Drawing.Point(2138, 79);
             this.logout.Name = "logout";
             this.logout.Size = new System.Drawing.Size(126, 51);
             this.logout.TabIndex = 9;
@@ -165,7 +165,7 @@ namespace Toci.Earrai.Ui
             // 
             // users
             // 
-            this.users.Location = new System.Drawing.Point(2532, 145);
+            this.users.Location = new System.Drawing.Point(2138, 148);
             this.users.Name = "users";
             this.users.Size = new System.Drawing.Size(126, 49);
             this.users.TabIndex = 10;
@@ -185,7 +185,7 @@ namespace Toci.Earrai.Ui
             // 
             // sageExportButton
             // 
-            this.sageExportButton.Location = new System.Drawing.Point(1481, 143);
+            this.sageExportButton.Location = new System.Drawing.Point(1663, 156);
             this.sageExportButton.Name = "sageExportButton";
             this.sageExportButton.Size = new System.Drawing.Size(223, 51);
             this.sageExportButton.TabIndex = 12;
@@ -195,7 +195,7 @@ namespace Toci.Earrai.Ui
             // 
             // sageImportButton
             // 
-            this.sageImportButton.Location = new System.Drawing.Point(1481, 74);
+            this.sageImportButton.Location = new System.Drawing.Point(1663, 87);
             this.sageImportButton.Name = "sageImportButton";
             this.sageImportButton.Size = new System.Drawing.Size(223, 49);
             this.sageImportButton.TabIndex = 13;
@@ -205,48 +205,48 @@ namespace Toci.Earrai.Ui
             // 
             // stockTakeValueMin
             // 
-            this.stockTakeValueMin.Location = new System.Drawing.Point(832, 213);
+            this.stockTakeValueMin.Location = new System.Drawing.Point(991, 231);
             this.stockTakeValueMin.Name = "stockTakeValueMin";
-            this.stockTakeValueMin.Size = new System.Drawing.Size(100, 23);
+            this.stockTakeValueMin.Size = new System.Drawing.Size(100, 47);
             this.stockTakeValueMin.TabIndex = 14;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(603, 216);
+            this.label3.Location = new System.Drawing.Point(612, 237);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 15);
+            this.label3.Size = new System.Drawing.Size(119, 41);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Stock Take Value";
+            this.label3.Text = "Balance";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(798, 216);
+            this.label4.Location = new System.Drawing.Point(907, 237);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 15);
+            this.label4.Size = new System.Drawing.Size(69, 41);
             this.label4.TabIndex = 16;
             this.label4.Text = "Min";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(938, 216);
+            this.label5.Location = new System.Drawing.Point(1097, 234);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 15);
+            this.label5.Size = new System.Drawing.Size(74, 41);
             this.label5.TabIndex = 17;
             this.label5.Text = "Max";
             // 
             // stockTakeValueMax
             // 
-            this.stockTakeValueMax.Location = new System.Drawing.Point(974, 213);
+            this.stockTakeValueMax.Location = new System.Drawing.Point(1167, 234);
             this.stockTakeValueMax.Name = "stockTakeValueMax";
-            this.stockTakeValueMax.Size = new System.Drawing.Size(100, 23);
+            this.stockTakeValueMax.Size = new System.Drawing.Size(100, 47);
             this.stockTakeValueMax.TabIndex = 18;
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.ClientSize = new System.Drawing.Size(2293, 954);
             this.Controls.Add(this.stockTakeValueMax);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
