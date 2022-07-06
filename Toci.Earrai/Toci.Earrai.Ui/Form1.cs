@@ -77,6 +77,7 @@ namespace Toci.Earrai.Ui
             excelDataGrid.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle(new DataGridViewCellStyle() { BackColor = Color.LightBlue });
             excelDataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 12.75F, FontStyle.Bold);
             excelDataGrid.ColumnHeadersHeight = 95;
+            excelDataGrid.SortCompare += customSortCompare;
 
             if (LoggedUserContext.User.Name == nameof(PrivilegesEnum.Admin))
             {
@@ -275,6 +276,17 @@ namespace Toci.Earrai.Ui
             int worksheetId = int.Parse(worksheetID);
             
             SearchCombosHandler(worksheetId);
+        }
+
+        private void customSortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            double a = double.Parse(e.CellValue1.ToString()), b = double.Parse(e.CellValue2.ToString());
+
+            // If the cell value is already an integer, just cast it instead of parsing
+
+            e.SortResult = a.CompareTo(b);
+
+            e.Handled = true;
         }
 
         private void bind2(List<List<FlattenedEntity>> items)
