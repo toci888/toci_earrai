@@ -216,7 +216,7 @@ namespace Toci.Earrai.Ui
 
             if (valueDdl.SelectedItem != null)
             {
-                List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString());
+                List<ProductDto> products = Dm.GetProducts(selectedWorkSheetId, KindDdl.SelectedItem.ToString(), valueDdl.SelectedItem.ToString(), stockTakeValueMin.Text, stockTakeValueMax.Text);
 
                 ProductsFiltered = products;
 

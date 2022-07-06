@@ -20,7 +20,7 @@ namespace Toci.Earrai.Bll.Search
                 result = FilterResultsSizesWorksheet(request, elements);
             }
 
-            return ToProductDto(FilterBySearchQuery(request, result));
+            return SearchByStockTakeValue(ToProductDto(FilterBySearchQuery(request, result)), request);
         }
     }
 }

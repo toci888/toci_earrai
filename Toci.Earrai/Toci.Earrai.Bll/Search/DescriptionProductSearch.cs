@@ -13,8 +13,8 @@ namespace Toci.Earrai.Bll.Search
         public override List<ProductDto> Search(ProductSearchRequestDto request)
         {
             List<Product> result = ProductLogic.Select(p => p.Description == request.Value).ToList();
-
-            return ToProductDto(FilterBySearchQuery(request, result));
+  
+            return SearchByStockTakeValue(ToProductDto(FilterBySearchQuery(request, result)), request);
         }
     }
 }

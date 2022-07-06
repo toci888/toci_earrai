@@ -18,9 +18,20 @@ namespace Toci.Earrai.Bll.Search
         
         public abstract List<ProductDto> Search(ProductSearchRequestDto request);
 
-        protected virtual List<Product> GetProductsBasic(ProductSearchRequestDto request)
+        protected virtual List<ProductDto> SearchByStockTakeValue(List<ProductDto> products, ProductSearchRequestDto request)
         {
-            return ProductLogic.Select(prod => prod.Idworksheet == request.WorksheetId).ToList();
+            double min = 0;
+            double max = 0;
+
+            double.TryParse(request.StockTakeValueMin, out min);
+            double.TryParse(request.StockTakeValueMax, out max);
+
+            if (min > 0 && max > 0)
+            {
+                return products.Where(m => m.Pricing.StockTakeValue > min && m.Pricing.StockTakeValue < max).ToList();
+            }
+
+            return products;
         }
 
         protected virtual List<Productsoptionsstate> GetOptions(string option, string value)

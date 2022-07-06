@@ -14,7 +14,7 @@ namespace Toci.Earrai.Bll.Search
         {
             List<ProductDto> result = ProductLogic.GetProductsByWorksheet(request.WorksheetId).Where(p => p.Category.Prefix == request.Value).ToList();
 
-            return result;
+            return SearchByStockTakeValue(result, request);
         }
     }
 }

@@ -53,6 +53,11 @@ namespace Toci.Earrai.Ui
             this.addNewProductButton = new System.Windows.Forms.Button();
             this.sageExportButton = new System.Windows.Forms.Button();
             this.sageImportButton = new System.Windows.Forms.Button();
+            this.stockTakeValueMin = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.stockTakeValueMax = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.excelDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,7 +78,7 @@ namespace Toci.Earrai.Ui
             this.workbookDdl.Location = new System.Drawing.Point(219, 81);
             this.workbookDdl.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.workbookDdl.Name = "workbookDdl";
-            this.workbookDdl.Size = new System.Drawing.Size(352, 49);
+            this.workbookDdl.Size = new System.Drawing.Size(352, 23);
             this.workbookDdl.TabIndex = 1;
             this.workbookDdl.SelectedIndexChanged += new System.EventHandler(this.workbookDdl_SelectedIndexChanged);
             // 
@@ -84,7 +89,7 @@ namespace Toci.Earrai.Ui
             this.label1.Location = new System.Drawing.Point(70, 92);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 33);
+            this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Worksheet";
             // 
@@ -94,7 +99,7 @@ namespace Toci.Earrai.Ui
             this.label2.Location = new System.Drawing.Point(603, 84);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 41);
+            this.label2.Size = new System.Drawing.Size(68, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "Search kind";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -117,7 +122,7 @@ namespace Toci.Earrai.Ui
             this.internetConnection.Location = new System.Drawing.Point(0, 0);
             this.internetConnection.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.internetConnection.Name = "internetConnection";
-            this.internetConnection.Size = new System.Drawing.Size(0, 41);
+            this.internetConnection.Size = new System.Drawing.Size(0, 15);
             this.internetConnection.TabIndex = 3;
             this.internetConnection.Click += new System.EventHandler(this.internetConnection_Click);
             // 
@@ -136,7 +141,7 @@ namespace Toci.Earrai.Ui
             this.KindDdl.FormattingEnabled = true;
             this.KindDdl.Location = new System.Drawing.Point(798, 81);
             this.KindDdl.Name = "KindDdl";
-            this.KindDdl.Size = new System.Drawing.Size(302, 49);
+            this.KindDdl.Size = new System.Drawing.Size(276, 23);
             this.KindDdl.TabIndex = 7;
             this.KindDdl.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -145,7 +150,7 @@ namespace Toci.Earrai.Ui
             this.valueDdl.FormattingEnabled = true;
             this.valueDdl.Location = new System.Drawing.Point(798, 163);
             this.valueDdl.Name = "valueDdl";
-            this.valueDdl.Size = new System.Drawing.Size(302, 49);
+            this.valueDdl.Size = new System.Drawing.Size(276, 23);
             this.valueDdl.TabIndex = 8;
             // 
             // logout
@@ -198,9 +203,55 @@ namespace Toci.Earrai.Ui
             this.sageImportButton.UseVisualStyleBackColor = true;
             this.sageImportButton.Click += new System.EventHandler(this.sageImportButton_Click);
             // 
+            // stockTakeValueMin
+            // 
+            this.stockTakeValueMin.Location = new System.Drawing.Point(832, 213);
+            this.stockTakeValueMin.Name = "stockTakeValueMin";
+            this.stockTakeValueMin.Size = new System.Drawing.Size(100, 23);
+            this.stockTakeValueMin.TabIndex = 14;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(603, 216);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 15);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Stock Take Value";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(798, 216);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 15);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Min";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(938, 216);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Max";
+            // 
+            // stockTakeValueMax
+            // 
+            this.stockTakeValueMax.Location = new System.Drawing.Point(974, 213);
+            this.stockTakeValueMax.Name = "stockTakeValueMax";
+            this.stockTakeValueMax.Size = new System.Drawing.Size(100, 23);
+            this.stockTakeValueMax.TabIndex = 18;
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(2984, 1432);
+            this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.Controls.Add(this.stockTakeValueMax);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.stockTakeValueMin);
             this.Controls.Add(this.sageImportButton);
             this.Controls.Add(this.sageExportButton);
             this.Controls.Add(this.addNewProductButton);
@@ -254,6 +305,11 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.Button addNewProductButton;
         private System.Windows.Forms.Button sageExportButton;
         private System.Windows.Forms.Button sageImportButton;
+        private TextBox stockTakeValueMin;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private TextBox stockTakeValueMax;
     }
 }
 

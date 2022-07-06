@@ -12,5 +12,7 @@ namespace Toci.Earrai.Bll.Models
         public int Skip { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
+        public string StockTakeValueMin { get; set; }
+        public string StockTakeValueMax { get; set; }
     }
 }

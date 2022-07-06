@@ -13,7 +13,7 @@ namespace Toci.Earrai.Bll.Search
         {
             List<ProductDto> result = ProductLogic.GetProductsByWorksheet(request.WorksheetId).Where(p => p.AreaQuantities.Where(m => m.Areacode == request.Value).FirstOrDefault() != null).ToList();
 
-            return result;
+            return SearchByStockTakeValue(result, request);
         }
     }
 }

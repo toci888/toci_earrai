@@ -19,13 +19,15 @@ namespace Toci.Earrai.Ui
             
         }
 
-        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue)
+        public virtual List<ProductDto> GetProducts(int worksheetId, string fieldName, string fieldValue, string stockTakeMin, string stockTakeMax)
         {
             return ApiProxy.GetProductsEx(new ProductSearchRequestDto()
             {
                 WorksheetId = worksheetId,
                 Name = fieldName,
-                Value = fieldValue
+                Value = fieldValue,
+                StockTakeValueMin = stockTakeMin,
+                StockTakeValueMax = stockTakeMax
             });
         }
 
