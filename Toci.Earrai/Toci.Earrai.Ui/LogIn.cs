@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Toci.Common;
+using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.ErrorLog;
 using Toci.Earrai.Database.Persistence.Models;
@@ -57,9 +58,11 @@ namespace Toci.Earrai.Ui
             {
                 LoggedUserContext.User = user;
 
+                UserRoleManagement.LoadToken(user.Token);
+
                 //ExportLogic exL = new ExportLogic();
 
-               // exL.GenerateCompleteExcel("Feilim_1st");
+                // exL.GenerateCompleteExcel("Feilim_1st");
 
                 Form1 f = new Form1(user, this);
                 f.Show();

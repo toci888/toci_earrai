@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\toci_common\Toci.Common\Toci.Common.Microservices\Toci.Common.Microservices.csproj" />

@@ -307,23 +307,36 @@ namespace Toci.Earrai.Ui
                     int k = 0;
                     foreach (FlattenedEntity element in item)
                     {
-                        excelDataGrid.Columns.Add(element.Name, element.Name);
-                        excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        
-                        k++;
-
-                        if (!keeper.ContainsKey(element.Name))
+                        if (UserRoleManagement.IsColumnAllowed(element.Name))
                         {
-                            keeper.Add(element.Name, i++);
+                            excelDataGrid.Columns.Add(element.Name, element.Name);
+                            excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                            k++;
+
+                            if (!keeper.ContainsKey(element.Name))
+                            {
+                                keeper.Add(element.Name, i++);
+                            }
                         }
                     }
                 }
 
                 columns = true;
 
+                List<FlattenedEntity> finalList = new List<FlattenedEntity>();
+
+                foreach (FlattenedEntity fle in item)
+                {
+                    if (UserRoleManagement.IsColumnAllowed(fle.Name))
+                    {
+                        finalList.Add(fle);
+                    }
+                }
+
                 excelDataGrid.RowTemplate.Height = 45;
-                excelDataGrid.Rows.Add(item.Select(m => m.Value).ToArray());
-                currentGridViewData.Add(item.Select(m => m.Value).ToList());
+                excelDataGrid.Rows.Add(finalList.Select(m => m.Value).ToArray());
+                currentGridViewData.Add(finalList.Select(m => m.Value).ToList());
             }
 
         }
