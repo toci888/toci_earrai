@@ -31,7 +31,7 @@ namespace Toci.Earrai.Bll.Client.UI
             SecurityToken jsonToken = handler.ReadToken(token);
             JwtToken = jsonToken as JwtSecurityToken;
 
-            Clm = JwtToken.Claims.Where(c => c.Value == "User").FirstOrDefault();
+            Clm = JwtToken.Claims.Where(c => c.Value == User).FirstOrDefault();
         }
 
         public static string UserClaim()
@@ -41,7 +41,7 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public static bool IsUserForbidden()
         {
-            return Clm.Value == "User";
+            return Clm.Value == User;
         }
     }
 }

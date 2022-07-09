@@ -1,11 +1,16 @@
 import { getQuotesAndPricesByProductIdUrl } from './RequestConfig'
 import RestClient from './RestClient';
+import jwt_decode from 'jwt-decode';
 
 export default class AppUser {
+
+    static LevelUser = "User"
 
     static id = null
 
     static token = null
+
+    static scope = null
 
     static worksheetId = null
 
@@ -60,15 +65,24 @@ export default class AppUser {
     static getToken = () => AppUser.token
 
     
-    static logIn = (id_, token_ = null) => {
+    static logIn = (id_, token_) => {
         AppUser.id = id_
         AppUser.token = token_
+        console.log("here", AppUser.token);
+        var decoded = jwt_decode(token_);
+        console.log("Scope: ", decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+        AppUser.scope = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     }
 
     static logOut = () => {
         AppUser.id = null
         AppUser.token = null
         AsyncStorage.clear();
+    }
+
+    static IsAllowed = (uLevel) => 
+    {
+        return uLevel == AppUser.scope; //??
     }
 
     static checkIfAlreadyExists = async () => {
