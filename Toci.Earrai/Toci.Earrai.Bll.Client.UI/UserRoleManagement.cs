@@ -31,7 +31,7 @@ namespace Toci.Earrai.Bll.Client.UI
             SecurityToken jsonToken = handler.ReadToken(token);
             JwtToken = jsonToken as JwtSecurityToken;
 
-            Clm = JwtToken.Claims.Where(c => c.Value == User).FirstOrDefault();
+            Clm = JwtToken.Claims.Where(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").FirstOrDefault();
         }
 
         public static string UserClaim()
