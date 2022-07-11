@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
+import AppUser from '../shared/AppUser';
 import { productDetails as pd } from '../styles/productDetails'
 
 
@@ -31,26 +32,25 @@ export default function Product_UtilTable(props) {
                 props.details && Object.keys(props.details).map( (value, key) => {
                     if(props.details[value] == null) return
 
-                    // console.log(props)
-                    // console.log(props.details[value])
-                    // let dictionary = new Map([
-                    //     ["£ per tonne"],
-                    //     ["£ per sheet"],
-                    //     ["£ per square meter"],
-                    //     ["£ per length"],
-                    // ]);
-                    console.log("KONIEC4")
-                    console.log(key); 
-                    console.log(value); 
-                    console.log(key, value); 
-                    console.log(props.details); 
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <View style={[pd.inlineItem, pd.inlineItemLeft]}>
-                                <Text style={{textAlign: 'right'}}>{x(value)}</Text>
+                            {
+                                () => {
+                                    if(AppUser.IsAllowed(AppUser.LevelUser)) 
+                                    {
+                                        if(!value.includes("pound"))
+                                        {
+                                            <Text style={{textAlign: 'right'}}>{x(value)}</Text>
+                                        }
+                                    }
+                                }
+                            }
                             </View>
                             <View style={[pd.inlineItem, pd.inlineItemRight]}>
-                                <Text>{value.includes("pound")? "£ "+props.details[value] : props.details[value]}</Text>
+                            {
+                                <Text>{value.includes("pound")? AppUser.IsAllowed(AppUser.LevelUser)? "£ "+props.details[value]: "" : props.details[value] }</Text>
+                            }
                             </View>
                         </View>
                     )
