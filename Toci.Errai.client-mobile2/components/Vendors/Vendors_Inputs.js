@@ -95,6 +95,7 @@ export default function Vendor_Inputs(props) {
                         style={vI.ComboPicker}
                         onValueChange={(itemValue, itemIndex) => setVendor(itemValue, itemIndex)}>
                         {
+                            AppUser.getVendors() &&
                             AppUser.getVendors().map( (item, index) => {
                                 return <Picker.Item style={vI.CombiItem} key={index} label={item.name} value={item.id} />
                             })

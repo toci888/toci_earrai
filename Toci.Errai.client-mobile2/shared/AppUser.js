@@ -24,7 +24,7 @@ export default class AppUser {
 
     static userData
 
-    static vendors = null
+    static vendors
 
     static metrics = null
 
@@ -82,7 +82,7 @@ export default class AppUser {
 
     static IsAllowed = (uLevel) => 
     {
-        return uLevel == AppUser.scope; //??
+        return uLevel != AppUser.scope; //??
     }
 
     static checkIfAlreadyExists = async () => {

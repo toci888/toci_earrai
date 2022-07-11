@@ -18,7 +18,7 @@ export default function Vendors(props) {
 
     return (
         <View>
-            { props.QuotesAndPricesHook[0] &&
+            { props.QuotesAndPricesHook && props.QuotesAndPricesHook[0] &&
                 <View style={vs.QPcontainer}>
                     <View style={[vs.VendorV, vs.columnsColors]}>
                         <Text> {Object.keys(props.QuotesAndPricesHook[0])[8] } </Text>

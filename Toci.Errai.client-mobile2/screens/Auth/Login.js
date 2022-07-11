@@ -59,8 +59,8 @@ export default function Login({navigation}) {
 
   return (
     <Formik initialValues={{
-      email: 'admin@wp.pl',
-      password: '123456783'
+      email: 'user@wp.pl',
+      password: '123456789'
     }}
 
     onSubmit={(values, {resetForm}) => {

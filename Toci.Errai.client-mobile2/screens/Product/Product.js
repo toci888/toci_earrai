@@ -196,9 +196,13 @@ export default function Product({ route, navigation }) {
                 deleteProduct={deleteProduct}
             />
 
-            <ProductPrices product={ProductHook} />
+            
+            {
+                AppUser.IsAllowed(AppUser.LevelUser) && <ProductPrices product={ProductHook} />
+            }
 
             {
+                AppUser.IsAllowed(AppUser.LevelUser) && // check plz
                 ProductHook?.prices &&
                     <Vendors
                         setQuotesAndPricesHook={setQuotesAndPricesHook}
@@ -213,7 +217,7 @@ export default function Product({ route, navigation }) {
             <Product_UtilTable details={ProductHook?.pricing} name="Calculations" />
 
             {
-                QuotesAndPricesHook.length > 0 &&
+                QuotesAndPricesHook && QuotesAndPricesHook.length > 0 &&
                     <Product_Commisions
                         QuotesAndPricesHook={QuotesAndPricesHook}
                     />
