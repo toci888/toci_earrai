@@ -54,7 +54,7 @@ namespace Toci.Earrai.Ui
 
             Userrole user = Dm.Login(loginTextBox.Text, passwordTextbox.Text);
 
-            if (user != null)
+            if (user != null && user.Token != null)
             {
                 LoggedUserContext.User = user;
 
