@@ -90,7 +90,10 @@ namespace Toci.Earrai.Ui
             AddElementsToLayout(ProductOptionsConverter.Convert(product.Options), xLeft + xOptionsSizes, ySlided + ySlide, "Product options.");
            // AddCommissions();
             AddAreasQuantitiesForm();
-            AddPricingForm();
+            if (!UserRoleManagement.IsUserForbidden())
+            {
+                AddPricingForm();
+            }
             //IsConnected();
 
             Setup();
