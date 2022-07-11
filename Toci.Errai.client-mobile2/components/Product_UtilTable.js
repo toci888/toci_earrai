@@ -35,17 +35,21 @@ export default function Product_UtilTable(props) {
                     return (
                         <View key={key} style={pd.inlineContainer}>
                             <View style={[pd.inlineItem, pd.inlineItemLeft]}>
-                            {
-                                () => {
-                                    if(AppUser.IsAllowed(AppUser.LevelUser)) 
+                            <Text style={{textAlign: 'right'}}>
+                            {(() => {
+                                if(value.includes("pound")) 
+                                {
+                                    if(AppUser.IsAllowed(AppUser.LevelUser))
                                     {
-                                        if(!value.includes("pound"))
-                                        {
-                                            <Text style={{textAlign: 'right'}}>{x(value)}</Text>
-                                        }
+                                        return x(value)
                                     }
                                 }
-                            }
+                                else
+                                {
+                                    return x(value)
+                                }
+                            })()}
+                            </Text>
                             </View>
                             <View style={[pd.inlineItem, pd.inlineItemRight]}>
                             {
