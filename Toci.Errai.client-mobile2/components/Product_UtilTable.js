@@ -34,28 +34,56 @@ export default function Product_UtilTable(props) {
 
                     return (
                         <View key={key} style={pd.inlineContainer}>
-                            <View style={[pd.inlineItem, pd.inlineItemLeft]}>
-                            <Text style={{textAlign: 'right'}}>
                             {(() => {
+                            
+                            
                                 if(value.includes("pound")) 
                                 {
                                     if(AppUser.IsAllowed(AppUser.LevelUser))
                                     {
-                                        return x(value)
+                                        return (<View style={[pd.inlineItem, pd.inlineItemLeft]}>
+                                            <Text style={{textAlign: 'right'}}>x(value)
+                                            </Text>
+                            </View>
+                                            )
                                     }
                                 }
                                 else
                                 {
-                                    return x(value)
+                                    return  (<View style={[pd.inlineItem, pd.inlineItemLeft]}>
+                                        <Text style={{textAlign: 'right'}}>x(value)
+                                        </Text>
+                        </View>
+                                        )
                                 }
                             })()}
-                            </Text>
-                            </View>
+                            
+                            {(() => {
+                            
+                            
+                            if(value.includes("pound")) 
+                            {
+                                if(AppUser.IsAllowed(AppUser.LevelUser))
+                                {
+                                    return (
                             <View style={[pd.inlineItem, pd.inlineItemRight]}>
                             {
-                                <Text>{value.includes("pound")? AppUser.IsAllowed(AppUser.LevelUser)? "£ "+props.details[value]: "" : props.details[value] }</Text>
+                                <Text>{"£ "+props.details[value]}</Text>
                             }
-                            </View>
+                            </View>)
+                            }
+                        }
+                        else
+                        {
+                            return  (
+                                <View style={[pd.inlineItem, pd.inlineItemRight]}>
+                                {
+                                    <Text>{props.details[value]}</Text>
+                                }
+                                </View>)
+                        }
+                    })()}
+
                         </View>
                     )
                 } )
