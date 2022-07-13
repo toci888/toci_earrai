@@ -80,7 +80,7 @@ namespace Toci.Earrai.Microservice
             });
 
             services.AddControllers();
-            services.AddCors(x => x.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())); //na localhoscie
+            //services.AddCors(x => x.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())); //na localhoscie
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Toci.Earrai.Microservice", Version = "v1" });
@@ -102,7 +102,7 @@ namespace Toci.Earrai.Microservice
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Toci.Earrai.Microservice v1"));
             }
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // localhost
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // localhost
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
