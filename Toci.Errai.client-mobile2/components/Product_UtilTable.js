@@ -43,7 +43,8 @@ export default function Product_UtilTable(props) {
           return (
             <View key={key} style={pd.inlineContainer}>
               {(() => {
-                if (value.includes("pound")) {
+                
+                if (value.includes("pound") || value.includes("stockTakeValue")) {
                   if (AppUser.IsAllowed(AppUser.LevelUser)) {
                     return (
                       <View style={[pd.inlineItem, pd.inlineItemLeft]}>
@@ -61,7 +62,7 @@ export default function Product_UtilTable(props) {
               })()}
 
               {(() => {
-                if (value.includes("pound")) {
+                if (value.includes("pound") || value.includes("stockTakeValue")) {
                   if (AppUser.IsAllowed(AppUser.LevelUser)) {
                     return (
                       <View style={[pd.inlineItem, pd.inlineItemRight]}>
