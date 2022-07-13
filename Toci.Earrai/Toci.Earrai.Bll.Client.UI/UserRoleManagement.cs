@@ -22,7 +22,7 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public static bool IsColumnAllowed(string columnName)
         {
-            return !UserUnallowedGridColumns.ContainsKey(columnName);
+            return !UserUnallowedGridColumns.ContainsKey(columnName) || (UserUnallowedGridColumns.ContainsKey(columnName) && UserUnallowedGridColumns[columnName] != UserClaim());
         }
 
         public static void LoadToken(string token)
