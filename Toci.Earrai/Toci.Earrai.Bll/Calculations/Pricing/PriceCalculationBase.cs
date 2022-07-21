@@ -66,6 +66,16 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
                     double.TryParse(arQ.Length, out length);
                     double.TryParse(arQ.Quantity, out quantity);
 
+                    if (length == 0)
+                    {
+                        length = double.Parse(product.Sizes.Where(m => m.Name == Consts.Length).First().Value);
+                    }
+
+                    if (width == 0)
+                    {
+                        width = double.Parse(product.Sizes.Where(m => m.Name == Consts.Width).First().Value);
+                    }
+
                     if (inclWidth)
                     {
                         result += width * length * quantity / 1000000;
