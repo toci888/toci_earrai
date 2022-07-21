@@ -48,6 +48,9 @@ namespace Toci.Earrai.Ui
             allUsers.DisplayMember = "Email";
 
             UpdateUsers();
+            passwdNotMatchLabel.Visible = false;
+            passTxt.PasswordChar = '*';
+            retypePassTxt.PasswordChar = '*';
         }
 
         private void allUsers_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,6 +109,31 @@ namespace Toci.Earrai.Ui
             allUsers.DataSource = users;
 
             return 1;
+        }
+
+        private void changePasswd_Click(object sender, EventArgs e)
+        {
+            if (passTxt.Text.Length > 7)
+            {
+                if (passTxt.Text == retypePassTxt.Text)
+                {
+                    Userrole user = (Userrole)allUsers.SelectedItem;
+
+                    if (Dm.ResetPassword(user.Id.Value, passTxt.Text) > 0)
+                    {
+                        passwdNotMatchLabel.Visible = false;
+                        MessageBox.Show("Successfully changed password.");
+                    }
+                }
+                else
+                {
+                    passwdNotMatchLabel.Visible = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Password should contain at least 8 characters.");
+            }
         }
     }
 }

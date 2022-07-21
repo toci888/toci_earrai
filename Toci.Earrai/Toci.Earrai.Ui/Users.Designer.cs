@@ -38,6 +38,13 @@ namespace Toci.Earrai.Ui
             this.adminPrivelegeButton = new System.Windows.Forms.RadioButton();
             this.newUserButton = new System.Windows.Forms.Button();
             this.resetPasswordButton = new System.Windows.Forms.Button();
+            this.passTxt = new System.Windows.Forms.TextBox();
+            this.retypePassTxt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.passwdNotMatchLabel = new System.Windows.Forms.Label();
+            this.changePasswd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // submit
@@ -46,7 +53,7 @@ namespace Toci.Earrai.Ui
             this.submit.Name = "submit";
             this.submit.Size = new System.Drawing.Size(137, 61);
             this.submit.TabIndex = 0;
-            this.submit.Text = "Submit";
+            this.submit.Text = "Change privileges";
             this.submit.UseVisualStyleBackColor = true;
             this.submit.Click += new System.EventHandler(this.submit_Click);
             // 
@@ -109,10 +116,10 @@ namespace Toci.Earrai.Ui
             // 
             // newUserButton
             // 
-            this.newUserButton.Location = new System.Drawing.Point(149, 181);
+            this.newUserButton.Location = new System.Drawing.Point(617, 175);
             this.newUserButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.newUserButton.Name = "newUserButton";
-            this.newUserButton.Size = new System.Drawing.Size(109, 60);
+            this.newUserButton.Size = new System.Drawing.Size(137, 60);
             this.newUserButton.TabIndex = 7;
             this.newUserButton.Text = "Add User";
             this.newUserButton.UseVisualStyleBackColor = true;
@@ -124,15 +131,84 @@ namespace Toci.Earrai.Ui
             this.resetPasswordButton.Name = "resetPasswordButton";
             this.resetPasswordButton.Size = new System.Drawing.Size(114, 30);
             this.resetPasswordButton.TabIndex = 8;
-            this.resetPasswordButton.Text = "Reset Password";
+            this.resetPasswordButton.Text = "Disable account";
             this.resetPasswordButton.UseVisualStyleBackColor = true;
             this.resetPasswordButton.Click += new System.EventHandler(this.resetPasswordButton_Click);
+            // 
+            // passTxt
+            // 
+            this.passTxt.Location = new System.Drawing.Point(63, 125);
+            this.passTxt.Name = "passTxt";
+            this.passTxt.Size = new System.Drawing.Size(296, 23);
+            this.passTxt.TabIndex = 9;
+            // 
+            // retypePassTxt
+            // 
+            this.retypePassTxt.Location = new System.Drawing.Point(63, 175);
+            this.retypePassTxt.Name = "retypePassTxt";
+            this.retypePassTxt.Size = new System.Drawing.Size(296, 23);
+            this.retypePassTxt.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(66, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 15);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Users list";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(65, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "New password";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(63, 154);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Retype new password";
+            // 
+            // passwdNotMatchLabel
+            // 
+            this.passwdNotMatchLabel.AutoSize = true;
+            this.passwdNotMatchLabel.BackColor = System.Drawing.Color.Transparent;
+            this.passwdNotMatchLabel.ForeColor = System.Drawing.Color.Red;
+            this.passwdNotMatchLabel.Location = new System.Drawing.Point(62, 206);
+            this.passwdNotMatchLabel.Name = "passwdNotMatchLabel";
+            this.passwdNotMatchLabel.Size = new System.Drawing.Size(137, 15);
+            this.passwdNotMatchLabel.TabIndex = 14;
+            this.passwdNotMatchLabel.Text = "Passwords do not match";
+            // 
+            // changePasswd
+            // 
+            this.changePasswd.Location = new System.Drawing.Point(62, 241);
+            this.changePasswd.Name = "changePasswd";
+            this.changePasswd.Size = new System.Drawing.Size(155, 23);
+            this.changePasswd.TabIndex = 15;
+            this.changePasswd.Text = "Change Password";
+            this.changePasswd.UseVisualStyleBackColor = true;
+            this.changePasswd.Click += new System.EventHandler(this.changePasswd_Click);
             // 
             // Users
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.changePasswd);
+            this.Controls.Add(this.passwdNotMatchLabel);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.retypePassTxt);
+            this.Controls.Add(this.passTxt);
             this.Controls.Add(this.resetPasswordButton);
             this.Controls.Add(this.newUserButton);
             this.Controls.Add(this.adminPrivelegeButton);
@@ -179,5 +255,12 @@ namespace Toci.Earrai.Ui
         private System.Windows.Forms.RadioButton adminPrivelegeButton;
         private System.Windows.Forms.Button newUserButton;
         private System.Windows.Forms.Button resetPasswordButton;
+        private System.Windows.Forms.TextBox passTxt;
+        private System.Windows.Forms.TextBox retypePassTxt;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label passwdNotMatchLabel;
+        private System.Windows.Forms.Button changePasswd;
     }
 }

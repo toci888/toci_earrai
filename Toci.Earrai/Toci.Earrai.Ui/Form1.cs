@@ -114,6 +114,9 @@ namespace Toci.Earrai.Ui
             }
 
             AddImages();
+            
+            //Users users = new Users();
+            //users.Show();
         }
 
         protected virtual void CreateImagesMap()

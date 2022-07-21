@@ -41,26 +41,23 @@ namespace Toci.Earrai.Ui
             // 
             // loginTextBox
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(238, 166);
-            this.loginTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginTextBox.Location = new System.Drawing.Point(128, 78);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(310, 39);
+            this.loginTextBox.Size = new System.Drawing.Size(169, 23);
             this.loginTextBox.TabIndex = 0;
             // 
             // passwordTextbox
             // 
-            this.passwordTextbox.Location = new System.Drawing.Point(238, 314);
-            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.passwordTextbox.Location = new System.Drawing.Point(128, 147);
             this.passwordTextbox.Name = "passwordTextbox";
-            this.passwordTextbox.Size = new System.Drawing.Size(310, 39);
+            this.passwordTextbox.Size = new System.Drawing.Size(169, 23);
             this.passwordTextbox.TabIndex = 1;
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(262, 478);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginButton.Location = new System.Drawing.Point(141, 224);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(267, 70);
+            this.loginButton.Size = new System.Drawing.Size(144, 33);
             this.loginButton.TabIndex = 2;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -69,29 +66,26 @@ namespace Toci.Earrai.Ui
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(238, 128);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(128, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 32);
+            this.label1.Size = new System.Drawing.Size(37, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Email - Login";
+            this.label1.Text = "Login";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(238, 275);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(128, 129);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 32);
+            this.label2.Size = new System.Drawing.Size(57, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Password";
             // 
             // registerButton
             // 
-            this.registerButton.Location = new System.Drawing.Point(262, 621);
-            this.registerButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.registerButton.Location = new System.Drawing.Point(141, 291);
             this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(267, 87);
+            this.registerButton.Size = new System.Drawing.Size(144, 41);
             this.registerButton.TabIndex = 5;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
@@ -102,10 +96,9 @@ namespace Toci.Earrai.Ui
             this.loginValidation1.AutoSize = true;
             this.loginValidation1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.loginValidation1.ForeColor = System.Drawing.Color.Red;
-            this.loginValidation1.Location = new System.Drawing.Point(238, 222);
-            this.loginValidation1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.loginValidation1.Location = new System.Drawing.Point(128, 104);
             this.loginValidation1.Name = "loginValidation1";
-            this.loginValidation1.Size = new System.Drawing.Size(312, 36);
+            this.loginValidation1.Size = new System.Drawing.Size(161, 17);
             this.loginValidation1.TabIndex = 6;
             this.loginValidation1.Text = "This field can\'t be empty";
             // 
@@ -114,18 +107,17 @@ namespace Toci.Earrai.Ui
             this.loginValidation2.AutoSize = true;
             this.loginValidation2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.loginValidation2.ForeColor = System.Drawing.Color.Red;
-            this.loginValidation2.Location = new System.Drawing.Point(238, 378);
-            this.loginValidation2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.loginValidation2.Location = new System.Drawing.Point(128, 177);
             this.loginValidation2.Name = "loginValidation2";
-            this.loginValidation2.Size = new System.Drawing.Size(312, 36);
+            this.loginValidation2.Size = new System.Drawing.Size(161, 17);
             this.loginValidation2.TabIndex = 7;
             this.loginValidation2.Text = "This field can\'t be empty";
             // 
             // LogIn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(819, 868);
+            this.ClientSize = new System.Drawing.Size(441, 407);
             this.Controls.Add(this.loginValidation2);
             this.Controls.Add(this.loginValidation1);
             this.Controls.Add(this.registerButton);
@@ -134,7 +126,6 @@ namespace Toci.Earrai.Ui
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.passwordTextbox);
             this.Controls.Add(this.loginTextBox);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "LogIn";
             this.Text = "LogIn";
             this.ResumeLayout(false);

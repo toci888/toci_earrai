@@ -112,9 +112,9 @@ namespace Toci.Earrai.Ui
             this.EmailLabel.AutoSize = true;
             this.EmailLabel.Location = new System.Drawing.Point(145, 142);
             this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(36, 15);
+            this.EmailLabel.Size = new System.Drawing.Size(37, 15);
             this.EmailLabel.TabIndex = 6;
-            this.EmailLabel.Text = "Email";
+            this.EmailLabel.Text = "Login";
             // 
             // passwordtextBox2
             // 
