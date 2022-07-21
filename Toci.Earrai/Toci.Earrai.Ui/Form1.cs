@@ -18,6 +18,7 @@ using Toci.Earrai.Bll.Client.UI.ToGrid;
 using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Ui.ControlsStuff;
+using Toci.Common;
 
 namespace Toci.Earrai.Ui
 {
@@ -41,6 +42,33 @@ namespace Toci.Earrai.Ui
         protected List<PictureBox> ImagesOnLayout = new List<PictureBox>();
         protected Rectangle Monitor;
         protected ScreenManager ScreenManagerInstance;
+        protected Dictionary<string, string> sortColumns = new Dictionary<string, string>()
+        {
+            { "Id", "Id" },
+            //{ "Reference", "Reference" },
+            { "Balance", "Balance" },
+            { "Stock take value", "Stock take value" },
+            { "Total weight", "Total weight" },
+            { "KgM2", "KgM2" },
+            { "KgSheet", "KgSheet" },
+            //{ "Length", "Length" },
+            //{ "Width", "Width" },
+            //{ "Thickness", "Thickness" },
+            { "Total square meters", "Total square meters" },
+            { "Length", "Length" },
+            { "Width", "Width" },
+            { "Thickness", "Thickness" },
+            //{ "Area", "Area" },
+            { "Quantity", "Quantity" },
+            //{ "Date", "Date" },
+            //{ "Area", "Area" },
+            //{ "Quantity", "Quantity" },
+            //{ "Date", "Date" },
+            //{ "Valuation", "Valuation" },
+            { "Price", "Price" },
+           // { "Vendor", "Vendor" },
+           // { "Date", "Date" },
+        };
 
         public Form1(Userrole loggedUser, LogIn masterWindow)
         {
@@ -280,12 +308,22 @@ namespace Toci.Earrai.Ui
 
         private void customSortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            double a = double.Parse(e.CellValue1.ToString()), b = double.Parse(e.CellValue2.ToString());
+            string column = e.Column.HeaderText;
+            if (sortColumns.ContainsKey(column))
+            {
+                double one = 0, two = 0;
 
-            // If the cell value is already an integer, just cast it instead of parsing
+                double.TryParse(e.CellValue1.ToString(), out one);
+                double.TryParse(e.CellValue2.ToString(), out two);
 
-            e.SortResult = a.CompareTo(b);
+                // If the cell value is already an integer, just cast it instead of parsing
 
+                e.SortResult = one.CompareTo(two);
+            }
+            else 
+            {
+                e.SortResult = string.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
+            }
             e.Handled = true;
         }
 
@@ -299,6 +337,8 @@ namespace Toci.Earrai.Ui
             excelDataGrid.Rows.Clear();
 
             bool columns = false;
+            string dummy = string.Empty;
+
             foreach (List<FlattenedEntity> item in items)
             {
                 if (!columns)
@@ -307,10 +347,13 @@ namespace Toci.Earrai.Ui
                     int k = 0;
                     foreach (FlattenedEntity element in item)
                     {
+                        dummy += "{ \""+ element.Name + "\", \"" + element.Name + "\" }, " + Environment.NewLine;
+
                         if (UserRoleManagement.IsColumnAllowed(element.Name))
                         {
                             excelDataGrid.Columns.Add(element.Name, element.Name);
                             excelDataGrid.Columns[k].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
 
                             k++;
 
