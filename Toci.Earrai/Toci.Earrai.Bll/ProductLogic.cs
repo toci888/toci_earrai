@@ -93,16 +93,9 @@ namespace Toci.Earrai.Bll
             return newProduct.Id;
         }
 
-        public virtual List<ProductDto> GetProductsByDate()
+        public virtual List<ProductDto> GetAllProducts()
         {
-            Sage sage = SageLogic.Select(x => x.Flag == SageConsts.Export).FirstOrDefault();
-
-            if (sage == null)
-            {
-                return null;
-            }
-
-            List<Product> products = Select(x => x.Updatedat > sage.Timeofmanipulation).ToList();
+            List<Product> products = Select(x => true).ToList();
 
             return products.Select(item => GetProduct(item.Id)).ToList();
         }

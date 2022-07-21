@@ -117,5 +117,17 @@ namespace Toci.Earrai.Bll.Erp
             wb.Save(f);
             f.Close();
         }
+
+        public virtual void GenerateExportViewExcel(string excelPath, List<List<string>> products)
+        {
+            Workbook wb = new Workbook();
+
+            wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", products } });
+
+            FileStream f = new FileStream(excelPath, FileMode.CreateNew);
+
+            wb.Save(f);
+            f.Close();
+        }
     }
 }

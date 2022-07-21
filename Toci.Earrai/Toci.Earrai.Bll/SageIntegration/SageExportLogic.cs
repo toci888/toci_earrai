@@ -22,13 +22,7 @@ namespace Toci.Earrai.Bll.SageIntegration
 
         public List<List<string>> Export()
         {
-            List<ProductDto> productDtos = ProductLogic.GetProductsByDate();
-
-            Sage flag = SageLogic.Select(x => x.Flag == Bll.SageConsts.Export).FirstOrDefault();
-
-            flag.Timeofmanipulation = DateTime.Now;
-
-            SageLogic.Update(flag);
+            List<ProductDto> productDtos = ProductLogic.GetAllProducts();
 
             return GetExportDataForProductDtos(productDtos);
         }
@@ -94,7 +88,7 @@ namespace Toci.Earrai.Bll.SageIntegration
             return false;
         }
 
-        protected virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)
+        public virtual List<List<string>> GetExportDataForProductDtos(List<ProductDto> productDtos)
         {
             List<List<string>> result = new List<List<string>>();
 

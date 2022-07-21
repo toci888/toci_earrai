@@ -19,6 +19,7 @@ using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.Interfaces;
 using Toci.Earrai.Ui.ControlsStuff;
 using Toci.Common;
+using Toci.Earrai.Bll.SageIntegration;
 
 namespace Toci.Earrai.Ui
 {
@@ -466,6 +467,27 @@ namespace Toci.Earrai.Ui
 
             il.ReadExcelFile(path);
             MessageBox.Show("Import done.");
+        }
+
+        private void exportView_Click(object sender, EventArgs e)
+        {
+            SageExportLogic sel = new SageExportLogic();
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel files | *.xls";
+            sfd.DefaultExt = "xls";
+            sfd.FileName = "SageViewExport_" + DateTime.Now.ToString("dd-MM-yyyy hh mm ss");
+
+            DialogResult dr = sfd.ShowDialog();
+
+            //List<List<string>> sageData = Dm.ExportToSage();
+
+            ExportLogic el = new ExportLogic();
+
+            el.GenerateExportViewExcel(sfd.FileName, sel.GetExportDataForProductDtos(ProductsFiltered));
+            MessageBox.Show("Export done.");
+
+            
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Toci.Earrai.Bll.Interfaces
 
         int AddNewProduct(NewProductDto dto);
 
-        List<ProductDto> GetProductsByDate();
+        List<ProductDto> GetAllProducts();
     }
 }
