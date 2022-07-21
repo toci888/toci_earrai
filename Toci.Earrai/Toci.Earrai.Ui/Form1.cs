@@ -337,7 +337,7 @@ namespace Toci.Earrai.Ui
             excelDataGrid.Rows.Clear();
 
             bool columns = false;
-            string dummy = string.Empty;
+            //string dummy = string.Empty;
 
             foreach (List<FlattenedEntity> item in items)
             {
@@ -347,7 +347,7 @@ namespace Toci.Earrai.Ui
                     int k = 0;
                     foreach (FlattenedEntity element in item)
                     {
-                        dummy += "{ \""+ element.Name + "\", \"" + element.Name + "\" }, " + Environment.NewLine;
+                       // dummy += "{ \""+ element.Name + "\", \"" + element.Name + "\" }, " + Environment.NewLine;
 
                         if (UserRoleManagement.IsColumnAllowed(element.Name))
                         {
