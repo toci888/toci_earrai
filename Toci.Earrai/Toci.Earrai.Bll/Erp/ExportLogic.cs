@@ -27,7 +27,7 @@ namespace Toci.Earrai.Bll.Erp
         };
 
         // read the data from our db and create excel
-        public virtual void GenerateCompleteExcel(string excelName)
+        public virtual Dictionary<string, List<List<string>>> GenerateCompleteExcel(string excelName)
         {
             Dictionary<int, List<ProductDto>> data = GetAllData();
             Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>();
@@ -47,6 +47,8 @@ namespace Toci.Earrai.Bll.Erp
                     setForExcel.Add(WorksheetsIds.AllWorksheetsNames[worksheetProducts.Key], resultSet);
                 }
             }
+
+            return setForExcel;
 
             Workbook wb = new Workbook();
 

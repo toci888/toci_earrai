@@ -12,6 +12,7 @@ using Toci.Earrai.Bll.Client.UI;
 using Toci.Earrai.Bll.Erp;
 using Toci.Earrai.Bll.ErrorLog;
 using Toci.Earrai.Database.Persistence.Models;
+//using Toci.Earrai.Tests.Export;
 
 namespace Toci.Earrai.Ui
 {
@@ -59,6 +60,9 @@ namespace Toci.Earrai.Ui
                 LoggedUserContext.User = user;
 
                 UserRoleManagement.LoadToken(user.Token);
+
+                //FeTest lol = new FeTest();
+                //lol.ExportEarraiToExcel();
 
                 //ExportLogic exL = new ExportLogic();
 

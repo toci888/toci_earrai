@@ -17,8 +17,7 @@ namespace Toci.Earrai.Bll.Client.UI
     public class ApiConnector
     {
         public const HttpStatusCode StatusCodeSuccess = HttpStatusCode.OK;
-        //c338w711
-        //c338w711
+        //atvb4p3c
         protected string BaseUrl = "http://82.153.17.97:8864/";
        // protected string BaseUrl = "http://127.0.0.1:8642/";
 
