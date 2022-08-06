@@ -100,10 +100,10 @@ namespace Toci.Earrai.Bll.Erp
             return result;
         }
 
-        public virtual void GenerateExportToSageExcel(string excelPath)
+        public virtual List<List<string>> GenerateExportToSageExcel(string excelPath)
         {
           
-            List<List<string>> setForExcelData = ApiC.ExportToSage();
+            return ApiC.ExportToSage();
 
            // List<List<string>> setForExcelData = new List<List<string>>();
 
@@ -112,7 +112,7 @@ namespace Toci.Earrai.Bll.Erp
 
             Workbook wb = new Workbook();
 
-            wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", setForExcelData } });
+            //wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", setForExcelData } });
 
             FileStream f = new FileStream(excelPath, FileMode.CreateNew);
 

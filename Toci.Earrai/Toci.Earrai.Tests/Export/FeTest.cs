@@ -11,6 +11,9 @@ using Toci.Earrai.Bll.Erp;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Toci.Earrai.Bll.SageIntegration;
+using Toci.Earrai.Bll;
+using Toci.Earrai.Bll.Models;
 
 namespace Toci.Earrai.Tests.Export
 {
@@ -81,46 +84,13 @@ namespace Toci.Earrai.Tests.Export
             [TestMethod]
         public void ExportEarraiToExcel()
         {
+            SageExportLogic sel = new SageExportLogic();
             ExportLogic exL = new ExportLogic();
+            ProductLogic pl = new ProductLogic();
 
-            ExportDictToExcel(exL.GenerateCompleteExcel("irrelevant"), "D:\\OpenXmlTest.xlsx");
+            ExportDictToExcel(new Dictionary<string, List<List<string>>>() { { "SageExport", sel.GetExportDataForProductDtos(pl.GetAllProducts()) } }, "D:\\SageEntireDbOpenXmlTest.xlsx");
 
             //exL.GenerateCompleteExcel("Feilim_1st");
-        }
-
-        [TestMethod]
-        public void dupa()
-        {
-            FastExcel.FastExcel fastExcel = new FastExcel.FastExcel(new FileStream("D:\\Fe2Excel.xls", FileMode.CreateNew));
-
-            FastExcel.Worksheet worksheet = new FastExcel.Worksheet(fastExcel);
-
-            worksheet.Name = "dupa";
-            worksheet.AddRow(new List<string>() { "Id", "Name", "Dupa" });
-
-            fastExcel.Write(worksheet);
-
-            fastExcel.Dispose();
-        }
-
-        [TestMethod]
-        public void dupa2()
-        {
-            Workbook wb = new Workbook();
-
-            Dictionary<string, List<List<string>>> elements = new Dictionary<string, List<List<string>>>()
-            {
-                { "Example", new List<List<string>>() { new List<string>() { "test", "whatever", "another one" } } },
-                { "Another Example", new List<List<string>>() { new List<string>() { "test", "whatever", "another one" }, new List<string>() { "test 2", "whatever 2", "another one 2" } } },
-            };
-
-           /* wb.PopulateWorksheets(elements);
-
-            FileStream f = new FileStream("D:\\FeExcel_final.xls", FileMode.CreateNew);
-
-            wb.Save(f);
-
-            f.Close();*/
         }
     }
 }
