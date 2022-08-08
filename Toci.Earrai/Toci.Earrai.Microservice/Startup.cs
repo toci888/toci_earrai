@@ -57,6 +57,7 @@ namespace Toci.Earrai.Microservice
             services.AddScoped<IQuoteAndMetricLogic, QuoteAndMetricLogic>();
             services.AddScoped<IPrivilegesLogic, PrivilegesLogic>();
             services.AddScoped<ISageLogic, SageExportLogic>();
+            services.AddScoped<ISynchroLogic, SynchroLogic>(); 
 
             services.AddSingleton(authenticationSettings);
 
