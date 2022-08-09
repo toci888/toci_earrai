@@ -1,5 +1,6 @@
 import { environment } from '../environment';
 import AppUser from '../shared/AppUser'
+import { checkConnected } from './isConnected';
 
 export default class RestClient {
     constructor (baseUrl = environment.apiUrl, { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
@@ -29,32 +30,39 @@ export default class RestClient {
 
     _fetch (route, method, body, isQuery = false) {
       
-      if (!route) throw new Error('Route is undefined');
-      var fullRoute = this._fullRoute(route);
-      if (isQuery && body) {
-        var qs = require('qs');
-        const query = qs.stringify(body);
-        fullRoute = `${fullRoute}?${query}`;
-        body = undefined;
-      }
-      let opts = {
-        method,
-        headers: this.headers
-      };
-      if (body) {
-        Object.assign(opts, { body: JSON.stringify(body) });
-      }
-      const fetchPromise = () => fetch(fullRoute, opts);
-      const extractResponse = response =>
-        response.text().then(text => text? JSON.parse(text) : undefined);
+      if (checkConnected())
+      {
+        if (!route) throw new Error('Route is undefined');
+        var fullRoute = this._fullRoute(route);
+        if (isQuery && body) {
+          var qs = require('qs');
+          const query = qs.stringify(body);
+          fullRoute = `${fullRoute}?${query}`;
+          body = undefined;
+        }
+        let opts = {
+          method,
+          headers: this.headers
+        };
+        if (body) {
+          Object.assign(opts, { body: JSON.stringify(body) });
+        }
+        const fetchPromise = () => fetch(fullRoute, opts);
+        const extractResponse = response =>
+          response.text().then(text => text ? JSON.parse(text) : undefined);
 
-      if (this.devMode && this.simulatedDelay > 0) {
-        // Simulate an n-second delay in every request
-        return this._simulateDelay()
-          .then(() => fetchPromise())
-          .then(extractResponse);
-      } else {
-        return fetchPromise().then(extractResponse);
+        if (this.devMode && this.simulatedDelay > 0) {
+          // Simulate an n-second delay in every request
+          return this._simulateDelay()
+            .then(() => fetchPromise())
+            .then(extractResponse);
+        } else {
+          return fetchPromise().then(extractResponse);
+        }
+      }
+      else
+      {
+                
       }
     }
 
