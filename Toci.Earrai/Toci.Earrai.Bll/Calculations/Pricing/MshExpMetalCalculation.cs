@@ -22,7 +22,10 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
         protected override PricingDto GetStockTakeValue(ProductDto product, PricingDto dto)
         {
-            dto.StockTakeValue = DoubleUtils.RoundDouble(dto.PoundsPerSquareMeter.Value * dto.TotalSquareMeters.Value, DoubleConstants.NumOfDecimalPlaces);
+            if (dto.PoundsPerSquareMeter.HasValue && dto.TotalSquareMeters.HasValue)
+            {
+                dto.StockTakeValue = DoubleUtils.RoundDouble(dto.PoundsPerSquareMeter.Value * dto.TotalSquareMeters.Value, DoubleConstants.NumOfDecimalPlaces);
+            }
 
             return dto;
         }
