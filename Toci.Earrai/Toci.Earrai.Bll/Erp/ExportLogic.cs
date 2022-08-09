@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Toci.Earrai.Bll.Client.UI;
+using Toci.Earrai.Bll.Client.UI.ToExcel;
 using Toci.Earrai.Bll.Client.UI.ToGrid;
 using Toci.Earrai.Bll.Models;
 using Toci.Earrai.Bll.Models.Erp;
@@ -66,14 +67,16 @@ namespace Toci.Earrai.Bll.Erp
 
             setForExcel.Add("Export", data);
 
-            Workbook wb = new Workbook();
+            ExportToExcel.ExportDictionaryToExcel(setForExcel, "D:\\Export.xlsx");
 
-            wb.PopulateWorksheets(setForExcel);
+            //Workbook wb = new Workbook();
 
-            FileStream f = new FileStream("D:\\Export.xlsx", FileMode.CreateNew);
+            //wb.PopulateWorksheets(setForExcel);
 
-            wb.Save(f);
-            f.Close();
+            //FileStream f = new FileStream("D:\\Export.xlsx", FileMode.CreateNew);
+
+            //wb.Save(f);
+            //f.Close();
         }
 
         protected virtual List<List<string>> GetFlattenedToStringData(List<List<FlattenedEntity>> entities)
@@ -100,36 +103,43 @@ namespace Toci.Earrai.Bll.Erp
             return result;
         }
 
-        public virtual List<List<string>> GenerateExportToSageExcel(string excelPath)
+        public virtual void GenerateExportToSageExcel(string excelPath)
         {
           
-            return ApiC.ExportToSage();
+            Dictionary<string, List<List<string>>> setForExcel = new Dictionary<string, List<List<string>>>() {
+                { "Export", ApiC.ExportToSage() }
+                };
+
+            ExportToExcel.ExportDictionaryToExcel(setForExcel, excelPath);
+
 
            // List<List<string>> setForExcelData = new List<List<string>>();
 
-            
+
             // create header
 
-            Workbook wb = new Workbook();
+            // Workbook wb = new Workbook();
 
             //wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", setForExcelData } });
 
-            FileStream f = new FileStream(excelPath, FileMode.CreateNew);
+            //FileStream f = new FileStream(excelPath, FileMode.CreateNew);
 
-            wb.Save(f);
-            f.Close();
+            // wb.Save(f);
+            // f.Close();
         }
 
         public virtual void GenerateExportViewExcel(string excelPath, List<List<string>> products)
         {
-            Workbook wb = new Workbook();
+            ExportToExcel.ExportDictionaryToExcel(new Dictionary<string, List<List<string>>>() { { "SageExportData", products } }, excelPath);
 
-            wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", products } });
+            //Workbook wb = new Workbook();
 
-            FileStream f = new FileStream(excelPath, FileMode.CreateNew);
+            //wb.PopulateWorksheets(new Dictionary<string, List<List<string>>>() { { "SageExportData", products } });
 
-            wb.Save(f);
-            f.Close();
+            //FileStream f = new FileStream(excelPath, FileMode.CreateNew);
+
+            //wb.Save(f);
+            //f.Close();
         }
     }
 }
