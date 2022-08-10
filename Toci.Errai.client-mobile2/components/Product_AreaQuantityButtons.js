@@ -3,7 +3,9 @@ import { Alert, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { insertUrl, updateUrl } from '../shared/RequestConfig'
 import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
-import RestClient from '../shared/RestClient'
+import RestClient from '../shared/RestClient';
+import OfflineDataProvider from '../CacheModule/OfflineDataProvider';
+import { checkConnected } from '../shared/isConnected';
 
 export default function Product_AreaQuantityButtons(props) {
 
@@ -19,7 +21,9 @@ export default function Product_AreaQuantityButtons(props) {
         // TODO validate inputs
         props.setloading(true)
 
-        if(props.btnvalueHook == "Add") { 
+        checkConnected(saveAreaQuantity, props.tempAreaquantityRow);
+
+        /*if(props.btnvalueHook == "Add") { 
             restClient.POST(insertUrl, [props.tempAreaquantityRow]).then( x => {
                 props.updateAreaQuantitiesfterRequest("Added new area Quantities");
                 props.initAreaQuantities();
@@ -37,9 +41,41 @@ export default function Product_AreaQuantityButtons(props) {
                 Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
                 props.setloading(false);
             });
+        }*/
+    }
+
+    const postAreaQuantity = (areaQuantity) => 
+    {
+        restClient.POST(insertUrl, areaQuantity).then( x => {
+            props.updateAreaQuantitiesfterRequest("Added new area Quantities");
+            props.initAreaQuantities();
+        }).catch(error => {
+            console.log(error)
+            Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
+            props.setloading(false);
+        }).finally()
+        {
+            props.setloading(false);
+        };
+    }
+
+    const cacheAddAreaQuantity = (areaQuantity) => 
+    {
+        console.log('caching areas quantity', areaQuantity); // todo
+
+        props.setloading(false);
+    }
+
+    const saveAreaQuantity = (isConnected, areaQuantity) => 
+    {
+        if (isConnected)
+        {
+            postAreaQuantity(areaQuantity);
         }
-        
-        
+        else
+        {
+            cacheAddAreaQuantity(areaQuantity);
+        }
     }
 
     const cancel = () => {
