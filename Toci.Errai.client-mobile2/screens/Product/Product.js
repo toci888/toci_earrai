@@ -14,7 +14,9 @@ import Vendors from '../../components/Vendors/Vendors'
 import { imagesManager } from '../../shared/ImageSelector'
 import  Product_Commisions  from './../../components/Product_Commisions'
 import RestClient from '../../shared/RestClient';
-import Waiter from '../../shared/Waiter'
+import Waiter from '../../shared/Waiter';
+import OfflineDataProvider from '../../CacheModule/OfflineDataProvider';
+import { checkConnected } from '../../shared/isConnected';
 
 export default function Product({ route, navigation }) {
 
@@ -47,6 +49,36 @@ export default function Product({ route, navigation }) {
 
     useEffect( () => {
 
+        checkConnected(loadData);
+        setloading(false);
+    }, [] )
+    
+    const loadData = (isConnected) => 
+    {
+        console.log('loadData called with ', isConnected);
+        if (isConnected)
+        {
+            LoadProduct();
+        }
+        else
+        {
+            LoadProductFromCache();
+        }
+    }
+
+    const LoadProductFromCache = () =>
+    {
+        var product = OfflineDataProvider.getProductById(navigation.getParam('productId'));
+
+        setProduct(product);
+        initAreaQuantities(product);
+        settempAreaquantityRow(prev => {
+            return { ...prev, idproducts: product.product.id }
+        });
+        setloading(false);
+    }
+    const LoadProduct = () => 
+    {
         fetchAreas()
 
         console.log(navigation.getParam('productId'))
@@ -58,11 +90,10 @@ export default function Product({ route, navigation }) {
             settempAreaquantityRow(prev => {
                 return { ...prev, idproducts: x.product.id }
             }
-        )}).finally(x => {
-            setloading(false);
-        });
-
-    }, [] )
+            )}).finally(x => {
+                setloading(false);
+            });
+    }
 
     const initAreaQuantities = (response_) => {
         if(!response_) response_ = ProductHook

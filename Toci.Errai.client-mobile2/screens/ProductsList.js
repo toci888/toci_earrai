@@ -183,6 +183,7 @@ export default function ProductsList({ route, navigation }) {
     }
 
     const loadAllData = async () => {
+        setloading(true);
         restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
             .catch(error => {
                 console.log(error)
