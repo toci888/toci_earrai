@@ -16,12 +16,12 @@ export default class OfflineDataProvider
         this.cacheModuleService.registerOnlineFunction(this.goOnline);
     }
 
-    setFullDbData(data) 
+    static setFullDbData(data) 
     {
-        fullDbData = data;        
+        OfflineDataProvider.fullDbData = data;        
     }
 
-    getProductById(productId)
+    static getProductById(productId)
     {
         for(i = 0; i < OfflineDataProvider.fullDbData.length; i++)
         {
@@ -34,22 +34,22 @@ export default class OfflineDataProvider
         return null;
     }
 
-    getProductsByWorksheetId(worksheetId)
+    static getProductsByWorksheetId(worksheetId)
     {
-        result = new Array();
+        var result = new Array();
 
-        for(i = 0; i < OfflineDataProvider.fullDbData.length; i++)
+        for(var i = 0; i < OfflineDataProvider.fullDbData.length; i++)
         {
             if(OfflineDataProvider.fullDbData[i].product.idworksheet == worksheetId)
             {
                 result.push(OfflineDataProvider.fullDbData[i]);
             }
         }
-
+console.log('count of worksheet products: ', result.length);
         return result;
     }
 
-    setProductToCache(product)
+    static setProductToCache(product)
     {
         OfflineDataProvider.cachedProducts.push(product);
     }
