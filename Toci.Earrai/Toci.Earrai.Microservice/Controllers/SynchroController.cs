@@ -21,7 +21,7 @@ namespace Toci.Earrai.Microservice.Controllers
             return Logic.Get();
         }
 
-        [HttpPost("SetPRoducts")]
+        [HttpPost("SetProducts")]
         public int SetProducts([FromBody] List<ProductDto> products)
         {
             return Logic.Save(products);

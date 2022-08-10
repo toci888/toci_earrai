@@ -82,3 +82,7 @@ export function getQuotesAndPricesByProductIdUrl(productId_) {
 }
 
 export const getAvailableValuesForSelectedOptionUrl = 'api/Product/GetProductsFiltersEx'
+
+export const setDataSynchro = 'api/Synchro/SetProducts';
+
+export const getDataSynchro = 'api/Synchro/GetProducts';

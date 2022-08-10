@@ -26,6 +26,8 @@ export default class AppUser {
 
     static vendors
 
+    static entireDb
+
     static metrics = null
 
     static userName = "AppUser"
@@ -64,6 +66,9 @@ export default class AppUser {
 
     static getToken = () => AppUser.token
 
+    static setEntireDb = entDb => {AppUser.entireDb = entDb}
+
+    static getEntireDb = () => AppUser.entireDb
     
     static logIn = (id_, token_) => {
         AppUser.id = id_

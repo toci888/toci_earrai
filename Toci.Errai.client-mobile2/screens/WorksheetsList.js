@@ -3,7 +3,7 @@ import { globalStyles } from '../styles/globalStyles'
 import { worksheetsList } from '../styles/ProductsListStyles'
 import { Text, View, TextInput, Image } from 'react-native'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { getAllWorksheetsUrl, getAreasUrl, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
+import { getAllWorksheetsUrl, getAreasUrl, getDataSynchro, getQuoteAndMetricUrl, getVendorsUrl } from '../shared/RequestConfig'
 import AppUser from '../shared/AppUser'
 import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
 import RestClient from '../shared/RestClient';
@@ -27,7 +27,8 @@ export default function WorksheetsList({ route, navigation }) {
         restClient.GET(getAreasUrl).then(x => { AppUser.setAreas(x); x.forEach(element => { element.name = element.name.trim(); }); AppUser.setAreas(x); }).catch(e => console.log(e)) ;
         restClient.GET(getVendorsUrl).then(x => { console.log(x.json); AppUser.setVendors(x); }).catch(e => console.log(e));
         restClient.GET(getQuoteAndMetricUrl).then(x => { AppUser.setMetrics(x); }).catch(e => console.log(e));
-        
+        restClient.GET(getDataSynchro).then(data => { console.log(AppUser.setEntireDb); AppUser.setEntireDb(data[0].areaQuantities); }).catch(e => console.log("error loading entire db", e))
+
         setloading(false);
     }, [] )
 
