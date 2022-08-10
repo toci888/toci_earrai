@@ -23,6 +23,8 @@ import { Product_AreaQuantityInputsStyle as aqis } from '../components/Product_A
 import { ProductsListInputsStyles as plis } from './ProductsList_Styles'
 import RestClient from '../shared/RestClient';
 import Waiter from '../shared/Waiter'
+import checkConnected from '../shared/isConnected';
+import OfflineDataProvider from '../CacheModule/OfflineDataProvider';
 
 let availableValues = []
 
@@ -164,12 +166,20 @@ export default function ProductsList({ route, navigation }) {
     
     const loadAllData = async () => {
         setloading(true)
-        restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
-        .catch(error => {
-            console.log(error)
-        }).finally(() => {
+        if (checkConnected())
+        {
+            restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
+            .catch(error => {
+                console.log(error)
+            }).finally(() => {
+                setloading(false)
+            });
+        }
+        else
+        {
+            setProductsListHook(OfflineDataProvider.getProductsByWorksheetId(navigation.getParam('worksheetId')));
             setloading(false)
-        });
+        }
     }
 
     const selectValue = (idx_) => {

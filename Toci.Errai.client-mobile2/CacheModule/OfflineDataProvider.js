@@ -6,6 +6,7 @@ import CacheModuleService from "./CacheModuleService";
 export default class OfflineDataProvider
 {
     static cachedProducts = new Array(); // List<ProductDto>
+    static fullDbData = new Array();
     restClient = new RestClient();
 
     cacheModuleService = new CacheModuleService();
@@ -15,14 +16,49 @@ export default class OfflineDataProvider
         this.cacheModuleService.registerOnlineFunction(this.goOnline);
     }
 
+    setFullDbData(data) 
+    {
+        fullDbData = data;        
+    }
+
+    getProductById(productId)
+    {
+        for(i = 0; i < OfflineDataProvider.fullDbData.length; i++)
+        {
+            if (OfflineDataProvider.fullDbData[i].product.id == productId)
+            {
+                return OfflineDataProvider.fullDbData[i];
+            }
+        }
+
+        return null;
+    }
+
+    getProductsByWorksheetId(worksheetId)
+    {
+        result = new Array();
+
+        for(i = 0; i < OfflineDataProvider.fullDbData.length; i++)
+        {
+            if(OfflineDataProvider.fullDbData[i].product.idworksheet == worksheetId)
+            {
+                result.push(OfflineDataProvider.fullDbData[i]);
+            }
+        }
+
+        return result;
+    }
+
+    setProductToCache(product)
+    {
+        OfflineDataProvider.cachedProducts.push(product);
+    }
+
     goOnline()
     {
         // send cachedData to backend and flush them
         this.restClient.POST(setDataSynchro, OfflineDataProvider.cachedProducts);
     }
 
-    cacheProduct(product) // ? receive either number of parameters and combine them into product dto, or have a ready product dto
-    {
-
-    }
+    
 }

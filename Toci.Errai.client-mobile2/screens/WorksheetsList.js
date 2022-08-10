@@ -8,6 +8,7 @@ import AppUser from '../shared/AppUser'
 import { imagesForWorksheet, imagesManager } from '../shared/ImageSelector'
 import RestClient from '../shared/RestClient';
 import Waiter from '../shared/Waiter'
+import OfflineDataProvider from '../CacheModule/OfflineDataProvider';
 
 export default function WorksheetsList({ route, navigation }) {
 
@@ -27,7 +28,7 @@ export default function WorksheetsList({ route, navigation }) {
         restClient.GET(getAreasUrl).then(x => { AppUser.setAreas(x); x.forEach(element => { element.name = element.name.trim(); }); AppUser.setAreas(x); }).catch(e => console.log(e)) ;
         restClient.GET(getVendorsUrl).then(x => { console.log(x.json); AppUser.setVendors(x); }).catch(e => console.log(e));
         restClient.GET(getQuoteAndMetricUrl).then(x => { AppUser.setMetrics(x); }).catch(e => console.log(e));
-        restClient.GET(getDataSynchro).then(data => { AppUser.setEntireDb(data); }).catch(e => console.log("error loading entire db", e))
+        restClient.GET(getDataSynchro).then(data => { OfflineDataProvider.setFullDbData(data); }).catch(e => console.log("error loading entire db", e))
 
         setloading(false);
     }, [] )
