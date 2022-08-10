@@ -163,26 +163,38 @@ export default function ProductsList({ route, navigation }) {
         setSelectedFilteredIndexHook(0)
 
     }
-    
-    const loadAllData = async () => {
-        setloading(true)
 
-        var isConnectionLive = checkConnected();
-console.log('obiekt conn live', isConnectionLive);
-        if (isConnectionLive)
+    const LoadAllHook = () => 
+    {
+        checkConnected(loadData);
+    }
+    
+    const loadData = (isConnected) => 
+    {
+        console.log('loadData called with ', isConnected);
+        if (isConnected)
         {
-            restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
+            loadAllData();
+        }
+        else
+        {
+            loadAllDataFromCache();
+        }
+    }
+
+    const loadAllData = async () => {
+        restClient.GET(getAllProductsByWorksheet(navigation.getParam('worksheetId'))).then(response => setProductsListHook(response))
             .catch(error => {
                 console.log(error)
             }).finally(() => {
                 setloading(false)
             });
-        }
-        else
-        {
-            setProductsListHook(OfflineDataProvider.getProductsByWorksheetId(navigation.getParam('worksheetId')));
-            setloading(false)
-        }
+    }
+
+    const loadAllDataFromCache = () => 
+    {
+        setProductsListHook(OfflineDataProvider.getProductsByWorksheetId(navigation.getParam('worksheetId')));
+           // setloading(false)
     }
 
     const selectValue = (idx_) => {
@@ -301,7 +313,7 @@ console.log('obiekt conn live', isConnectionLive);
 
             <View style={plis.filterContent}>
 
-                <Pressable style={[ps.filterButton, {width: '100%'}]} onPress={loadAllData}>
+                <Pressable style={[ps.filterButton, {width: '100%'}]} onPress={LoadAllHook}>
                     {/* <TouchableOpacity style={ps.filterButton} onPress={filterContent}> */}
                         <Text style={[ps.textUpdate, {width: '100%', textAlign: 'center'}]}>Load All Products</Text>
                     {/* </TouchableOpacity> */}

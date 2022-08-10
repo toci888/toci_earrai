@@ -30,8 +30,8 @@ export default class RestClient {
 
     _fetch (route, method, body, isQuery = false) {
       
-      if (checkConnected())
-      {
+      //if (checkConnected())
+    
         if (!route) throw new Error('Route is undefined');
         var fullRoute = this._fullRoute(route);
         if (isQuery && body) {
@@ -59,11 +59,7 @@ export default class RestClient {
         } else {
           return fetchPromise().then(extractResponse);
         }
-      }
-      else
-      {
-                
-      }
+      
     }
 
     // let x = JSON.parse(await AsyncStorage.getItem('AppUser'))
