@@ -9,7 +9,7 @@ namespace Toci.Earrai.Bll.Interfaces
 {
     public interface ISynchroLogic
     {
-        int Save(List<ProductDto> productDtos);
+        int Save(SynchroDto synchroDtos);
 
         List<ProductDto> Get(DateTime? dateFrom = null);
     }

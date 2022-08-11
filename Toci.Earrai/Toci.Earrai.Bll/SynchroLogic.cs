@@ -38,15 +38,16 @@ namespace Toci.Earrai.Bll
             return result;
         }
 
-        public virtual int Save(List<ProductDto> productDtos)
+        public virtual int Save(SynchroDto synchroDto)
         {
             int result = 0;
 
-            foreach (ProductDto product in productDtos)
-            {
-                result += SaveAreas(product.AreaQuantities);
-                result += SavePricing(product.Quotesandprices);
-            }
+            result += SaveAreas(synchroDto.AreasQuantitiesAdded);
+            result += UpdateAreas(synchroDto.AreasQuantitiesUpdated);
+            result += RemoveAreas(synchroDto.AreasQuantitiesRemoved);
+            result += SavePricing(synchroDto.QuotesAndPricesAdded);
+            result += UpdatePricing(synchroDto.QuotesAndPricesUpdated);
+            result += RemoveQuotesAndPrices(synchroDto.QuotesAndPricesRemoved);
 
             return result;
         }
@@ -57,18 +58,36 @@ namespace Toci.Earrai.Bll
 
             foreach (Areasquantity areaquantity in areasquantities)
             {
-                if (AreaquantityLogic.Select(m => m.Id == areaquantity.Id).FirstOrDefault() == null)
-                {
-                    AreaquantityLogic.PostAreaQuantities(new List<Areaquantity>() {
-                        areaquantity.FromAreasQuantity() });
+                AreaquantityLogic.PostAreaQuantities(new List<Areaquantity>() {
+                    areaquantity.FromAreasQuantity() });
 
-                    result++;
-                }
-                else
-                {
-                    AreaquantityLogic.UpdateAreaQuantities(areaquantity.FromAreasQuantity());
-                    result++;
-                }
+                result++;
+            }
+
+            return result;
+        }
+
+        protected virtual int UpdateAreas(List<Areasquantity> areasquantities)
+        {
+            int result = 0;
+
+            foreach (Areasquantity areaquantity in areasquantities)
+            {
+                AreaquantityLogic.UpdateAreaQuantities(areaquantity.FromAreasQuantity());
+                result++;
+            }
+
+            return result;
+        }
+
+        protected virtual int RemoveAreas(List<int> toRemove)
+        {
+            int result = 0;
+
+            foreach (int id in toRemove)
+            {
+                AreaquantityLogic.DeleteById(id);
+                result++;
             }
 
             return result;
@@ -80,17 +99,35 @@ namespace Toci.Earrai.Bll
 
             foreach (Quotesandprice productPrice in productsprices)
             {
-                if (QuoteandpriceLogic.Select(m => m.Id == productPrice.Id).FirstOrDefault() == null)
-                {
-                    QuoteandpriceLogic.PostQuoteAndPrice(productPrice.FromQuotesAndPrice());
+                QuoteandpriceLogic.PostQuoteAndPrice(productPrice.FromQuotesAndPrice());
 
-                    result++;
-                }
-                else
-                {
-                    QuoteandpriceLogic.UpdateQuoteAndPrice(productPrice.FromQuotesAndPrice());
-                    result++;
-                }
+                result++;
+            }
+
+            return result;
+        }
+
+        protected virtual int UpdatePricing(List<Quotesandprice> productsprices)
+        {
+            int result = 0;
+
+            foreach (Quotesandprice productPrice in productsprices)
+            {
+                QuoteandpriceLogic.UpdateQuoteAndPrice(productPrice.FromQuotesAndPrice());
+                result++;
+            }
+
+            return result;
+        }
+
+        protected virtual int RemoveQuotesAndPrices(List<int> toRemove)
+        {
+            int result = 0;
+
+            foreach (int id in toRemove)
+            {
+                QuoteandpriceLogic.DeleteById(id);
+                result++;
             }
 
             return result;

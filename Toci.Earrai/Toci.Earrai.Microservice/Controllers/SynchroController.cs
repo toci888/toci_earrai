@@ -22,7 +22,7 @@ namespace Toci.Earrai.Microservice.Controllers
         }
 
         [HttpPost("SetProducts")]
-        public int SetProducts([FromBody] List<ProductDto> products)
+        public int SetProducts([FromBody] SynchroDto products)
         {
             return Logic.Save(products);
         }
