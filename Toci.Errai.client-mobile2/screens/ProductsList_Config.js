@@ -14,12 +14,12 @@ export const typesOfSearch = [
     "Category", //11
     "Length",
     "Width",
-            "Balance",
-            "Area",
-            "Stock take value"
+    "Balance",
+    "Area",
+    "Stock take value"
 ]
 
-const selectedIndexOfTypeOfSearchForWorksheet = {
+export const selectedIndexOfTypeOfSearchForWorksheet = {
     1: [2, 11, 12, 13, 15],
     2: [2, 11, 12, 13, 15],
     3: [3, 12, 11, 12, 13, 15],
@@ -33,7 +33,7 @@ const selectedIndexOfTypeOfSearchForWorksheet = {
 
 export function getAvailableTypeForWorksheet(worksheetId) {
     const x = selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
-    console.log(x);
+
     return selectedIndexOfTypeOfSearchForWorksheet[worksheetId]
 }
 
@@ -57,7 +57,7 @@ export function getTypesOfSearchForWorksheet(worksheetId_) {
         //console.log(x);
         return x.includes(index)
     })
-    console.log(response)
+
     return response
 }
 

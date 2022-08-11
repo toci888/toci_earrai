@@ -25,6 +25,7 @@ import RestClient from '../shared/RestClient';
 import Waiter from '../shared/Waiter'
 import { checkConnected } from '../shared/isConnected';
 import OfflineDataProvider from '../CacheModule/OfflineDataProvider';
+import OfflineSearchProvider from '../CacheModule/OfflineSearchProvider';
 
 let availableValues = []
 
@@ -57,16 +58,20 @@ export default function ProductsList({ route, navigation }) {
         AppUser.setWorksheetId(navigation.getParam('worksheetId'))
         const worksheetId = navigation.getParam('worksheetId')
 
-        const a = getTypesOfSearchForWorksheet(navigation.getParam('worksheetId'))
-        setAvailableTypesOfSearch(a)
+        const typesOfSearch = getTypesOfSearchForWorksheet(worksheetId);
+        setAvailableTypesOfSearch(typesOfSearch);
 
-        const x2 = getAvailableTypeForWorksheet(worksheetId)
+        ///const x2 = getAvailableTypeForWorksheet(worksheetId)
 
-        const selectedTypeIndex = x2[0]
+        //const selectedTypeIndex = x2[0]
 
         setSelectedFilterTypeIndexHook(0)
 
-        getAvailableValuesForSelectedType(a[0])
+        getAvailableValuesForSelectedType(typesOfSearch[0]);
+
+        //const osp = new OfflineSearchProvider();
+
+        //console.log('osp', osp.getAvailableValues());
 
     }, [])
 
@@ -74,19 +79,14 @@ export default function ProductsList({ route, navigation }) {
 
     const getAvailableValuesForSelectedType = (type_) => {
         setloading(true)
-        console.log(type_)
-        const x = createFilterDto(navigation.getParam('worksheetId'), type_)
-        const y = dbNameReplacer(x)
 
-        console.log("k")
-        console.log(x)
-        console.log(y)
-        console.log(getAvailableValuesForSelectedOptionUrl)
+        const filterDto = createFilterDto(navigation.getParam('worksheetId'), type_)
+        const filterDtoReplaced = dbNameReplacer(filterDto)
 
-        restClient.POST(getAvailableValuesForSelectedOptionUrl, y).then(x => {
-            console.log(x);
-            availableValues = x;
-            filteredValues = x;
+        restClient.POST(getAvailableValuesForSelectedOptionUrl, filterDtoReplaced).then(searchValues => {
+
+            availableValues = searchValues;
+            filteredValues = searchValues;
         }).catch(error => {
             console.log(error)
         }).finally(() => {
