@@ -7,6 +7,7 @@ export default class OfflineDataProvider
 {
     static cachedProducts = new Array(); // List<ProductDto>
     static fullDbData = new Array();
+    static products = new Array();
     restClient = new RestClient();
 
     cacheModuleService = new CacheModuleService();
@@ -60,5 +61,13 @@ console.log('count of worksheet products: ', result.length);
         this.restClient.POST(setDataSynchro, OfflineDataProvider.cachedProducts);
     }
 
-    
+    GetProducts()
+    {
+        this.restClient.GET("/api/Synchro/GetProducts").then(res => {products = res; console.log(res);});
+    }
+
+    SetProducts(products) 
+    {
+        this.restClient.POST("/api/Synchro/SetProducts", products);
+    }
 }
