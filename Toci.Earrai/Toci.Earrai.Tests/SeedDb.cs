@@ -363,6 +363,83 @@ CON".Split("\n", StringSplitOptions.None);
         }
 
         [TestMethod]
+        public void CodesDimensionsToReact()
+        {
+            string[] wl = @"PL
+PLCHQ
+HD
+GS
+ALSH
+ALCHQ
+MSH
+EX_MET".Split("\n", StringSplitOptions.None);
+
+            string result = string.Empty;
+
+            foreach (string code in wl)
+            {
+                result += "{ code: '" + code.Trim() + "', kind: 1 }, " + Environment.NewLine;
+                //codesdimensions.Insert(new Codesdimension() { Code = code.Trim(), Kind = 1 });
+            }
+
+            string[] size = @"SHS
+RHS
+PFC
+UB
+UC
+IPE
+EA
+UA
+TS
+CHS
+GCHS
+FL
+FLB
+RB_BLK
+RB_BRI
+SQ_BLK
+SQ_BRI
+HB
+F_BH
+F_PB
+F_TB
+F_PS
+F_LL
+F_TS
+F_LR
+F_CF
+F_BT
+F_FT
+F_PL
+F_FLB
+F_YS
+F_SP
+PF_BH
+PF_PB
+PF_TB
+PF_PS
+PF_LL
+PF_TS
+PF_LR
+PF_CF
+PF_CA
+PF_BT
+PF_FT
+PF_PL
+PF_FLB
+PF_YS
+PF_SP
+RAM_
+PAI
+CON".Split("\n", StringSplitOptions.None);
+
+            foreach (string code in size)
+            {
+                result += "{ code: '" + code.Trim() + "', kind: 2 }, " + Environment.NewLine;
+            }
+        }
+
+        [TestMethod]
         public void Vendors()  
         {
             string[] values = { "McCance", "Wwatson", "McArdle", "Hannon", "RFL"};

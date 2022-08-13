@@ -67,6 +67,11 @@ export default function Product({ route, navigation }) {
         }
     }
 
+    const setCategoryPrefix = (prefix) => {
+
+        LengthsWidthsCache.categoryPrefix = prefix;
+    }
+
     const LoadProductFromCache = () =>
     {
         var product = OfflineDataProvider.getProductById(navigation.getParam('productId'));
@@ -84,12 +89,13 @@ export default function Product({ route, navigation }) {
 
         console.log(navigation.getParam('productId'))
 
-        restClient.GET(getProductUrl(navigation.getParam('productId'))).then(x => {
-            console.log(x)
-            setProduct(x)
-            initAreaQuantities(x)
+        restClient.GET(getProductUrl(navigation.getParam('productId'))).then(product => {
+            console.log('The product: ', product);
+            setProduct(product);
+            initAreaQuantities(product);
+            setCategoryPrefix(product.category.prefix);
             settempAreaquantityRow(prev => {
-                return { ...prev, idproducts: x.product.id }
+                return { ...prev, idproducts: product.product.id }
             }
             )}).finally(x => {
                 setloading(false);

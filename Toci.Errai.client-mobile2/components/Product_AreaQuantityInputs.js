@@ -2,7 +2,8 @@ import { Picker } from '@react-native-community/picker'
 import React from 'react'
 import { View, TextInput, Text } from 'react-native'
 import AppUser from '../shared/AppUser'
-import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle'
+import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle';
+import LengthsWidthsCache from '../CacheModule/LengthsWidthsCache';
 
 export default function Product_AreaQuantityInputs(props) {
 
@@ -81,6 +82,7 @@ export default function Product_AreaQuantityInputs(props) {
 
                     </View>
 
+                    { LengthsWidthsCache.GetCodeDimentionKind(LengthsWidthsCache.categoryPrefix) == 1 && 
                     <View style={p.dimensionContainer}>
                         <View style={p.labelFlex}>
                             <Text style={p.labelLetter}>W{metrics(AppUser.getWorksheetId())}</Text>
@@ -94,9 +96,8 @@ export default function Product_AreaQuantityInputs(props) {
                                 placeholder="Type Width.."
                             />
                         </View>
-
-
                     </View>
+                    }
 
                     <View style={p.dimensionContainer}>
 

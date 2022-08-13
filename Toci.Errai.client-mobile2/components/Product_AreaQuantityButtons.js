@@ -14,7 +14,7 @@ export default function Product_AreaQuantityButtons(props) {
 
     const sendRequest = () => {
 
-        if(props.tempAreaquantityRow.length == "" || props.tempAreaquantityRow.quantity == "" || props.tempAreaquantityRow.width == "") {
+        if(props.tempAreaquantityRow.length == "" || props.tempAreaquantityRow.quantity == "" || (props.tempAreaquantityRow.width == "" && LengthsWidthsCache.GetCodeDimentionKind(LengthsWidthsCache.categoryPrefix) == 1 )) {
             Alert.alert("Form not filled", "Please fill in the form");
             return;
         }
@@ -40,7 +40,7 @@ export default function Product_AreaQuantityButtons(props) {
         } else { 
             LengthsWidthsCache.CacheLength(AppUser.getWorksheetId(), props.tempAreaquantityRow.length);
             LengthsWidthsCache.CacheWidth(AppUser.getWorksheetId(), props.tempAreaquantityRow.width);
-            
+
             restClient.PUT(updateUrl, props.tempAreaquantityRow).then( x => {
                 props.updateAreaQuantitiesfterRequest("Updated area Quantities");
                 props.initAreaQuantities();
