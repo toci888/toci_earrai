@@ -12,9 +12,9 @@ namespace Toci.Earrai.Bll.Models
         public const int Alum = 2;
         public const int MshandExpMetal = 3;
         public const int ChanandBms = 4;
-        public const int AnglesplusT = 5;
-        public const int Tube_CHS = 6;
-        public const int FLTS = 7;
+        public const int AnglesplusT = 7;
+        public const int Tube_CHS = 5;
+        public const int FLTS = 6;
         public const int Rnds_Sqrs_HolBar = 8;
         public const int RHS = 9;
 

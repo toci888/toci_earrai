@@ -75,9 +75,9 @@ export const imagesForWorksheet = {
     2: [5,6], // alum
     3: [7,8], // mesh   
     4: [11,12,13,14], // chan 
-    5: [15,16], //angles t
-    6: [18,19], // tube chs
-    7: [20], // flts
+    5: [18,19], //tube chs
+    6: [20], // flts
+    7: [15,16], // angles + t
     8: [22,23,24,26], // rnds
     9: [9,10], //rhs 
 }

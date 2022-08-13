@@ -21,9 +21,9 @@ export default function Product_AreaQuantityButtons(props) {
         // TODO validate inputs
         props.setloading(true)
 
-        checkConnected(saveAreaQuantity, props.tempAreaquantityRow);
+        //checkConnected(saveAreaQuantity, props.tempAreaquantityRow);
 
-        /*if(props.btnvalueHook == "Add") { 
+        if(props.btnvalueHook == "Add") { 
             restClient.POST(insertUrl, [props.tempAreaquantityRow]).then( x => {
                 props.updateAreaQuantitiesfterRequest("Added new area Quantities");
                 props.initAreaQuantities();
@@ -41,7 +41,7 @@ export default function Product_AreaQuantityButtons(props) {
                 Alert.alert("Error", "Something went wrong", [ { onPress: () => console.log("OK") } ]);
                 props.setloading(false);
             });
-        }*/
+        }
     }
 
     const postAreaQuantity = (areaQuantity) => 

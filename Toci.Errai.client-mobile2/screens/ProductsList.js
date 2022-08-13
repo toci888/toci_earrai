@@ -71,7 +71,7 @@ export default function ProductsList({ route, navigation }) {
 
         //const osp = new OfflineSearchProvider();
 
-        //console.log('osp', osp.getAvailableValues());
+        //console.log('osp', JSON.stringify(osp.getAvailableValues()));
 
     }, [])
 
