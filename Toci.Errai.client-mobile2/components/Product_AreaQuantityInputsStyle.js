@@ -32,7 +32,7 @@ export const Product_AreaQuantityInputsStyle = StyleSheet.create({
         marginBottom: 5,
     },
     labelFlex:{
-        width: '10%',
+        width: '16%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

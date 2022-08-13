@@ -17,6 +17,7 @@ import RestClient from '../../shared/RestClient';
 import Waiter from '../../shared/Waiter';
 import OfflineDataProvider from '../../CacheModule/OfflineDataProvider';
 import { checkConnected } from '../../shared/isConnected';
+import LengthsWidthsCache from '../../CacheModule/LengthsWidthsCache';
 
 export default function Product({ route, navigation }) {
 
@@ -38,8 +39,8 @@ export default function Product({ route, navigation }) {
         idcodesdimensions: 1,
         iduser: AppUser.getId(),
         quantity: "",
-        length: "",
-        width: "",
+        length: LengthsWidthsCache.GetCachedLength(AppUser.getWorksheetId()),
+        width: LengthsWidthsCache.GetCachedWidth(AppUser.getWorksheetId()),
         createdat: null,
         updatedat: null,
     })
@@ -162,7 +163,7 @@ export default function Product({ route, navigation }) {
             return {...prev,
                 id: 0,
                 idarea: AppUser.getIdArea() || 0,
-                iduser: 3,
+                iduser: AppUser.id,
                 quantity: "",
                 length: "",
                 width: "",

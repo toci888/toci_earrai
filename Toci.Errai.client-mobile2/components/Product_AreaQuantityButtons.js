@@ -4,7 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { insertUrl, updateUrl } from '../shared/RequestConfig'
 import { productCSSAddBtn } from '../styles/Product_AreaQuantityButtonsStyles'
 import RestClient from '../shared/RestClient';
-import OfflineDataProvider from '../CacheModule/OfflineDataProvider';
+import LengthsWidthsCache from '../CacheModule/LengthsWidthsCache';
+import AppUser from '../shared/AppUser'
 import { checkConnected } from '../shared/isConnected';
 
 export default function Product_AreaQuantityButtons(props) {
@@ -23,7 +24,11 @@ export default function Product_AreaQuantityButtons(props) {
 
         //checkConnected(saveAreaQuantity, props.tempAreaquantityRow);
 
-        if(props.btnvalueHook == "Add") { 
+        if(props.btnvalueHook == "Add") {
+            
+            LengthsWidthsCache.CacheLength(AppUser.getWorksheetId(), props.tempAreaquantityRow.length);
+            LengthsWidthsCache.CacheWidth(AppUser.getWorksheetId(), props.tempAreaquantityRow.width);
+
             restClient.POST(insertUrl, [props.tempAreaquantityRow]).then( x => {
                 props.updateAreaQuantitiesfterRequest("Added new area Quantities");
                 props.initAreaQuantities();
@@ -33,6 +38,9 @@ export default function Product_AreaQuantityButtons(props) {
                 props.setloading(false);
             });
         } else { 
+            LengthsWidthsCache.CacheLength(AppUser.getWorksheetId(), props.tempAreaquantityRow.length);
+            LengthsWidthsCache.CacheWidth(AppUser.getWorksheetId(), props.tempAreaquantityRow.width);
+            
             restClient.PUT(updateUrl, props.tempAreaquantityRow).then( x => {
                 props.updateAreaQuantitiesfterRequest("Updated area Quantities");
                 props.initAreaQuantities();

@@ -6,6 +6,15 @@ import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInpu
 
 export default function Product_AreaQuantityInputs(props) {
 
+    const metrics = worksheetId => {
+        if (worksheetId < 4) {
+            return ' (mm) ';
+        }
+        else
+        {
+            return ' (m)';
+        }
+    }
     const setLength = text => {
         props.settempAreaquantityRow(prev => {
             return {...prev, length: text }
@@ -56,11 +65,11 @@ export default function Product_AreaQuantityInputs(props) {
 
                     <View style={p.dimensionContainer}>
                         <View style={p.labelFlex}>
-                            <Text style={p.labelLetter}>L</Text>
+                            <Text style={p.labelLetter}>L{metrics(AppUser.getWorksheetId())}</Text>
                         </View>
                             <View style={p.inputFlex}>
                                 {/* <TouchableOpacity style={{width: '100%'}}> */}
-                                <TextInput
+                                <TextInput keyboardType="number-pad"
                                     style={p.inputStyle}
                                     value={props.tempAreaquantityRow.length}
                                     onChangeText={(text) => setLength(text)}
@@ -74,10 +83,11 @@ export default function Product_AreaQuantityInputs(props) {
 
                     <View style={p.dimensionContainer}>
                         <View style={p.labelFlex}>
-                            <Text style={p.labelLetter}>W</Text>
+                            <Text style={p.labelLetter}>W{metrics(AppUser.getWorksheetId())}</Text>
                         </View>
                         <View style={p.inputFlex}>
                             <TextInput
+                            keyboardType= "number-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
@@ -95,6 +105,7 @@ export default function Product_AreaQuantityInputs(props) {
                         </View>
                         <View style={p.inputFlex}>
                             <TextInput
+                            keyboardType="number-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.quantity}
                                 onChangeText={($event) => setAreaquantity($event)}
