@@ -69,7 +69,7 @@ export default function Product_AreaQuantityInputs(props) {
                         </View>
                             <View style={p.inputFlex}>
                                 {/* <TouchableOpacity style={{width: '100%'}}> */}
-                                <TextInput keyboardType="number-pad"
+                                <TextInput keyboardType="phone-pad"
                                     style={p.inputStyle}
                                     value={props.tempAreaquantityRow.length}
                                     onChangeText={(text) => setLength(text)}
@@ -87,7 +87,7 @@ export default function Product_AreaQuantityInputs(props) {
                         </View>
                         <View style={p.inputFlex}>
                             <TextInput
-                            keyboardType= "number-pad"
+                            keyboardType= "phone-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.width}
                                 onChangeText={(text) => setWidth(text)}
@@ -105,7 +105,7 @@ export default function Product_AreaQuantityInputs(props) {
                         </View>
                         <View style={p.inputFlex}>
                             <TextInput
-                            keyboardType="number-pad"
+                            keyboardType="phone-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.quantity}
                                 onChangeText={($event) => setAreaquantity($event)}

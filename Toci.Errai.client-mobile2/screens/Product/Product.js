@@ -105,6 +105,11 @@ export default function Product({ route, navigation }) {
             if(item.name == "Width") tempLenWid.width = item.value
         })
 
+        if (!tempLenWid.width && LengthsWidthsCache.GetCachedWidth(AppUser.getWorksheetId()))
+            tempLenWid.width = LengthsWidthsCache.GetCachedWidth(AppUser.getWorksheetId())
+        if (!tempLenWid.length && LengthsWidthsCache.GetCachedLength(AppUser.getWorksheetId()))
+            tempLenWid.length = LengthsWidthsCache.GetCachedLength(AppUser.getWorksheetId())
+
         settempAreaquantityRow(prev => {
             return {
                 ...prev,

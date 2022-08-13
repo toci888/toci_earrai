@@ -11,6 +11,7 @@ export default class LengthsWidthsCache
 
     static CacheLength = (worksheetId, width) =>  {
         LengthsWidthsCache.LastUsedLength[worksheetId] = width;
+        console.log('LastUsedLength cache width', LengthsWidthsCache.LastUsedLength);
     }
 
     static GetCachedWidth = (worksheetId) =>  {
@@ -18,6 +19,7 @@ export default class LengthsWidthsCache
     }
 
     static GetCachedLength = (worksheetId) =>  {
-        LengthsWidthsCache.LastUsedLength[worksheetId];
+        console.log('LastUsedLength get', LengthsWidthsCache.LastUsedLength, LengthsWidthsCache.LastUsedLength[worksheetId]);
+        return LengthsWidthsCache.LastUsedLength[worksheetId];
     }
 }
