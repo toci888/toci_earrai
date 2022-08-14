@@ -39,7 +39,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
                 double lwResult = width * length / 1000000;
 
-                if (lwResult != 0)
+                if (lwResult != 0 && dto.TotalSquareMeters.HasValue && dto.PoundsPerSheet.HasValue)
                 {
                     dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalSquareMeters.Value * dto.PoundsPerSheet.Value / lwResult, DoubleConstants.NumOfDecimalPlaces);
                 }

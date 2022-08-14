@@ -29,12 +29,11 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
             Productsoptionsstate kgm = product.Options.Where(m => m.Name == ProductOptions.KgM).FirstOrDefault();
 
-            if (kgm != null)
+            if (kgm != null && dto.TotalMeters.HasValue && dto.PoundsPerTonne.HasValue)
             {
                 double.TryParse(kgm.Value, out kgPerMeter);
 
                 dto.StockTakeValue = DoubleUtils.RoundDouble(dto.TotalMeters.Value * dto.PoundsPerTonne.Value * kgPerMeter / 1000, DoubleConstants.NumOfDecimalPlaces);
-                ;
             }
 
             return dto;

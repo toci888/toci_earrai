@@ -18,10 +18,10 @@ namespace Toci.Earrai.Bll.Client.UI
     {
         public const HttpStatusCode StatusCodeSuccess = HttpStatusCode.OK;
         //atvb4p3c
-        protected string BaseUrl = "http://82.153.17.97:8864/";
-       // protected string BaseUrl = "http://127.0.0.1:8642/";
+       // protected string BaseUrl = "http://82.153.17.97:8864/";
+        protected string BaseUrl = "http://127.0.0.1:8642/";
 
-        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(int worksheetId)
         {
             return ApiGet<OptionsSizesAvailableDto>("api/ProductSize/GetAvailableOptionsSizes/" + worksheetId, false);
         }
@@ -34,6 +34,11 @@ namespace Toci.Earrai.Bll.Client.UI
         public virtual ProductDto GetProduct(int productId)
         {
             return ApiGet<ProductDto>("api/Product/GetProduct/" + productId, false);
+        }
+
+        public virtual List<Category> GetCategoriesForWorksheet(int worksheetId)
+        {
+            return ApiGet<List<Category>>("api/Categories/GetCategoriesForWorksheet?worksheetId=" + worksheetId, true);
         }
 
         public virtual int AddNewProduct(NewProductDto item) //POST

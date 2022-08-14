@@ -36,6 +36,11 @@ namespace Toci.Earrai.Ui
             return ApiProxy.GetProduct(productId);           
         }
 
+        public virtual List<Category> GetCategoriesForWorksheet(int worksheetId)
+        {
+            return ApiProxy.GetCategoriesForWorksheet(worksheetId);
+        }
+
         public virtual List<Vendor> GetAllVendors()
         {
             return ApiProxy.GetAllVendors();
@@ -150,7 +155,7 @@ namespace Toci.Earrai.Ui
             return ApiProxy.ResetPassword(userId, password);
         }
 
-        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
+        public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(int worksheetId)
         {
             return ApiProxy.GetAvailableOptionsSizes(worksheetId);
         }

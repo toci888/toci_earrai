@@ -19,7 +19,7 @@ namespace Toci.Earrai.Ui
 {
     public partial class ProductAdd : Form
     {
-        protected string worksheetId;
+        protected int worksheetId;
         protected DataManager Dm = new DataManager();
         protected ConnectionCheck ConnCheck = new ConnectionCheck();
         protected int prodId;
@@ -38,10 +38,12 @@ namespace Toci.Earrai.Ui
         protected int xPrices = 800;
 
         protected List<Area> areas;
+        protected List<Category> categories;
         protected List<Vendor> vendors;
         protected List<Quoteandmetric> quotesandmetrics;
         protected Userrole LoggedUser;
 
+        ComboBox categoriesCombo;
         TextBox productaccountreferenceValue;
         TextBox descriptionValue;
         List<InputTextBox> inputTbs = new List<InputTextBox>();
@@ -51,10 +53,11 @@ namespace Toci.Earrai.Ui
         protected virtual void ProductAddConfirm(object sender, EventArgs e)
         {
             NewProductDto newProdDto = new NewProductDto();
-
+            int catId = int.Parse(categoriesCombo.SelectedValue.ToString());
+            newProdDto.CategoryId = catId;
             newProdDto.Reference = productaccountreferenceValue.Text;
             newProdDto.Description = descriptionValue.Text;
-            newProdDto.WorksheetId = int.Parse(worksheetId);
+            newProdDto.WorksheetId = worksheetId;
             newProdDto.Options = new List<SoDto>();
             newProdDto.Sizes = new List<SoDto>();
 
@@ -93,10 +96,11 @@ namespace Toci.Earrai.Ui
             ControlMan = new ControlsManager(true, ScreenManagerInstance);
 
             InitializeComponent();
-            worksheetId = worksId;
+            worksheetId = int.Parse(worksId);
 
             LoggedUser = loggedUser;
-
+            
+            categories = Dm.GetCategoriesForWorksheet(worksheetId);
             areas = _areas;
             vendors = _vendors;
             quotesandmetrics = _quotesandmetrics;
@@ -107,10 +111,14 @@ namespace Toci.Earrai.Ui
             AddElementsToLayout(ProductSwConverter.Convert(OsaDto.Sizeworksheetelements, (swe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Sizes, LabelItemId = swe.Idsizes.Value, LabelItemName = swe.Name }; }), xLeft, 90, "Product sizing information.");
             AddElementsToLayout(ProductOwConverter.Convert(OsaDto.Optionworksheetelements, (owe) => { return new ProductLayoutDto() { Kind = (int)SizesOptionsEnum.Options, LabelItemId = owe.Idproductoptions.Value, LabelItemName = owe.Name }; }), xLeft, ySlided + ySlide+10, "Product options.");
 
+            Label catLabel = ControlMan.CreateLabel("Category", 90, 20, xLeft, ySlided);
+            categoriesCombo = ControlMan.CreateComboBox(categories, "Prefix", 90, 20, xLeft + 100, ySlided, "Id");
+
             Button submit = ControlMan.CreateButton("Add new product", 90, 40, xLeft+50, ySlided+20, ProductAddConfirm);
 
             Controls.Add(submit);
-        }
+            Controls.Add(catLabel);
+            Controls.Add(categoriesCombo);        }
 
         protected virtual void AddBasicProductInfo()
         {

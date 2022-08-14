@@ -16,7 +16,7 @@ namespace Toci.Earrai.Tests
         {
             ApiConnector apc = new ApiConnector();
 
-            var resultAv = apc.GetAvailableOptionsSizes("5");
+            var resultAv = apc.GetAvailableOptionsSizes(5);
             var result = apc.GetProduct(1);
 
             var filters = apc.GetProductsFiltersEx(new Bll.Models.ProductSearchRequestDto() { Name = "Thickness", WorksheetId = 1 });

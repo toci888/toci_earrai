@@ -29,7 +29,7 @@ namespace Toci.Earrai.Bll.Calculations.Pricing {
 
             Productsoptionsstate kgm = product.Options.Where(m => m.Name == ProductOptions.KgM).FirstOrDefault();
 
-            if (kgm != null)
+            if (kgm != null && dto.TotalMeters.HasValue && dto.PoundsPerTonne.HasValue)
             {
                 double.TryParse(kgm.Value, out kgPerMeter);
 

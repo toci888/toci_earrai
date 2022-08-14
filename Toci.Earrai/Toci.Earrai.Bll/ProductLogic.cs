@@ -85,7 +85,11 @@ namespace Toci.Earrai.Bll
 
         public virtual int AddNewProduct(NewProductDto dto)
         {
-            Product newProduct = Insert(new Product() { Description = dto.Description, Idworksheet = dto.WorksheetId, Productaccountreference = dto.Reference });
+            Product newProduct = Insert(new Product() { 
+                Description = dto.Description, 
+                Idworksheet = dto.WorksheetId, 
+                Productaccountreference = dto.Reference,
+                Idcategories = dto.CategoryId });
 
             ProductOVLogic.SetNewProductOptions(newProduct.Id, dto.Options);
             ProductSizeLogic.SetNewProductSizes(newProduct.Id, dto.Sizes);
