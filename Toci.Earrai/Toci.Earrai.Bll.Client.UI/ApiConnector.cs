@@ -17,9 +17,9 @@ namespace Toci.Earrai.Bll.Client.UI
     public class ApiConnector
     {
         public const HttpStatusCode StatusCodeSuccess = HttpStatusCode.OK;
-        //atvb4p3c
-       // protected string BaseUrl = "http://82.153.17.97:8864/";
-        protected string BaseUrl = "http://127.0.0.1:8642/";
+        //r1t9yji3
+         protected string BaseUrl = "http://82.153.17.97:8864/";
+       // protected string BaseUrl = "http://127.0.0.1:8642/";
 
         public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(int worksheetId)
         {

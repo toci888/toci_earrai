@@ -1,11 +1,14 @@
 
 import React from 'react';
 import Navigator from './routes/homeStack'
+import { NativeModules, Platform } from "react-native";
 
 export default function App() {
 
     console.log("zaczynam ....");
+console.log('jazda', NativeModules.I18nManager.localeIdentifier);
 
+    //Localization.locale = 'gb';
     return (
 
         <Navigator />

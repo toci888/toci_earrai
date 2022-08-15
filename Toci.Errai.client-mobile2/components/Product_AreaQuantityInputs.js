@@ -4,6 +4,7 @@ import { View, TextInput, Text } from 'react-native'
 import AppUser from '../shared/AppUser'
 import { Product_AreaQuantityInputsStyle as p } from './Product_AreaQuantityInputsStyle';
 import LengthsWidthsCache from '../CacheModule/LengthsWidthsCache';
+//import * as Localization from 'expo-localization';
 
 export default function Product_AreaQuantityInputs(props) {
 
@@ -42,6 +43,8 @@ export default function Product_AreaQuantityInputs(props) {
         AppUser.setIdArea(_id)
     }
 
+
+
     return (
         <View>
 
@@ -73,7 +76,7 @@ export default function Product_AreaQuantityInputs(props) {
                                 <TextInput keyboardType="phone-pad"
                                     style={p.inputStyle}
                                     value={props.tempAreaquantityRow.length}
-                                    onChangeText={(text) => setLength(text)}
+                                    onChangeText={(entryValue) => { setLength(entryValue.replace(',', '.')); }}
                                     placeholder="Type Length.."
                                 />
                                 {/* </TouchableOpacity> */}
@@ -92,7 +95,10 @@ export default function Product_AreaQuantityInputs(props) {
                             keyboardType= "phone-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.width}
-                                onChangeText={(text) => setWidth(text)}
+                                onChangeText={(entryValue) => {
+                                 
+                                      setWidth(entryValue.replace(',', '.'))}}
+                               
                                 placeholder="Type Width.."
                             />
                         </View>
@@ -109,7 +115,7 @@ export default function Product_AreaQuantityInputs(props) {
                             keyboardType="phone-pad"
                                 style={p.inputStyle}
                                 value={props.tempAreaquantityRow.quantity}
-                                onChangeText={($event) => setAreaquantity($event)}
+                                onChangeText={(entryValue) => { setAreaquantity(entryValue.replace(',', '.'))}}
                                 placeholder="Type Quantity.."
                             />
 

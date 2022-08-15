@@ -121,6 +121,7 @@ namespace Toci.Earrai.Bll.SageIntegration
             Quotesandprice qPrice = product.Quotesandprices.OrderByDescending(x => x.Createdat).FirstOrDefault();
             double price = 0;
             string dateLast = string.Empty;
+            string stockTakeLastDate = string.Empty;
 
             if (qPrice != null)
             {
@@ -140,6 +141,7 @@ namespace Toci.Earrai.Bll.SageIntegration
             if (aQ != null)
             {
                 record[SageConsts.Location] = aQ.Areacode;
+                stockTakeLastDate = aQ.Createdat.ToString();
             }
 
             record[SageConsts.SalesNominal] = "4003";
@@ -154,7 +156,7 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             record[SageConsts.CommodityCode] = "7208400010";
             record[SageConsts.Weight] = GetWeight(product).ToString();
-            record[SageConsts.StockTakeDate] = dateLast;
+            record[SageConsts.StockTakeDate] = stockTakeLastDate;
             record[SageConsts.QuantityLastStockTake] = GetQuantityLastStockTake(product).ToString(); //.Balance.ToString(); //
 
             Productssize width = product.Sizes.Where(m => m.Name == "Width").FirstOrDefault();

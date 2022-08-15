@@ -4,7 +4,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "react-native start",
+    "start": "expo start --dev-client",
     "test": "jest"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "appcenter-analytics": "4.4.4",
     "appcenter-crashes": "4.4.4",
     "expo": "^45.0.0",
+    "expo-localization": "^13.1.0",
     "expo-splash-screen": "~0.15.1",
     "expo-status-bar": "~1.3.0",
     "expo-updates": "~0.13.3",
@@ -26,7 +27,7 @@
     "npm": "^8.17.0",
     "path": "^0.12.7",
     "qs": "^6.10.3",
-    "react": "^17.0.2",
+    "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
     "react-native-gesture-handler": "~2.2.1",
@@ -51,5 +52,7 @@
   "jest": {
     "preset": "react-native"
   },
-  "private": true
+  "private": true,
+  "name": "Toci.Errai.client-mobile2",
+  "version": "1.0.0"
 }
