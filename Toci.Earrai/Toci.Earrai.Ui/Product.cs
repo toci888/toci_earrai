@@ -307,7 +307,8 @@ namespace Toci.Earrai.Ui
                 result = Dm.PostAreaQuantity(areaquantity);
             }
 
-            if (result[0].Id > 0)
+            
+            if (result.Count() > 0 && result[0].Id > 0)
             {
                 Aqif.Quantity.Text = "";
                 Aqif.Length.Text = "";
