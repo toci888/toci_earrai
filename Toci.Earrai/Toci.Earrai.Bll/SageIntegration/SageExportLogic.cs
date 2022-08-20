@@ -125,7 +125,7 @@ namespace Toci.Earrai.Bll.SageIntegration
 
             if (qPrice != null)
             {
-                dateLast = qPrice.Createdat.ToString();
+                dateLast = qPrice.Createdat.HasValue ? qPrice.Createdat.Value.ToString("dd-MM-yyyy") : "";
                 double.TryParse(qPrice.Price, out price);
                 
             }
@@ -219,7 +219,8 @@ namespace Toci.Earrai.Bll.SageIntegration
                     return DoubleUtils.RoundDouble(product.Pricing.PoundsPerMeter.Value, DoubleConstants.NumOfDecimalPlaces);
 
             }
-                return 0;
+            
+            return 0;
         }
 
         protected virtual double GetWeight(ProductDto product)
