@@ -171,15 +171,15 @@ export default function ProductsList({ route, navigation }) {
     
     const loadData = (isConnected) => 
     {
-        console.log('loadData called with ', isConnected);
-        if (isConnected)
-        {
-            loadAllData();
-        }
-        else
-        {
-            loadAllDataFromCache();
-        }
+        // console.log('loadData called with ', isConnected);
+        // if (isConnected)
+        // {
+        loadAllData();
+        // }
+        // else
+        // {
+        //     loadAllDataFromCache();
+        // }
     }
 
     const loadAllData = async () => {
