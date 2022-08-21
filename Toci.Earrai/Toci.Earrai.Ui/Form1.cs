@@ -340,6 +340,10 @@ namespace Toci.Earrai.Ui
             excelDataGrid.Columns.Clear();
             excelDataGrid.Rows.Clear();
 
+            excelDataGrid.ScrollBars = ScrollBars.Vertical;
+
+            items = items.OrderBy(m => int.Parse(m.FirstOrDefault().Value)).ToList();
+
             bool columns = false;
             //string dummy = string.Empty;
 
