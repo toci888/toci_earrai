@@ -36,9 +36,9 @@ namespace Toci.Earrai.Microservice.Controllers
 
         [Authorize(Roles = PrivelegesRoles.Admin)]
         [HttpPost("Change")]
-        public User ChangePrivileges(User user, PrivilegesEnum privilege)
+        public User ChangePrivileges(User user)
         {
-            return Logic.ChangePrivileges(user, (int)privilege);
+            return Logic.ChangePrivileges(user, user.Idrole);
         }
     }
 }

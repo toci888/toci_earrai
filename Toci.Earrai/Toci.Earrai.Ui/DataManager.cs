@@ -140,7 +140,7 @@ namespace Toci.Earrai.Ui
             return ApiProxy.GetAllUsers();
         }
 
-        public virtual int ChangePrivileges(User user, int priveleges)
+        public virtual User ChangePrivileges(User user, int priveleges)
         {
             return ApiProxy.ChangePrivileges(user, priveleges);
         }

@@ -137,17 +137,19 @@ namespace Toci.Earrai.Bll.Client.UI
 
         public virtual int IncreasePrivileges(User user)
         {
-            return ApiPost<int, User>("api/Priveleges/Increase", user, false);
+            return ApiPost<int, User>("api/Privileges/Increase", user, false);
         }
 
         public virtual int DecreasePrivileges(User user)
         {
-            return ApiPost<int, User>("api/Priveleges/Decrease", user, false);
+            return ApiPost<int, User>("api/Privileges/Decrease", user, false);
         }
 
-        public virtual int ChangePrivileges(User user, int priveleges)
+        public virtual User ChangePrivileges(User user, int privileges)
         {
-            return ApiPost<int, User>("api/Priveleges/Change?privileges=" + priveleges, user, false);
+            user.Idrole = privileges;
+
+            return ApiPost<User, User>("api/Privileges/Change", user, false);
         }
 
         public virtual List<Userrole> GetAllUsers()

@@ -108,7 +108,7 @@ namespace Toci.Earrai.Bll
         {
             List<Product> products = Select(m => m.Idworksheet == worksheetId).ToList();
 
-            return products.Select(item => GetProduct(item.Id)).ToList();
+            return products.Select(item => GetProduct(item.Id)).OrderBy(m => m.Product.Id).ToList();
         }
 
         protected virtual double GetBalance(ProductDto product)
