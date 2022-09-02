@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -119,7 +120,7 @@ namespace Toci.Earrai.Ui
                 {
                     Userrole user = (Userrole)allUsers.SelectedItem;
 
-                    if (Dm.ResetPassword(user.Id.Value, passTxt.Text) > 0)
+                    if (Dm.ResetPassword(user.Id.Value, HashPassword(passTxt.Text)) > 0)
                     {
                         passwdNotMatchLabel.Visible = false;
                         MessageBox.Show("Successfully changed password.");
@@ -134,6 +135,23 @@ namespace Toci.Earrai.Ui
             {
                 MessageBox.Show("Password should contain at least 8 characters.");
             }
+        }
+
+        private string HashPassword(string password)
+        {
+            if (password == null)
+            {
+                return null;
+            }
+
+            SHA256 algorithm = SHA256.Create();
+            StringBuilder sb = new StringBuilder();
+            foreach (Byte b in algorithm.ComputeHash(Encoding.UTF8.GetBytes(password)))
+            {
+                sb.Append(b.ToString("X2"));
+            }
+
+            return sb.ToString();
         }
     }
 }

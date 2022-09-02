@@ -64,7 +64,7 @@ namespace Toci.Earrai.Ui
             // 
             // showBtn
             // 
-            this.showBtn.Location = new System.Drawing.Point(1344, 81);
+            this.showBtn.Location = new System.Drawing.Point(1340, 9);
             this.showBtn.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
             this.showBtn.Name = "showBtn";
             this.showBtn.Size = new System.Drawing.Size(280, 63);
@@ -156,7 +156,7 @@ namespace Toci.Earrai.Ui
             // 
             // logout
             // 
-            this.logout.Location = new System.Drawing.Point(2138, 79);
+            this.logout.Location = new System.Drawing.Point(1726, 198);
             this.logout.Name = "logout";
             this.logout.Size = new System.Drawing.Size(126, 51);
             this.logout.TabIndex = 9;
@@ -166,7 +166,7 @@ namespace Toci.Earrai.Ui
             // 
             // users
             // 
-            this.users.Location = new System.Drawing.Point(2138, 148);
+            this.users.Location = new System.Drawing.Point(1389, 200);
             this.users.Name = "users";
             this.users.Size = new System.Drawing.Size(126, 49);
             this.users.TabIndex = 10;
@@ -186,7 +186,7 @@ namespace Toci.Earrai.Ui
             // 
             // sageExportButton
             // 
-            this.sageExportButton.Location = new System.Drawing.Point(1663, 156);
+            this.sageExportButton.Location = new System.Drawing.Point(1659, 92);
             this.sageExportButton.Name = "sageExportButton";
             this.sageExportButton.Size = new System.Drawing.Size(223, 51);
             this.sageExportButton.TabIndex = 12;
@@ -196,7 +196,7 @@ namespace Toci.Earrai.Ui
             // 
             // sageImportButton
             // 
-            this.sageImportButton.Location = new System.Drawing.Point(1663, 87);
+            this.sageImportButton.Location = new System.Drawing.Point(1659, 15);
             this.sageImportButton.Name = "sageImportButton";
             this.sageImportButton.Size = new System.Drawing.Size(223, 49);
             this.sageImportButton.TabIndex = 13;
@@ -247,7 +247,7 @@ namespace Toci.Earrai.Ui
             // 
             // exportView
             // 
-            this.exportView.Location = new System.Drawing.Point(1344, 170);
+            this.exportView.Location = new System.Drawing.Point(1340, 98);
             this.exportView.Name = "exportView";
             this.exportView.Size = new System.Drawing.Size(280, 47);
             this.exportView.TabIndex = 19;
