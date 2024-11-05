@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>207e463d-325f-4a3d-9024-3b806e4fd54b</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
     <OutputType>WinExe</OutputType>
