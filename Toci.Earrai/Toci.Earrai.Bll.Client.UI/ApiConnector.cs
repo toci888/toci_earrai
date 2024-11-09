@@ -15,7 +15,7 @@ namespace Toci.Earrai.Bll.Client.UI
     public class ApiConnector
     {
         //protected string BaseUrl = "http://82.153.17.97:8864/";
-        protected string BaseUrl = "http://127.0.0.1:8642/";
+        protected string BaseUrl = "http://80.209.230.198:8642";
 
         public virtual OptionsSizesAvailableDto GetAvailableOptionsSizes(string worksheetId)
         {

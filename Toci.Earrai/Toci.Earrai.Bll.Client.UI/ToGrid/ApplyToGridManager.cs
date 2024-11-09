@@ -50,7 +50,7 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
         {
             int longest = 0;
 
-            if (products.Count > 0)
+            if (products?.Count > 0)
             {
                 foreach (ProductDto product in products)
                 {
@@ -68,15 +68,19 @@ namespace Toci.Earrai.Bll.Client.UI.ToGrid
         {
             int longest = LongestAreaQuantity(products);
 
-            foreach (ProductDto product in products)
+            if (products != null)
             {
-                if (product.AreaQuantities.Count() < longest)
+                foreach (ProductDto product in products)
                 {
-                    int difference = longest - product.AreaQuantities.Count();
-
-                    for (int i = 0; i < difference; i++)
+                    if (product.AreaQuantities.Count() < longest)
                     {
-                        product.AreaQuantities.Add(new Areasquantity() { Areaname = "n/a", Quantity = "0", Createdat = DateTime.Now });
+                        int difference = longest - product.AreaQuantities.Count();
+
+                        for (int i = 0; i < difference; i++)
+                        {
+                            product.AreaQuantities.Add(new Areasquantity()
+                                { Areaname = "n/a", Quantity = "0", Createdat = DateTime.Now });
+                        }
                     }
                 }
             }
