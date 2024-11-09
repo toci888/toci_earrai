@@ -35,17 +35,17 @@ namespace Toci.Earrai.Bll.Calculations.Pricing.Valuation
 
         public override double GetPoundsPerLength(ProductDto product, double poundsPerTonne)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public override double GetPoundsPerSheet(ProductDto product, double poundsPerTonne)
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public override double GetPoundsPerMeterSquared(ProductDto product, double poundsPerTonne)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

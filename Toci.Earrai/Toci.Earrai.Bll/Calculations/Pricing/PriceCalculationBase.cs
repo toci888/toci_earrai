@@ -113,14 +113,20 @@ namespace Toci.Earrai.Bll.Calculations.Pricing
 
         protected virtual PricingDto PoundPerSheet(ProductDto product, PricingDto dto) 
         {
-            ValuationsCalculationMap[CalculationsConsts.LPerSheet].GetPoundsPerSheet(product, dto.PoundsPerTonne.Value);
+            if (dto.PoundsPerTonne.HasValue)
+            {
+                ValuationsCalculationMap[CalculationsConsts.LPerSheet].GetPoundsPerSheet(product, dto.PoundsPerTonne.Value);
+            }
 
             return dto; 
         }
 
         protected virtual PricingDto PoundsPerMeter(ProductDto product, PricingDto dto)
         {
-            ValuationsCalculationMap[CalculationsConsts.LPerMeter].GetPoundsPerMeter(product, dto.PoundsPerTonne.Value);
+            if (dto.PoundsPerTonne.HasValue)
+            {
+                ValuationsCalculationMap[CalculationsConsts.LPerMeter].GetPoundsPerMeter(product, dto.PoundsPerTonne.Value);
+            }
 
             return dto;
         }
