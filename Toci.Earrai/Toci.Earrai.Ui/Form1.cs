@@ -77,8 +77,8 @@ namespace Toci.Earrai.Ui
             KindDdl.DataSource = Sdp.GetDdlItems(worksheetId);
 
 
-            ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUser, areas, vendors, quotesandprices);
-            pAdd.Show();
+            //ProductAdd pAdd = new ProductAdd(worksheetId.ToString(), LoggedUser, areas, vendors, quotesandprices);
+            //pAdd.Show();
         }
 
         private void queryTextbox_TextChanged(object sender, EventArgs e)
